@@ -1,7 +1,6 @@
 import React from 'react';
 import './App.css';
 import { Link } from 'react-scroll';
-import { Resume } from './Resume_Vanouphon_Sirisouk.pdf';
 
 function App() {
   return (
@@ -11,7 +10,7 @@ function App() {
         <div className="subtitle">Woah! Hey there stranger <span role="img" className="wave" aria-label="wave">👋</span></div>
         <div className="button-list">
           <Link to="about-me" smooth={true} duration={600}><button>About Me</button></Link>
-          <a href={Resume} target="_blank" rel="noopener noreferrer"><button>Resume</button></a>
+          <a href="https://drive.google.com/file/d/1CGvn6LIRuMlptoxdWCQZpyj8pj1KiD-N/view?usp=sharing" target="_blank" rel="noopener noreferrer"><button>Resume</button></a>
           <Link to="about-me" smooth={true} duration={600}><button>Experience</button></Link>
           <Link to="about-me" smooth={true} duration={600}><button>Skills</button></Link>
           <Link to="about-me" smooth={true} duration={600}><button>Projects</button></Link>
