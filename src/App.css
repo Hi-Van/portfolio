@@ -144,10 +144,11 @@ button:hover {
 #experience {
   min-height: 100vh;
   min-width: 100vw;
+  padding: 1.5rem;
 }
 
 .position {
-  padding-left: 1.5rem
+  padding-right: 1.5rem;
 }
 
 .exp-title {
@@ -156,6 +157,7 @@ button:hover {
   font-family: "Montserrat";
   font-weight: 300;
   padding-top: 2.5em;
+  padding-right: 2rem;
 }
 
 .position-company {
@@ -164,6 +166,7 @@ button:hover {
   font-family: "Montserrat";
   font-weight: 300;
   padding-top: 2.5em;
+  padding-right: 1.5rem;
 }
 
 .position-title-date {
@@ -172,6 +175,7 @@ button:hover {
   font-size: 32px;
   font-family: "Hind Madurai";
   font-weight: 400;
+  padding-right: 1.5rem;
 }
 
 .position-details {
@@ -182,12 +186,12 @@ button:hover {
   font-weight: 300;
   list-style-type: "- ";
   padding-left: 1.5rem;
+  padding-right: 1.5rem;
 }
 
 .position-details li {
-  margin-bottom: .25em;
+  margin-bottom: 0.25em;
 }
-
 
 /*skills section styling*/
 
@@ -199,7 +203,7 @@ button:hover {
 
 .grid-container {
   display: grid;
-  grid-template-columns: repeat( auto-fit, minmax(300px, 1fr) );
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
 }
 
 .skill-type {
@@ -213,7 +217,7 @@ button:hover {
 
 .skills {
   margin: auto;
-  color:#4a7a88;
+  color: #4a7a88;
   font-size: 28px;
   font-family: "Montserrat";
   font-weight: 300;
@@ -222,5 +226,39 @@ button:hover {
 }
 
 .skills li {
-  margin-bottom: .25em;
+  margin-bottom: 0.25em;
+}
+
+/*projects section styling*/
+
+#projects {
+  min-height: 100vh;
+  min-width: 100vw;
+}
+
+.project-name {
+  margin: auto;
+  color: #ff6685;
+  font-size: 32px;
+  font-family: "Montserrat";
+  font-weight: 600;
+  padding: 1rem 2rem 1rem 2rem;
+}
+
+.project-desc {
+  margin: auto;
+  color: #4a7a88;
+  font-size: 28px;
+  font-family: "Montserrat";
+  font-weight: 300;
+  padding-left: 2rem;
+  padding-right: 2rem;
+}
+
+img {
+  width: 70%;
+  min-width: 300px;
+  height: auto;
+  display: block;
+  margin: auto;
 }
