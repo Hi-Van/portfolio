@@ -1,3 +1,5 @@
+/*Landing section and global styling*/
+
 .App {
   overflow: hidden;
 }
@@ -9,23 +11,11 @@
   background-color: #b3e6e9;
 }
 
-header {
-  background-color: #ffffff;
-  width: 100vw;
-  height: 50px;
-  color: #677882;
-  padding: .2em;
-  font-size: 32px;
-  font-family: 'Montserrat';
-  font-weight: 300;
-  position: fixed;
-}
-
 .title {
   color: #23345e;
   text-align: center;
   font-size: 64px;
-  font-family: 'Montserrat';
+  font-family: "Montserrat";
   font-weight: 300;
   padding-top: 2.5em;
 }
@@ -36,7 +26,7 @@ header {
   color: #4a7a88;
   text-align: center;
   font-size: 32px;
-  font-family: 'Montserrat';
+  font-family: "Montserrat";
   font-weight: 300;
 }
 
@@ -47,8 +37,14 @@ header {
 }
 
 a {
+  cursor: pointer;
   text-decoration: none;
   color: inherit;
+}
+
+.reference {
+  color: #ff6685;
+  font-weight: 600;
 }
 
 button {
@@ -58,9 +54,9 @@ button {
   color: #3d3d56;
   border: 2px solid;
   border-color: #3d3d56;
-  padding: .2em 1em .2em 1em;
+  padding: 0.2em 1em 0.2em 1em;
   font-size: 24px;
-  font-family: 'Montserrat';
+  font-family: "Montserrat";
   font-weight: 300;
   outline: none;
   box-shadow: 10px 10px #3d3d56;
@@ -69,5 +65,70 @@ button {
 
 button:hover {
   transform: translateY(-3px);
-  
+}
+
+.wave {
+  animation-name: wave-animation; 
+  animation-duration: 2.5s; 
+  animation-iteration-count: infinite; 
+  transform-origin: 70% 70%; 
+  display: inline-block;
+}
+
+@keyframes wave-animation {
+  0% {
+    transform: rotate(0deg);
+  }
+  10% {
+    transform: rotate(14deg);
+  } 
+  20% {
+    transform: rotate(-8deg);
+  }
+  30% {
+    transform: rotate(14deg);
+  }
+  40% {
+    transform: rotate(-4deg);
+  }
+  50% {
+    transform: rotate(10deg);
+  }
+  60% {
+    transform: rotate(0deg);
+  } 
+  100% {
+    transform: rotate(0deg);
+  }
+}
+
+
+/*about section styling*/
+
+.about-section {
+  min-height: 100vh;
+  min-width: 100vw;
+}
+
+.about-title {
+  color: #23345e;
+  text-align: center;
+  font-size: 64px;
+  font-family: "Montserrat";
+  font-weight: 300;
+  margin-top: 8em;
+  padding: 0em 1em 0em 1em;
+}
+
+.about-text {
+  display: block;
+  margin: auto;
+  padding-top: 1em;
+  padding-bottom: 4em;
+  color: #4a7a88;
+  text-align: center;
+  font-size: 32px;
+  font-family: "Montserrat";
+  font-weight: 300;
+  width: 80%;
 }
