@@ -2,6 +2,12 @@
 
 .App {
   overflow: hidden;
+  word-wrap: break-word;
+}
+
+#home {
+  min-height: 100vh;
+  min-width: 100vw;
 }
 
 .content-wrapper {
@@ -68,10 +74,10 @@ button:hover {
 }
 
 .wave {
-  animation-name: wave-animation; 
-  animation-duration: 2.5s; 
-  animation-iteration-count: infinite; 
-  transform-origin: 70% 70%; 
+  animation-name: wave-animation;
+  animation-duration: 2s;
+  animation-iteration-count: infinite;
+  transform-origin: 70% 70%;
   display: inline-block;
 }
 
@@ -81,7 +87,7 @@ button:hover {
   }
   10% {
     transform: rotate(14deg);
-  } 
+  }
   20% {
     transform: rotate(-8deg);
   }
@@ -96,28 +102,28 @@ button:hover {
   }
   60% {
     transform: rotate(0deg);
-  } 
+  }
   100% {
     transform: rotate(0deg);
   }
 }
 
-
 /*about section styling*/
 
-.about-section {
+#about-me {
   min-height: 100vh;
   min-width: 100vw;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 10em;
 }
 
 .about-title {
   color: #23345e;
-  text-align: center;
   font-size: 64px;
   font-family: "Montserrat";
   font-weight: 300;
-  margin-top: 8em;
-  padding: 0em 1em 0em 1em;
 }
 
 .about-text {
@@ -131,4 +137,90 @@ button:hover {
   font-family: "Montserrat";
   font-weight: 300;
   width: 80%;
+}
+
+/*experience section styling*/
+
+#experience {
+  min-height: 100vh;
+  min-width: 100vw;
+}
+
+.position {
+  padding-left: 1.5rem
+}
+
+.exp-title {
+  color: #23345e;
+  font-size: 64px;
+  font-family: "Montserrat";
+  font-weight: 300;
+  padding-top: 2.5em;
+}
+
+.position-company {
+  color: #23345e;
+  font-size: 56px;
+  font-family: "Montserrat";
+  font-weight: 300;
+  padding-top: 2.5em;
+}
+
+.position-title-date {
+  margin: auto;
+  color: #4a7a88;
+  font-size: 32px;
+  font-family: "Hind Madurai";
+  font-weight: 400;
+}
+
+.position-details {
+  margin: auto;
+  color: #4a7a88;
+  font-size: 28px;
+  font-family: "Montserrat";
+  font-weight: 300;
+  list-style-type: "- ";
+  padding-left: 1.5rem;
+}
+
+.position-details li {
+  margin-bottom: .25em;
+}
+
+
+/*skills section styling*/
+
+#skills {
+  min-height: 100vh;
+  min-width: 100vw;
+  text-align: center;
+}
+
+.grid-container {
+  display: grid;
+  grid-template-columns: repeat( auto-fit, minmax(300px, 1fr) );
+}
+
+.skill-type {
+  margin: auto;
+  color: #ff6685;
+  font-size: 32px;
+  font-family: "Montserrat";
+  font-weight: 500;
+  margin-top: 2em;
+}
+
+.skills {
+  margin: auto;
+  color:#4a7a88;
+  font-size: 28px;
+  font-family: "Montserrat";
+  font-weight: 300;
+  list-style-type: none;
+  padding-left: 0;
+}
+
+.skills li {
+  margin-bottom: .25em;
 }
