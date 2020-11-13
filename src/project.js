@@ -3,6 +3,7 @@ import prep from './preeepare.PNG';
 import cloudy from './cloudy.JPG';
 import picky from './not-picky.JPG';
 import oldPort from './port-dep.JPG';
+import newPort from './new-port.PNG';
 import run from './runtime.JPG';
 import wiki from './sos-wiki.JPG';
 import { FaLink, FaBookOpen } from "react-icons/fa";
@@ -11,6 +12,21 @@ import Fade from 'react-reveal/Fade';
 function Projects() {
     return (
         <div className='projects'>
+            <Fade bottom>
+                <div className='proj'>
+                    <img className='proj-img' src={newPort} alt='prep' />
+                    <div>
+                        <h1>Portfolio Website v5</h1>
+                        <p>My newest portfolio website, used to host my projects and information about myself.
+                        Built using ReactJS, react-parallax-tilt, react-router-dom, and react-reveal
+              </p>
+                        <div>
+                            <a href='https://github.com/Hi-Van/hi-van.github.io' target='_blank' rel='noopener noreferrer'><button className='proj-link' title='visit documentation'><FaBookOpen /></button></a>
+                        </div>
+                    </div>
+                </div>
+            </Fade>
+
             <Fade bottom>
                 <div className='proj'>
                     <img className='proj-img' src={prep} alt='prep' />
@@ -84,8 +100,8 @@ function Projects() {
                         Built using ReactJS and Material UI
               </p>
                         <div>
-                            <a href='https://github.com/Hi-Van/sos-landing' target='_blank' rel='noopener noreferrer'><button className='proj-link' title='visit documentation'><FaBookOpen /></button></a>
-                            <a href='https://summerofshipping.com/' target='_blank' rel='noopener noreferrer'><button className='proj-link' title='visit project'><FaLink /></button></a>
+                            <a href='https://github.com/Hi-Van/runtime-sheet' target='_blank' rel='noopener noreferrer'><button className='proj-link' title='visit documentation'><FaBookOpen /></button></a>
+                            <a href='https://hi-van.github.io/runtime-sheet/' target='_blank' rel='noopener noreferrer'><button className='proj-link' title='visit project'><FaLink /></button></a>
                         </div>
                     </div>
                 </div>
@@ -100,13 +116,12 @@ function Projects() {
                         Built using HTML, CSS, and JavaScript
               </p>
                         <div>
-                            <a href='https://github.com/Hi-Van/sos-landing' target='_blank' rel='noopener noreferrer'><button className='proj-link' title='visit documentation'><FaBookOpen /></button></a>
-                            <a href='https://summerofshipping.com/' target='_blank' rel='noopener noreferrer'><button className='proj-link' title='visit project'><FaLink /></button></a>
+                            <a href='https://github.com/Hi-Van/hi-van.github.io' target='_blank' rel='noopener noreferrer'><button className='proj-link' title='visit documentation'><FaBookOpen /></button></a>
+                            <a href='https://hi-van.github.io/' target='_blank' rel='noopener noreferrer'><button className='proj-link' title='visit project'><FaLink /></button></a>
                         </div>
                     </div>
                 </div>
             </Fade>
-
         </div>
     );
 }

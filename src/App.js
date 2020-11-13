@@ -23,9 +23,9 @@ function App() {
               <Link to='/projects'><button className='btn-link'>Projects</button></Link>
             </div>
             <div className='btn-container'>
-              <a href='https://react-icons.github.io/' target='_blank' rel='noopener noreferrer'><button className='github-btn'><FaGithub /></button></a>
-              <a href='https://react-icons.github.io/' target='_blank' rel='noopener noreferrer'><button className='twitter-btn'><FaTwitter /></button></a>
-              <a href='https://react-icons.github.io/' target='_blank' rel='noopener noreferrer'><button className='linkedin-btn'><FaLinkedin /></button></a>
+              <a href='https://github.com/Hi-Van' target='_blank' rel='noopener noreferrer'><button className='github-btn'><FaGithub /></button></a>
+              <a href='https://twitter.com/Hi_Im_Van' target='_blank' rel='noopener noreferrer'><button className='twitter-btn'><FaTwitter /></button></a>
+              <a href='https://www.linkedin.com/in/van-s/' target='_blank' rel='noopener noreferrer'><button className='linkedin-btn'><FaLinkedin /></button></a>
               <a href={resume} download><button className='resume-btn' title='download resume'><FaFileInvoice /></button></a>
             </div>
           </div>
