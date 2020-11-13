@@ -1,264 +1,132 @@
-/*Landing section and global styling*/
-
 .App {
+  word-wrap: normal;
+  min-width: 100%;
+  min-height: 100%;
+  background-color: #ffffff;
+  font-family: Raleway;
   overflow: hidden;
-  word-wrap: break-word;
 }
 
-#home {
-  min-height: 100vh;
-  min-width: 100vw;
+h1 {
+  font-weight: 600;
+  font-size: 4rem;
+  color: #4d575c;
+  margin-bottom: -1vh;
 }
 
-.content-wrapper {
-  cursor: context-menu;
-  min-height: 100vh;
-  min-width: 100vw;
-  background-color: #b3e6e9;
+p {
+  word-wrap: normal;
+  font-weight: 200;
+  font-size: 1.75rem;
+  color: #4d575c;
 }
 
-.title {
-  color: #23345e;
-  text-align: center;
-  font-size: 64px;
-  font-family: "Montserrat";
-  font-weight: 300;
-  padding-top: 2.5em;
-}
-
-.subtitle {
-  padding-top: 1em;
-  padding-bottom: 4em;
-  color: #4a7a88;
-  text-align: center;
-  font-size: 32px;
-  font-family: "Montserrat";
-  font-weight: 300;
-}
-
-.button-list {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
+img {
+  box-shadow: 0px 3px 25px rgba(0, 0, 0, 0.2);
 }
 
 a {
-  cursor: pointer;
   text-decoration: none;
   color: inherit;
-}
-
-.reference {
-  color: #ff6685;
-  font-weight: 600;
+  cursor: pointer;
 }
 
 button {
+  background-color: rgba(0, 0, 0, 0);
   cursor: pointer;
-  margin: 1.5em;
-  background: #ffffff;
-  color: #3d3d56;
-  border: 2px solid;
-  border-color: #3d3d56;
-  padding: 0.2em 1em 0.2em 1em;
-  font-size: 24px;
-  font-family: "Montserrat";
-  font-weight: 300;
-  outline: none;
-  box-shadow: 10px 10px #3d3d56;
-  transition: transform 0.3s ease;
+  margin: 1rem;
+  transition: 0.3s ease;
+  color: #4d575c;
+  border: 1px solid #dedede;
+  display: inline-flex;
+  text-align: center;
+  font-size: 1.5rem;
+  padding: 0.5rem;
+  border-radius: 5%;
 }
 
 button:hover {
   transform: translateY(-3px);
+  box-shadow: 0px 3px 5px rgba(0, 0, 0, 0.4);
 }
 
-.wave {
-  animation-name: wave-animation;
-  animation-duration: 2s;
-  animation-iteration-count: infinite;
-  transform-origin: 70% 70%;
-  display: inline-block;
+.btn-link:hover {
+  border: 1px solid #dedede;
+  box-shadow: 0px 3px 5px rgba(0, 0, 0, 0.3);
 }
 
-@keyframes wave-animation {
-  0% {
-    transform: rotate(0deg);
-  }
-  10% {
-    transform: rotate(14deg);
-  }
-  20% {
-    transform: rotate(-8deg);
-  }
-  30% {
-    transform: rotate(14deg);
-  }
-  40% {
-    transform: rotate(-4deg);
-  }
-  50% {
-    transform: rotate(10deg);
-  }
-  60% {
-    transform: rotate(0deg);
-  }
-  100% {
-    transform: rotate(0deg);
-  }
+.twitter-btn:hover {
+  border: 1px solid rgba(0, 0, 0, 0);
+  background-color: #1da1f2;
+  color: #ffffff;
 }
 
-/*about section styling*/
-
-#about-me {
-  min-height: 100vh;
-  min-width: 100vw;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin-top: 10em;
+.linkedin-btn:hover {
+  border: 1px solid rgba(0, 0, 0, 0);
+  background-color: #2867b2;
+  color: #ffffff;
 }
 
-.about-title {
-  color: #23345e;
-  font-size: 64px;
-  font-family: "Montserrat";
-  font-weight: 300;
+.github-btn:hover {
+  border: 1px solid rgba(0, 0, 0, 0);
+  background-color: #211f1f;
+  color: #ffffff;
 }
 
-.about-text {
+.resume-btn:hover {
+  border: 1px solid rgba(0, 0, 0, 0);
+  background-color: #ff4a60;
+  color: #ffffff;
+}
+
+.btn-container {
+  display: inline-flex;
+  flex-wrap: wrap;
+  text-align: center;
+}
+
+.header-btn {
+  border: none;
+  margin: 0.25rem;
+  padding: 0px;
+}
+
+.btn-link {
+  border: 1px solid rgba(0, 0, 0, 0);
+  border-radius: 0px;
+  margin: 1.5rem;
+  padding-left: 1em;
+  padding-right: 1em;
+  font-family: Raleway;
+  text-transform: uppercase;
+  font-weight: 700;
+}
+
+.logo {
+  box-shadow: none;
   display: block;
   margin: auto;
-  padding-top: 1em;
-  padding-bottom: 4em;
-  color: #4a7a88;
-  text-align: center;
-  font-size: 32px;
-  font-family: "Montserrat";
-  font-weight: 300;
-  width: 80%;
-}
-
-/*experience section styling*/
-
-#experience {
-  min-height: 100vh;
-  min-width: 100vw;
-  padding: 1.5rem;
-}
-
-.position {
-  padding-right: 1.5rem;
-}
-
-.exp-title {
-  color: #23345e;
-  font-size: 64px;
-  font-family: "Montserrat";
-  font-weight: 300;
-  padding-top: 2.5em;
-  padding-right: 2rem;
-}
-
-.position-company {
-  color: #23345e;
-  font-size: 56px;
-  font-family: "Montserrat";
-  font-weight: 300;
-  padding-top: 2.5em;
-  padding-right: 1.5rem;
-}
-
-.position-title-date {
-  margin: auto;
-  color: #4a7a88;
-  font-size: 32px;
-  font-family: "Hind Madurai";
-  font-weight: 400;
-  padding-right: 1.5rem;
-}
-
-.position-details {
-  margin: auto;
-  color: #4a7a88;
-  font-size: 28px;
-  font-family: "Montserrat";
-  font-weight: 300;
-  list-style-type: "- ";
-  padding-left: 1.5rem;
-  padding-right: 1.5rem;
-}
-
-.position-details li {
-  margin-bottom: 0.25em;
-}
-
-/*skills section styling*/
-
-#skills {
-  min-height: 100vh;
-  min-width: 100vw;
-  text-align: center;
-}
-
-.grid-container {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-}
-
-.skill-type {
-  margin: auto;
-  color: #ff6685;
-  font-size: 32px;
-  font-family: "Montserrat";
-  font-weight: 500;
-  margin-top: 2em;
-}
-
-.skills {
-  margin: auto;
-  color: #4a7a88;
-  font-size: 28px;
-  font-family: "Montserrat";
-  font-weight: 300;
-  list-style-type: none;
-  padding-left: 0;
-}
-
-.skills li {
-  margin-bottom: 0.25em;
-}
-
-/*projects section styling*/
-
-#projects {
-  min-height: 100vh;
-  min-width: 100vw;
-}
-
-.project-name {
-  margin: auto;
-  color: #ff6685;
-  font-size: 32px;
-  font-family: "Montserrat";
-  font-weight: 600;
-  padding: 1rem 2rem 1rem 2rem;
-}
-
-.project-desc {
-  margin: auto;
-  color: #4a7a88;
-  font-size: 28px;
-  font-family: "Montserrat";
-  font-weight: 300;
-  padding-left: 2rem;
-  padding-right: 2rem;
-}
-
-img {
   width: 70%;
-  min-width: 300px;
+  max-width: 700px;
+  min-width: 240px;
   height: auto;
-  display: block;
-  margin: auto;
+  transform: scaleX(-1);
+}
+
+.homepage {
+  text-align: center;
+  margin-top: 15vh;
+  align-items: center;
+  justify-content: center;
+  display: grid;
+  padding: 4vw;
+  grid-template-columns: repeat( auto-fit, minmax(300px, 1fr) );
+}
+.space {
+  height: 100vh;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat( auto-fit, minmax(100px, 1fr) );
 }
