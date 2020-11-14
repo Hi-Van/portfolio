@@ -170,10 +170,16 @@ button:active {
   height: 100rem;
 }
 
-.grid {
+.grid-btn {
   margin-top: 4em;
   display: grid;
   grid-template-columns: repeat( auto-fit, minmax(250px, 1fr) );
+}
+
+.grid {
+  margin-top: 4em;
+  display: grid;
+  grid-template-columns: repeat( auto-fit, minmax(300px, 1fr) );
 }
 
 .about {

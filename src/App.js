@@ -17,7 +17,7 @@ function App() {
             <img className='logo' src={logo} alt='logo' />
           </Tilt>
           <div>
-            <div className='grid'>
+            <div className='grid-btn'>
               <Link to='/about'><button className='btn-link'>About Me</button></Link>
               <Link to='/experience'><button className='btn-link'>Experience</button></Link>
               <Link to='/projects'><button className='btn-link'>Projects</button></Link>
