@@ -1,12 +1,13 @@
-import React from 'react';
+import { React } from 'react';
+import './App.css';
+import Project from './Pages/Projects'
 
 const App = () => {
-  return (
-    <div>
-      placeholder text
-    </div>
-  );
+	return (
+		<div className="App">
+			<Project/>
+		</div>
+	);
 };
 
-export default App;			
-			
+export default App;
