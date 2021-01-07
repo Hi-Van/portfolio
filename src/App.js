@@ -18,7 +18,7 @@ function App() {
           </Tilt>
           <div>
             <div className='grid-btn'>
-              <Link to='/about'><button className='btn-link' onClick={console.log('clicked button!!')}>About Me</button></Link>
+              <Link to='/about'><button className='btn-link'>About Me</button></Link>
               <Link to='/experience'><button className='btn-link'>Experience</button></Link>
               <Link to='/projects'><button className='btn-link'>Projects</button></Link>
             </div>
@@ -31,7 +31,7 @@ function App() {
           </div>
         </div>
 
-        <Switch id='smooth-here'>
+        <Switch>
           <Route exact path='/projects'><Projects /></Route>
           <Route exact path='/experience'><Exp /></Route>
           <Route exact path='/about'><About /></Route>
