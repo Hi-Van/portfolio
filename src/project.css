@@ -44,35 +44,35 @@ input {
 
 .grid-search {
   margin: 2rem 10vw 2rem 10vw;
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  display: flex;
+  justify-content: flex-start;
+  flex-wrap: wrap;
 }
 
 .search-btn {
-  align-self: center;
-  justify-self: center;
   font-family: "Raleway";
   letter-spacing: 0.5px;
   font-weight: 500;
   border-radius: 4px;
   font-size: 1.25rem;
   min-width: 120px;
-  display: block;
-  text-align: center;
-  margin: 1rem auto 1rem auto;
+  margin: 1rem 2rem 1rem 2rem;
+  display: flex;
+  justify-content: center;
 }
 
 .search-btn:hover {
   box-shadow: 0px 3px 5px rgba(0, 0, 0, 0);
 }
 
-.React {
+.ReactJS {
+  text-align: center;
   border: none;
   background-color: #81d4fa;
   color: #0a4979;
 }
 
-.Fuse {
+.FuseJS {
   border: none;
   background-color: #9fa8da;
   color: #283593;
@@ -84,19 +84,19 @@ input {
   color: #512da8;
 }
 
-.Next {
+.NextJS {
   border: none;
   background-color: #80cbc4;
   color: #004d40;
 }
 
-.Chart {
+.ChartJS {
   border: none;
   background-color: #a5d6a7;
   color: #004d40;
 }
 
-.am4 {
+.am4Charts {
   border: none;
   background-color: #e6ee9c;
   color: #827717;
@@ -114,13 +114,13 @@ input {
   color: #c62828;
 }
 
-.JS {
+.JavaScript {
   border: none;
   background-color: #f48fb1;
   color: #ad1457;
 }
 
-.Mat {
+.MaterialUI {
   border: none;
   background-color: #ce93d8;
   color: #4a148c;
