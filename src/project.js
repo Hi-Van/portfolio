@@ -28,6 +28,7 @@ function Projects() {
     const NextJS = () => { setQuery('NextJS'); console.log('10'); }
     const ChartJS = () => { setQuery('ChartJS'); console.log('11'); }
     const Google = () => { setQuery('Google'); console.log('12'); }
+    const Reset = () => { setQuery(''); console.log('reset')}
 
     const fuse = new Fuse(links, {
         keys: [
@@ -68,6 +69,7 @@ function Projects() {
                     <button className="search-btn NextJS" onClick={NextJS}>NextJS</button>
                     <button className="search-btn ChartJS" onClick={ChartJS}>ChartJS</button>
                     <button className="search-btn Google" onClick={Google}>Google</button>
+                    <button className="search-btn" onClick={Reset}>Reset</button>
                 </div>
             </Fade>
 
