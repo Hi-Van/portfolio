@@ -13,7 +13,21 @@ function Projects() {
     const handleSubmit = (evt) => {
         evt.preventDefault();
         setQuery(test);
+        console.log("this is the previous query: " + query, "this is the current query: " + test);
     }
+
+    const am4Charts = () => { setQuery('am4Charts'); console.log('1'); }
+    const HTML = () => { setQuery('HTML'); console.log('2'); }
+    const CSS = () => { setQuery('CSS'); console.log('3'); }
+    const JavaScript = () => { setQuery('JavaScript'); console.log('4'); }
+    const MaterialUI = () => { setQuery('MaterialUI'); console.log('5'); }
+    const Figma = () => { setQuery('Figma'); console.log('6'); }
+    const FuseJS = () => { setQuery('FuseJS'); console.log('7'); }
+    const ReactJS = () => { setQuery('ReactJS'); console.log('8'); }
+    const Heroku = () => { setQuery('Heroku'); console.log('9'); }
+    const NextJS = () => { setQuery('NextJS'); console.log('10'); }
+    const ChartJS = () => { setQuery('ChartJS'); console.log('11'); }
+    const Google = () => { setQuery('Google'); console.log('12'); }
 
     const fuse = new Fuse(links, {
         keys: [
@@ -30,24 +44,27 @@ function Projects() {
     return (
         <div className='projects'>
 
+            <h1>Projects <span>💻</span></h1>
+
+
             <form onSubmit={handleSubmit}>
-                <input type="text" placeholder="Search Wiki.." value={test} onChange={e => setTest(e.target.value)} className='search' />
+                <input type="text" placeholder="Search Projects.." value={test} onChange={e => setTest(e.target.value)} className='search' />
                 <input type="submit" value="Search" />
             </form>
 
             <div className="grid-search">
-                <button className="search-btn am4Charts">am4Charts</button>
-                <button className="search-btn HTML">HTML</button>
-                <button className="search-btn CSS">CSS</button>
-                <button className="search-btn JavaScript">JavaScript</button>
-                <button className="search-btn MaterialUI">MaterialUI</button>
-                <button className="search-btn Figma">Figma</button>
-                <button className="search-btn FuseJS">FuseJS</button>
-                <button className="search-btn ReactJS">ReactJS</button>
-                <button className="search-btn Heroku">Heroku</button>
-                <button className="search-btn NextJS">NextJS</button>
-                <button className="search-btn ChartJS">ChartJS</button>
-                <button className="search-btn Google">Google</button>
+                <button className="search-btn am4Charts" onClick={am4Charts}>am4Charts</button>
+                <button className="search-btn HTML" onClick={HTML}>HTML</button>
+                <button className="search-btn CSS" onClick={CSS}>CSS</button>
+                <button className="search-btn JavaScript" onClick={JavaScript}>JavaScript</button>
+                <button className="search-btn MaterialUI" onClick={MaterialUI}>MaterialUI</button>
+                <button className="search-btn Figma" onClick={Figma}>Figma</button>
+                <button className="search-btn FuseJS" onClick={FuseJS}>FuseJS</button>
+                <button className="search-btn ReactJS" onClick={ReactJS}>ReactJS</button>
+                <button className="search-btn Heroku" onClick={Heroku}>Heroku</button>
+                <button className="search-btn NextJS" onClick={NextJS}>NextJS</button>
+                <button className="search-btn ChartJS" onClick={ChartJS}>ChartJS</button>
+                <button className="search-btn Google" onClick={Google}>Google</button>
             </div>
 
             {linkResult.map(card => {
@@ -59,7 +76,7 @@ function Projects() {
                             <img className='proj-img' src={img} alt='prep' />
                             <div>
                                 <h1>{title}</h1>
-                                <div className="grid-search" style={{margin: '12px 0px 0px -16px'}}>
+                                <div className="grid-search" style={{ margin: '12px 0px 0px 0px' }}>
                                     {tech.map(i => {
                                         return (
                                             <button className={i} style={{
@@ -71,7 +88,8 @@ function Projects() {
                                                 minWidth: '120px',
                                                 margin: '1rem 2rem 0rem 2rem',
                                                 display: 'flex',
-                                                justifyContent: 'center'
+                                                justifyContent: 'center',
+                                                whiteSpace: 'nowrap',
                                             }}>{i}</button>
                                         )
                                     })}
