@@ -2,10 +2,11 @@ import Fade from 'react-reveal/Fade';
 
 function About() {
     return (
-        <div className='about'>
+        <div className='about' >
             <div className='space' />
+            <div className='space' id='about' />
             <div className='space' />
-            <div className='space' />
+            <Fade bottom><h1 style={{ marginBottom: '4rem', textAlign: 'center', fontWeight: '400' }}>ABOUT ME <span className='wave'>👋</span></h1></Fade>
             <Fade bottom>
                 <h3>Hey I'm Van...</h3>
                 <p className='about-txt'>

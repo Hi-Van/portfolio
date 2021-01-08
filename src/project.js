@@ -35,6 +35,7 @@ function Projects() {
             'tech',
             'desc'
         ],
+        threshold: 0.25,
     })
 
     const results = fuse.search(query);
@@ -43,29 +44,32 @@ function Projects() {
 
     return (
         <div className='projects'>
+            <div className='space' id='projects' />
+            <Fade bottom><h1 style={{ marginBottom: '8rem', textAlign: 'center', fontWeight: '400' }}>PROJECTS <span>💻</span></h1></Fade>
 
-            <h1>Projects <span>💻</span></h1>
 
-
-            <form onSubmit={handleSubmit}>
-                <input type="text" placeholder="Search Projects.." value={test} onChange={e => setTest(e.target.value)} className='search' />
-                <input type="submit" value="Search" />
-            </form>
-
-            <div className="grid-search">
-                <button className="search-btn am4Charts" onClick={am4Charts}>am4Charts</button>
-                <button className="search-btn HTML" onClick={HTML}>HTML</button>
-                <button className="search-btn CSS" onClick={CSS}>CSS</button>
-                <button className="search-btn JavaScript" onClick={JavaScript}>JavaScript</button>
-                <button className="search-btn MaterialUI" onClick={MaterialUI}>MaterialUI</button>
-                <button className="search-btn Figma" onClick={Figma}>Figma</button>
-                <button className="search-btn FuseJS" onClick={FuseJS}>FuseJS</button>
-                <button className="search-btn ReactJS" onClick={ReactJS}>ReactJS</button>
-                <button className="search-btn Heroku" onClick={Heroku}>Heroku</button>
-                <button className="search-btn NextJS" onClick={NextJS}>NextJS</button>
-                <button className="search-btn ChartJS" onClick={ChartJS}>ChartJS</button>
-                <button className="search-btn Google" onClick={Google}>Google</button>
-            </div>
+            <Fade bottom>
+                <p style={{ textAlign: 'center', fontWeight: '400', margin: '-4rem 0rem 1rem 0rem' }}>Search Projects <span className='wave'>🔍</span>... </p>
+                <form onSubmit={handleSubmit}>
+                    <input type="text" placeholder="Look For Projects.." value={test} onChange={e => setTest(e.target.value)} className='search' />
+                    <input type="submit" value="Search" />
+                </form>
+                <p style={{ textAlign: 'center', fontWeight: '400', margin: '6rem 0rem 0rem 0rem' }}>or just use these tags <span className='point'>👇</span>... </p>
+                <div className="grid-search">
+                    <button className="search-btn am4Charts" onClick={am4Charts}>am4Charts</button>
+                    <button className="search-btn HTML" onClick={HTML}>HTML</button>
+                    <button className="search-btn CSS" onClick={CSS}>CSS</button>
+                    <button className="search-btn JavaScript" onClick={JavaScript}>JavaScript</button>
+                    <button className="search-btn MaterialUI" onClick={MaterialUI}>MaterialUI</button>
+                    <button className="search-btn Figma" onClick={Figma}>Figma</button>
+                    <button className="search-btn FuseJS" onClick={FuseJS}>FuseJS</button>
+                    <button className="search-btn ReactJS" onClick={ReactJS}>ReactJS</button>
+                    <button className="search-btn Heroku" onClick={Heroku}>Heroku</button>
+                    <button className="search-btn NextJS" onClick={NextJS}>NextJS</button>
+                    <button className="search-btn ChartJS" onClick={ChartJS}>ChartJS</button>
+                    <button className="search-btn Google" onClick={Google}>Google</button>
+                </div>
+            </Fade>
 
             {linkResult.map(card => {
                 const { title, tech, desc, code, link, img } = card;

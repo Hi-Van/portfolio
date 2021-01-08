@@ -3,7 +3,8 @@ import resume from './Vanouphon_Sirisouk_Resume.pdf';
 import logo from './perspective.svg';
 import Tilt from 'react-parallax-tilt';
 import { Switch, Route, Link } from 'react-router-dom';
-import { FaGithub, FaTwitter, FaLinkedin, FaFileInvoice } from "react-icons/fa";
+import { Link as Scroll } from 'react-scroll';
+import { FaGithub, FaTwitter, FaLinkedin, FaFileInvoice, FaAngleUp } from "react-icons/fa";
 import Projects from './project.js';
 import Exp from './exp.js';
 import About from './about.js';
@@ -18,9 +19,9 @@ function App() {
           </Tilt>
           <div>
             <div className='grid-btn'>
-              <Link to='/about'><button className='btn-link'>About Me</button></Link>
-              <Link to='/experience'><button className='btn-link'>Experience</button></Link>
-              <Link to='/projects'><button className='btn-link'>Projects</button></Link>
+              <Scroll to='about' smooth={true} duration={600}><button className='btn-link'>About Me</button></Scroll>
+              <Scroll to='experience' smooth={true} duration={600}><button className='btn-link'>Experience</button></Scroll>
+              <Scroll to='projects' smooth={true} duration={900}><button className='btn-link'>Projects</button></Scroll>
             </div>
             <div className='btn-container'>
               <a href='https://github.com/Hi-Van' target='_blank' rel='noopener noreferrer'><button className='github-btn'><FaGithub /></button></a>
@@ -30,12 +31,13 @@ function App() {
             </div>
           </div>
         </div>
+        <About />
+        <Exp />
+        <Projects />
 
-        <Switch>
-          <Route exact path='/projects'><Projects /></Route>
-          <Route exact path='/experience'><Exp /></Route>
-          <Route exact path='/about'><About /></Route>
-        </Switch>
+        <div style={{display:'flex', justifyContent:'center'}}>
+        <Scroll to='projects' smooth={true} duration={600}><button className='btn-link'> Back To Top &nbsp;&nbsp; <FaAngleUp/> </button></Scroll>
+        </div>
       </div>
     </div>
   );

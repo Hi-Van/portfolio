@@ -3,6 +3,8 @@ import Fade from 'react-reveal/Fade';
 function Exp() {
     return (
         <div className='projects'>
+            <div className='space' id='experience' />
+            <Fade bottom><h1 style={{ margin: '4rem', textAlign: 'center', fontWeight: '400', wordBreak: 'break-word' }}>EXPERIENCE <span>💼</span></h1></Fade>
             <Fade bottom>
                 <div className='proj'>
                     <div>
