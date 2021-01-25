@@ -46,13 +46,5 @@
         "code": "https://github.com/Hi-Van/runtime-sheet",
         "link": "https://hi-van.github.io/runtime-sheet/",
         "img": "./runtime.JPG"
-    },
-    {
-        "title": "Portfolio Website v3",
-        "tech": ["HTML", "CSS", "JavaScript"],
-        "desc": "My old portfolio website, used to host my projects and information about myself.",
-        "code": "https://github.com/Hi-Van/hi-van.github.io",
-        "link": "https://hi-van.github.io/",
-        "img": "./port-dep.JPG"
     }
 ]
