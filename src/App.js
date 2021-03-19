@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import './App.css';
 import resume from './Vanouphon_Sirisouk_Resume.pdf';
 import logo from './perspective.svg';

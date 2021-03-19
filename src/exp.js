@@ -4,19 +4,21 @@ function Exp() {
     return (
         <div className='projects'>
             <div className='space' id='experience' />
-            <Fade bottom><h1 style={{ margin: '4rem', textAlign: 'center', fontWeight: '400', wordBreak: 'break-word' }}>EXPERIENCE <span>💼</span></h1></Fade>
+            <Fade bottom><h1 style={{ margin: '4rem, 3rem, 4rem, 3rem', textAlign: 'center', fontWeight: '400' }}>EXPERIENCE <span>💼</span></h1></Fade>
             <Fade bottom>
                 <div className='proj'>
                     <div>
-                        <h1>Summer of Shipping</h1>
+                        <h1><b>Summer of Shipping</b></h1>
                         <h2>Core Team</h2>
                         <h3>May 2020 – Sep 2020   //  <a href='https://summerofshipping.com/' target='_blank' rel='nooperner noreferrer'>summerofshipping.com</a></h3>
-                        <ul>
-                            <li>Initiative group for students with cancelled internships for Summer 2020 founded by ex-Uber engineer</li>
-                            <li>Scaled population from 20 members to 600+ students & 70+ mentors globally</li>
-                            <li>Developed prototype design in Figma software, resulting in a responsive site</li>
-                            <li>Developed a search feature with FuseJS, enabling users to search an internal JSON file of media links</li>
-                        </ul>
+                        <i>
+                            <ul>
+                                <li>Initiative group for students with cancelled internships for Summer 2020 founded by ex-Uber engineer</li>
+                                <li>Scaled population from 20 members to 600+ students & 70+ mentors globally</li>
+                                <li>Developed prototype design in Figma software, resulting in a responsive site</li>
+                                <li>Developed a search feature with FuseJS, enabling users to search an internal JSON file of media links</li>
+                            </ul>
+                        </i>
                     </div>
                 </div>
             </Fade>
@@ -24,7 +26,7 @@ function Exp() {
             <Fade bottom>
                 <div className='proj'>
                     <div>
-                        <h1>University of Connecticut</h1>
+                        <h1><b>University of Connecticut</b></h1>
                         <h2>CS & Mathematics Tutor</h2>
                         <h3>Feb 2020 – May 2020   //  Stamford, CT</h3>
                         <ul>
@@ -39,7 +41,7 @@ function Exp() {
             <Fade bottom>
                 <div className='proj'>
                     <div>
-                        <h1>UConn Engineer Majors</h1>
+                        <h1><b>UConn Engineer Majors</b></h1>
                         <h2>Founder</h2>
                         <h3>Aug 2019 – Present   //  Stamford, CT</h3>
                         <ul>

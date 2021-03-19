@@ -28,7 +28,7 @@ function Projects() {
     const NextJS = () => { setQuery('NextJS'); console.log('10'); }
     const ChartJS = () => { setQuery('ChartJS'); console.log('11'); }
     const Google = () => { setQuery('Google'); console.log('12'); }
-    const Reset = () => { setQuery(''); console.log('reset')}
+    const Reset = () => { setQuery(''); console.log('reset') }
 
     const fuse = new Fuse(links, {
         keys: [
@@ -53,7 +53,7 @@ function Projects() {
                 <p style={{ textAlign: 'center', fontWeight: '400', margin: '-4rem 0rem 1rem 0rem' }}>Search Projects <span className='wave'>🔍</span>... </p>
                 <form onSubmit={handleSubmit}>
                     <input type="text" placeholder="Look For Projects.." value={test} onChange={e => setTest(e.target.value)} className='search' />
-                    <input type="submit" value="Search" />
+                    <input type="submit" value="Search" className='btn-input' />
                 </form>
                 <p style={{ textAlign: 'center', fontWeight: '400', margin: '6rem 0rem 0rem 0rem' }}>or just use these tags <span className='point'>👇</span>... </p>
                 <div className="grid-search">
@@ -100,7 +100,7 @@ function Projects() {
                                         )
                                     })}
                                 </div>
-                                <p>{desc}</p>
+                                <p style={{ margin: '1rem 0rem 0rem 0rem', textAlign: 'left' }}>{desc}</p>
                                 <div>
                                     <a href={code} target='_blank' rel='noopener noreferrer'><button className='proj-link' title='visit documentation'><FaBookOpen /></button></a>
                                     <a href={link} target='_blank' rel='noopener noreferrer'><button className='proj-link' title='visit documentation'><FaLink /></button></a>
