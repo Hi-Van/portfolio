@@ -4,6 +4,7 @@ import resume from './Vanouphon_Sirisouk_Resume.pdf';
 import logo from './perspective.svg';
 import Tilt from 'react-parallax-tilt';
 import { Switch, Route, Link } from 'react-router-dom';
+import Typewriter from 'typewriter-effect';
 import { Link as Scroll } from 'react-scroll';
 import { FaGithub, FaTwitter, FaLinkedin, FaFileInvoice, FaAngleUp } from "react-icons/fa";
 import Projects from './project.js';
@@ -15,16 +16,24 @@ function App() {
     <div className="App">
       <div className='content'>
         <div className='homepage'>
-          <Tilt>
-            <img className='logo' src={logo} alt='logo' />
-          </Tilt>
           <div>
-            <div className='grid-btn'>
-              <Scroll to='about' smooth={true} duration={600}><button className='btn-link'>About Me</button></Scroll>
-              <Scroll to='experience' smooth={true} duration={600}><button className='btn-link'>Experience</button></Scroll>
-              <Scroll to='projects' smooth={true} duration={900}><button className='btn-link'>Projects</button></Scroll>
+            <h1 style={{ fontWeight: 600}}>VANOUPHON SIRISOUK</h1>
+            <div className='type-wrapper'>
+              <h1 style={{fontWeight: 400, letterSpacing: '0.05rem', color: '#535e63'}}>Full-</h1>
+              <h1 style={{fontWeight: 400, letterSpacing: '0.05rem', color: '#535e63'}}><Typewriter options={{
+                strings: ['‏‏‎‎‎‏‏‎Stack Developer', '‏‏‎Time Student'],
+                autoStart: true,
+                pauseFor: 2200,
+                delay: 120,
+                loop: true,
+              }} /></h1>
             </div>
-            <div className='btn-container'>
+            <div style={{padding: '0em 2em 0em 2em'}}className='grid-btn'>
+              <Scroll style={{ cursor: 'context-menu' }} to='about' smooth={true} duration={600}><button className='btn-link'>About Me</button></Scroll>
+              <Scroll style={{ cursor: 'context-menu' }} to='experience' smooth={true} duration={600}><button className='btn-link'>Experience</button></Scroll>
+              <Scroll style={{ cursor: 'context-menu' }} to='projects' smooth={true} duration={900}><button className='btn-link'>Projects</button></Scroll>
+            </div>
+            <div style={{padding: '0em 0.75em 0em 0.75em'}}className='btn-container'>
               <a href='https://github.com/Hi-Van' target='_blank' rel='noopener noreferrer'><button className='github-btn'><FaGithub /></button></a>
               <a href='https://twitter.com/Hi_Im_Van' target='_blank' rel='noopener noreferrer'><button className='twitter-btn'><FaTwitter /></button></a>
               <a href='https://www.linkedin.com/in/van-s/' target='_blank' rel='noopener noreferrer'><button className='linkedin-btn'><FaLinkedin /></button></a>
@@ -36,8 +45,8 @@ function App() {
         <Exp />
         <Projects />
 
-        <div style={{display:'flex', justifyContent:'center'}}>
-        <Scroll to='projects' smooth={true} duration={600}><button className='btn-link'> Back To Top &nbsp;&nbsp; <FaAngleUp/> </button></Scroll>
+        <div style={{ display: 'flex', justifyContent: 'center' }}>
+          <Scroll style={{ cursor: 'context-menu' }} to='projects' smooth={true} duration={600}><button className='btn-link'> Back To Top &nbsp;&nbsp; <FaAngleUp /> </button></Scroll>
         </div>
       </div>
     </div>
