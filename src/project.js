@@ -1,6 +1,7 @@
 import './project.css';
 import { useState } from 'react';
-import { FaLink, FaBookOpen } from "react-icons/fa";
+import { FaLink, FaBookOpen, FaAngleUp } from "react-icons/fa";
+import { Link as Scroll } from 'react-scroll';
 import Fade from 'react-reveal/Fade';
 import Fuse from 'fuse.js';
 import links from './projects.json';
@@ -110,6 +111,10 @@ function Projects() {
                     </Fade>
                 )
             })}
+
+            <div style={{ display: 'flex', justifyContent: 'center' }}>
+                <Scroll style={{ cursor: 'context-menu' }} to='projects' smooth={true} duration={600}><button className='btn-link'> Back To Top &nbsp;&nbsp; <FaAngleUp /> </button></Scroll>
+            </div>
         </div>
     );
 }

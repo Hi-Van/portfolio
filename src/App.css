@@ -13,6 +13,15 @@
   margin: auto;
 }
 
+.avatar {
+  display: block;
+  margin: auto;
+  width: 60%;
+  max-width: 250px;
+  min-width: 200px;
+  box-shadow: none;
+}
+
 .wave {
   animation-name: wave-animation;
   animation-duration: 4s;
@@ -207,7 +216,7 @@ button:active {
 }
 
 .homepage {
-  padding-top: 2em;
+  padding-top: 1em;
   text-align: center;
   align-items: center;
   justify-content: center;
@@ -258,7 +267,7 @@ button:active {
 }
 
 /* text sizes for ipad screens or larger */
-@media only screen and (min-width: 1024px) {
+@media only screen and (min-width: 1025px) {
   .homepage {
     margin-top: 12rem;
   }
@@ -293,7 +302,7 @@ button:active {
 }
 
 /* text sizes for mobile devices smaller than ipads */
-@media only screen and (max-width: 1023px) {
+@media only screen and (max-width: 1024px) {
   h1 {
     letter-spacing: 0;
     font-size: 1.7rem;
@@ -302,6 +311,7 @@ button:active {
   h2 {
     margin-top: 1rem;
     font-size: 1.65rem;
+    margin-bottom: -0.75rem;
   }
 
   h3 {

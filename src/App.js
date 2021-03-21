@@ -1,12 +1,12 @@
 /* eslint-disable no-unused-vars */
 import './App.css';
 import resume from './Vanouphon_Sirisouk_Resume.pdf';
-import logo from './perspective.svg';
+import avatar from './avataaars (1).png';
 import Tilt from 'react-parallax-tilt';
 import { Switch, Route, Link } from 'react-router-dom';
 import Typewriter from 'typewriter-effect';
 import { Link as Scroll } from 'react-scroll';
-import { FaGithub, FaTwitter, FaLinkedin, FaFileInvoice, FaAngleUp } from "react-icons/fa";
+import { FaGithub, FaTwitter, FaLinkedin, FaFileInvoice } from "react-icons/fa";
 import Projects from './project.js';
 import Exp from './exp.js';
 import About from './about.js';
@@ -17,11 +17,12 @@ function App() {
       <div className='content'>
         <div className='homepage'>
           <div>
+            <img className='avatar'src={avatar} alt='avatar'/>
             <h1 style={{ fontWeight: 600}}>VANOUPHON SIRISOUK</h1>
             <div className='type-wrapper'>
               <h1 style={{fontWeight: 400, letterSpacing: '0.05rem', color: '#535e63'}}>Full-</h1>
               <h1 style={{fontWeight: 400, letterSpacing: '0.05rem', color: '#535e63'}}><Typewriter options={{
-                strings: ['‏‏‎‎‎‏‏‎Stack Developer', '‏‏‎Time Student'],
+                strings: ['‏‏‎‎‎‏‏‎Stack Developer', '‏‏‎Time Student ', 'Blown Java Boi'],
                 autoStart: true,
                 pauseFor: 2200,
                 delay: 120,
@@ -44,10 +45,6 @@ function App() {
         <About />
         <Exp />
         <Projects />
-
-        <div style={{ display: 'flex', justifyContent: 'center' }}>
-          <Scroll style={{ cursor: 'context-menu' }} to='projects' smooth={true} duration={600}><button className='btn-link'> Back To Top &nbsp;&nbsp; <FaAngleUp /> </button></Scroll>
-        </div>
       </div>
     </div>
   );

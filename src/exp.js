@@ -6,7 +6,7 @@ function Exp() {
             <div className='space' id='experience' />
             <Fade bottom><h1 style={{ margin: '4rem, 3rem, 4rem, 3rem', textAlign: 'center', fontWeight: '400' }}>EXPERIENCE <span>💼</span></h1></Fade>
             <Fade bottom>
-                <div className='proj'>
+                <div style={{margin: '5em 2em 5em 2em'}}className='proj'>
                     <div>
                         <h1><b>Summer of Shipping</b></h1>
                         <h2>Core Team</h2>
