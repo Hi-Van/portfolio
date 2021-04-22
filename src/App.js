@@ -22,7 +22,7 @@ function App() {
             <div className='type-wrapper'>
               <h1 style={{fontWeight: 400, letterSpacing: '0.05rem', color: '#535e63'}}>Full-</h1>
               <h1 style={{fontWeight: 400, letterSpacing: '0.05rem', color: '#535e63'}}><Typewriter options={{
-                strings: ['‏‏‎‎‎‏‏‎Stack Developer', '‏‏‎Time Student', 'Blown Java Boi'],
+                strings: ['‏‏‎Time Student', 'Blown Java Boi'],
                 autoStart: true,
                 pauseFor: 2200,
                 delay: 120,

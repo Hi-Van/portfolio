@@ -1,4 +1,5 @@
 import Fade from 'react-reveal/Fade';
+import './exp.css';
 
 function Exp() {
     return (
@@ -6,7 +7,7 @@ function Exp() {
             <div className='space' id='experience' />
             <Fade bottom><h1 style={{ margin: '4rem, 3rem, 4rem, 3rem', textAlign: 'center', fontWeight: '400' }}>EXPERIENCE <span>💼</span></h1></Fade>
             <Fade bottom>
-                <div style={{margin: '5em 2em 5em 2em'}}className='proj'>
+                <div className='job'>
                     <div>
                         <h1><b>Summer of Shipping</b></h1>
                         <h2>Core Team</h2>
@@ -24,7 +25,7 @@ function Exp() {
             </Fade>
 
             <Fade bottom>
-                <div className='proj'>
+                <div className='job'>
                     <div>
                         <h1><b>University of Connecticut</b></h1>
                         <h2>CS & Mathematics Tutor</h2>
@@ -39,7 +40,7 @@ function Exp() {
             </Fade>
 
             <Fade bottom>
-                <div className='proj'>
+                <div className='job'>
                     <div>
                         <h1><b>UConn Engineer Majors</b></h1>
                         <h2>Founder</h2>

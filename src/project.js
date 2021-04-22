@@ -81,7 +81,7 @@ function Projects() {
                     <Fade bottom>
                         <div className='proj'>
                             <img className='proj-img' src={img} alt='prep' />
-                            <div>
+                            <div className='proj-card'>
                                 <h1>{title}</h1>
                                 <div className="grid-search" style={{ margin: '12px 0px 0px 0px' }}>
                                     {tech.map(i => {
