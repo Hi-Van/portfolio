@@ -12,14 +12,12 @@ function Exp() {
                         <h1><b>Summer of Shipping</b></h1>
                         <h2>Core Team</h2>
                         <h3>May 2020 – Sep 2020   //  <a href='https://summerofshipping.com/' target='_blank' rel='nooperner noreferrer'>summerofshipping.com</a></h3>
-                        <i>
-                            <ul>
-                                <li>Initiative group for students with cancelled internships for Summer 2020 founded by ex-Uber engineer</li>
-                                <li>Scaled population from 20 members to 600+ students & 70+ mentors globally</li>
-                                <li>Developed prototype design in Figma software, resulting in a responsive site</li>
-                                <li>Developed a search feature with FuseJS, enabling users to search an internal JSON file of media links</li>
-                            </ul>
-                        </i>
+                        <ul>
+                            <li>Initiative group for students with cancelled internships for Summer 2020 founded by ex-Uber engineer</li>
+                            <li>Scaled population from 20 members to 600+ students & 70+ mentors globally</li>
+                            <li>Developed prototype design in Figma software, resulting in a responsive site</li>
+                            <li>Developed a search feature with FuseJS, enabling users to search an internal JSON file of media links</li>
+                        </ul>
                     </div>
                 </div>
             </Fade>

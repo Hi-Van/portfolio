@@ -1,5 +1,5 @@
 .job {
-    display: grid;
-    margin: 5em 1em 5em 1em;
-    grid-template-columns: repeat(autofit, minmax(300px, 1fr));
-  }
+  display: grid;
+  margin: 5em 1em 5em 1em;
+  grid-template-columns: repeat(autofit, minmax(300px, 1fr));
+}

@@ -20,8 +20,8 @@ function App() {
             <img className='avatar'src={avatar} alt='avatar'/>
             <h1 style={{ fontWeight: 600}}>VANOUPHON SIRISOUK</h1>
             <div className='type-wrapper'>
-              <h1 style={{fontWeight: 400, letterSpacing: '0.05rem', color: '#535e63'}}>Full-</h1>
-              <h1 style={{fontWeight: 400, letterSpacing: '0.05rem', color: '#535e63'}}><Typewriter options={{
+              <h1 style={{fontWeight: 400, letterSpacing: '0.03rem', color: '#535e63'}}>Full-</h1>
+              <h1 style={{fontWeight: 400, letterSpacing: '0.03rem', color: '#535e63'}}><Typewriter options={{
                 strings: ['‏‏‎Time Student', 'Blown Java Boi'],
                 autoStart: true,
                 pauseFor: 2200,

@@ -56,7 +56,7 @@ function Projects() {
                     <input type="text" placeholder="Look For Projects.." value={test} onChange={e => setTest(e.target.value)} className='search' />
                     <input type="submit" value="Search" className='btn-input' />
                 </form>
-                <p style={{ textAlign: 'center', fontWeight: '400', margin: '6rem 0rem 0rem 0rem' }}>or just use these tags <span className='point'>👇</span>... </p>
+                <p style={{ textAlign: 'center', fontWeight: '400', margin: '4rem 1rem 0rem 1rem' }}>or just use these tags <span className='point'>👇</span></p>
                 <div className="grid-search">
                     <button className="search-btn am4Charts" onClick={am4Charts}>am4Charts</button>
                     <button className="search-btn HTML" onClick={HTML}>HTML</button>

@@ -1,4 +1,6 @@
 import Fade from 'react-reveal/Fade';
+import { SiLeetcode } from 'react-icons/si';
+import { VscMortarBoard } from 'react-icons/vsc';
 
 function About() {
     return (
@@ -18,9 +20,34 @@ function About() {
             </p>
             </Fade>
             <div className='space' />
+
+            <Fade bottom>
+                <h3>Here's Some Facts 🧪</h3>
+
+                <div className='grid-card'>
+                    <div className='card'>
+                        <h2><a href='https://leetcode.com/Hi-Van/' target='_blank' rel='noreferrer'><SiLeetcode />LeetCode</a></h2>
+                        <p style={{ fontFamily: 'montserrat' }}>Solved: 98</p>
+                        <div className='percentbar' style={{ backgroundColor: '#6acc6e', width: '64%' }} />
+                        <div className='percentbar' style={{ backgroundColor: '#fab650', width: '35%' }} />
+                        <div className='percentbar' style={{ backgroundColor: '#de6464', width: '1%' }} />
+                    </div>
+
+                    <div className='card'>
+                        <h2><a href='https://binarysearch.com/@/Hi-Van' target='_blank' rel='noreferrer'><VscMortarBoard />BinarySearch</a></h2>
+                        <p style={{ fontFamily: 'montserrat' }}>Solved: 105</p>
+                        <div className='percentbar' style={{ backgroundColor: '#6acc6e', width: '62%' }} />
+                        <div className='percentbar' style={{ backgroundColor: '#fab650', width: '38%' }} />
+                        <div className='percentbar' style={{ backgroundColor: '#de6464', width: '0%' }} />
+                    </div>
+                </div>
+            </Fade>
+
+            <div className='space' />
             <Fade bottom>
                 <h3>Some of my favorite songs include...</h3>
             </Fade>
+
             <div className='grid'>
                 <Fade left>
                     <iframe src="https://open.spotify.com/embed/track/37HRd8gZ7F1l1Awm6debTv" frameborder="0" allowtransparency="true" allow="encrypted-media" title='play song' />
