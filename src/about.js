@@ -12,7 +12,7 @@ function About() {
             <Fade bottom>
                 <h3>Hey I'm Van...</h3>
                 <p className='about-txt'>
-                    I'm currently a <b>sophomore</b> at the <b><a href='https://uconn.edu/' target='_blank' rel='noopener noreferrer'>University of Connecticut</a></b>.
+                    I'm currently a <b>junior</b> at the <b><a href='https://uconn.edu/' target='_blank' rel='noopener noreferrer'>University of Connecticut</a></b>.
                     I am the <b>founder</b> of the <b>UConn Stamford Engineer Majors</b>, a group of <b>collaborative students</b> at the UConn Stamford campus.
                     I've recently been a part of an initiative group called <b>Summer of Shipping</b> as a core <b>team member</b> and <b>frontend developer</b>.
                     When I'm not drowning in my coursework, I like to work out and watch YouTube tutorials I'll never do.
@@ -27,7 +27,7 @@ function About() {
                 <div className='grid-card'>
                     <div className='card'>
                         <h2><a href='https://leetcode.com/Hi-Van/' target='_blank' rel='noreferrer'><SiLeetcode />LeetCode</a></h2>
-                        <p style={{ fontFamily: 'montserrat' }}>Solved: 118</p>
+                        <p style={{ fontFamily: 'montserrat' }}>Solved: 145</p>
                         <div className='percentbar' style={{ backgroundColor: '#6acc6e', width: '60%' }} />
                         <div className='percentbar' style={{ backgroundColor: '#fab650', width: '38%' }} />
                         <div className='percentbar' style={{ backgroundColor: '#de6464', width: '1%' }} />
