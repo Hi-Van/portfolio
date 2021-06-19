@@ -1,0 +1,57 @@
+.Home {
+  background: #fafaff;
+  width: 100;
+  min-height: 100vh;
+}
+
+.hand {
+    max-width: 700px;
+}
+
+.land {
+  display: flex;
+  width: 75%;
+  text-align: left;
+  justify-content: space-around;
+  align-items: center;
+  margin: 72px auto 0px auto;
+}
+
+.land-title {
+    font-size: 80px;
+    font-weight: 800;
+    color: #221e41;
+    margin-bottom: 12px;
+    font-family: 'Roboto';
+    font-family: 'Nunito';
+    text-transform: uppercase;
+}
+
+.land-subtitle {
+    font-size: 48px;
+    font-weight: 800;
+    color: #685dbb;
+    font-family: 'Nunito';
+    margin: 0px;
+}
+
+.floating {
+  animation-name: floating;
+  animation-duration: 3s;
+  animation-iteration-count: infinite;
+  animation-timing-function: ease-in-out;
+  margin-left: 30px;
+  margin-top: 5px;
+}
+
+@keyframes floating {
+  0% {
+    transform: translate(0, 0px);
+  }
+  50% {
+    transform: translate(0, 12px);
+  }
+  100% {
+    transform: translate(0, -0px);
+  }
+}
