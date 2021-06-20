@@ -1,38 +1,50 @@
 .Home {
   background: #fafaff;
   width: 100;
-  min-height: 100vh;
+  min-height: fit-content;
 }
 
 .hand {
-    max-width: 700px;
+  max-width: 700px;
+  width: 14.6rem;
+  margin-bottom: 2rem;
 }
 
 .land {
   display: flex;
-  width: 75%;
   text-align: left;
-  justify-content: space-around;
+  justify-content: center;
   align-items: center;
-  margin: 72px auto 0px auto;
+  margin: 1rem auto 2rem auto;
+  flex-wrap: wrap-reverse;
 }
 
 .land-title {
-    font-size: 80px;
-    font-weight: 800;
-    color: #221e41;
-    margin-bottom: 12px;
-    font-family: 'Roboto';
-    font-family: 'Nunito';
-    text-transform: uppercase;
+  font-size: 1.75rem;
+  color: #221e41;
+  margin-bottom: 0.25rem;
+  text-transform: uppercase;
 }
 
 .land-subtitle {
-    font-size: 48px;
-    font-weight: 800;
-    color: #685dbb;
-    font-family: 'Nunito';
-    margin: 0px;
+  font-size: 1rem;
+  color: #685dbb;
+  margin: 0px;
+}
+
+.land-link {
+  color: #685dbb;
+  cursor: pointer;
+  font-size: 0.75rem;
+  font-weight: 700;
+  margin: 0.25rem 0px 0.25rem 0px;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat( auto-fit, minmax(250px, 1fr) );
+  justify-content: center;
+  align-items: center;
 }
 
 .floating {
@@ -54,4 +66,44 @@
   100% {
     transform: translate(0, -0px);
   }
+}
+
+.wave {
+  animation-name: wave-animation; /* Refers to the name of your @keyframes element below */
+  animation-duration: 2.5s; /* Change to speed up or slow down */
+  animation-iteration-count: infinite; /* Never stop waving :) */
+  transform-origin: 70% 70%; /* Pivot around the bottom-left palm */
+  display: inline-block;
+}
+
+@keyframes wave-animation {
+  0% {
+    transform: rotate(0deg);
+  }
+  10% {
+    transform: rotate(14deg);
+  } /* The following five values can be played with to make the waving more or less extreme */
+  20% {
+    transform: rotate(-8deg);
+  }
+  30% {
+    transform: rotate(14deg);
+  }
+  40% {
+    transform: rotate(-4deg);
+  }
+  50% {
+    transform: rotate(10deg);
+  }
+  60% {
+    transform: rotate(0deg);
+  } /* Reset for the last half to pause */
+  100% {
+    transform: rotate(0deg);
+  }
+}
+
+.icons {
+  display:inline-flex;
+  vertical-align:top;
 }
