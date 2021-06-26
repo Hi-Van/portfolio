@@ -1,9 +1,51 @@
 .About {
   background: #fafaff;
   width: 100;
-  min-height: 100vh;
+  min-height: 120vh;
+  padding-top: 1rem;
 }
 
-.character {
-  height: 14.5rem;
+.about-txt {
+  text-align: left;
+  max-width: 1200px;
+  margin: 0px auto 0px auto;
+  padding: 0px 2rem 0px 2rem;
+}
+
+.social-link {
+  display: inline-flex;
+  justify-content: center;
+  border: 1px solid #dddddd;
+  color: #9897a3;
+  background: #fafaff;
+  cursor: pointer;
+  font-size: 0.75rem;
+  font-weight: 400;
+  width: 2.5rem;
+  margin: 1rem auto 1rem auto;
+  transition: all 0.15s ease;
+  line-height: 0.5rem;
+  padding: 0.23rem;
+  border-radius: 0rem;
+}
+
+.linkedin:hover {
+  font-weight: 600;
+  color: #fafaff;
+  background: #0072b1;
+  border: 1px solid #0072b1;
+}
+
+.twitter:hover {
+  font-weight: 600;
+  color: #fafaff;
+  background: #1da1f2;
+  border: 1px solid #1da1f2;
+}
+
+.github:hover {
+  font-weight: 600;
+  color: #fafaff;
+  background: #171515;
+  border: 1px solid #171515;
 }

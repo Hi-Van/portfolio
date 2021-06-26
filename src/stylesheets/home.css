@@ -15,49 +15,49 @@
   text-align: left;
   justify-content: center;
   align-items: center;
-  margin: 0.5rem auto 2rem auto;
+  margin: 0 auto 2rem auto;
   flex-wrap: wrap-reverse;
 }
 
 .land-title {
   font-size: 1.75rem;
-  color: #221e41;
   margin-bottom: 0.25rem;
   text-transform: uppercase;
 }
 
 .land-subtitle {
-  font-size: 1rem;
-  color: #685dbb;
   margin: 0px;
+}
+
+.highlight {
+  color: #685dbb;
 }
 
 .land-link {
   display: inline-flex;
   justify-content: center;
-  background-color: #685dbb;
   color: #fafaff;
+  background: #685dbb;
+  border: 2px solid #685dbb;
   cursor: pointer;
-  font-size: 0.75rem;
+  font-size: 0.5rem;
   font-weight: 400;
-  padding: 0.05rem 0.5rem 0.05rem 0.5rem;
-  width: max-content;
-  border-radius: 1rem;
+  width: 3.25rem;
   margin: 0.5rem auto 0.5rem auto;
   transition: all 0.15s ease;
-  border: 0.075rem solid #685dbb;
-  line-height: 0.9rem;
+  line-height: 0.5rem;
+  padding: 0.23rem 1rem 0.23rem 1rem;
+  border-radius: 0.1rem;
 }
 
 .land-link:hover {
-  transform: scale(1.01) translateY(-2px);
-}
-
-.land-link:active {
-  transform: translateY(2px);
+  font-weight: 600;
+  color: #685dbb;
+  background: #fafaff;
 }
 
 .grid {
+  margin-top: 1rem;
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(6rem, 1fr));
   justify-content: center;
