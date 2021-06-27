@@ -1,0 +1,28 @@
+.Experience {
+  background: #fafaff;
+  width: 100;
+  min-height: fit-content;
+  padding: 1rem 1rem 8rem 1rem;
+  text-align: center;
+}
+
+.job {
+  text-align: left;
+  margin: 2.5rem 1.5rem 5rem 1.5rem;
+}
+
+.job-company {
+  font-size: 1.4rem;
+  margin: 0rem;
+}
+
+.job-title {
+  font-size: 0.9rem;
+  font-weight: 800;
+  margin: 0rem 0rem 0.75rem 0rem;
+}
+
+.job p {
+  font-size: 0.85rem;
+  margin: 0rem 0rem 0.4rem 0rem;
+}
