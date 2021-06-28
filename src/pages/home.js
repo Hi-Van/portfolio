@@ -1,6 +1,7 @@
 import React from 'react';
 import hand from '../resources/Rock_On_R-Angle_A4_0000.png';
 import '../stylesheets/home.css';
+import Resume from '../resources/Vanouphon Sirisouk Resume.pdf';
 import { Link } from 'react-scroll';
 import {Fade} from 'react-reveal';
 
@@ -17,7 +18,7 @@ const Home = () => {
                             <Link className='land-link' to='About' smooth={true} duration={500}>About Me</Link>
                             <Link className='land-link' to='Experience' smooth={true} duration={500}>Experience</Link>
                             <Link className='land-link' to='Projects' smooth={true} duration={500}>Projects</Link>
-                            <Link className='land-link' to='Resume' smooth={true} duration={500}>Resume</Link>
+                            <a className='land-link' href={Resume} target='_blank' rel='noreferrer'>Resume</a>
                         </div>
                     </Fade>
                 </div>
