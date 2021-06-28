@@ -6,7 +6,7 @@ const Exp = () => {
     return (
         <div className='Experience'>
             <Fade>
-                <h1><span className='highlight'>"What experience</span> do you have<span className='highlight'>?"</span></h1>
+                <h1 style={{padding: '1rem'}}><span className='highlight'>"What experience</span> do you have<span className='highlight'>?"</span></h1>
             </Fade>
 
             <Fade left>
@@ -40,7 +40,7 @@ const Exp = () => {
             </Fade>
 
             <Fade left>
-                <div className='job'>
+                <div className='job' style={{margin: '2.5rem 1.25rem 0rem 1.25rem'}}>
                     <h2 className='job-company'>University of Connecticut</h2>
                     <h2 className='job-title'>CS & Mathematics Tutor <br /> Feb 2020 - May 2020</h2>
                     <p><span className='highlight'>Assisted</span> in <span className='highlight'>analyzing</span> and <span className='highlight'>debugging</span> code with students</p>

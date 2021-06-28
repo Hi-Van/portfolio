@@ -1,10 +1,11 @@
 .App {
   width: 100;
-  min-height: fit-content;
+  height: fit-content;
   overflow: hidden;
   font-family: "Nunito";
   font-weight: 800;
   text-align: center;
+  margin: 0;
 }
 
 h1 {

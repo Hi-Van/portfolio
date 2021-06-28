@@ -1,20 +1,51 @@
 import React from 'react';
 import '../stylesheets/projects.css';
-import { cloudVid } from '../resources/cloudyTut.mp4';
-import { prepVid } from '../resources/preeepare.mp4';
+import cloudVid from '../resources/cloudyTut.mp4';
+import prepVid from '../resources/preeepare.mp4';
+import portVid from '../resources/portShow.mp4';
+import { HiOutlineCode } from 'react-icons/hi';
+import { FiLink } from 'react-icons/fi';
 
 const Projects = () => {
 
     return (
         <div className='Projects'>
-            <h1><span className='highlight'>"What projects</span> have you made<span className='highlight'>?"</span></h1>
+            <h1 style={{ padding: '1.5rem' }}><span className='highlight'>"What projects</span> have you made<span className='highlight'>?"</span></h1>
 
             <div className='proj fr'>
-                <h2 className='proj-name'></h2>
+                <div style={{ background: '#dbd6f5' }} className='video-bg'><video className='proj-video' autoPlay={true} muted loop type="video/mp4" src={portVid} /></div>
+                <div>
+                    <h2 className='proj-name'>Cloudy</h2>
+                    <p className='proj-desc'>A <span className='highlight'>word cloud generator</span> built using <span className='highlight'>Material UI</span>, <span className='highlight'>ReactJS</span>, and <span className='highlight'>am4Charts</span>. This project was hosted on <span className='highlight'>Heroku</span>.</p>
+                    <div>
+                        <a className='proj-link' href='https://cloudy-word-cloud.herokuapp.com/' target='_blank' rel='noreferrer'><FiLink /></a>
+                        <a className='proj-link' href='https://github.com/Hi-Van/Word-Cloud/tree/master/word-cloud' target='_blank' rel='noreferrer'><HiOutlineCode /></a>
+                    </div>
+                </div>
             </div>
 
             <div className='proj rv'>
-                proj div
+                <div style={{ width: 'auto' }}>
+                    <h2 className='proj-name'>Preeepare</h2>
+                    <p className='proj-desc'>A <span className='highlight'>resource center</span> to assist students beginning computer science. This project was made using <span className='highlight'>ReactJS</span>, <span className='highlight'>ChartJS</span>, <span className='highlight'>Google Sheets</span>, and <span className='highlight'>FuseJS</span>. It was hosted through <span className='highlight'>GitHub Pages</span>.</p>
+                    <div>
+                        <a className='proj-link' href='https://hi-van.github.io/preeepare/' target='_blank' rel='noreferrer'><FiLink /></a>
+                        <a className='proj-link' href='https://github.com/Hi-Van/preeepare' target='_blank' rel='noreferrer'><HiOutlineCode /></a>
+                    </div>
+                </div>
+                <div style={{ background: '#ced7e8' }} className='video-bg'><video className='proj-video' autoPlay={true} muted loop type="video/mp4" src={prepVid} /></div>
+            </div>
+
+            <div className='proj fr'>
+                <div style={{ background: '#2f3d94' }} className='video-bg'><video className='proj-video' autoPlay={true} muted loop type="video/mp4" src={cloudVid} /></div>
+                <div>
+                    <h2 className='proj-name'>Cloudy</h2>
+                    <p className='proj-desc'>A <span className='highlight'>word cloud generator</span> built using <span className='highlight'>Material UI</span>, <span className='highlight'>ReactJS</span>, and <span className='highlight'>am4Charts</span>. This project was hosted on <span className='highlight'>Heroku</span>.</p>
+                    <div>
+                        <a className='proj-link' href='https://cloudy-word-cloud.herokuapp.com/' target='_blank' rel='noreferrer'><FiLink /></a>
+                        <a className='proj-link' href='https://github.com/Hi-Van/Word-Cloud/tree/master/word-cloud' target='_blank' rel='noreferrer'><HiOutlineCode /></a>
+                    </div>
+                </div>
             </div>
         </div>
     );
