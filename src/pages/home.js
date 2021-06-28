@@ -21,9 +21,9 @@ const Home = () => {
                         </div>
                     </Fade>
                 </div>
-                <Fade right>
+                
                     <img src={hand} alt='hand' className='hand floating' />
-                </Fade>
+                
             </div>
         </div>
     );

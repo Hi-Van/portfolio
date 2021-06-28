@@ -2,6 +2,7 @@ import React from 'react';
 import Home from './pages/home.js';
 import About from './pages/about.js';
 import Exp from './pages/experience.js';
+import Projects from './pages/projects.js';
 import './App.css';
 
 const App = () => {
@@ -10,6 +11,7 @@ const App = () => {
       <Home />
       <About />
       <Exp />
+      <Projects />
     </div>
   );
 };
