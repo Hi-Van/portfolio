@@ -17,7 +17,7 @@ const Projects = () => {
                 <div className='proj fr'>
                     <div style={{ background: '#dbd6f5' }} className='video-bg'><video className='proj-video' autoPlay={true} muted loop type="video/mp4" src={portVid} /></div>
                     <div>
-                        <h2 className='proj-name'>Portfolio Webiste v7</h2>
+                        <h2 className='proj-name'>Portfolio Website v7</h2>
                         <p className='proj-desc'>The <span className='highlight'>website</span> you're viewing right now! It hosts lots of <span className='highlight'>information about me</span> and is made with <span className='highlight'>ReactJS</span>. I hosted it with <span className='highlight'>GitHub Pages</span>.</p>
                         <div>
                             <a className='proj-link' href='https://github.com/Hi-Van/portfolio' target='_blank' rel='noreferrer'><HiOutlineCode /></a>
