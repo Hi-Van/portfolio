@@ -1,0 +1,27 @@
+{
+  "files": {
+    "main.css": "/portfolio/static/css/main.5e5def03.chunk.css",
+    "main.js": "/portfolio/static/js/main.93e2d27b.chunk.js",
+    "main.js.map": "/portfolio/static/js/main.93e2d27b.chunk.js.map",
+    "runtime-main.js": "/portfolio/static/js/runtime-main.4c1a7de9.js",
+    "runtime-main.js.map": "/portfolio/static/js/runtime-main.4c1a7de9.js.map",
+    "static/js/2.d54897e2.chunk.js": "/portfolio/static/js/2.d54897e2.chunk.js",
+    "static/js/2.d54897e2.chunk.js.map": "/portfolio/static/js/2.d54897e2.chunk.js.map",
+    "static/js/3.2d29a194.chunk.js": "/portfolio/static/js/3.2d29a194.chunk.js",
+    "static/js/3.2d29a194.chunk.js.map": "/portfolio/static/js/3.2d29a194.chunk.js.map",
+    "index.html": "/portfolio/index.html",
+    "static/css/main.5e5def03.chunk.css.map": "/portfolio/static/css/main.5e5def03.chunk.css.map",
+    "static/js/2.d54897e2.chunk.js.LICENSE.txt": "/portfolio/static/js/2.d54897e2.chunk.js.LICENSE.txt",
+    "static/media/Rock_On_R-Angle_A4_0000.e35fb601.png": "/portfolio/static/media/Rock_On_R-Angle_A4_0000.e35fb601.png",
+    "static/media/Vanouphon Sirisouk Resume.ab49a7fa.pdf": "/portfolio/static/media/Vanouphon Sirisouk Resume.ab49a7fa.pdf",
+    "static/media/cloudyTut.1987230e.mp4": "/portfolio/static/media/cloudyTut.1987230e.mp4",
+    "static/media/portShow.c7efe4db.mp4": "/portfolio/static/media/portShow.c7efe4db.mp4",
+    "static/media/preeepare.c32ce379.mp4": "/portfolio/static/media/preeepare.c32ce379.mp4"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.4c1a7de9.js",
+    "static/js/2.d54897e2.chunk.js",
+    "static/css/main.5e5def03.chunk.css",
+    "static/js/main.93e2d27b.chunk.js"
+  ]
+}
