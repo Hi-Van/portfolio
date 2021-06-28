@@ -42,7 +42,7 @@ const Projects = () => {
 
             <Fade>
                 <div className='proj fr'>
-                    <div style={{ background: '#2f3d94' }} className='video-bg'><video className='proj-video' autoPlay={true} muted loop type="video/mp4" src={cloudVid} /></div>
+                    <div style={{ background: '#b6d0f0' }} className='video-bg'><video className='proj-video' autoPlay={true} muted loop type="video/mp4" src={cloudVid} /></div>
                     <div>
                         <h2 className='proj-name'>Cloudy</h2>
                         <p className='proj-desc'>A <span className='highlight'>word cloud generator</span> built using <span className='highlight'>Material UI</span>, <span className='highlight'>ReactJS</span>, and <span className='highlight'>am4Charts</span>. This project was hosted on <span className='highlight'>Heroku</span>.</p>
