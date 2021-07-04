@@ -1,7 +1,7 @@
 import React from 'react';
 import hand from '../resources/Rock_On_R-Angle_A4_0000.png';
 import '../stylesheets/home.css';
-import Resume from '../resources/Censored resume.pdf';
+import Resume from '../resources/Censored Resume.pdf';
 import { Link } from 'react-scroll';
 import {Fade} from 'react-reveal';
 
