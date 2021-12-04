@@ -13,7 +13,7 @@ const Home = () => {
                 <div>
                     <Fade left>
                         <h1 className='land-title'><span className='highlight'>Van</span>ouphon <br /><span className="highlight">S</span>irisouk<span className='highlight'>.</span></h1>
-                        <h2 className='land-subtitle'>Woah! Hey there stranger<span className='wave'>👋</span></h2>
+                        <h2 className='land-subtitle'>Woah! Hey there stranger <span className='wave'><img src="https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/160/microsoft/309/waving-hand_1f44b.png" alt="wave" classname='wave-emoji' style={{height: '1.05rem', verticalAlign: 'middle'}}/></span></h2>
                         <div className='grid'>
                             <Link className='land-link' to='About' smooth={true} duration={500}>About Me</Link>
                             <Link className='land-link' to='Experience' smooth={true} duration={500}>Experience</Link>

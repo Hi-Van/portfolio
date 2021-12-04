@@ -30,6 +30,10 @@
   margin: 0px;
 }
 
+.wave-emoji {
+  height: 1rem;
+}
+
 .highlight {
   color: #685dbb;
 }
