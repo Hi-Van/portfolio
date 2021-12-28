@@ -1,5 +1,5 @@
 .About {
-  background: #fafaff;
+  background: #ffffff;
   width: 100;
   min-height: fit-content;
   padding: 1rem 1rem 8rem 1rem;
@@ -17,7 +17,7 @@
   justify-content: center;
   border: 1px solid #dddddd;
   color: #757384;
-  background: #fafaff;
+  background: #ffffff;
   cursor: pointer;
   font-size: 0.75rem;
   font-weight: 400;
@@ -31,21 +31,21 @@
 
 .linkedin:hover {
   font-weight: 600;
-  color: #fafaff;
+  color: #ffffff;
   background: #0072b1;
   border: 1px solid #0072b1;
 }
 
 .twitter:hover {
   font-weight: 600;
-  color: #fafaff;
+  color: #ffffff;
   background: #1da1f2;
   border: 1px solid #1da1f2;
 }
 
 .github:hover {
   font-weight: 600;
-  color: #fafaff;
+  color: #ffffff;
   background: #171515;
   border: 1px solid #171515;
 }

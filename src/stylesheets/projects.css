@@ -1,5 +1,5 @@
 .Projects {
-  background: #fafaff;
+  background: #ffffff;
   width: 100;
   min-height: fit-content;
   overflow: hidden;
@@ -48,7 +48,7 @@
   font-size: 0.6rem;
   display: inline-flex;
   justify-content: center;
-  color: #fafaff;
+  color: #ffffff;
   background: #685dbb;
   border: 2px solid #685dbb;
   cursor: pointer;
@@ -60,5 +60,5 @@
 
 .proj-link:hover {
   color: #685dbb;
-  background: #fafaff;
+  background: #ffffff;
 }
