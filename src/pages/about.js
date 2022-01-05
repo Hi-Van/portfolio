@@ -12,11 +12,12 @@ const About = () => {
             <h1><span className='highlight'>"Who</span> are you<span className='highlight'>?"</span></h1>
                 <p className='about-txt'>
                     Hi, I'm <span className="highlight">Van</span>.
-                    I'm currently an incoming <span className="highlight">Junior</span> at <a href='https://uconn.edu/' target='_blank' rel='noreferrer'>University of Connecticut</a>.
+                    I'm currently a <span className="highlight">Junior</span> at <a href='https://uconn.edu/' target='_blank' rel='noreferrer'>University of Connecticut</a>.
                     I like to do a couple things, namely,
                     <span className="highlight"> founding</span> a group of collaborative students, known as <span className="highlight">UConn Stamford Engineer Majors</span>,
                     involving myself with others as a <span className="highlight">Developer</span> in <a href='https://summerofshipping.com/' target='_blank' rel='noreferrer'>Summer of Shipping</a>,
                     and working as an <span className="highlight">Intern</span> at <a href='https://edgewell.com/' target='_blank' rel='noreferrer'>Edgewell Personal Care</a>.
+                    I'll also be joining <span className='highlight'><a href='https://www.facebookcareers.com/' target='_blank' rel='noreferrer'>Meta (Prev. Facebook)</a></span> as a <span className='highlight'>Software Engineer Intern</span> in this coming summer.
                     When I'm not busy you can find me networking on <a href='https://www.linkedin.com/in/van-s/' target='_blank' rel='noreferrer'>LinkedIn</a>,
                     scrolling down <a href='https://twitter.com/Hi_Im_Van' target='_blank' rel='noreferrer'>Twitter</a>,
                     or reading documentation on <a href='https://github.com/Hi-Van' target='_blank' rel='noreferrer'>GitHub</a>.
