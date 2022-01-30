@@ -1,4 +1,7 @@
 import logo from './media/landing-logo.svg';
+import selfie from './media/Selfie.png';
+import who from './media/WhoAre.png';
+import exp from './media/WhatExp.png';
 import { BsFillArrowDownRightCircleFill, BsTwitter, BsGithub } from 'react-icons/bs';
 import { FaLinkedinIn } from 'react-icons/fa';
 import './App.css';
@@ -9,17 +12,17 @@ function App() {
 
       <div className='content'>
 
-        <div className='page'>
+        <div className='page home'>
 
           <img className='logo' src={logo} alt="logo" />
 
           <div className='flex specialLeft'>
-            <a className="btn yellow pill" href="https://google.com">Learn More<BsFillArrowDownRightCircleFill /></a>
+            <a className="btn yellow pill" href="#target">Learn More &nbsp; <BsFillArrowDownRightCircleFill /></a>
 
             <div className='flex'>
-              <a className="btn social rounded" href="https://google.com"><FaLinkedinIn /></a>
-              <a className="btn social rounded" href="https://google.com"><BsTwitter /></a>
-              <a className="btn social rounded" href="https://google.com"><BsGithub /></a>
+              <a className="btn social rounded" href="https://www.linkedin.com/in/van-s/" target="_blank" rel="noreferrer"><FaLinkedinIn /></a>
+              <a className="btn social rounded" href="https://twitter.com/Hi_Im_Van" target="_blank" rel="noreferrer"><BsTwitter /></a>
+              <a className="btn social rounded" href="https://github.com/Hi-Van" target="_blank" rel="noreferrer"><BsGithub /></a>
             </div>
 
           </div>
@@ -27,9 +30,29 @@ function App() {
         </div>
 
         <div className='page'>
-          <div className='flex'>
+
+          <div className='flex spacer' id="target">
+
+            <div>
+              <img className='who' src={who} alt='who' />
+              <p>
+                Hi, I'm Van. I'm currently a Junior at University of Connecticut. I'll be joining Meta (Prev. Facebook) as a Software Engineer Intern in this coming summer. I also like to do a couple things, namely, founding a group of collaborative students, known as UConn Stamford Engineer Majors, involving myself with others as a Developer in Summer of Shipping, and working as an Intern at Edgewell Personal Care. When I'm not busy you can find me networking on LinkedIn, scrolling down Twitter, or reading documents on GitHub.
+              </p>
+              <div className='flex specialLeft'>
+                <a className="btn social rounded" href="https://www.linkedin.com/in/van-s/" target="_blank" rel="noreferrer"><FaLinkedinIn /></a>
+                <a className="btn social rounded" href="https://twitter.com/Hi_Im_Van" target="_blank" rel="noreferrer"><BsTwitter /></a>
+                <a className="btn social rounded" href="https://github.com/Hi-Van" target="_blank" rel="noreferrer"><BsGithub /></a>
+              </div>
+            </div>
+
+            <img className='selfie' src={selfie} alt="selfie" />
 
           </div>
+
+        </div>
+
+        <div className='page'>
+          <img src={exp} alt='exp-title' />
         </div>
 
 

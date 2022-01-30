@@ -17,12 +17,17 @@ html {
   overflow: hidden;
   font-family: "Poppins";
   background-image: url("./media/color\ splotches.svg");
-  background-size: 100%;
+  background-size: 2000px;
   background-repeat: repeat-y;
 }
 
 .page {
   min-height: 120vh;
+  margin: 2rem;
+}
+
+.about {
+  margin-top: 60vh;
 }
 
 .content {
@@ -36,19 +41,23 @@ html {
 
 .logo {
   margin-top: 10rem;
-  max-width: 960px;
-  width: 90%;
 }
 
 .flex {
   display: flex;
   align-items: center;
+  justify-content: center;
+  flex-wrap: wrap-reverse;
 }
 
 .specialLeft {
   margin-top: 1.5rem;
   justify-content: flex-start;
   align-items: center;
+}
+
+.spacer {
+  gap: 6rem;
 }
 
 .btn {
@@ -89,4 +98,16 @@ html {
 
 .rounded {
   border-radius: 0.75rem;
+}
+
+p {
+  font-size: 1rem;
+  color: var(--grey);
+  max-width: 600px;
+  text-align: left;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
 }
