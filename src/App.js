@@ -2,6 +2,7 @@ import logo from './media/landing-logo.svg';
 import selfie from './media/Selfie.png';
 import who from './media/WhoAre.png';
 import exp from './media/WhatExp.png';
+import arrow from './media/arrows.png';
 import { BsFillArrowDownRightCircleFill, BsTwitter, BsGithub } from 'react-icons/bs';
 import { FaLinkedinIn } from 'react-icons/fa';
 import './App.css';
@@ -34,7 +35,7 @@ function App() {
           <div className='flex spacer' id="target">
 
             <div>
-              <img className='who' src={who} alt='who' />
+              <img src={who} alt='who' />
               <p>
                 Hi, I'm Van. I'm currently a Junior at University of Connecticut. I'll be joining Meta (Prev. Facebook) as a Software Engineer Intern in this coming summer. I also like to do a couple things, namely, founding a group of collaborative students, known as UConn Stamford Engineer Majors, involving myself with others as a Developer in Summer of Shipping, and working as an Intern at Edgewell Personal Care. When I'm not busy you can find me networking on LinkedIn, scrolling down Twitter, or reading documents on GitHub.
               </p>
@@ -53,6 +54,12 @@ function App() {
 
         <div className='page'>
           <img src={exp} alt='exp-title' />
+
+          <img className='arrow' src={arrow} alt='arrow'></img>
+
+          <img className='arrow flip' src={arrow} alt='arrow'></img>
+
+          <img className='arrow' src={arrow} alt='arrow'></img>
         </div>
 
 

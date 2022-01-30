@@ -4,10 +4,7 @@
   --grey: #757384;
   --light-grey: #eeeeee;
   --dark-grey: #293241;
-}
-
-html {
-  font-size: 20px;
+  --clear: rgba(0, 0, 0, 0);
 }
 
 .App {
@@ -17,12 +14,13 @@ html {
   overflow: hidden;
   font-family: "Poppins";
   background-image: url("./media/color\ splotches.svg");
-  background-size: 2000px;
+  background-size: 100rem;
   background-repeat: repeat-y;
+  background-position: center;
 }
 
 .page {
-  min-height: 120vh;
+  min-height: 60rem;
   margin: 2rem;
 }
 
@@ -56,10 +54,6 @@ html {
   align-items: center;
 }
 
-.spacer {
-  gap: 6rem;
-}
-
 .btn {
   text-decoration: none;
   font-size: 1rem;
@@ -89,7 +83,6 @@ html {
   background-color: var(--yellow);
   padding: 0.75rem 1.5rem 0.75rem 1.5rem;
   box-shadow: 5px 10px 30px rgba(255, 217, 65, 0.5);
-
 }
 
 .pill {
@@ -98,6 +91,15 @@ html {
 
 .rounded {
   border-radius: 0.75rem;
+}
+
+.flip {
+  transform: scaleX(-1);
+}
+
+.arrow {
+  display: block;
+  margin: auto;
 }
 
 p {
@@ -110,4 +112,55 @@ p {
 img {
   max-width: 100%;
   height: auto;
+}
+
+/* // Small devices (landscape phones, 576px and up) */
+@media (min-width: 576px) {
+  html {
+    font-size: 14px;
+  }
+}
+
+/* // Medium devices (tablets, 768px and up) */
+@media (min-width: 768px) {
+  html {
+    font-size: 16px;
+  }
+
+  .spacer {
+    gap: 0rem;
+  }
+}
+
+/* // Large devices (desktops, 992px and up) */
+@media (min-width: 992px) {
+  html {
+    font-size: 18px;
+  }
+
+  .spacer {
+    gap: 2rem;
+  }
+}
+
+/* // X-Large devices (large desktops, 1200px and up) */
+@media (min-width: 1200px) {
+  html {
+    font-size: 20px;
+  }
+
+  .spacer {
+    gap: 4rem;
+  }
+}
+
+/* // XX-Large devices (larger desktops, 1400px and up) */
+@media (min-width: 1400px) {
+  html {
+    font-size: 22px;
+  }
+
+  .spacer {
+    gap: 6rem;
+  }
 }
