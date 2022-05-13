@@ -16,15 +16,13 @@ const NavBar = (props) => {
         setMenuActive(!menuActive)
     }
 
-    window.screen.orientation.onchange = () => {
-        const landscape = window.screen.orientation.type === "landscape-primary" || window.screen.orientation.type === "landscape-primary"
+    window.addEventListener("orientationchange", () => {
         const large = window.screen.width >= 1120
 
-        if (landscape && large && menuActive) {
+        if (large && menuActive) {
             toggleMenu()
         }
-
-    }
+    });
 
     return (
         <div>
@@ -50,7 +48,7 @@ const NavBar = (props) => {
                     duration={500}
                 >projects</Link></li>
 
-                <li><a href="#about" target="_blank" rel="noopener noreferrer" className="resume">resume</a></li>
+                <li><a href={ResumePDF} target="_blank" rel="noopener noreferrer" className="resume">resume</a></li>
                 <li><Toggle toggleFunction={props.onToggleDrill} darkState={props.darkmode} /></li>
             </ul>
 
