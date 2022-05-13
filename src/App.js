@@ -4,6 +4,7 @@ import Hand from './landing_img.png';
 import Pmock from './preeepare_mock.png'
 import Cmock from './cloudy_mock.png'
 import Avatar from "./Avatar.png"
+import { AiFillGithub, AiOutlineTwitter, AiFillLinkedin } from "react-icons/ai"
 import "./App.css"
 import "./themes.css"
 
@@ -56,6 +57,24 @@ const App = () => {
             When I'm not busy you can find me networking on LinkedIn, scrolling down Twitter, or reading documentation on GitHub.
           </p>
 
+          <div style={{
+            display: "flex", flexWrap: "nowrap"
+          }}>
+
+            <a style={{ color: "#ffffff", backgroundColor: "#0072B1", margin: '0rem 0.5rem 0rem 0rem' }} className='social-btn' href='https://www.linkedin.com/in/van-s/' target="_blank" rel="noopener noreferrer">
+              <AiFillLinkedin />
+            </a>
+
+            <a style={{ color: "#ffffff", backgroundColor: "#1DA1F2", margin: '0rem 0.5rem 0rem 0.5rem' }} className='social-btn' href='https://twitter.com/Hi_Im_Van' target="_blank" rel="noopener noreferrer">
+              <AiOutlineTwitter />
+            </a>
+
+            <a style={{ color: "#ffffff", backgroundColor: "#171515", margin: '0rem 0.5rem 0rem 0.5rem' }} className='social-btn' href='https://github.com/Hi-Van' target="_blank" rel="noopener noreferrer">
+              <AiFillGithub />
+            </a>
+
+          </div>
+
         </div>
 
         <img src={Avatar} alt="avatar" style={{ margin: "4rem" }} />
@@ -100,16 +119,16 @@ const App = () => {
         <div className='project' style={{ flexWrap: 'wrap-reverse' }}>
           <div>
             <h5 style={{ marginBottom: "0" }}><a href='https://hi-van.github.io/preeepare/' target="_blank" rel="noopener noreferrer">Preeepare</a></h5>
-            <p style={{width: '80vw', maxWidth: '600px' }}>A resource center to assist students beginning computer science. This project was made using ReactJS, ChartJS, Google Sheets, and FuseJS. It was hosted through GitHub Pages.</p>
+            <p style={{ width: '80vw', maxWidth: '600px' }}>A resource center to assist students beginning computer science. This project was made using ReactJS, ChartJS, Google Sheets, and FuseJS. It was hosted through GitHub Pages.</p>
           </div>
-          <img src={Pmock} className="floating" alt="prepare mock iphone" style={{ margin: '0rem 2rem 0rem 2rem', width: '300px'}} />
+          <img src={Pmock} className="floating" alt="prepare mock iphone" style={{ margin: '0rem 2rem 0rem 2rem', width: '300px' }} />
         </div>
 
         <div className='project' style={{ flexWrap: 'wrap' }}>
-        <img src={Cmock} className="floating" alt="prepare mock iphone" style={{ margin: '0rem 2rem 0rem 2rem', width: '300px'}} />
+          <img src={Cmock} className="floating" alt="prepare mock iphone" style={{ margin: '0rem 2rem 0rem 2rem', width: '300px' }} />
           <div>
             <h5 style={{ marginBottom: "0" }}><a href='https://hi-van.github.io/preeepare/' target="_blank" rel="noopener noreferrer">Preeepare</a></h5>
-            <p style={{width: '80vw', maxWidth: '600px' }}>A resource center to assist students beginning computer science. This project was made using ReactJS, ChartJS, Google Sheets, and FuseJS. It was hosted through GitHub Pages.</p>
+            <p style={{ width: '80vw', maxWidth: '600px' }}>A resource center to assist students beginning computer science. This project was made using ReactJS, ChartJS, Google Sheets, and FuseJS. It was hosted through GitHub Pages.</p>
           </div>
         </div>
 
