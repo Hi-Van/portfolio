@@ -40,6 +40,12 @@ h4 {
   font-weight: 600;
 }
 
+h5 {
+  color: var(--highlight);
+  font-weight: 500;
+  font-size: 1.3rem;
+}
+
 p {
   color: var(--text-main);
   text-align: justify;
@@ -55,6 +61,13 @@ a:hover {
 
 .highlight {
   color: var(--highlight);
+}
+
+.job-desc {
+  list-style-type: disc;
+  color: var(--text-main);
+  font-weight: 300;
+  font-size: 0.9rem;;
 }
 
 
@@ -107,6 +120,25 @@ a:hover {
 
 
 
+.exp-page {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  min-width: 100%;
+}
+
+.job {
+  margin: 3rem 0rem 3rem 0rem;
+  width: 80vw;
+  max-width: 1000px;
+}
+
+.job-desc {
+  display: block;
+}
+
+
 /* Small devices (landscape phones, 576px and up) */
 @media only screen and (max-width: 576px) {
   html {
@@ -138,11 +170,16 @@ a:hover {
   .landing-page {
     justify-content: flex-end;
   }
+
 }
 
 /* X-Large devices (large desktops, 1200px and up) */
 @media only screen and (min-width: 1200px) {
   html {
     font-size: x-large;
+  }
+
+  .location {
+    margin-top: 0rem;
   }
 }

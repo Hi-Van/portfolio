@@ -58,6 +58,37 @@ const App = () => {
 
         <img src={Avatar} alt="avatar" style={{margin:"4rem"}}/>
       </div>
+
+      <div style={{height: "30rem"}}/>
+
+      <div className='exp-page' id='exp'>
+        <h2 style={{margin: "3rem"}}><span className='highlight'>What experience</span> do you have<span className='highlight'>?</span></h2>
+        
+        <div className='job'>
+          <div style={{ width: "80vw", maxWidth: "1000px", display: 'flex', justifyContent: "space-between", alignItems: "center", flexWrap: "wrap"}}>
+            <h5 style={{margin: '0'}}>Software Engineer Intern</h5>
+            <p style={{fontWeight: '300', margin: '0'}}>6/16/2022 - 8/05/2022</p>
+          </div>
+          <p style={{ fontWeight: '300' }} className='location'>Facebook / US - New York, NY</p>
+          <ul className='job-desc'>
+            <li> Incoming Software Engineer Intern for the Responsible AI Team</li>
+          </ul>
+        </div>
+
+        <div className='job'>
+          <div style={{ width: "80vw", maxWidth: "1000px", display: 'flex', justifyContent: "space-between", alignItems: "center", flexWrap: "wrap"}}>
+            <h5 style={{margin: '0'}}>QA & Systems Engineer Intern</h5>
+            <p style={{fontWeight: '300', margin: '0'}}>5/20/2021 - 7/17/2021</p>
+          </div>
+          <p style={{ fontWeight: '300' }} className='location'>Edgewell Personal Care / US - Milford, CT</p>
+          <ul className='job-desc'>
+            <li> Wrote documentation for database maintenance and query modification</li>
+            <li> Developed internal tools for editing database information using HTML, CSS, JavaScript, and Python</li>
+            <li> Proposed and Implemented new repository procedures and development workflow</li>
+          </ul>
+        </div>
+
+      </div>
     </div>
   );
 };
