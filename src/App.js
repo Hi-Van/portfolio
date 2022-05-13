@@ -127,8 +127,8 @@ const App = () => {
         <div className='project' style={{ flexWrap: 'wrap' }}>
           <img src={Cmock} className="floating" alt="prepare mock iphone" style={{ margin: '0rem 2rem 0rem 2rem', width: '300px' }} />
           <div>
-            <h5 style={{ marginBottom: "0" }}><a href='https://hi-van.github.io/preeepare/' target="_blank" rel="noopener noreferrer">Preeepare</a></h5>
-            <p style={{ width: '80vw', maxWidth: '600px' }}>A resource center to assist students beginning computer science. This project was made using ReactJS, ChartJS, Google Sheets, and FuseJS. It was hosted through GitHub Pages.</p>
+            <h5 style={{ marginBottom: "0" }}><a href='https://hi-van.github.io/preeepare/' target="_blank" rel="noopener noreferrer">Cloudy</a></h5>
+            <p style={{ width: '80vw', maxWidth: '600px' }}>Sometimes, I like to make random things, this is one of them. Cloudy, a word cloud generator, built with ReactJS, hosted by Heroku.</p>
           </div>
         </div>
 
