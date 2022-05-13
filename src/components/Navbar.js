@@ -32,21 +32,24 @@ const NavBar = (props) => {
                 <li><Link
                     to="about"
                     smooth={true}
+                    offset={-150}
                     duration={500}
                 >about</Link></li>
 
                 <li><Link
                     to="exp"
                     smooth={true}
+                    offset={-150}
                     duration={500}
                 >experience</Link></li>
 
                 <li><Link
                     to="projects"
                     smooth={true}
+                    offset={-150}
                     duration={500}
                 >projects</Link></li>
-                
+
                 <li><a href="#about" target="_blank" rel="noopener noreferrer" className="resume">resume</a></li>
                 <li><Toggle toggleFunction={props.onToggleDrill} darkState={props.darkmode} /></li>
             </ul>
@@ -66,18 +69,21 @@ const NavBar = (props) => {
                     <li><Link
                         to="about"
                         smooth={true}
+                        offset={-150}
                         duration={500}
                     >about</Link></li>
 
                     <li><Link
                         to="exp"
                         smooth={true}
+                        offset={-150}
                         duration={500}
                     >experience</Link></li>
 
                     <li><Link
                         to="projects"
                         smooth={true}
+                        offset={-150}
                         duration={500}
                     >projects</Link></li>
 
