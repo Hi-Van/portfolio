@@ -1,0 +1,148 @@
+.App {
+  font-family: 'Poppins', sans-serif;
+  min-width: 100%;
+  min-height: 120vh;
+  overflow: hidden;
+  background-color: var(--background);
+  transition: all 0.5s ease;
+  padding-top: 3rem;
+  margin: 0;
+}
+
+.floating { 
+  animation-name: floating;
+  animation-duration: 2.5s;
+  animation-iteration-count: infinite;
+  animation-timing-function: ease-in-out;
+}
+
+@keyframes floating {
+  0% { transform: translate(0,  0px) rotate(0.5deg); }
+  50%  { transform: translate(0, 8px) rotate(0deg); }
+  100%   { transform: translate(0, 0px) rotate(0.5deg); }   
+}
+
+h1 {
+  color: var(--text-main);
+  font-size: 2.5rem;
+  margin-bottom: -0.5rem;
+}
+
+h2 {
+  color: var(--text-main);
+  font-size: 2rem;
+}
+
+h4 {
+  color: var(--text-main);
+  font-family: 'Karla';
+  font-size: 1.15rem;
+  font-weight: 600;
+}
+
+p {
+  color: var(--text-main);
+  text-align: justify;
+}
+
+a {
+  transition: all 0.25s ease;
+}
+
+a:hover {
+  color:var(--highlight);
+}
+
+.highlight {
+  color: var(--highlight);
+}
+
+
+
+
+.code {
+  font-family: 'Roboto Mono';
+  background-color: var(--code);
+  padding: 0.05rem 0.1rem 0.05rem 0.1rem;
+  border-radius: 0.3rem;
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.25);
+}
+
+.landing-page {
+  display: flex;
+  flex-wrap: wrap-reverse;
+  justify-content: space-between;
+  min-width: 100%;
+  margin: 4rem 0 0 0;
+}
+
+.landing-img {
+  width: 30rem;
+  min-width: 360px;
+  max-width: 45vw;
+}
+.landing-text-container {
+  flex-grow: 1;
+}
+
+.center {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  flex-direction: column;
+  margin-top: 4rem;
+}
+
+
+
+
+.about-page {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap-reverse;
+  min-width: 100%;
+}
+
+
+
+
+/* Small devices (landscape phones, 576px and up) */
+@media only screen and (max-width: 576px) {
+  html {
+    font-size: small;
+  }
+
+  .landing-page {
+    justify-content: flex-end;
+  }
+}
+
+/* Medium devices (tablets, 768px and up) */
+@media only screen and (min-width: 768px) {
+  html {
+    font-size: medium;
+  }
+
+  .landing-page {
+    justify-content: flex-end;
+  }
+}
+
+/* Large devices (desktops, 992px and up) */
+@media only screen and (min-width: 992px) {
+  html {
+    font-size: large;
+  }
+
+  .landing-page {
+    justify-content: flex-end;
+  }
+}
+
+/* X-Large devices (large desktops, 1200px and up) */
+@media only screen and (min-width: 1200px) {
+  html {
+    font-size: x-large;
+  }
+}
