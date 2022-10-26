@@ -61,13 +61,10 @@ const App = () => {
           </h2>
 
           <p style={{ width: "30rem", maxWidth: "80vw" }}>
-            Hi, I'm Van. I'm currently a Junior at University of Connecticut. I
-            like to do a couple things, namely, founding a group of
-            collaborative students, known as UConn Stamford Engineer Majors,
-            involving myself with others as a Developer in Summer of Shipping,
-            and working as an Intern at Edgewell Personal Care. I'll also be
-            joining Meta (Pka. Facebook) as a Software Engineer Intern in this
-            coming summer. When I'm not busy you can find me networking on
+            Hi, <span className="highlight">I'm Van</span>. I'm currently a <span className="highlight">graduating Senior at University of Connecticut</span>. I
+            like to do a couple things, namely, support students in technical skills at the <span className="highlight">Google Student Developer Club</span> at UConn Stamford,
+            involving myself with others as a <span className="highlight">Frontend Developer at Summer of Shipping</span>,
+            and working as a <span className="highlight">QA & Systems Intern at Edgewell Personal Care</span>, or roaming the streets of New York as a <span className="highlight">Software Engineer Intern at Meta</span>. When I'm not busy you can find me networking on
             LinkedIn, scrolling down Twitter, or reading documentation on
             GitHub.
           </p>
@@ -173,7 +170,7 @@ const App = () => {
               flexWrap: "wrap",
             }}
           >
-            <h5 style={{ margin: "0" }}>Facebook</h5>
+            <h5 style={{ margin: "0" }}>Meta</h5>
             <p style={{ fontWeight: "300", margin: "0" }}>
               6/16/2022 - 8/05/2022
             </p>
