@@ -4,6 +4,7 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
+    "clean": "rm -rf node_modules package-lock.json && npm i",
     "dev": "vite",
     "build": "tsc && vite build",
     "lint": "eslint src --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
@@ -14,8 +15,10 @@
     "@emotion/react": "^11.11.0",
     "@emotion/styled": "^11.11.0",
     "framer-motion": "^10.12.16",
+    "lucide-react": "^0.233.0",
     "react": "^18.2.0",
-    "react-dom": "^18.2.0"
+    "react-dom": "^18.2.0",
+    "react-icons": "^4.9.0"
   },
   "devDependencies": {
     "@types/react": "^18.0.37",
