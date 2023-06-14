@@ -13,9 +13,11 @@ import {
   MenuList,
   MenuItem,
   useToast,
+  Link,
 } from "@chakra-ui/react";
 import { ChevronDown, Linkedin, Mail } from "lucide-react";
 import navlogo from "../assets/nav-name.svg";
+import resume from "../assets/Vanouphon_Sirisouk_Resume.pdf";
 
 export const NavigationMenu = () => {
   const toast = useToast();
@@ -37,10 +39,11 @@ export const NavigationMenu = () => {
     try {
       await navigator.clipboard.writeText(text);
       toast({
-        description: "Copied to Clipboard!",
+        title: "Success",
+        description: `Copied ${text.includes("@") ? "email address" : "social link"} to clipboard!`,
         variant: "subtle",
         status: "success",
-        position: "top",
+        position: "bottom",
         duration: 1000,
         isClosable: true,
       });
@@ -50,7 +53,7 @@ export const NavigationMenu = () => {
         description: "Error in copying to clipboard! Please try again!",
         variant: "subtle",
         status: "error",
-        position: "top",
+        position: "bottom",
         duration: 1000,
         isClosable: true,
       });
@@ -58,21 +61,28 @@ export const NavigationMenu = () => {
   };
 
   return (
-    <Box h={"fit-content"}>
+    <Box h={"fit-content"} w={"100%"} position={"fixed"} top={0} bgColor="white">
       <Flex alignItems={"center"} p={2}>
         <Image src={navlogo} alt="vanouphon sirisouk" />
         <Spacer />
-        <Breadcrumb spacing={4} separator="" px={8}>
+        <Breadcrumb spacing={4} separator="" mx={16}>
           {sections.map((section) => {
             return (
-              <BreadcrumbItem>
-                <BreadcrumbLink color="#5F5A86" fontSize={"lg"} >
+              <BreadcrumbItem key={crypto.randomUUID()}>
+                <BreadcrumbLink
+                  color="#5F5A86"
+                  fontSize={"md"}
+                  textDecoration={"none"}
+                >
                   {section}
                 </BreadcrumbLink>
               </BreadcrumbItem>
             );
           })}
         </Breadcrumb>
+        <Link href={resume} isExternal mx={4} fontWeight={"medium"} >
+          Resume
+        </Link>
         <Menu>
           <MenuButton
             as={Button}
@@ -92,8 +102,11 @@ export const NavigationMenu = () => {
               return (
                 <MenuItem
                   fontSize="sm"
+                  fontWeight={"medium"}
                   icon={obj.icon}
                   onClick={() => copyToClipboard(obj.address)}
+                  color="gray.600"
+                  key={crypto.randomUUID()}
                 >
                   {obj.name}
                 </MenuItem>
