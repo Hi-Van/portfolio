@@ -6,10 +6,19 @@ import {
   Icon,
   VStack,
   useMediaQuery,
+  Text,
+  StackDivider,
+  Stack,
+  Box,
+  Image,
 } from "@chakra-ui/react";
 import { MapPin } from "lucide-react";
 import { FaArrowRight } from "react-icons/fa";
 import { Link } from "react-router-dom";
+
+import briefcase from "../assets/travel-dynamic-color.png";
+import art from "../assets/paint-kit-dynamic-color.png";
+import calc from "../assets/calculator-dynamic-color.png";
 
 export const Landing = () => {
   const [isLargerThan800] = useMediaQuery("(min-width: 800px)");
@@ -44,7 +53,7 @@ export const Landing = () => {
         for other humans
         <span style={{ color: "#6552F5" }}>.</span>
       </Heading>
-      <Center my={6} color="#5F5A86">
+      <Center my={4} color="#5F5A86">
         <Icon as={MapPin} mx={2} />
         <Heading size={isLargerThan800 ? "md" : "xs"} fontWeight={"normal"}>
           Bentonville, AR
@@ -62,7 +71,7 @@ export const Landing = () => {
       </Heading>
 
       <Button
-        bgColor={"black"}
+        bgColor={"gray.900"}
         color={"white"}
         _hover={{ transform: "translateY(-2px)" }}
         _active={{}}
@@ -71,9 +80,46 @@ export const Landing = () => {
         boxShadow={"md"}
         as={Link}
         to={"/about"}
+        mt={20}
       >
         Let's Go
       </Button>
+
+      {isLargerThan800 ? <Stack my={12} direction={"row"} spacing={20} divider={<StackDivider />}>
+        <Box
+          display="flex"
+          flexDirection="column"
+          width={"fit-content"}
+          maxWidth={"240px"}
+        >
+          <Text color={"gray.400"}>
+            Software Engineer, I focus on improving data accessibility,
+            transparency, and consumption for users.
+          </Text>
+        </Box>
+        <Box
+          display="flex"
+          flexDirection="column"
+          width={"1fr"}
+          maxWidth={"240px"}
+        >
+          <Text color={"gray.400"}>
+            Web design enthusiast, I enjoy creating beautiful and functional
+            spaces.
+          </Text>
+        </Box>
+        <Box
+          display="flex"
+          flexDirection="column"
+          width={"1fr"}
+          maxWidth={"240px"}
+        >
+          <Text color={"gray.400"}>
+            Part-time nerd, currently diving into live-collaboration and
+            multiplayer technology.
+          </Text>
+        </Box>
+      </Stack> : null}
     </VStack>
   );
 };
