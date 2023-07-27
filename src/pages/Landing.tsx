@@ -10,15 +10,10 @@ import {
   StackDivider,
   Stack,
   Box,
-  Image,
 } from "@chakra-ui/react";
 import { MapPin } from "lucide-react";
 import { FaArrowRight } from "react-icons/fa";
 import { Link } from "react-router-dom";
-
-import briefcase from "../assets/travel-dynamic-color.png";
-import art from "../assets/paint-kit-dynamic-color.png";
-import calc from "../assets/calculator-dynamic-color.png";
 
 export const Landing = () => {
   const [isLargerThan800] = useMediaQuery("(min-width: 800px)");
@@ -85,7 +80,7 @@ export const Landing = () => {
         Let's Go
       </Button>
 
-      {isLargerThan800 ? <Stack my={12} direction={"row"} spacing={20} divider={<StackDivider />}>
+      {isLargerThan800 ? <Stack my={8} direction={"row"} spacing={20} divider={<StackDivider />}>
         <Box
           display="flex"
           flexDirection="column"

@@ -35,7 +35,7 @@ export const NavigationMenu = () => {
   const toast = useToast();
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [isLargerThan800] = useMediaQuery("(min-width: 800px)");
-  const sections = ["About", "Experience", "Projects"];
+  const sections = ["About", "Experience"];
   const contacts = [
     {
       name: "Email",
