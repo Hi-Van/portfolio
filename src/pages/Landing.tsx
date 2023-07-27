@@ -1,4 +1,5 @@
 import {
+  Button,
   Center,
   Code,
   Heading,
@@ -7,6 +8,8 @@ import {
   useMediaQuery,
 } from "@chakra-ui/react";
 import { MapPin } from "lucide-react";
+import { FaArrowRight } from "react-icons/fa";
+import { Link } from "react-router-dom";
 
 export const Landing = () => {
   const [isLargerThan800] = useMediaQuery("(min-width: 800px)");
@@ -57,6 +60,20 @@ export const Landing = () => {
         Incoming Software Engineer at Walmart Global Tech, connecting people to
         products🌐
       </Heading>
+
+      <Button
+        bgColor={"black"}
+        color={"white"}
+        _hover={{ transform: "translateY(-2px)" }}
+        _active={{}}
+        rightIcon={<Icon as={FaArrowRight} />}
+        size={isLargerThan800 ? "lg" : "md"}
+        boxShadow={"md"}
+        as={Link}
+        to={"/about"}
+      >
+        Let's Go
+      </Button>
     </VStack>
   );
 };

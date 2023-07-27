@@ -15,7 +15,7 @@ import {
   useToast,
   Link,
 } from "@chakra-ui/react";
-import { Link as RouterLink } from "react-router-dom";
+import { Link as RouterLink, useLocation } from "react-router-dom";
 import { ChevronDown, Linkedin, Mail } from "lucide-react";
 import navlogo from "../assets/nav-name.svg";
 import resume from "../assets/Vanouphon_Sirisouk_Resume.pdf";
@@ -63,6 +63,8 @@ export const NavigationMenu = () => {
     }
   };
 
+  const pathname = useLocation().pathname;
+
   return (
     <Box
       h={"fit-content"}
@@ -79,10 +81,12 @@ export const NavigationMenu = () => {
         <Breadcrumb spacing={4} separator="" mx={16}>
           {sections.map((section) => {
             return (
-              <BreadcrumbItem key={crypto.randomUUID()}>
+              <BreadcrumbItem key={crypto.randomUUID()} isCurrentPage={pathname === `/${section.toLowerCase()}`}>
                 <BreadcrumbLink
                   as={RouterLink}
-                  color="#5F5A86"
+                  color={pathname === `/${section.toLowerCase()}`
+                  ? "#6552F5"
+                  : "#5F5A86" }
                   fontSize={"md"}
                   textDecoration={"none"}
                   to={section.toLowerCase()}
