@@ -15,6 +15,7 @@ import {
   useToast,
   Link,
 } from "@chakra-ui/react";
+import { Link as RouterLink } from "react-router-dom";
 import { ChevronDown, Linkedin, Mail } from "lucide-react";
 import navlogo from "../assets/nav-name.svg";
 import resume from "../assets/Vanouphon_Sirisouk_Resume.pdf";
@@ -40,7 +41,9 @@ export const NavigationMenu = () => {
       await navigator.clipboard.writeText(text);
       toast({
         title: "Success",
-        description: `Copied ${text.includes("@") ? "email address" : "social link"} to clipboard!`,
+        description: `Copied ${
+          text.includes("@") ? "email address" : "social link"
+        } to clipboard!`,
         variant: "subtle",
         status: "success",
         position: "bottom",
@@ -61,18 +64,28 @@ export const NavigationMenu = () => {
   };
 
   return (
-    <Box h={"fit-content"} w={"100%"} position={"fixed"} top={0} bgColor="white">
+    <Box
+      h={"fit-content"}
+      w={"100%"}
+      position={"fixed"}
+      top={0}
+      bgColor="white"
+    >
       <Flex alignItems={"center"} p={2}>
-        <Image src={navlogo} alt="vanouphon sirisouk" />
+        <RouterLink to={"/"}>
+          <Image src={navlogo} alt="vanouphon sirisouk" />
+        </RouterLink>
         <Spacer />
         <Breadcrumb spacing={4} separator="" mx={16}>
           {sections.map((section) => {
             return (
               <BreadcrumbItem key={crypto.randomUUID()}>
                 <BreadcrumbLink
+                  as={RouterLink}
                   color="#5F5A86"
                   fontSize={"md"}
                   textDecoration={"none"}
+                  to={section.toLowerCase()}
                 >
                   {section}
                 </BreadcrumbLink>
@@ -80,7 +93,7 @@ export const NavigationMenu = () => {
             );
           })}
         </Breadcrumb>
-        <Link href={resume} isExternal mx={4} fontWeight={"medium"} >
+        <Link href={resume} isExternal mx={4} fontWeight={"medium"}>
           Resume
         </Link>
         <Menu>
