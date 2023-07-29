@@ -19,7 +19,7 @@ export const About = () => {
 
   return (
     <Box minH="fit-content" my={isLargerThan800 ? 16 : 12}>
-      <Image src={headline}  />
+      <Image src={headline} borderRadius={4} />
       <Text mt={2} color="gray.500" fontSize={isLargerThan800 ? "md" : "sm"}>
         A photo of NYC. I used to live here during my internship and it was
         amazing. I'm hoping to move back as fast as possible.

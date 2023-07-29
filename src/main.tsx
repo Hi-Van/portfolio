@@ -6,6 +6,7 @@ import App from "./App.tsx";
 import { About } from "./pages/About.tsx";
 import { Landing } from "./pages/Landing.tsx";
 import { Experience } from "./pages/Experience.tsx";
+import { Projects } from "./pages/Projects.tsx";
 
 const override = extendTheme({
   fonts: {
@@ -40,6 +41,10 @@ const router = createBrowserRouter([
         path: "/experience",
         element: <Experience />,
       },
+      {
+        path: "/projects",
+        element: <Projects />,
+      }
     ]
   },
 ]);

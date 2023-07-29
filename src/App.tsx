@@ -5,9 +5,9 @@ import { Outlet } from "react-router-dom";
 function App() {
 
   return (
-    <Box minHeight="100vh">
+    <Box>
       <NavigationMenu />
-      <Center>
+      <Center >
         <Box minH={"fit-content"} maxWidth={"1000px"} m={4}>
           <VStack mt={12}>
             <Outlet />

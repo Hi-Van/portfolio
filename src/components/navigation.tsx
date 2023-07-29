@@ -35,7 +35,7 @@ export const NavigationMenu = () => {
   const toast = useToast();
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [isLargerThan800] = useMediaQuery("(min-width: 800px)");
-  const sections = ["About", "Experience"];
+  const sections = ["About", "Experience", "Projects"];
   const contacts = [
     {
       name: "Email",
@@ -97,11 +97,7 @@ export const NavigationMenu = () => {
               <VStack mt={4} spacing={4} align="stretch">
                 <Link
                   as={RouterLink}
-                  color={
-                    pathname === `/`
-                      ? "#6552F5"
-                      : "#5F5A86"
-                  }
+                  color={pathname === `/` ? "#6552F5" : "#5F5A86"}
                   fontSize={"md"}
                   textDecoration={"none"}
                   to={"/"}
@@ -128,7 +124,7 @@ export const NavigationMenu = () => {
                   );
                 })}
 
-                <Menu>
+                <Menu isLazy>
                   <MenuButton
                     as={Button}
                     fontWeight={"medium"}
@@ -201,7 +197,7 @@ export const NavigationMenu = () => {
         <Link href={resume} isExternal mx={4} fontWeight={"medium"}>
           Resume
         </Link>
-        <Menu>
+        <Menu isLazy>
           <MenuButton
             as={Button}
             fontWeight={"medium"}

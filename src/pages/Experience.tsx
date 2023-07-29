@@ -5,6 +5,7 @@ import {
   Text,
   Image,
   useMediaQuery,
+  Tag,
 } from "@chakra-ui/react";
 import metalogo from "../assets/meta.jpg";
 import syflogo from "../assets/syf.jpg";
@@ -90,9 +91,36 @@ export const Experience = () => {
     "At Edgewell Personal Care, I worked as a Systems Engineer Intern. I gained experience in debugging inconsistent code and identifying redundant computations. Working in a lean, start-up-like team allowed me to develop a versatile approach to problem-solving and learn how to work efficiently under tight deadlines. These experiences enabled me to help streamline the complex cloud system for the product database, resulting in significant cost savings for the company. Additionally, I developed a new platform for searching and managing the database, which helped the system handle 20,000 queries per second and generated significant business value.",
   ];
 
+  const skills: string[][] = [
+    ["JavaScript", "yellow"],
+    ["TypeScript", "twitter"],
+    ["HTML/CSS", "purple"],
+    ["PHP", "orange"],
+    ["Python", "green"],
+    ["Java", "purple"],
+    ["C++", "orange"],
+    ["C", "red"],
+    ["Kotlin", "blue"],
+    ["Dart", "green"],
+    ["mySQL", "pink"],
+    ["Git", "purple"],
+    ["Mercurial", "cyan"],
+    ["Pytorch", "yellow"],
+    ["React", "blue"],
+    ["Flutter", "pink"],
+    ["Hacklang", "red"],
+    ["GraphQL", "teal"],
+    ["AWS (Amazon Web Services)", "purple"],
+    ["Azure", "green"],
+    ["Heroku", "blue"],
+    ["GitHub Pages", "pink"],
+    ["Firebase", "orange"],
+    ["Jira", "yellow"],
+    ["Figma", "purple"],
+  ];
   return (
     <Box minH="fit-content" my={isLargerThan800 ? 16 : 12}>
-      <Image src={headline} />
+      <Image src={headline} borderRadius={4} />
       <Text mt={2} color="gray.500" fontSize={isLargerThan800 ? "md" : "sm"}>
         A rooftop photo of one of the office buildings at Meta. It had a rooftop
         garden and was a great place to work.
@@ -116,6 +144,21 @@ export const Experience = () => {
         >
           {paragraph}
         </Text>
+      ))}
+
+      <Heading
+        textAlign={isLargerThan800 ? "left" : "center"}
+        mt={20}
+        mb={4}
+        size={isLargerThan800 ? "xl" : "lg"}
+      >
+        Skills
+      </Heading>
+      <Divider mb={8} />
+      {skills.map((pair: string[]) => (
+        <Tag colorScheme={pair[1]} m={1} size={"md"} key={crypto.randomUUID()} fontWeight={"normal"}>
+          {pair[0]}
+        </Tag>
       ))}
 
       <Heading
