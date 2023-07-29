@@ -59,7 +59,7 @@ export const NavigationMenu = () => {
         } to clipboard!`,
         variant: "subtle",
         status: "success",
-        position: "bottom",
+        position: "top",
         duration: 1000,
         isClosable: true,
       });
@@ -69,7 +69,7 @@ export const NavigationMenu = () => {
         description: "Error in copying to clipboard! Please try again!",
         variant: "subtle",
         status: "error",
-        position: "bottom",
+        position: "top",
         duration: 1000,
         isClosable: true,
       });

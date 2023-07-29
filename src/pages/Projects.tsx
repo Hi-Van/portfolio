@@ -6,9 +6,11 @@ import {
   Image,
   useMediaQuery,
   Stack,
-  StackDivider,
 } from "@chakra-ui/react";
+import { Project } from "../components/project";
 import headline from "../assets/street-lamp.jpg";
+import puzzl from "../assets/puzzl.jpeg";
+import preeepare from "../assets/preeepare.jpeg";
 
 export const Projects = () => {
   const [isLargerThan800] = useMediaQuery("(min-width: 800px)");
@@ -17,6 +19,35 @@ export const Projects = () => {
     "Currently, I am interested in exploring data visualization to create more value around data. From my experience, I believe that visualization can be a powerful tool in understanding complex data sets and making them more accessible to a broader audience. I am excited about creating projects that can present data in an easy-to-understand format and can be shared with others.",
     "I’m also interested in live collaboration and multiplayer software, as well as the mathematics behind CRDT-based real-time collaboration algorithms. In large organizations, effective communication and collaboration are crucial, and live collaboration software can improve team efficiency regardless of location. I aim to create seamless collaboration software to help people achieve their objectives. With my experience in handling large-scale systems and optimizing them for high traffic, I have gained insight into the mathematics behind CRDT-based real-time collaboration algorithms. I hope to further my understanding of the math and use my skills to create better real-time collaboration systems.",
   ];
+
+  const Preeepare = {
+    image: preeepare,
+    name: "Preeepare",
+    description:
+      "Preeepare is a solution for students who want to excel in their studies. It uses visual charts to help track progress in different areas of study and identify areas that need more attention. This helps promote knowledge diversity and encourages topic depth by visualizing progress. With Preeepare, students can confidently take control of their learning journey and visualize their path to success.",
+    technologies: [
+      ["React", "blue"],
+      ["Google Sheets", "green"],
+      ["Material UI", "purple"],
+      ["Chart.js", "pink"],
+    ],
+    link: "https://hi-van.github.io/preeepare/",
+  };
+
+  const Puzzl = {
+    image: puzzl,
+    name: "Puzzl",
+    description:
+      "Puzzl is a drag-and-drop editor that enables programmers to create complex algorithms using logical steps and pseudocode. Puzzl facilitates real-time collaboration among teams, making it easy to work together and share ideas. Whether you're working on a group project or need to organize your thoughts, Puzzl is the perfect solution.",
+    technologies: [
+      ["React", "blue"],
+      ["Chakra UI", "teal"],
+      ["Firebase", "orange"],
+      ["Stripe", "purple"],
+      ["TipTap", "pink"],
+    ],
+    link: null,
+  };
 
   return (
     <Box minH="fit-content" my={isLargerThan800 ? 16 : 12}>
@@ -55,42 +86,15 @@ export const Projects = () => {
       </Heading>
       <Divider mb={8} />
 
-        <Stack mt={20} direction={isLargerThan800 ? "row" : "column"} spacing={20} divider={<StackDivider />}>
-          <Box
-            display="flex"
-            flexDirection="column"
-            width={"fit-content"}
-            maxWidth={"240px"}
-          >
-            <Image src={"https://i.imgur.com/2Z3Q1ZM.png"} borderRadius={4} />
-            <Text color={"gray.400"}>
-              Puzzl - Empowering Problem-Solvers
-            </Text>
-          </Box>
-          <Box
-            display="flex"
-            flexDirection="column"
-            width={"fit-content"}
-            maxWidth={"240px"}
-          >
-            <Image src={"https://i.imgur.com/2Z3Q1ZM.png"} borderRadius={4} />
-            <Text color={"gray.400"}>
-              Cloudy - Word Cloud Generator
-            </Text>
-          </Box>
-          <Box
-            display="flex"
-            flexDirection="column"
-            width={"fit-content"}
-            maxWidth={"240px"}
-          >
-            <Image src={"https://i.imgur.com/2Z3Q1ZM.png"} borderRadius={4} />
-            <Text color={"gray.400"}>
-              Preeepare - Knowledge hub for students
-            </Text>
-          </Box>
-        </Stack>
-      
+      <Stack
+        mt={20}
+        direction={isLargerThan800 ? "row" : "column"}
+        spacing={20}
+        alignItems={"start"}
+      >
+        <Project project={Puzzl} />
+        <Project project={Preeepare} />
+      </Stack>
     </Box>
   );
 };
