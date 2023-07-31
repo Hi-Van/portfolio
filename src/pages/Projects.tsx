@@ -6,6 +6,7 @@ import {
   Image,
   useMediaQuery,
   Stack,
+  Center,
 } from "@chakra-ui/react";
 import { Project } from "../components/project";
 import headline from "../assets/street-lamp.jpg";
@@ -86,15 +87,17 @@ export const Projects = () => {
       </Heading>
       <Divider mb={8} />
 
-      <Stack
-        mt={20}
-        direction={isLargerThan800 ? "row" : "column"}
-        spacing={20}
-        alignItems={"start"}
-      >
-        <Project project={Puzzl} />
-        <Project project={Preeepare} />
-      </Stack>
+      <Center minH={"fit-content"}>
+        <Stack
+          mt={20}
+          direction={isLargerThan800 ? "row" : "column"}
+          spacing={20}
+          alignItems={"start"}
+        >
+          <Project project={Puzzl} />
+          <Project project={Preeepare} />
+        </Stack>
+      </Center>
     </Box>
   );
 };

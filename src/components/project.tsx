@@ -40,7 +40,12 @@ export const Project = ({ project }: { project: any }) => {
         <Image src={project.image} borderRadius={4} />
       </Button>
 
-      <Modal isOpen={isOpen} onClose={onClose} isCentered>
+      <Modal
+        isOpen={isOpen}
+        onClose={onClose}
+        isCentered
+        scrollBehavior={"inside"}
+      >
         <ModalOverlay />
         <ModalContent>
           <ModalHeader></ModalHeader>
