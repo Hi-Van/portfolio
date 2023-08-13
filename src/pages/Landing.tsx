@@ -61,7 +61,7 @@ export const Landing = () => {
         textAlign={"center"}
         color="#5F5A86"
       >
-        Incoming Software Engineer at Walmart Global Tech, connecting people to
+        Software Engineer at Walmart Global Tech, connecting people to
         products🌐
       </Heading>
 

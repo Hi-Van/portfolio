@@ -71,6 +71,8 @@ const desktopVariant = (job: any): JSX.Element => {
               key={crypto.randomUUID()}
               color="#5F5A86"
               fontFamily="poppins"
+              fontSize={"lg"}
+              fontWeight={"light"}
             >
               {item}
             </ListItem>

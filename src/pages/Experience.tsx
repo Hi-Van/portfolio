@@ -78,9 +78,8 @@ export const Experience = () => {
     timeline: "Aug 2023 - Current",
     tags: [
       { color: "purple", text: "Fulltime" },
-      { color: "pink", text: "Incoming" },
     ],
-    description: [],
+    description: ["Software Engineer on the Product Categorization & Placement platform within Walmart Logistics"],
   };
 
   const employmentHistory = [walmart, syf, meta, epc];
