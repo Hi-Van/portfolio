@@ -1,6 +1,7 @@
 import { Box, Center, VStack } from "@chakra-ui/react";
 import { NavigationMenu } from "./components/navigation";
 import { Outlet } from "react-router-dom";
+import React from "react";
 
 function App() {
 

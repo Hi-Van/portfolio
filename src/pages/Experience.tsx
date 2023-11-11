@@ -13,6 +13,7 @@ import epclogo from "../assets/epc.jpg";
 import walmartlogo from "../assets/wgt.jpg";
 import headline from "../assets/fb-rooftop.jpg";
 import { Job } from "../components/job";
+import React from "react";
 
 export const Experience = () => {
   const [isLargerThan800] = useMediaQuery("(min-width: 800px)");
@@ -64,7 +65,6 @@ export const Experience = () => {
     ],
     description: [
       "Identified redundancy in cloud system for product database, reducing annual cost by $14000+",
-      "Developed internal search and management platform supporting 20,000 queries per second",
       "Implemented new CI/CD testing and version control procedures, increasing testing coverage by 17%",
     ],
   };
@@ -76,10 +76,12 @@ export const Experience = () => {
     position: "Software Engineer",
     location: "Bentonville, AR",
     timeline: "Aug 2023 - Current",
-    tags: [
-      { color: "purple", text: "Fulltime" },
+    tags: [{ color: "purple", text: "Fulltime" }],
+    description: [
+      "Created UI workflows servicing 10,500+ stores internationally",
+      "Developed API queries capable of handling 470,000 requests per second",
+      "Optimized category editing process, reducing monthly modular processing by 460 requests per month",
     ],
-    description: ["Software Engineer on the Product Categorization & Placement platform within Walmart Logistics"],
   };
 
   const employmentHistory = [walmart, syf, meta, epc];
@@ -155,7 +157,13 @@ export const Experience = () => {
       </Heading>
       <Divider mb={8} />
       {skills.map((pair: string[]) => (
-        <Tag colorScheme={pair[1]} m={1} size={"md"} key={crypto.randomUUID()} fontWeight={"normal"}>
+        <Tag
+          colorScheme={pair[1]}
+          m={1}
+          size={"md"}
+          key={crypto.randomUUID()}
+          fontWeight={"normal"}
+        >
           {pair[0]}
         </Tag>
       ))}
