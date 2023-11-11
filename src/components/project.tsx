@@ -106,7 +106,7 @@ export const Project = ({ project }: { project: ProjectType }) => {
             </Heading>
             <Divider my={2} />
 
-            {project.technologies.map(([colorScheme, text]) => (
+            {project.technologies.map(([text, colorScheme]) => (
               <Tag
                 colorScheme={colorScheme}
                 m={1}
