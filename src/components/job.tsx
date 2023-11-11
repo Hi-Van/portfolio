@@ -15,7 +15,18 @@ import {
 } from "@chakra-ui/react";
 import { Landmark } from "lucide-react";
 
-const desktopVariant = (job: any): JSX.Element => {
+export type JobType = {
+  url: string;
+  image: string;
+  company: string;
+  position: string;
+  location: string;
+  timeline: string;
+  tags: { color: string; text: string }[];
+  description: string[];
+};
+
+const desktopVariant = (job: JobType): JSX.Element => {
   return (
     <Box my={24} w={"100%"}>
       <Flex my={6}>
@@ -47,14 +58,14 @@ const desktopVariant = (job: any): JSX.Element => {
             <Heading size="md" fontWeight={"normal"}>
               {job.company}
             </Heading>
-            {job.tags.map((obj: any) => (
+            {job.tags.map(({ color, text }) => (
               <Tag
-                colorScheme={obj.color}
+                colorScheme={color}
                 ml={2}
                 size={"sm"}
                 key={crypto.randomUUID()}
               >
-                {obj.text}
+                {text}
               </Tag>
             ))}
             <Spacer />
@@ -65,7 +76,7 @@ const desktopVariant = (job: any): JSX.Element => {
         </VStack>
       </Flex>
       <UnorderedList ml={12}>
-        {job.description.map((item: string): JSX.Element => {
+        {job.description.map((item): JSX.Element => {
           return (
             <ListItem
               key={crypto.randomUUID()}
@@ -83,7 +94,7 @@ const desktopVariant = (job: any): JSX.Element => {
   );
 };
 
-const mobileVariant = (job: any): JSX.Element => {
+const mobileVariant = (job: JobType): JSX.Element => {
   return (
     <Box my={24} w={"100%"}>
       <Flex my={6}>
@@ -118,21 +129,21 @@ const mobileVariant = (job: any): JSX.Element => {
           </Flex>
 
           <Flex w={"100%"}>
-            {job.tags.map((obj: any) => (
+            {job.tags.map(({ color, text }) => (
               <Tag
-                colorScheme={obj.color}
+                colorScheme={color}
                 mr={2}
                 size={"sm"}
                 key={crypto.randomUUID()}
               >
-                {obj.text}
+                {text}
               </Tag>
             ))}
           </Flex>
         </VStack>
       </Flex>
       <UnorderedList ml={12}>
-        {job.description.map((item: string): JSX.Element => {
+        {job.description.map((item): JSX.Element => {
           return (
             <ListItem
               key={crypto.randomUUID()}
@@ -150,7 +161,7 @@ const mobileVariant = (job: any): JSX.Element => {
   );
 };
 
-export const Job = ({ job }: any): JSX.Element => {
+export const Job = ({ job }: { job: JobType }): JSX.Element => {
   const [isLargerThan800] = useMediaQuery("(min-width: 800px)");
 
   if (isLargerThan800) {

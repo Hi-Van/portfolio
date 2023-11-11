@@ -12,12 +12,11 @@ import syflogo from "../assets/syf.jpg";
 import epclogo from "../assets/epc.jpg";
 import walmartlogo from "../assets/wgt.jpg";
 import headline from "../assets/fb-rooftop.jpg";
-import { Job } from "../components/job";
-import React from "react";
+import { Job, JobType } from "../components/job";
 
 export const Experience = () => {
   const [isLargerThan800] = useMediaQuery("(min-width: 800px)");
-  const syf = {
+  const syf: JobType = {
     url: "https://www.synchrony.com/for-businesses.html#about-us",
     image: syflogo,
     company: "Synchrony Financial",
@@ -34,7 +33,7 @@ export const Experience = () => {
     ],
   };
 
-  const meta = {
+  const meta: JobType = {
     url: "https://about.meta.com/",
     image: metalogo,
     company: "Meta",
@@ -52,7 +51,7 @@ export const Experience = () => {
     ],
   };
 
-  const epc = {
+  const epc: JobType = {
     url: "https://edgewell.com/pages/about-us",
     image: epclogo,
     company: "Edgewell Personal Care",
@@ -69,7 +68,7 @@ export const Experience = () => {
     ],
   };
 
-  const walmart = {
+  const walmart: JobType = {
     url: "https://tech.walmart.com/content/walmart-global-tech/en_us/about.html",
     image: walmartlogo,
     company: "Walmart Global Tech",
@@ -84,7 +83,7 @@ export const Experience = () => {
     ],
   };
 
-  const employmentHistory = [walmart, syf, meta, epc];
+  const employmentHistory: JobType[] = [walmart, syf, meta, epc];
 
   const exp = [
     "During my time at Meta, I gained valuable experience in handling large-scale systems and writing high-quality code. Developing data pipelines to support machine learning applications taught me how to effectively design and optimize systems to handle high levels of traffic. Additionally, operating within a large organization like Meta taught me how to collaborate with cross-functional teams and communicate effectively to achieve business goals. These experiences have allowed me to approach problem-solving with a diverse and versatile perspective.",
@@ -178,7 +177,7 @@ export const Experience = () => {
       </Heading>
       <Divider mb={-8} />
 
-      {employmentHistory.map((obj) => (
+      {employmentHistory.map((obj: JobType) => (
         <Job job={obj} key={crypto.randomUUID()} />
       ))}
     </Box>

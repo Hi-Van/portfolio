@@ -80,41 +80,43 @@ export const Landing = () => {
         Let's Go
       </Button>
 
-      {isLargerThan800 ? <Stack my={8} direction={"row"} spacing={20} divider={<StackDivider />}>
-        <Box
-          display="flex"
-          flexDirection="column"
-          width={"fit-content"}
-          maxWidth={"240px"}
-        >
-          <Text color={"gray.400"}>
-            Software Engineer, I focus on improving data accessibility,
-            transparency, and consumption for users.
-          </Text>
-        </Box>
-        <Box
-          display="flex"
-          flexDirection="column"
-          width={"1fr"}
-          maxWidth={"240px"}
-        >
-          <Text color={"gray.400"}>
-            Web design enthusiast, I enjoy creating beautiful and functional
-            spaces.
-          </Text>
-        </Box>
-        <Box
-          display="flex"
-          flexDirection="column"
-          width={"1fr"}
-          maxWidth={"240px"}
-        >
-          <Text color={"gray.400"}>
-            Part-time nerd, currently diving into live-collaboration and
-            multiplayer technology.
-          </Text>
-        </Box>
-      </Stack> : null}
+      {isLargerThan800 ? (
+        <Stack my={8} direction={"row"} spacing={20} divider={<StackDivider />}>
+          <Box
+            display="flex"
+            flexDirection="column"
+            width={"fit-content"}
+            maxWidth={"240px"}
+          >
+            <Text color={"gray.400"}>
+              Software Engineer, I focus on improving data accessibility,
+              transparency, and consumption for users.
+            </Text>
+          </Box>
+          <Box
+            display="flex"
+            flexDirection="column"
+            width={"1fr"}
+            maxWidth={"240px"}
+          >
+            <Text color={"gray.400"}>
+              Web design enthusiast, I enjoy creating beautiful and functional
+              spaces.
+            </Text>
+          </Box>
+          <Box
+            display="flex"
+            flexDirection="column"
+            width={"1fr"}
+            maxWidth={"240px"}
+          >
+            <Text color={"gray.400"}>
+              Part-time nerd, currently diving into live-collaboration and
+              multiplayer technology.
+            </Text>
+          </Box>
+        </Stack>
+      ) : null}
     </VStack>
   );
 };

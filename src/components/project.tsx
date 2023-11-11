@@ -17,7 +17,15 @@ import {
   useToast,
 } from "@chakra-ui/react";
 
-export const Project = ({ project }: { project: any }) => {
+export type ProjectType = {
+  image: string;
+  name: string;
+  description: string;
+  technologies: string[][];
+  link: null | string;
+};
+
+export const Project = ({ project }: { project: ProjectType }) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const toast = useToast();
 
@@ -98,15 +106,15 @@ export const Project = ({ project }: { project: any }) => {
             </Heading>
             <Divider my={2} />
 
-            {project.technologies.map((tech: string[]) => (
+            {project.technologies.map(([colorScheme, text]) => (
               <Tag
-                colorScheme={tech[1]}
+                colorScheme={colorScheme}
                 m={1}
                 size={"md"}
                 key={crypto.randomUUID()}
                 fontWeight={"normal"}
               >
-                {tech[0]}
+                {text}
               </Tag>
             ))}
           </ModalBody>

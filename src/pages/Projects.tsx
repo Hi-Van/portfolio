@@ -8,7 +8,7 @@ import {
   Stack,
   Center,
 } from "@chakra-ui/react";
-import { Project } from "../components/project";
+import { Project, ProjectType } from "../components/project";
 import headline from "../assets/street-lamp.jpg";
 import puzzl from "../assets/puzzl.jpeg";
 import preeepare from "../assets/preeepare.jpeg";
@@ -21,7 +21,7 @@ export const Projects = () => {
     "I’m also interested in live collaboration and multiplayer software, as well as the mathematics behind CRDT-based real-time collaboration algorithms. In large organizations, effective communication and collaboration are crucial, and live collaboration software can improve team efficiency regardless of location. I aim to create seamless collaboration software to help people achieve their objectives. With my experience in handling large-scale systems and optimizing them for high traffic, I have gained insight into the mathematics behind CRDT-based real-time collaboration algorithms. I hope to further my understanding of the math and use my skills to create better real-time collaboration systems.",
   ];
 
-  const Preeepare = {
+  const Preeepare: ProjectType = {
     image: preeepare,
     name: "Preeepare",
     description:
@@ -35,7 +35,7 @@ export const Projects = () => {
     link: "https://hi-van.github.io/preeepare/",
   };
 
-  const Puzzl = {
+  const Puzzl: ProjectType = {
     image: puzzl,
     name: "Puzzl",
     description:
