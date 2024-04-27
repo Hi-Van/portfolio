@@ -39,6 +39,7 @@ export const DatePicker: React.FC<DatePickerProps> = ({ date, setDate }) => {
           mode="single"
           selected={date}
           onSelect={setDate as SelectSingleEventHandler}
+          defaultMonth={date}
           initialFocus
         />
       </PopoverContent>
