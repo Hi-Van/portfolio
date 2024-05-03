@@ -3,6 +3,7 @@
 import * as React from "react";
 import { MoonIcon, SunIcon } from "@radix-ui/react-icons";
 import { useTheme } from "next-themes";
+import { toast } from "sonner";
 
 import { Button } from "@/components/ui/button";
 import {
@@ -11,6 +12,7 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import { format } from "date-fns";
 
 export const ThemeToggle = () => {
   const { setTheme } = useTheme();
@@ -25,13 +27,33 @@ export const ThemeToggle = () => {
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end">
-        <DropdownMenuItem onClick={() => setTheme("light")}>
+        <DropdownMenuItem
+          onClick={() => {
+            toast("Coming Soon!", {
+              description: format(new Date(), "PPPPp"),
+              action: {
+                label: "Close",
+                onClick: () => {},
+              },
+            });
+          }}
+        >
           Light
         </DropdownMenuItem>
         <DropdownMenuItem onClick={() => setTheme("dark")}>
           Dark
         </DropdownMenuItem>
-        <DropdownMenuItem onClick={() => setTheme("system")}>
+        <DropdownMenuItem
+          onClick={() => {
+            toast("Coming Soon!", {
+              description: format(new Date(), "PPPPp"),
+              action: {
+                label: "Close",
+                onClick: () => {},
+              },
+            });
+          }}
+        >
           System
         </DropdownMenuItem>
       </DropdownMenuContent>

@@ -4,16 +4,16 @@ import { ScrollArea } from "@/components/ui/scroll-area";
 import Link from "next/link";
 import { FaLinkedinIn, FaGithub } from "react-icons/fa";
 import { FaCheck } from "react-icons/fa6";
+import { ClientClickHack } from "@/hacks/click-event.hack";
 
 export default function Home() {
   const goals = [
     { goal: "B.S. in Computer Science", achieved: true },
     { goal: "Move to New York City", achieved: false },
     { goal: "M.A. in Mathematics", achieved: false },
-    { goal: "See the Aurora Borealis", achieved: false },
     { goal: "Visit London", achieved: false },
-    { goal: "Visit Tokyo", achieved: false },
     { goal: "Visit Madrid", achieved: false },
+    { goal: "Visit Tokyo", achieved: false },
     { goal: "Visit Hong Kong", achieved: false },
   ];
 
@@ -42,7 +42,7 @@ export default function Home() {
                   {goals.map((goal, index) => (
                     <>
                       <li
-                        key={index}
+                        key={`goal-${index}`}
                         className={`inline-flex items-center gap-2 ${
                           goal.achieved
                             ? "line-through text-muted-foreground"
@@ -52,7 +52,10 @@ export default function Home() {
                         {goal.goal} {goal.achieved && <FaCheck className="" />}
                       </li>
                       {index !== goals.length - 1 && (
-                        <Separator className="m-0" />
+                        <Separator
+                          key={`$goal-{index}-separator`}
+                          className="m-0"
+                        />
                       )}
                     </>
                   ))}
@@ -87,9 +90,9 @@ export default function Home() {
           <div className="flex-grow">
             <h1 className="text-2xl font-medium">Fun songs!</h1>
             <Separator className="mt-2 mb-4" />
-            <div className="inline-flex w-full h-full flex-col gap-4">
+            <div className="inline-flex w-full flex-col gap-4">
               <iframe
-                className="rounded-2xl overflow-hidden border shadow"
+                className="rounded-2xl overflow-hidden shadow"
                 src="https://open.spotify.com/embed/track/6ieWL5CLN9WdC875guWtMe?utm_source=generator"
                 width="100%"
                 height="152"
@@ -97,7 +100,7 @@ export default function Home() {
                 loading="lazy"
               />
               <iframe
-                className="rounded-2xl overflow-hidden border shadow"
+                className="rounded-2xl overflow-hidden shadow"
                 src="https://open.spotify.com/embed/track/6IpVkl7PFaCmv0g3MSRAVl?utm_source=generator"
                 width="100%"
                 height="152"
@@ -105,7 +108,7 @@ export default function Home() {
                 loading="lazy"
               />
               <iframe
-                className="rounded-2xl overflow-hidden border shadow"
+                className="rounded-2xl overflow-hidden shadow"
                 src="https://open.spotify.com/embed/track/17hEgChAl6FQ73xelHkKNt?utm_source=generator"
                 width="100%"
                 height="152"
@@ -148,16 +151,12 @@ export default function Home() {
               <span className="bg-card p-0.5 px-1 rounded border bg-muted/60 text-muted-foreground font-light">
                 1
               </span>{" "}
-              full-time position as a <span className="bg-card p-0.5 px-1 rounded border bg-muted/60 text-muted-foreground font-light">Software Engineer</span>
+              full-time position as a{" "}
+              <span className="bg-card p-0.5 px-1 rounded border bg-muted/60 text-muted-foreground font-light">
+                Software Engineer
+              </span>
             </li>
-            <li>
-            <Link
-                href="/projects"
-                className="primary-foreground hover:text-custom-highlight"
-              >
-                I love building projects
-              </Link> to practice my design skills and learn new technologies
-            </li>
+            <ClientClickHack />
           </ul>
         </div>
       </div>
