@@ -112,7 +112,7 @@ export default function Home() {
     }
 
     setIndex(newIndex);
-  }, [calendarDate]);
+  }, [calendarDate, experiences]);
 
   const renderExperienceDetails = () => {
     const { date, endDate, position, company, bulletPoints, extra } =

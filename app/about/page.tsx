@@ -26,7 +26,7 @@ export default function Home() {
               <h1 className="text-2xl font-medium">Abstract</h1>
               <Separator className="mt-2 mb-4" />
               <p className="text-base indent-4 text-justify">
-                I'm a software engineer who enjoys creating beautiful and
+                I&apos;m a software engineer who enjoys creating beautiful and
                 functional spaces. I focus on improving data accessibility,
                 transparency, and consumption for users. I am currently diving
                 into live-collaboration and multiplayer technology.
@@ -123,15 +123,15 @@ export default function Home() {
           <Separator className="mt-2 mb-4" />
           <ul className="inline-flex flex-col w-full gap-2 list-disc ml-4 text-base">
             <li>
-              Although I'm a full-stack engineer, I mainly love react and
+              Although I&apos;m a full-stack engineer, I mainly love react and
               frontend work
             </li>
             <li>
-              My favorite game is Destiny, I've been playing since release in
+              My favorite game is Destiny, I&apos;ve been playing since release in
               2014
             </li>
             <li>
-              I'm very good at burning food in the kitchen{" "}
+              I&apos;m very good at burning food in the kitchen{" "}
               <span className="text-muted-foreground italic">
                 (I like to cook)
               </span>
