@@ -1,6 +1,6 @@
 {
-  "homepage": "",
-  "name": "portfolio",
+  "homepage": "https://vansiriso.uk/",
+  "name": "vansiriso.uk",
   "version": "0.1.0",
   "private": true,
   "scripts": {
@@ -9,7 +9,7 @@
     "start": "next start",
     "lint": "next lint",
     "predeploy": "npm run build",
-    "deploy": "gh-pages -d build"
+    "deploy": "gh-pages -d out"
   },
   "dependencies": {
     "@radix-ui/react-dropdown-menu": "^2.0.6",
