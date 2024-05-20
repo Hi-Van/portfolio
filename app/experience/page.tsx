@@ -67,6 +67,13 @@ export default function Home() {
     },
   ];
 
+  const disableUnemployedDates = (date: Date) => {
+    return !experiences.some(
+      (experience) =>
+        date >= experience.date && date <= (experience.endDate ?? date)
+    );
+  };
+
   const onNext = () => {
     if (index < experiences.length - 1) {
       setIndex(index + 1);
@@ -191,7 +198,7 @@ export default function Home() {
           >
             <FaArrowLeft /> Back
           </Button>
-          <DatePicker date={calendarDate} setDate={setCalendarDate} />
+          <DatePicker date={calendarDate} setDate={setCalendarDate} disabled={disableUnemployedDates}/>
           <Button
             variant={"outline"}
             size={"sm"}

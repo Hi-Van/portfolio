@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { ThemeToggle } from "./theme-toggle";
+import { ChatSwitch } from "./enable-chat";
 import { Button } from "@/components/ui/button";
 import { format } from "date-fns";
 import { toast } from "sonner";
@@ -43,6 +44,7 @@ export const Navigation = () => {
         >
           Featured Work
         </Button>
+        <ChatSwitch />
         <ThemeToggle />
       </div>
     </nav>

@@ -17,9 +17,10 @@ import { SelectSingleEventHandler } from "react-day-picker";
 interface DatePickerProps {
   date: Date;
   setDate: (arg: Date) => void;
+  disabled?: (arg: Date) => boolean;
 }
 
-export const DatePicker: React.FC<DatePickerProps> = ({ date, setDate }) => {
+export const DatePicker: React.FC<DatePickerProps> = ({ date, setDate, disabled }) => {
   return (
     <Popover>
       <PopoverTrigger asChild>
@@ -34,13 +35,14 @@ export const DatePicker: React.FC<DatePickerProps> = ({ date, setDate }) => {
           {date ? format(date, "PPP") : <span>Pick a date</span>}
         </Button>
       </PopoverTrigger>
-      <PopoverContent className="w-auto p-0">
+      <PopoverContent className="w-auto p-0" side="top">
         <Calendar
           mode="single"
           selected={date}
           onSelect={setDate as SelectSingleEventHandler}
           defaultMonth={date}
           initialFocus
+          disabled={disabled}
         />
       </PopoverContent>
     </Popover>
