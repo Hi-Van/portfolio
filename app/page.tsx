@@ -6,7 +6,6 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from "@/components/ui/tooltip";
-import { Button as UIButton} from 'hi-van-ui';
 
 export default function Home() {
   return (
@@ -49,8 +48,6 @@ export default function Home() {
           </span>
           , connecting people to products.
         </h2>
-
-        <UIButton className="bg-slate-200">Library Button</UIButton>
 
         <div className="flex justify-center gap-6 text-xs text-muted-foreground h-16 mt-12">
           <p className="max-w-52">
