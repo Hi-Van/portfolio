@@ -59,7 +59,7 @@ export default function Home() {
             className="light:bg-muted-foreground"
           />
           <p className="max-w-52">
-            Web design enthusiast, I enjoy creating beautiful and functional
+            Web design enthusiast, I enjoy creating beautiful and accessible
             spaces.
           </p>
           <Separator
