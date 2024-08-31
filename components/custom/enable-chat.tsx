@@ -3,7 +3,7 @@
 import { Label } from "@/components/ui/label";
 import { Switch } from "@/components/ui/switch";
 import { useRouter, usePathname } from "next/navigation";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 export function ChatSwitch() {
   const router = useRouter();
@@ -21,6 +21,13 @@ export function ChatSwitch() {
       router.back();
     }
   };
+
+  useEffect(() => {
+    if (pathname !== "/ai") {
+      setEnabled(false);
+    }
+  
+  }, [pathname])
 
   return (
     <div className="inline-flex items-center gap-2">

@@ -44,7 +44,7 @@ export const Navigation = () => {
         >
           Featured Work
         </Button>
-        <ChatSwitch />
+        {/* <ChatSwitch /> */}
         <ThemeToggle />
       </div>
     </nav>

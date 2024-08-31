@@ -9,6 +9,7 @@ const fetcher = async (
 }> => {
   const myHeaders = new Headers();
   myHeaders.append("Content-Type", "application/json");
+  myHeaders.append("origin", window.location.origin);
 
   const raw = JSON.stringify({
     content: content,
@@ -21,8 +22,8 @@ const fetcher = async (
     body: raw,
   };
 
-  return fetch("http://35.226.191.62/v1/converse", requestOptions).then(
-    (res) => res.json()
+  return fetch("https://34.44.209.48/v1/converse", requestOptions).then((res) =>
+    res.json()
   );
 };
 
