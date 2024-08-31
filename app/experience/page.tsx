@@ -44,10 +44,11 @@ export default function Home() {
     {
       date: new Date("09/01/2022"),
       endDate: new Date("05/01/2023"),
-      position: "Software Engineer Intern",
+      position: "Software Engineer",
       company: "Synchrony Financial",
       bulletPoints: [
         "Implemented and configured email, text, and push notifications for 1,000,000+ accounts",
+        "Developed an SDK to quickly test the alerts API within internal applications, leading to a 30% reduction in development time for alert-related tasks",
         "Integrated automated tests for enrollment detection into CI/CD pipeline, improving code coverage by 26%",
       ],
       extra: ["Stamford, CT", "Backend"],
@@ -61,7 +62,8 @@ export default function Home() {
         "Product Categorization & Placements for Walmart E-Commerce",
         "Created UI workflows servicing 10,500+ stores internationally",
         "Developed API queries capable of handling 470,000 requests per second",
-        "Optimized category editing process, reducing monthly modular processing by 460 requests per month",
+        "Optimized category editing process, reducing modular processing by 460 requests per month",
+        "Created a workspace for supplier product submissions, saving $34,000,000 in labor costs and revenue loss",
       ],
       extra: ["Bentonville, AR", "Fullstack"],
     },
@@ -198,7 +200,11 @@ export default function Home() {
           >
             <FaArrowLeft /> Back
           </Button>
-          <DatePicker date={calendarDate} setDate={setCalendarDate} disabled={disableUnemployedDates}/>
+          <DatePicker
+            date={calendarDate}
+            setDate={setCalendarDate}
+            disabled={disableUnemployedDates}
+          />
           <Button
             variant={"outline"}
             size={"sm"}
