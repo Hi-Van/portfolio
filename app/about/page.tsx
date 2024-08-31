@@ -136,26 +136,6 @@ export default function Home() {
                 (I like to cook)
               </span>
             </li>
-            <li>
-              <Link
-                href="/experience"
-                className="primary-foreground hover:text-custom-highlight"
-              >
-                My experience
-              </Link>{" "}
-              includes{" "}
-              <span className="bg-card p-0.5 px-1 rounded border bg-muted/60 text-muted-foreground font-light">
-                3
-              </span>{" "}
-              internships and{" "}
-              <span className="bg-card p-0.5 px-1 rounded border bg-muted/60 text-muted-foreground font-light">
-                1
-              </span>{" "}
-              full-time position as a{" "}
-              <span className="bg-card p-0.5 px-1 rounded border bg-muted/60 text-muted-foreground font-light">
-                Software Engineer
-              </span>
-            </li>
             <ClientClickHack />
           </ul>
         </div>
