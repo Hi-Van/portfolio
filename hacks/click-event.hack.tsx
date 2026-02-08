@@ -3,7 +3,7 @@
 import { format } from "date-fns";
 import { toast } from "sonner";
 
-export const ClientClickHack = (): JSX.Element => {
+export const ClientClickHack = (): React.JSX.Element => {
   return (
     <li>
       <span
