@@ -10,6 +10,7 @@ export type SystemRow = {
 
 export type RoleRow = {
   employer: string;
+  anchor: string;
   period: string;
   place: string;
   title: string;
@@ -23,6 +24,7 @@ export const work = {
   roles: [
     {
       employer: "Atlassian",
+      anchor: "atlassian",
       period: "Jun 2025 to now",
       place: "New York",
       title: "Software Engineer II, Growth",
@@ -31,6 +33,7 @@ export const work = {
     },
     {
       employer: "Walmart Global Tech",
+      anchor: "walmart",
       period: "Aug 2023 to May 2025",
       place: "Bentonville",
       title: "Software Engineer, Product Categorization and Placements",
@@ -65,6 +68,7 @@ export const work = {
     },
     {
       employer: "Meta",
+      anchor: "meta",
       period: "May to Aug 2022",
       place: "New York",
       title: "Software Engineer Intern, FAIR AI",
@@ -99,6 +103,7 @@ export const work = {
     },
     {
       employer: "Before 2023",
+      anchor: "before",
       period: "Internships",
       place: "",
       title: "Where I started",

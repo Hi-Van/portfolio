@@ -1,5 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import { Instrument_Sans, Instrument_Serif, Literata } from "next/font/google";
+import { ChatProvider } from "../components/agent/chat-provider";
 import { SiteFooter } from "../components/shell/site-footer";
 import { SiteHeader } from "../components/shell/site-header";
 import { SkipLink } from "../components/shell/skip-link";
@@ -47,10 +48,12 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
     >
       <body>
         <Providers>
-          <SkipLink />
-          <SiteHeader />
-          {children}
-          <SiteFooter />
+          <ChatProvider>
+            <SkipLink />
+            <SiteHeader />
+            {children}
+            <SiteFooter />
+          </ChatProvider>
         </Providers>
       </body>
     </html>

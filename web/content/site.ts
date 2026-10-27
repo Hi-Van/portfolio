@@ -20,6 +20,14 @@ export const site = {
   ] satisfies NavItem[],
 };
 
+/** The key the agent surface reads to send the reader back. */
+export function fromKey(pathname: string): string {
+  if (pathname.startsWith("/work")) return "work";
+  if (pathname.startsWith("/report")) return "report";
+  if (pathname.startsWith("/about")) return "about";
+  return "index";
+}
+
 export function isCurrent(pathname: string, href: string): boolean {
   return href === "/" ? pathname === "/" : pathname.startsWith(href);
 }

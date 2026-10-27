@@ -169,36 +169,36 @@ calls for, so no group starts on top of undocumented work.
 
 ## 8. Agent surface
 
-- [ ] 8.1 Build the agent as its own surface with a header, transcript, composer, and return control,
+- [x] 8.1 Build the agent as its own surface with a header, transcript, composer, and return control,
       carrying the switch as current. Verify: the surface renders at 860 column width and the return
       control points home on a direct arrival.
-- [ ] 8.2 Put the chat hook in a provider rendered by the root layout, expose it through a context, and
+- [x] 8.2 Put the chat hook in a provider rendered by the root layout, expose it through a context, and
       consume it from the agent surface, with the stream-resume option off. Verify: a question streams
       an answer, navigating away and back keeps both the transcript and any answer still arriving, a
       refresh leaves the transcript empty, and no transcript state exists outside the provider.
-- [ ] 8.3 Implement message rows with author and time, keeping the streaming text out of any live
+- [x] 8.3 Implement message rows with author and time, keeping the streaming text out of any live
       region and giving a separate status region the final text once, so an answer is announced on
       completion or on withdrawal and never per fragment, without moving focus from the composer.
       Animate arrival with the motion library's presence support under the same reduced-motion
       configuration. Verify: a streamed answer produces exactly one announcement, a withdrawn answer
       announces only the refusal, focus stays in the composer, and with reduced motion the row appears
       at once in its end state.
-- [ ] 8.4 Render inline anchors as links to a surface and anchor as they arrive, and keep the
+- [x] 8.4 Render inline anchors as links to a surface and anchor as they arrive, and keep the
       unmapped-answer note in the clay role. Verify: each rendered link resolves, and the note is the
       only clay element in the transcript.
-- [ ] 8.5 Handle sending: Enter submits, the modifier inserts a newline, the maximum length is enforced
+- [x] 8.5 Handle sending: Enter submits, the modifier inserts a newline, the maximum length is enforced
       before submit, a second submit while an answer is arriving is queued or visibly disabled, and
       stop is available while streaming. Verify: a scripted double submit produces two handled
       outcomes and no silent drop, and stop ends the stream without leaving a waiting row.
-- [ ] 8.6 Build the failure row with a retry that reuses the hook's regenerate, replacing the waiting
+- [x] 8.6 Build the failure row with a retry that reuses the hook's regenerate, replacing the waiting
       indicator on failure or timeout, and render a withdrawn answer as the refusal with no residue.
       Verify: an induced failure shows the row and a retry that succeeds, and a violation replaces the
       visible answer entirely.
-- [ ] 8.7 Remember the originating surface and return there, by control and by Escape. Verify: arriving
+- [x] 8.7 Remember the originating surface and return there, by control and by Escape. Verify: arriving
       from work returns to work; arriving directly returns home.
-- [ ] 8.8 Confirm suggestions are 44px targets and that each suggested question produces an answer.
+- [x] 8.8 Confirm suggestions are 44px targets and that each suggested question produces an answer.
       Verify: each suggestion is run through the answer path and none refuses.
-- [ ] 8.9 Rewrite the chat and messaging docs. Verify: the docs describe the surface as it shipped and
+- [x] 8.9 Rewrite the chat and messaging docs. Verify: the docs describe the surface as it shipped and
       cite no line numbers.
 
 ## 9. Answer endpoint

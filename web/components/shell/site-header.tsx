@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { isCurrent, site } from "../../content/site";
+import { fromKey, isCurrent, site } from "../../content/site";
 import { ThemeToggle } from "../theme/theme-toggle";
 import { AskSwitch } from "./ask-switch";
 import { ContactPill } from "./contact-pill";
@@ -45,7 +45,7 @@ export function SiteHeader() {
           <div className="hidden md:block">
             <ContactPill compact />
           </div>
-          <AskSwitch current={pathname.startsWith("/ask")} />
+          <AskSwitch current={pathname.startsWith("/ask")} from={fromKey(pathname)} />
           <Menu />
           <ThemeToggle />
         </div>

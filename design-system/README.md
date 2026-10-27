@@ -42,9 +42,9 @@ Read [the narrative](narrative.md) for the feel. Read the foundations before mak
 | [Actions](components/actions.md) | Filled pill, compact Contact CTA, outlined rectangle, text links, mail links, reset | You are adding or restyling an action |
 | [Inputs](components/inputs.md) | Model sliders, their states and value text, reset; the composer when the agent surface lands | You are changing a field or a slider |
 | [Evidence and data display](components/evidence.md) | Badges, result tiles, system rows, role rows, figures, charts, abstract, method rows, headings, byline | You are presenting a number |
-| [Chat messages](components/messaging.md) | Message rows, citations, suggestions, notes, typing, system dividers | You are changing the transcript |
+| [Chat messages](components/messaging.md) | Message rows, inline citations, the refusal note, withdrawal, suggestions, the waiting and failure rows, announcement | You are changing the transcript |
 | [Report](surfaces/report.md) | The report as a document: masthead, abstract, 720 column, five figures, the model, method, section navigation | You are changing report composition |
-| [Chat](surfaces/chat.md) | The ask page as a room: header, log, composer, intro, return behavior | You are changing the chat surface |
+| [Chat](surfaces/chat.md) | The agent as a room: composition, where the conversation lives, composer, return path, the answer endpoint | You are changing the chat surface |
 | [Pages](surfaces/pages.md) | Home, work, and about composition | You are changing a page layout |
 
 ## Coverage map

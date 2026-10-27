@@ -11,7 +11,7 @@ import {
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
-import { isCurrent, site } from "../../content/site";
+import { fromKey, isCurrent, site } from "../../content/site";
 import { ContactPill } from "./contact-pill";
 
 /**
@@ -106,7 +106,7 @@ export function Menu() {
                     </Link>
                   ))}
                   <Link
-                    href="/ask"
+                    href={`/ask?from=${fromKey(pathname)}`}
                     aria-current={pathname.startsWith("/ask") ? "page" : undefined}
                     className="inline-flex min-h-11 items-center font-ui text-body-small text-ink"
                   >

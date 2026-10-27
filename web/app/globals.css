@@ -105,6 +105,8 @@
   --spacing-gutter: 32px;
   --spacing-block: 48px;
   --spacing-section: 96px;
+  /* The transcript scrolls inside the room rather than the page. */
+  --spacing-room: 60vh;
 }
 
 /* ---------------------------------------------------------------------------

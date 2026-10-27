@@ -38,7 +38,7 @@ function Systems({ systems }: { systems: NonNullable<Role["systems"]> }) {
 
 export function RoleRow({ role }: { role: Role }) {
   return (
-    <article className="grid gap-4 py-8 md:grid-cols-3">
+    <article id={role.anchor} className="grid scroll-mt-40 gap-4 py-8 md:grid-cols-3">
       <div>
         <p className="font-ui text-body-small font-semibold text-ink">
           {role.employer}
