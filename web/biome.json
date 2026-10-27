@@ -47,9 +47,7 @@
   },
   "overrides": [
     {
-      "includes": [
-        "tests/**/*.ts"
-      ],
+      "includes": ["tests/**/*.ts"],
       "linter": {
         "rules": {
           "style": {
@@ -59,9 +57,7 @@
       }
     },
     {
-      "includes": [
-        "app/page.tsx"
-      ],
+      "includes": ["app/page.tsx"],
       "linter": {
         "rules": {
           "security": {
