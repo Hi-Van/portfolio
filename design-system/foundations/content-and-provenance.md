@@ -55,7 +55,7 @@ Employer-scoped figures stay scoped: a figure measured at Meta may only appear o
 
 ## The figures
 
-Fifteen numbers, matching the provenance list in `README.md`.
+Sixteen numbers: the fifteen in the README's provenance list, plus the person-days display the home band states.
 
 | Id | Class | Shown on |
 | --- | --- | --- |
@@ -69,6 +69,7 @@ Fifteen numbers, matching the provenance list in `README.md`.
 | `meta-build-smaller` | measured, Meta | work |
 | `submissions-per-year` | derived | report |
 | `filing-hours-per-second` | derived | report |
+| `filing-person-days` | derived | home, report |
 | `seller-hours-returned` | derived | report |
 | `seconds-per-record` | assumed | report |
 | `human-share` | assumed | report |

@@ -20,6 +20,7 @@ Three frames, one gutter, a 4px spacing base with three named rhythm tokens, and
 | Site frame | 1040px | `max-w-frame` | Home, work, about, and the report masthead |
 | Reading measure | 720px | `max-w-measure` | Report prose and figures |
 | Agent room | 860px | `max-w-chat` | The agent surface |
+| Statement measure | 544px | `max-w-statement` | The home statement, so a lede does not run the width of the reading column |
 
 The gutter is 32px at every width. On a narrow viewport every surface collapses to one fluid column inside that gutter; nothing shrinks its margin to buy column width, and nothing scrolls horizontally.
 

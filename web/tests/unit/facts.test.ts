@@ -12,12 +12,13 @@ describe("the fact registry", () => {
     expect(new Set(entries.map((entry) => entry.id)).size).toBe(factIds.length);
   });
 
-  test("holds the README's fifteen documented figures", () => {
+  test("holds the README's figures plus the one derived display the home band states", () => {
     const byKind = (kind: string) => entries.filter((entry) => entry.provenance.kind === kind).length;
     expect(byKind("measured")).toBe(8);
-    expect(byKind("derived")).toBe(3);
+    expect(byKind("derived")).toBe(4);
     expect(byKind("assumed")).toBe(3);
     expect(byKind("not-measured")).toBe(1);
+    expect(entries).toHaveLength(16);
   });
 
   test("gives every figure a mechanism or a stated reason", () => {
@@ -64,6 +65,12 @@ describe("derived figures follow their inputs", () => {
     expect(annualSubmissions(facts["submissions-per-day"].value!)).toBe(facts["submissions-per-year"].value);
   });
 
+  test("person-days is the filing hours divided by 24", () => {
+    expect(Math.round(facts["filing-hours-per-second"].value! / 24)).toBe(
+      facts["filing-person-days"].value,
+    );
+  });
+
   test("the default assumptions produce the printed seller hours", () => {
     const computed = sellerHoursReturned({
       submissionsPerDay: facts["submissions-per-day"].value!,
@@ -86,5 +93,24 @@ describe("the accent mapping", () => {
   test("surfaces only receive figures scoped to them", () => {
     expect(factsFor("about")).toHaveLength(0);
     expect(factsFor("work").every((entry) => entry.sources.includes("work"))).toBe(true);
+  });
+});
+
+import { bandCells } from "../../content/home";
+
+describe("the home band reads the registry", () => {
+  test("changing one fact changes the band with no other edit", () => {
+    const before = bandCells().map((cell) => cell.value);
+    const original = facts["intake-per-second"].display;
+    (facts["intake-per-second"] as { display: string }).display = "999,999";
+    expect(bandCells()[0].value).toBe("999,999");
+    (facts["intake-per-second"] as { display: string }).display = original;
+    expect(bandCells().map((cell) => cell.value)).toEqual(before);
+  });
+
+  test("every band cell links into the work surface", () => {
+    for (const cell of bandCells()) {
+      expect(cell.href).toBe("/work");
+    }
   });
 });

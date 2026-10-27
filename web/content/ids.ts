@@ -27,6 +27,7 @@ export const factIds = [
   // derived by arithmetic
   "submissions-per-year",
   "filing-hours-per-second",
+  "filing-person-days",
   "seller-hours-returned",
   // assumptions the reader can change
   "seconds-per-record",

@@ -111,11 +111,11 @@ calls for, so no group starts on top of undocumented work.
 
 ## 5. Home surface
 
-- [ ] 5.1 Build the home surface: hero statement, role, employer, and location badges, and the
+- [x] 5.1 Build the home surface: hero statement, role, employer, and location badges, and the
       results band. Verify: visual parity with `preview/home.png` at 1440, and the band links to work.
-- [ ] 5.2 Render every band result from the fact registry. Verify: changing one fact value changes the
+- [x] 5.2 Render every band result from the fact registry. Verify: changing one fact value changes the
       band with no other edit, checked by a test that mutates the registry.
-- [ ] 5.3 Confirm no report furniture appears: no abstract, no numbered sections, no method. Verify:
+- [x] 5.3 Confirm no report furniture appears: no abstract, no numbered sections, no method. Verify:
       a review against the page-surfaces spec.
 
 ## 6. Work and about surfaces

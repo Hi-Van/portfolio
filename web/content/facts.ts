@@ -153,6 +153,20 @@ export const facts: Record<FactId, Fact> = {
     sources: ["report"],
   },
 
+  "filing-person-days": {
+    id: "filing-person-days",
+    value: 104,
+    unit: "count",
+    display: "104",
+    label: "person-days of manual filing in one second of pipeline output",
+    provenance: {
+      kind: "derived",
+      inputs: ["filing-hours-per-second"],
+      mechanism: "Filing hours divided by 24 hours in a day.",
+    },
+    sources: ["home", "report"],
+  },
+
   "seller-hours-returned": {
     id: "seller-hours-returned",
     value: 782925,

@@ -92,6 +92,7 @@
   --container-frame: 1040px;
   --container-measure: 720px;
   --container-chat: 860px;
+  --container-statement: 544px;
 
   /* One 4px numeric base for component spacing, plus three named rhythm tokens. */
   --spacing: 4px;
