@@ -1,5 +1,5 @@
 import { expect, test } from "vitest";
-import { visibleAnswer } from "../../lib/agent/parts";
+import { visibleAnswer, WITHDRAW_PART } from "../../lib/agent/parts";
 import { REFUSAL } from "../../lib/ask/compose";
 
 test("an answer is the text it streamed", () => {
@@ -14,7 +14,7 @@ test("an answer is the text it streamed", () => {
 test("a withdrawal replaces the answer with the refusal", () => {
   const result = visibleAnswer([
     { type: "text", text: "Queries ran 30% faster. " },
-    { type: "data-withdraw", data: { reason: "untraced number" } },
+    { type: WITHDRAW_PART, data: { reason: "untraced number" } },
     { type: "text", text: "and more text that must not survive" },
   ]);
   expect(result.withdrawn).toBe(true);

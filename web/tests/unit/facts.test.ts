@@ -1,12 +1,14 @@
 import { describe, expect, test } from "vitest";
 import { accentFor } from "../../content/accent";
-import { facts, factsFor } from "../../content/facts";
+import { facts, factsFor, factValue, isFactId } from "../../content/facts";
 import { factIds } from "../../content/ids";
 import {
   annualSubmissions,
   DEFAULT_ASSUMPTIONS,
   sellerHoursReturned,
 } from "../../content/model";
+import { placeholdersIn, report } from "../../content/report";
+import { isStated } from "../../content/types";
 
 const entries = Object.values(facts);
 
@@ -52,7 +54,7 @@ describe("the fact registry", () => {
 
   test("keeps the authored form and the machine value in agreement", () => {
     for (const entry of entries) {
-      if (entry.value === undefined) continue;
+      if (!isStated(entry)) continue;
       const digits = entry.display.replace(/[^0-9.]/g, "");
       expect(
         digits,
@@ -75,25 +77,50 @@ describe("the fact registry", () => {
 
 describe("derived figures follow their inputs", () => {
   test("annual submissions is the daily rate times 365", () => {
-    expect(annualSubmissions(facts["submissions-per-day"].value!)).toBe(
-      facts["submissions-per-year"].value,
+    expect(annualSubmissions(factValue("submissions-per-day"))).toBe(
+      factValue("submissions-per-year"),
     );
   });
 
   test("person-days is the filing hours divided by 24", () => {
-    expect(Math.round(facts["filing-hours-per-second"].value! / 24)).toBe(
-      facts["filing-person-days"].value,
+    expect(Math.round(factValue("filing-hours-per-second") / 24)).toBe(
+      factValue("filing-person-days"),
     );
   });
 
   test("the default assumptions produce the printed seller hours", () => {
     const computed = sellerHoursReturned({
-      submissionsPerDay: facts["submissions-per-day"].value!,
+      submissionsPerDay: factValue("submissions-per-day"),
       humanShare: DEFAULT_ASSUMPTIONS.humanShare,
       sessionMinutes: DEFAULT_ASSUMPTIONS.sessionMinutes,
-      sessionReduction: facts["session-shorter"].value! / 100,
+      sessionReduction: factValue("session-shorter") / 100,
     });
-    expect(Math.round(computed)).toBe(facts["seller-hours-returned"].value);
+    expect(Math.round(computed)).toBe(factValue("seller-hours-returned"));
+  });
+});
+
+describe("the report's placeholders", () => {
+  test("every placeholder in the copy names a registry fact", () => {
+    const parts: string[] = [report.deck, ...report.abstract.paragraphs];
+    for (const section of report.sections) {
+      parts.push(section.title, ...section.paragraphs);
+      for (const sub of section.subsections ?? []) {
+        parts.push(sub.title, ...sub.paragraphs);
+      }
+    }
+    parts.push(
+      report.method.lede,
+      ...report.method.rows.map((row) => row.body),
+      report.author.body,
+      report.contact.body,
+      ...Object.values(report.figures),
+    );
+
+    const ids = parts.flatMap(placeholdersIn);
+    expect(ids.length).toBeGreaterThan(0);
+    for (const id of ids) {
+      expect(isFactId(id), id).toBe(true);
+    }
   });
 });
 

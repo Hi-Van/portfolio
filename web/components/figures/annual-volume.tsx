@@ -1,7 +1,7 @@
 import { Group } from "@visx/group";
 import { scaleLinear } from "@visx/scale";
 import { LinePath } from "@visx/shape";
-import { fact } from "../../content/facts";
+import { factValue } from "../../content/facts";
 import { compact } from "../../content/format";
 
 const WIDTH = 900;
@@ -17,8 +17,8 @@ const MONTH_LABELS = ["Jan", "Apr", "Jul", "Dec"];
  * library default reaches the drawing.
  */
 export function AnnualVolume() {
-  const daily = fact("submissions-per-day").value ?? 0;
-  const total = fact("submissions-per-year").value ?? 0;
+  const daily = factValue("submissions-per-day");
+  const total = factValue("submissions-per-year");
   const points = DAYS.map((day, index) => ({
     month: index + 1,
     value: daily * day,

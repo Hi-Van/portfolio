@@ -1,27 +1,30 @@
-import { fact } from "../../content/facts";
+import { fact, factValue } from "../../content/facts";
 
 const COLUMNS = 13;
-const ROWS = 8;
 const SIZE = 34;
 const GAP = 8;
 
 /**
- * Figure 3. One second of pipeline against one person's filing, drawn as 104
- * cells. The cells are generated at build time, so the figure is complete with
- * scripting disabled.
+ * Figure 3. One second of pipeline against one person's filing, drawn as one
+ * cell per person-day. The count comes from the registry, and the cells are
+ * generated at build time, so the figure is complete with scripting disabled.
  */
 export function UnitGrid() {
-  const cells = Array.from({ length: COLUMNS * ROWS }, (_, index) => ({
+  const entry = fact("filing-person-days");
+  const count = factValue("filing-person-days");
+  const rows = Math.ceil(count / COLUMNS);
+  const height = 120 + rows * (SIZE + GAP) + 44;
+  const cells = Array.from({ length: count }, (_, index) => ({
     x: 60 + (index % COLUMNS) * (SIZE + GAP),
     y: 120 + Math.floor(index / COLUMNS) * (SIZE + GAP),
   }));
 
   return (
     <svg
-      viewBox="0 0 900 500"
+      viewBox={`0 0 900 ${height}`}
       className="w-full"
       role="img"
-      aria-label="Unit chart. One second of pipeline output equals one hundred and four person-days of manual filing, drawn as one bar and one hundred and four squares."
+      aria-label={`Unit chart. One second of pipeline output equals ${entry.display} person-days of manual filing, drawn as one bar and ${entry.display} squares.`}
     >
       <rect
         x="60"
@@ -40,7 +43,7 @@ export function UnitGrid() {
         y="104"
         className="fill-muted text-chart-narrow md:text-chart font-ui"
       >
-        {fact("filing-person-days").display} person-days of filing
+        {entry.display} person-days of filing
       </text>
 
       {cells.map((cell) => (

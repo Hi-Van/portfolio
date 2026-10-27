@@ -2,6 +2,11 @@ import { expect, test } from "@playwright/test";
 import { site } from "../../content/site";
 
 const SURFACES = ["/", "/work", "/report", "/about", "/ask"];
+const LOCAL_HOSTS = new Set([
+  "localhost",
+  "127.0.0.1",
+  new URL(site.origin).hostname,
+]);
 
 test("every surface declares its own absolute canonical address", async ({
   page,
@@ -95,10 +100,7 @@ test("no surface makes a third-party request", async ({ page }) => {
   const foreign: string[] = [];
   page.on("request", (request) => {
     const host = new URL(request.url()).hostname;
-    if (
-      !["localhost", "127.0.0.1"].includes(host) &&
-      !host.endsWith(new URL(site.origin).hostname)
-    ) {
+    if (!LOCAL_HOSTS.has(host)) {
       foreign.push(request.url());
     }
   });
@@ -115,10 +117,12 @@ test("the person schema names the site and the role", async ({ page }) => {
     .locator('script[type="application/ld+json"]')
     .first()
     .innerText();
-  const data = JSON.parse(json);
-  expect(data["@type"]).toBe("Person");
-  expect(data.name).toContain("Van Sirisouk");
-  expect(data.url).toBe(`${site.origin}/`);
+  const data: unknown = JSON.parse(json);
+  expect(data).toMatchObject({
+    "@type": "Person",
+    name: expect.stringContaining("Van Sirisouk"),
+    url: `${site.origin}/`,
+  });
 });
 
 test("nothing on any surface implies a résumé exists", async ({ page }) => {

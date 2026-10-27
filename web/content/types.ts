@@ -44,20 +44,44 @@ export type Unit =
   | "seconds-per-record"
   | "minutes";
 
-/**
- * One number, defined once. `display` is the authored form and `value` is the
- * machine form; a test asserts they agree, so neither can drift from the other.
- */
-export type Fact = {
+type FactBase = {
   id: FactId;
-  /** The machine value. Absent only for a claim that is not measured. */
-  value?: number;
-  unit?: Unit;
   /** The authored form, exactly as it is written on the site. */
   display: string;
   /** What the number is about, used in accessible value text and in captions. */
   label: string;
-  provenance: Provenance;
   /** Surfaces this figure may appear on. Employer-scoped figures stay scoped. */
   sources: readonly SurfaceId[];
 };
+
+/**
+ * A figure the site states, so it carries a machine value and a unit. The
+ * value and the authored display move together; a test keeps them in step.
+ */
+export type StatedFact = FactBase & {
+  value: number;
+  unit: Unit;
+  provenance: Measured | DerivedFig | Assumed;
+};
+
+/**
+ * A claim the site names and refuses to quantify. There is no number, so
+ * neither a value nor a unit exists to read by accident.
+ */
+export type UnstatedFact = FactBase & {
+  value?: never;
+  unit?: never;
+  provenance: NotMeasured;
+};
+
+/**
+ * One number, defined once. The union is discriminated on `provenance.kind`,
+ * so a caller cannot read a value a claim does not have; `valueOf` in
+ * `web/content/facts.ts` is the checked way to ask for the machine form.
+ */
+export type Fact = StatedFact | UnstatedFact;
+
+/** Narrows a fact to the ones that carry a value, without a cast. */
+export function isStated(fact: Fact): fact is StatedFact {
+  return fact.provenance.kind !== "not-measured";
+}

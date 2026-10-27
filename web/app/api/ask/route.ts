@@ -3,11 +3,15 @@ import {
   createUIMessageStreamResponse,
   type UIMessageStreamWriter,
 } from "ai";
+import { WITHDRAW_PART } from "../../../lib/agent/parts";
 import { answerChunks } from "../../../lib/ask/answer";
-import { REFUSAL, retrieve } from "../../../lib/ask/compose";
+import { citationTargets, REFUSAL, retrieve } from "../../../lib/ask/compose";
 import { allowedDigits, createStreamGuard } from "../../../lib/ask/guard";
 import { isAskRequest } from "../../../lib/ask/guards";
 import { LIMITS } from "../../../lib/ask/provider";
+
+/** Every citation the corpus can produce, built once for the whole process. */
+const CITATIONS = citationTargets();
 
 export async function POST(request: Request) {
   const body = await request.json().catch(() => null);
@@ -22,16 +26,14 @@ export async function POST(request: Request) {
   const history = body.history ?? [];
   const chunk = retrieve(question);
 
-  // Everything the answer may state a number about.
-  const allowed = allowedDigits([
-    chunk?.text ?? "",
-    ...history.map((turn) => turn.text),
-  ]);
-  const guard = createStreamGuard(allowed);
+  // Everything the answer may state a number about: the retrieved passage.
+  // History is context, never evidence, so its digits are not allowed.
+  const allowed = allowedDigits([chunk?.text ?? ""]);
+  const guard = createStreamGuard(allowed, CITATIONS);
   const id = "answer";
 
   function withdraw(writer: UIMessageStreamWriter, reason: string) {
-    writer.write({ type: "data-withdraw", data: { reason } });
+    writer.write({ type: WITHDRAW_PART, data: { reason } });
     writer.write({ type: "text-delta", id, delta: REFUSAL });
     writer.write({ type: "text-end", id });
   }
@@ -43,7 +45,7 @@ export async function POST(request: Request) {
         for await (const delta of answerChunks(question, history)) {
           const result = guard.push(delta);
           if (result.violation !== null) {
-            withdraw(writer, `untraced number: ${result.violation}`);
+            withdraw(writer, result.violation);
             return;
           }
           if (result.text.length > 0) {
@@ -53,7 +55,7 @@ export async function POST(request: Request) {
 
         const rest = guard.flush();
         if (rest.violation !== null) {
-          withdraw(writer, `untraced number: ${rest.violation}`);
+          withdraw(writer, rest.violation);
           return;
         }
         if (rest.text.length > 0) {

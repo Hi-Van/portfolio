@@ -1,4 +1,5 @@
 import Link from "next/link";
+import type { ReturnKey } from "../../content/site";
 
 /**
  * A link that reads as a switch and states its position with aria-current.
@@ -9,7 +10,7 @@ export function AskSwitch({
   from,
 }: {
   current: boolean;
-  from: string;
+  from: ReturnKey;
 }) {
   return (
     <Link

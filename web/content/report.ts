@@ -4,16 +4,25 @@
  * a figure that disagrees with the rest of the site.
  */
 
-import { fact } from "./facts";
-import type { FactId } from "./ids";
+import { fact, isFactId } from "./facts";
 
 const PLACEHOLDER = /\{([a-z0-9-]+)\}/g;
 
+/** Thrown when report prose names a placeholder the registry does not hold. */
+export class UnknownPlaceholderError extends Error {
+  constructor(id: string) {
+    super(`Unknown placeholder "{${id}}" in report prose.`);
+    this.name = "UnknownPlaceholderError";
+  }
+}
+
 export function renderProse(text: string): string {
-  return text.replace(
-    PLACEHOLDER,
-    (_match, id: string) => fact(id as FactId).display,
-  );
+  return text.replace(PLACEHOLDER, (_match, id: string) => {
+    if (!isFactId(id)) {
+      throw new UnknownPlaceholderError(id);
+    }
+    return fact(id).display;
+  });
 }
 
 export function placeholdersIn(text: string): string[] {

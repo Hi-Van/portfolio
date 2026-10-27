@@ -14,15 +14,25 @@ export const metadata = pageMetadata({
   path: "/",
 });
 
+type PersonSchema = {
+  "@context": "https://schema.org";
+  "@type": "Person";
+  name: string;
+  url: string;
+  jobTitle: string;
+  worksFor: { "@type": "Organization"; name: string };
+  address: { "@type": "PostalAddress"; addressLocality: string };
+};
+
 const personSchema = {
   "@context": "https://schema.org",
   "@type": "Person",
   name: site.name,
   url: urlFor("/"),
-  jobTitle: "Software Engineer",
+  jobTitle: home.status.role,
   worksFor: { "@type": "Organization", name: home.status.employer },
   address: { "@type": "PostalAddress", addressLocality: home.status.location },
-};
+} satisfies PersonSchema;
 
 export default function Home() {
   const { status } = home;

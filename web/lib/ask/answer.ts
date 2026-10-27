@@ -1,6 +1,6 @@
 import { streamText } from "ai";
 import type { Chunk } from "../../content/corpus";
-import { compose, REFUSAL, retrieve } from "./compose";
+import { citationFor, compose, REFUSAL, retrieve } from "./compose";
 import type { Turn } from "./guards";
 import { hasCredential, LIMITS, model } from "./provider";
 
@@ -19,7 +19,7 @@ function prompt(question: string, chunk: Chunk, history: Turn[]): string {
     .join("\n");
   return [
     `Passage (${chunk.label}): ${chunk.text}`,
-    `Anchor: [[${chunk.surface}#${chunk.anchor}|${chunk.label}]]`,
+    `Anchor: ${citationFor(chunk)}`,
     turns ? `Conversation so far:\n${turns}` : "",
     `Question: ${question}`,
   ]

@@ -1,4 +1,5 @@
 import { expect, test } from "vitest";
+import { isReturnKey, returnTarget } from "../../content/site";
 import { isAskRequest } from "../../lib/ask/guards";
 
 test("a well formed request is accepted", () => {
@@ -33,4 +34,13 @@ test("a malformed history is rejected", () => {
       history: Array.from({ length: 13 }, () => ({ role: "user", text: "x" })),
     }),
   ).toBe(false);
+});
+
+test("a return parameter outside the table falls back home", () => {
+  expect(isReturnKey("work")).toBe(true);
+  expect(isReturnKey("constructor")).toBe(false);
+  expect(isReturnKey("__proto__")).toBe(false);
+  expect(returnTarget("constructor").href).toBe("/");
+  expect(returnTarget("__proto__").href).toBe("/");
+  expect(returnTarget("work").href).toBe("/work");
 });

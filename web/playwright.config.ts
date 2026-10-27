@@ -2,6 +2,7 @@ import { defineConfig } from "@playwright/test";
 
 export default defineConfig({
   testDir: "./tests/e2e",
+  forbidOnly: true,
   projects: [
     { name: "chromium", use: { browserName: "chromium" } },
     { name: "firefox", use: { browserName: "firefox" } },
@@ -14,5 +15,6 @@ export default defineConfig({
     url: "http://localhost:3000",
     reuseExistingServer: !process.env.CI,
     timeout: 120_000,
+    env: { ...process.env, DEEPSEEK_API_KEY: "" },
   },
 });

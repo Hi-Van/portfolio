@@ -30,6 +30,24 @@ test("the apex over https is served", () => {
   expect(response.headers.get("location")).toBeNull();
 });
 
+test("the scheme header is normalised before it is compared", () => {
+  for (const proto of ["HTTPS", " https ", "https, http"]) {
+    const response = proxy(
+      request("https://vansiriso.uk/work", { "x-forwarded-proto": proto }),
+    );
+    expect(response.headers.get("location"), proto).toBeNull();
+  }
+});
+
+test("a canonical request is served instead of a redirect to itself", () => {
+  const response = proxy(
+    request("https://vansiriso.uk/work?from=ask", {
+      "x-forwarded-proto": "http",
+    }),
+  );
+  expect(response.headers.get("location")).toBeNull();
+});
+
 test("local development is never redirected to production", () => {
   for (const url of ["http://localhost:3000/", "http://127.0.0.1:3000/work"]) {
     const response = proxy(request(url));

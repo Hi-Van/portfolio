@@ -50,6 +50,22 @@ for (const [key, role] of Object.entries(ROLE_MAP)) {
   }
 }
 
+// The eight contract roles are compared by hex above. Every other colour
+// variable in the stylesheet needs a theme entry too, or the utility that reads
+// it disappears with no error: an axis line, a band, a border. Reading :root
+// keeps this in step with the stylesheet without a second hard-coded list.
+const roleVars = new Set(Object.values(ROLE_MAP));
+for (const name of Object.keys(light)) {
+  const role = name.replace(/^--/, "");
+  if (roleVars.has(role)) continue;
+  const utility = `--color-${role}`;
+  if (!themeNames.includes(utility)) {
+    problems.push(
+      `${utility} is not in the Tailwind theme block, so ${name} has no utility`,
+    );
+  }
+}
+
 const lightNames = Object.keys(light).sort();
 
 for (const [label, vars] of [

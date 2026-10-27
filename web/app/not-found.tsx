@@ -1,7 +1,9 @@
+import type { Metadata } from "next";
 import Link from "next/link";
 import { PageMain } from "../components/shell/page-main";
 
-export const metadata = { title: "Not found · Van Sirisouk" };
+/** The bare title: the layout's template appends the site name once. */
+export const metadata = { title: "Not found" } satisfies Metadata;
 
 export default function NotFound() {
   return (

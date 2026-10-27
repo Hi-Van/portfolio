@@ -72,7 +72,7 @@ export default function Report() {
               <Paragraphs>{[...section.paragraphs]}</Paragraphs>
 
               {section.id === "problem" ? (
-                <Figure number={1} caption={report.figures.fig1}>
+                <Figure number={1} caption={renderProse(report.figures.fig1)}>
                   <SubmissionsDiagram />
                 </Figure>
               ) : null}
@@ -86,12 +86,18 @@ export default function Report() {
                   <Paragraphs>{[...sub.paragraphs]}</Paragraphs>
 
                   {sub.id === "sys-cleanup" ? (
-                    <Figure number={2} caption={report.figures.fig2}>
+                    <Figure
+                      number={2}
+                      caption={renderProse(report.figures.fig2)}
+                    >
                       <LatencyBars />
                     </Figure>
                   ) : null}
                   {sub.id === "sys-intake" ? (
-                    <Figure number={3} caption={report.figures.fig3}>
+                    <Figure
+                      number={3}
+                      caption={renderProse(report.figures.fig3)}
+                    >
                       <UnitGrid />
                     </Figure>
                   ) : null}
@@ -100,7 +106,7 @@ export default function Report() {
 
               {section.id === "scale" ? (
                 <>
-                  <Figure number={4} caption={report.figures.fig4}>
+                  <Figure number={4} caption={renderProse(report.figures.fig4)}>
                     <AnnualVolume />
                   </Figure>
                   <Model />

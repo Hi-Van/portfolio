@@ -1,5 +1,7 @@
 import type { FactId } from "./ids";
+import { factIds } from "./ids";
 import type { Fact } from "./types";
+import { isStated } from "./types";
 
 /**
  * Every number the site states, defined once. The README's provenance list is
@@ -232,6 +234,31 @@ export const facts: Record<FactId, Fact> = {
 
 export function fact(id: FactId): Fact {
   return facts[id];
+}
+
+/** Thrown when a caller asks for the value of a claim that is not measured. */
+export class UnstatedFactError extends Error {
+  constructor(id: FactId) {
+    super(`Fact "${id}" is not measured, so it has no value.`);
+    this.name = "UnstatedFactError";
+  }
+}
+
+/**
+ * The machine form of a stated fact. A claim the site refuses to quantify has
+ * no value, and asking for one is a programming error rather than a zero.
+ */
+export function factValue(id: FactId): number {
+  const entry = fact(id);
+  if (!isStated(entry)) {
+    throw new UnstatedFactError(id);
+  }
+  return entry.value;
+}
+
+/** Whether a string names a registry entry, so prose can resolve without a cast. */
+export function isFactId(id: string): id is FactId {
+  return (factIds as readonly string[]).includes(id);
 }
 
 export function factsFor(surface: Fact["sources"][number]): Fact[] {

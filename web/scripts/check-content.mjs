@@ -23,7 +23,25 @@ function walk(dir) {
   });
 }
 
-const files = ROOTS.flatMap(walk).filter((file) => file.endsWith(".tsx"));
+// A root that is missing or renamed yields no files, and a scan of nothing
+// reports no offences: the check would pass while enforcing nothing.
+const scanned = ROOTS.map((root) => [
+  root,
+  walk(root).filter((file) => file.endsWith(".tsx")),
+]);
+const silent = scanned
+  .filter(([, found]) => found.length === 0)
+  .map(([root]) => root);
+
+if (silent.length > 0) {
+  process.stderr.write(
+    `check-content: nothing to scan under ${silent.join(", ")}\n` +
+      "Run this from web/, and check that each root still exists and holds .tsx files.\n",
+  );
+  process.exit(1);
+}
+
+const files = scanned.flatMap(([, found]) => found);
 const offences = [];
 
 for (const file of files) {

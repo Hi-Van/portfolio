@@ -4,7 +4,7 @@
 // navigation file can name its own files. Dependency folders, build output, and
 // generated artefacts are excluded; the test tree is named as a directory.
 
-import { readdirSync, readFileSync, statSync } from "node:fs";
+import { existsSync, readdirSync, readFileSync, statSync } from "node:fs";
 import { dirname, join, relative } from "node:path";
 import { fileURLToPath } from "node:url";
 
@@ -74,15 +74,41 @@ function docs() {
   return parts.join("\n");
 }
 
+// A source directory that is missing or renamed yields no files, so the
+// coverage loop would report nothing and the check would pass while covering
+// nothing. A root config that is gone is the same failure from the other side.
+const scanned = SOURCE_DIRS.map((dir) => {
+  try {
+    return [dir, walk(join(web, dir))];
+  } catch {
+    return [dir, []];
+  }
+});
+const silent = scanned
+  .filter(([, found]) => found.length === 0)
+  .map(([dir]) => `web/${dir}`);
+const absent = ROOT_SOURCE.filter((file) => !existsSync(join(web, file)));
+
+const problems = [];
+if (silent.length > 0) {
+  problems.push(`nothing to scan under ${silent.join(", ")}`);
+}
+if (absent.length > 0) {
+  const names = absent.map((file) => `web/${file}`).join(", ");
+  problems.push(`listed in ROOT_SOURCE but missing: ${names}`);
+}
+if (problems.length > 0) {
+  process.stderr.write(
+    `check-artifacts: ${problems.length} scan problem(s)\n` +
+      `${problems.map((line) => `  ${line}`).join("\n")}\n` +
+      "Restore the tree, or change the list of roots.\n",
+  );
+  process.exit(1);
+}
+
 const text = docs();
 const files = [
-  ...SOURCE_DIRS.flatMap((dir) => {
-    try {
-      return walk(join(web, dir));
-    } catch {
-      return [];
-    }
-  }),
+  ...scanned.flatMap(([, found]) => found),
   ...ROOT_SOURCE.map((file) => join(web, file)),
 ];
 const missing = [];
@@ -99,6 +125,15 @@ for (const file of files) {
   );
   if (grouped && text.includes(grouped[1])) continue;
   missing.push(rel);
+}
+
+// The coverage loop is only evidence if it counted something.
+if (counted === 0) {
+  process.stderr.write(
+    "check-artifacts: 0 source files counted, so the coverage loop proved nothing\n" +
+      "Check that the source roots hold files and that ROOT_SOURCE names real paths.\n",
+  );
+  process.exit(1);
 }
 
 if (missing.length > 0) {

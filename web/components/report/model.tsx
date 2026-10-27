@@ -5,10 +5,10 @@ import { Group } from "@visx/group";
 import { scaleLinear } from "@visx/scale";
 import { Area, LinePath } from "@visx/shape";
 import { useMemo, useState } from "react";
-import { fact } from "../../content/facts";
+import { fact, factValue } from "../../content/facts";
 import { compact, grouped } from "../../content/format";
 import { DEFAULT_ASSUMPTIONS, sellerHoursReturned } from "../../content/model";
-import { report } from "../../content/report";
+import { renderProse, report } from "../../content/report";
 import { Figure } from "../figures/figure";
 
 const WIDTH = 900;
@@ -25,8 +25,8 @@ const MINUTES_RANGE = { min: 2, max: 12, step: 1 };
  * arithmetic lives in content/model.ts and is shared with the prerender.
  */
 export function Model() {
-  const daily = fact("submissions-per-day").value ?? 0;
-  const reduction = (fact("session-shorter").value ?? 0) / 100;
+  const daily = factValue("submissions-per-day");
+  const reduction = factValue("session-shorter") / 100;
 
   const [share, setShare] = useState(
     Math.round(DEFAULT_ASSUMPTIONS.humanShare * 100),
@@ -75,7 +75,7 @@ export function Model() {
   });
 
   return (
-    <Figure number={5} caption={report.figures.fig5}>
+    <Figure number={5} caption={renderProse(report.figures.fig5)}>
       <p className="font-display text-display-page tracking-display text-indigo">
         {grouped(returned)}
       </p>

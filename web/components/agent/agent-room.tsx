@@ -11,8 +11,9 @@ import {
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { type ReactNode, useEffect, useRef, useState } from "react";
+import { isReturnKey, type ReturnKey, returnTarget } from "../../content/site";
 import { visibleAnswer } from "../../lib/agent/parts";
-import { isRefusal } from "../../lib/ask/compose";
+import { citationTargets, isRefusal } from "../../lib/ask/compose";
 import { useAgentChat } from "./chat-provider";
 
 const MAX_QUESTION = 280;
@@ -24,20 +25,8 @@ const SUGGESTIONS = [
   "How do I reach him?",
 ];
 
-const RETURN_TO: Record<string, string> = {
-  index: "/",
-  home: "/",
-  work: "/work",
-  report: "/report",
-  about: "/about",
-};
-
-const SURFACE_NAME: Record<string, string> = {
-  "/": "home",
-  "/work": "work",
-  "/report": "the report",
-  "/about": "about",
-};
+/** Built once; every marker the room is willing to link resolves in it. */
+const CITATIONS = citationTargets();
 
 const ANCHOR = /\[\[([a-z]+)(?:#([a-z0-9-]+))?\|([^\]]+)\]\]/g;
 
@@ -49,17 +38,23 @@ function renderWithAnchors(text: string): ReactNode[] {
     const [whole, surface, anchor, label] = match;
     const start = match.index ?? 0;
     if (start > cursor) nodes.push(text.slice(cursor, start));
-    const href =
-      surface === "home" ? "/" : `/${surface}${anchor ? `#${anchor}` : ""}`;
-    nodes.push(
-      <Link
-        key={`${start}-${label}`}
-        href={href}
-        className="text-indigo underline decoration-line underline-offset-4"
-      >
-        {label}
-      </Link>,
-    );
+    const target = anchor ? `${surface}#${anchor}` : surface;
+    if (CITATIONS.has(target)) {
+      const href =
+        surface === "home" ? "/" : `/${surface}${anchor ? `#${anchor}` : ""}`;
+      nodes.push(
+        <Link
+          key={`${start}-${label}`}
+          href={href}
+          className="text-indigo underline decoration-line underline-offset-4"
+        >
+          {label}
+        </Link>,
+      );
+    } else {
+      // A citation that does not resolve is not a link. The label stays.
+      nodes.push(label);
+    }
     cursor = start + whole.length;
   }
   if (cursor < text.length) nodes.push(text.slice(cursor));
@@ -80,30 +75,31 @@ export function AgentRoom() {
 
   const [input, setInput] = useState("");
   const [announcement, setAnnouncement] = useState("");
-  const [back, setBack] = useState("/");
+  const [back, setBack] = useState<ReturnKey>("index");
   const [times, setTimes] = useState<Record<string, string>>({});
   const previousStatus = useRef(status);
   const reduce = useReducedMotion();
   const logRef = useRef<HTMLDivElement>(null);
 
   const busy = status === "streaming" || status === "submitted";
+  const { href: backHref, label: backLabel } = returnTarget(back);
 
   // The return target comes from the allowlist, never from the raw parameter.
   useEffect(() => {
-    const from = new URLSearchParams(window.location.search).get("from");
-    setBack(RETURN_TO[from ?? ""] ?? "/");
+    const from = new URLSearchParams(window.location.search).get("from") ?? "";
+    setBack(isReturnKey(from) ? from : "index");
   }, []);
 
   useEffect(() => {
     const onKey = (event: KeyboardEvent) => {
       if (event.key === "Escape") {
         event.preventDefault();
-        router.push(back);
+        router.push(backHref);
       }
     };
     document.addEventListener("keydown", onKey);
     return () => document.removeEventListener("keydown", onKey);
-  }, [back, router]);
+  }, [backHref, router]);
 
   // One announcement per finished answer, never one per fragment.
   useEffect(() => {
@@ -300,10 +296,10 @@ export function AgentRoom() {
           Answers come from this site only. Nothing you type is stored.
         </span>
         <Link
-          href={back}
+          href={backHref}
           className="inline-flex min-h-11 items-center text-ink underline decoration-line-strong underline-offset-4"
         >
-          Back to {SURFACE_NAME[back] ?? "home"}
+          Back to {backLabel}
         </Link>
       </p>
     </div>

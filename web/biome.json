@@ -7,7 +7,16 @@
   },
   "files": {
     "ignoreUnknown": true,
-    "includes": ["**", "!node_modules", "!.next", "!dist", "!build"]
+    "includes": [
+      "**",
+      "!node_modules",
+      "!.next",
+      "!dist",
+      "!build",
+      "!test-results",
+      "!playwright-report",
+      "!coverage"
+    ]
   },
   "formatter": {
     "enabled": true,
@@ -38,7 +47,9 @@
   },
   "overrides": [
     {
-      "includes": ["tests/**/*.ts"],
+      "includes": [
+        "tests/**/*.ts"
+      ],
       "linter": {
         "rules": {
           "style": {
@@ -48,7 +59,9 @@
       }
     },
     {
-      "includes": ["app/page.tsx"],
+      "includes": [
+        "app/page.tsx"
+      ],
       "linter": {
         "rules": {
           "security": {

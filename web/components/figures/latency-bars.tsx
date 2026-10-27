@@ -1,12 +1,13 @@
-/** Indexed to the pre-cleanup baseline, so the two bars are the whole figure. */
-const INDEX = { before: 100, after: 70 };
+import { factValue } from "../../content/facts";
 
 export function LatencyBars() {
   const baseline = 250;
   const scale = 1.8;
+  /** Indexed to the pre-cleanup baseline, so the two bars are the whole figure. */
+  const index = { before: 100, after: 100 - factValue("queries-faster") };
   const bars = [
-    { label: "before", value: INDEX.before, x: 250, fill: "fill-chart-cell" },
-    { label: "after", value: INDEX.after, x: 520, fill: "fill-indigo" },
+    { label: "before", value: index.before, x: 250, fill: "fill-chart-cell" },
+    { label: "after", value: index.after, x: 520, fill: "fill-indigo" },
   ];
 
   return (
@@ -14,7 +15,7 @@ export function LatencyBars() {
       viewBox="0 0 900 300"
       className="w-full"
       role="img"
-      aria-label="Bar chart. Query latency indexed to the pre-cleanup baseline: one hundred before the cleanup, seventy after."
+      aria-label={`Bar chart. Query latency indexed to the pre-cleanup baseline: ${index.before} before the cleanup, ${index.after} after.`}
     >
       <line
         x1="200"

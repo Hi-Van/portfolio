@@ -107,14 +107,40 @@ export function retrieve(question: string): Chunk | null {
 }
 
 /**
+ * Every citation the corpus can produce, as `surface#anchor` for a section
+ * and the bare surface for a whole-surface chunk. The guard and the transcript
+ * both resolve a marker against this set, so a fabricated anchor cannot become
+ * a link.
+ */
+export function citationTargets(): ReadonlySet<string> {
+  return new Set(
+    corpus.map((chunk) =>
+      chunk.anchor === null
+        ? chunk.surface
+        : `${chunk.surface}#${chunk.anchor}`,
+    ),
+  );
+}
+
+/**
+ * The marker for one chunk. A whole-surface chunk has no fragment, so the
+ * marker names the surface alone. Both the responder and the model prompt use
+ * this, so the anchor they teach is always one the guard will resolve.
+ */
+export function citationFor(chunk: Chunk): string {
+  const target =
+    chunk.anchor === null ? chunk.surface : `${chunk.surface}#${chunk.anchor}`;
+  return `[[${target}|${chunk.label}]]`;
+}
+
+/**
  * The responder. It answers from the retrieved passage and cites it inline, so
- * the reader can follow the claim. Group 9 replaces this with the model call
- * behind the same stream guard.
+ * the reader can follow the claim.
  */
 export function compose(question: string): string {
   const chunk = retrieve(question);
   if (chunk === null) return REFUSAL;
-  return `${chunk.text} [[${chunk.surface}#${chunk.anchor}|${chunk.label}]]`;
+  return `${chunk.text} ${citationFor(chunk)}`;
 }
 
 export function isRefusal(text: string): boolean {
