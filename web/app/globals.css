@@ -75,6 +75,12 @@
   --text-chart--line-height: 1;
   --text-chart-value: 17px;
   --text-chart-value--line-height: 1;
+  /* A 900-unit viewBox scales with the column, so narrow viewports need larger
+     units to keep the rendered label legible. */
+  --text-chart-narrow: 26px;
+  --text-chart-narrow--line-height: 1;
+  --text-chart-value-narrow: 28px;
+  --text-chart-value-narrow--line-height: 1;
 
   --tracking-display: -0.02em;
   --tracking-heading-2: -0.012em;

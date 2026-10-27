@@ -40,10 +40,10 @@ Read [the narrative](narrative.md) for the feel. Read the foundations before mak
 | [Content and provenance](foundations/content-and-provenance.md) | The fact registry, the four provenance classes, the accent mapping, the single-source rule, the arithmetic | You are adding or moving a number |
 | [Navigation](components/navigation.md) | Top bar, links, Contact CTA, Ask switch, theme toggle, menu, skip link, footer, report section nav | You are touching the bar or a global control |
 | [Actions](components/actions.md) | Filled pill, compact Contact CTA, outlined rectangle, text links, mail links, reset | You are adding or restyling an action |
-| [Inputs](components/inputs.md) | Chat composer, send circle, range controls, reset | You are changing a field or a slider |
+| [Inputs](components/inputs.md) | Model sliders, their states and value text, reset; the composer when the agent surface lands | You are changing a field or a slider |
 | [Evidence and data display](components/evidence.md) | Badges, result tiles, system rows, role rows, figures, charts, abstract, method rows, headings, byline | You are presenting a number |
 | [Chat messages](components/messaging.md) | Message rows, citations, suggestions, notes, typing, system dividers | You are changing the transcript |
-| [Report](surfaces/report.md) | The report as a document: cover, abstract, 720 measure, sections, figures, model, method, contact | You are changing report composition |
+| [Report](surfaces/report.md) | The report as a document: masthead, abstract, 720 column, five figures, the model, method, section navigation | You are changing report composition |
 | [Chat](surfaces/chat.md) | The ask page as a room: header, log, composer, intro, return behavior | You are changing the chat surface |
 | [Pages](surfaces/pages.md) | Home, work, and about composition | You are changing a page layout |
 

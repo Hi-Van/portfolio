@@ -171,7 +171,7 @@ Display tracking is one value, `-0.02em`, on every h1. Headings tighten in steps
 
 Body copy runs at 1.66 leading and about 80 characters per line. That is longer than a book measure; the compensation is the leading, and the reason is structural: figures and text share one 720px column, and the charts need the width more than the prose needs a shorter line. Do not shorten the column without resizing the chart type with it.
 
-Small type has a floor. Caps keys are 10px at weight 500, captions 13px, byline 12px on mobile, chart labels 15 SVG units (about 11px rendered) with values at 17.
+Small type has a floor. Caps keys are 10px at weight 500, captions 13px, byline 12px on mobile, chart labels 15 SVG units (about 11px rendered) with values at 17. Because a figure scales with its column, a narrow viewport steps chart text up to 26 units and values to 28 so the rendered size stays above 9px.
 
 Do not justify text. Ragged right with `text-wrap: pretty` on paragraphs and `balance` on captions and the report deck.
 

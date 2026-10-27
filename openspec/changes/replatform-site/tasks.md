@@ -135,19 +135,19 @@ calls for, so no group starts on top of undocumented work.
 
 ## 7. Report surface
 
-- [ ] 7.1 Build the report as its own document: masthead, abstract, numbered sections, method note,
+- [x] 7.1 Build the report as its own document: masthead, abstract, numbered sections, method note,
       and closing contact block, sharing one reading column. Verify: parity with `preview/report.png`
       at 1440, and the column width is identical for prose and figures.
-- [ ] 7.2 Author figures 1, 2, and 3 by hand: the submissions diagram, the two-bar index, and the
+- [x] 7.2 Author figures 1, 2, and 3 by hand: the submissions diagram, the two-bar index, and the
       104-cell unit grid. Verify: the rendered markup carries no colour literal and only contract
       roles, and the grid draws 104 cells with scripting disabled.
-- [ ] 7.3 Build figures 4 and 5 with the visx toolkit: the cumulative line and the two-series band.
+- [x] 7.3 Build figures 4 and 5 with the visx toolkit: the cumulative line and the two-series band.
       Set every mark to a contract role, set tick and value type from the contract, and disable the
       library's entrance animation. Verify: both figures are present with scripting disabled, no mark
       or label takes a library default, and label size stays at or above the floor at 960 and 390.
-- [ ] 7.4 Write the five captions so each states its assumption, and state in figure 1's caption that
+- [x] 7.4 Write the five captions so each states its assumption, and state in figure 1's caption that
       the three submissions are illustrative. Verify: a copy review against the report spec.
-- [ ] 7.5 Build the model with two slider controls from Base UI held in local component state, the
+- [x] 7.5 Build the model with two slider controls from Base UI held in local component state, the
       fixed 20-second assumption stated rather than adjustable, assumption and measurement marked
       differently, and outputs recomputed through the shared arithmetic module so the formula exists
       once. Initialise from the same constants the prerender used, style every slider part from
@@ -155,16 +155,16 @@ calls for, so no group starts on top of undocumented work.
       control, the default render shows 782,925 hours with scripting disabled, the track and thumb are
       present in the delivered markup, each control measures at least 44px, and hydration produces no
       mismatch warning.
-- [ ] 7.6 Delete the scroll reveal rather than porting it: figures are drawn, not revealed. Confirm the
+- [x] 7.6 Delete the scroll reveal rather than porting it: figures are drawn, not revealed. Confirm the
       report is complete with scripting disabled: five figures, method note, default outputs, and
       readable prose. Verify: a script-off pass at 390 and 1440 shows every figure's marks, and no
       element starts at zero opacity, zero scale, or zero width.
-- [ ] 7.7 Build in-page section navigation that states the current section and stays reachable on a
+- [x] 7.7 Build in-page section navigation that states the current section and stays reachable on a
       narrow viewport. Verify: at 390 the navigation is reachable through a control, and the current
       section is marked while scrolling.
-- [ ] 7.8 Confirm the stated reading time matches the word count, and update it if the copy changed.
+- [x] 7.8 Confirm the stated reading time matches the word count, and update it if the copy changed.
       Verify: word count divided by the recorded rate equals the stated time.
-- [ ] 7.9 Rewrite the report, evidence, and inputs docs. Verify: no line-number citations remain, and
+- [x] 7.9 Rewrite the report, evidence, and inputs docs. Verify: no line-number citations remain, and
       the figures doc states which figures are library-backed and which are hand-authored.
 
 ## 8. Agent surface

@@ -47,3 +47,18 @@ test("clamp keeps a control inside its range", () => {
   expect(clamp(150, 5, 100)).toBe(100);
   expect(clamp(25, 5, 100)).toBe(25);
 });
+
+test("the session length control moves the returned hours", () => {
+  const base = { submissionsPerDay: 390_000, humanShare: 0.25, sessionReduction: 0.22 };
+  const six = sellerHoursReturned({ ...base, sessionMinutes: 6 });
+  const twelve = sellerHoursReturned({ ...base, sessionMinutes: 12 });
+  expect(twelve / six).toBeCloseTo(2, 6);
+});
+
+test("the defaults are the values the report prints", () => {
+  expect(DEFAULT_ASSUMPTIONS).toEqual({
+    secondsPerRecord: 20,
+    humanShare: 0.25,
+    sessionMinutes: 6,
+  });
+});
