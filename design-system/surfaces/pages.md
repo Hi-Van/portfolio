@@ -37,7 +37,7 @@ records/second │ submissions/day│ faster queries
 What 22% is worth at scale                            link into the report
 ──────────────────────────────────────────────────
 Hiring, referring, or just curious                    contact strip
-hello@vansirisouk.com
+contact@vansiriso.uk
 ```
 
 - **The heading** is the person's name at the 104px display step with the single display tracking value.
@@ -89,7 +89,7 @@ at the reading size and      │ Experience  Four years
 the reading measure          │ Focus       Product data, growth
                              │ ────────────────────────────
                              │ Hiring, referring, or just curious
-                             │ hello@vansirisouk.com
+                             │ contact@vansiriso.uk
                              │ Email is fastest…
                              │ The full report
 ```

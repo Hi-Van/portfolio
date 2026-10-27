@@ -136,10 +136,10 @@ minute.
 
 ## Launch blockers
 
-- `hello@vansirisouk.com` is a placeholder, set in `web/content/site.ts` and read everywhere.
-- No résumé path yet.
-- No share image, no designed missing-page surface.
-- The social and canonical metadata still needs the origin wired per surface.
+- The figure set still wants a check against your own records.
+- There is no résumé, by decision. Nothing on the site promises one.
+- The previous site is live at the origin until cutover, which is a traffic switch rather than a
+  first deploy. The `baseline-static` tag is the way back.
 
 ## Verified
 

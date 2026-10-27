@@ -127,11 +127,9 @@ sees the system theme for one frame. That is a recorded decision, not an oversig
 
 ## Before this goes live
 
-- `hello@vansirisouk.com` is a placeholder. It is set once in `web/content/site.ts` and read
-  everywhere.
-- Canonical addresses, share metadata, and the share image are not wired yet.
-- There is no résumé path and no designed missing-page surface.
 - The Meta figures and every Walmart figure still want a check against your own records.
+- There is no résumé yet. Nothing on the site promises one.
+- The old site is still live at the origin until cutover.
 
 ## The previous medium
 

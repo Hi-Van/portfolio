@@ -6,8 +6,8 @@ export const site = {
   name: "Van Sirisouk",
   /** The production origin. Every absolute address derives from this one value. */
   origin: "https://vansiriso.uk",
-  /** Placeholder. Task 11.1 replaces it and a test proves the old one is gone. */
-  email: "hello@vansirisouk.com",
+  /** The one contact address. Every occurrence renders from here. */
+  email: "contact@vansiriso.uk",
   nav: [
     { href: "/work", label: "Work" },
     { href: "/report", label: "Report" },

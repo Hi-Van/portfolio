@@ -120,3 +120,18 @@ test("the person schema names the site and the role", async ({ page }) => {
   expect(data.name).toContain("Van Sirisouk");
   expect(data.url).toBe(`${site.origin}/`);
 });
+
+test("nothing on any surface implies a résumé exists", async ({ page }) => {
+  for (const route of SURFACES) {
+    await page.goto(route);
+    const text = await page.locator("body").innerText();
+    expect(text, route).not.toMatch(/r[eé]sum[eé]|\bCV\b/i);
+    const hrefs = await page
+      .locator("a")
+      .evaluateAll((nodes) => nodes.map((node) => node.getAttribute("href") ?? ""));
+    expect(
+      hrefs.filter((href) => /resume|curriculum|\/cv\b|cv\.pdf/i.test(href)),
+      route,
+    ).toEqual([]);
+  }
+});

@@ -256,7 +256,7 @@ calls for, so no group starts on top of undocumented work.
 
 ## 11. Launch readiness
 
-- [ ] 11.1 Replace the placeholder address with the real one and confirm every former occurrence
+- [x] 11.1 Replace the placeholder address with the real one and confirm every former occurrence
       renders from the single constant. Verify: a grep for the placeholder returns nothing.
 - [x] 11.2 Configure the production origin `https://vansiriso.uk` in one constant, redirect `www`
       and plain `http` to it, and build each surface's canonical address and share metadata from that
@@ -266,7 +266,7 @@ calls for, so no group starts on top of undocumented work.
       address renders it with the shared bar.
 - [x] 11.4 Produce the share image and confirm it is legible at thumbnail size. Verify: a preview
       render shows the site's own image.
-- [ ] 11.5 Decide the résumé question and either publish it at a stated address or remove any
+- [x] 11.5 Decide the résumé question and either publish it at a stated address or remove any
       implication that one exists. Verify: the route is real or absent everywhere.
 - [x] 11.6 Confirm no third-party requests occur beyond those a reader's action causes. Verify: a
       network log on each surface, including the agent.
