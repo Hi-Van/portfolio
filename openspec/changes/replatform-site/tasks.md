@@ -5,17 +5,17 @@ calls for, so no group starts on top of undocumented work.
 
 ## 1. Baseline, repository, scaffold
 
-- [ ] 1.1 Run `git init`, add a `.gitignore` covering dependencies, build output, and local
+- [x] 1.1 Run `git init`, add a `.gitignore` covering dependencies, build output, and local
       environment files, and commit the untouched static site. Verify: `git log --oneline` shows one
       commit and `git status` is clean.
-- [ ] 1.2 Tag that commit as the rollback baseline and confirm it contains all five documents, both
+- [x] 1.2 Tag that commit as the rollback baseline and confirm it contains all five documents, both
       stylesheets, the four scripts, and the two check scripts. Verify: `git ls-tree -r <tag> --name-only`
       lists them.
-- [ ] 1.3 Scaffold the application beside the existing documents, without deleting anything. Verify:
+- [x] 1.3 Scaffold the application beside the existing documents, without deleting anything. Verify:
       the development server serves a placeholder surface and the old `index.html` still opens.
-- [ ] 1.4 Add the two check scripts' replacements as stubs wired to a single `check` command. Verify:
+- [x] 1.4 Add the two check scripts' replacements as stubs wired to a single `check` command. Verify:
       the command runs and exits non-zero while the stubs are empty.
-- [ ] 1.5 Add the dependencies the task list already requires: `tailwindcss` with its PostCSS plugin
+- [x] 1.5 Add the dependencies the task list already requires: `tailwindcss` with its PostCSS plugin
       for the theme block, `motion` for the two animated islands, `@base-ui/react` for the model's two
       slider controls, `ai` with `@ai-sdk/deepseek` and `@ai-sdk/react` for the model call and the
       conversation, `@visx/scale`, `@visx/axis`, `@visx/shape`, and `@visx/group` for figures 4 and 5,
