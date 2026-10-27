@@ -1,0 +1,854 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>How a catalog learns to file itself, Van Sirisouk</title>
+<meta name="description" content="A visual report on four years of product data work: the catalog problem, three systems, and the arithmetic that turns small percentages into annualized numbers.">
+<meta name="color-scheme" content="light dark">
+<script>try{var t=localStorage.getItem('vs-theme');if(t)document.documentElement.setAttribute('data-theme',t);}catch(e){}</script>
+<meta property="og:title" content="How a catalog learns to file itself">
+<meta property="og:description" content="Four years of product data work, and the arithmetic that makes small improvements matter.">
+<meta property="og:type" content="article">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%23f6f6f3'/%3E%3Ctext x='16' y='23' font-family='Georgia,serif' font-size='19' text-anchor='middle' fill='%232b3a8f'%3EV%3C/text%3E%3C/svg%3E">
+<style>
+@font-face{
+  font-family:"Instrument Serif";
+  src:url("assets/fonts/instrument-serif.woff2") format("woff2");
+  font-weight:400;font-style:normal;font-display:swap;
+}
+@font-face{
+  font-family:"Instrument Serif";
+  src:url("assets/fonts/instrument-serif-italic.woff2") format("woff2");
+  font-weight:400;font-style:italic;font-display:swap;
+}
+@font-face{
+  font-family:"Literata";
+  src:url("assets/fonts/literata.woff2") format("woff2");
+  font-weight:200 900;font-style:normal;font-display:swap;
+  font-optical-sizing:auto;
+}
+@font-face{
+  font-family:"Literata";
+  src:url("assets/fonts/literata-italic.woff2") format("woff2");
+  font-weight:200 900;font-style:italic;font-display:swap;
+}
+@font-face{
+  font-family:"Instrument Sans";
+  src:url("assets/fonts/instrument-sans.woff2") format("woff2");
+  font-weight:400 700;font-stretch:75% 100%;font-style:normal;font-display:swap;
+}
+
+:root{
+  --paper:#ffffff;
+  --surface:#ffffff;
+  --panel:#f6f6f3;
+  --ink:#131a2b;
+  --ink-hover:#0b1120;
+  --body:#303645;
+  --muted:#5f6673;
+  --line:#e6e6e2;
+  --line-2:#d3d3cc;
+  --data:#2b3a8f;
+  --data-soft:#5f69a3;
+  --assume:#95522c;
+  --assume-tint:#f3e9dc;
+  --baseline:#b6b9be;
+  --hover:rgba(19,26,43,.04);
+  --chart-grid:#e2e2dc;
+  --chart-axis:#d3d3cc;
+  --cell:#c9cbcf;
+  --band:#e3e4f0;
+  --band-key:#d9dbea;
+  --selection:#e3e6f4;
+  --badge-bg:#eeeee8;
+  --badge-border:#d8d8d0;
+  --top-bg:rgba(255,255,255,.86);
+  --on-data:#ffffff;
+
+
+  --serif:"Instrument Serif",Georgia,"Times New Roman",serif;
+  --text:"Literata",Georgia,"Times New Roman",serif;
+  --sans:"Instrument Sans","Helvetica Neue",Arial,sans-serif;
+  --ease:cubic-bezier(.16,1,.3,1);
+  --measure:720px;
+}
+
+[data-theme="dark"]{
+  --paper:#0c1018;
+  --surface:#1a1f2b;
+  --panel:#131824;
+  --ink:#eef1f7;
+  --ink-hover:#ffffff;
+  --body:#c2c8d4;
+  --muted:#9299a8;
+  --line:#232a38;
+  --line-2:#343c4c;
+  --data:#a9b3ff;
+  --data-soft:#7f88c4;
+  --assume:#d8a06e;
+  --assume-tint:rgba(216,160,110,.12);
+  --baseline:#5a6170;
+  --hover:rgba(238,241,247,.06);
+  --chart-grid:#212836;
+  --chart-axis:#333a48;
+  --cell:#333a48;
+  --band:rgba(169,179,255,.16);
+  --band-key:rgba(169,179,255,.38);
+  --selection:#2b3346;
+  --badge-bg:#171d28;
+  --badge-border:#2e3644;
+  --top-bg:rgba(12,16,24,.88);
+  --on-data:#0c1018;
+
+
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    --paper:#0c1018;
+    --surface:#1a1f2b;
+    --panel:#131824;
+    --ink:#eef1f7;
+    --ink-hover:#ffffff;
+    --body:#c2c8d4;
+    --muted:#9299a8;
+    --line:#232a38;
+    --line-2:#343c4c;
+    --data:#a9b3ff;
+    --data-soft:#7f88c4;
+    --assume:#d8a06e;
+    --assume-tint:rgba(216,160,110,.12);
+    --baseline:#5a6170;
+    --hover:rgba(238,241,247,.06);
+    --chart-grid:#212836;
+    --chart-axis:#333a48;
+    --cell:#333a48;
+    --band:rgba(169,179,255,.16);
+    --band-key:rgba(169,179,255,.38);
+    --selection:#2b3346;
+    --badge-bg:#171d28;
+    --badge-border:#2e3644;
+    --top-bg:rgba(12,16,24,.88);
+    --on-data:#0c1018;
+
+
+  }
+}
+*,*::before,*::after{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+@media (prefers-reduced-motion:no-preference){html{scroll-behavior:smooth}}
+p,figcaption{text-wrap:pretty}
+body{
+  margin:0;background:var(--paper);color:var(--body);
+  font-family:var(--text);font-size:19px;line-height:1.66;
+  font-optical-sizing:auto;text-rendering:optimizeLegibility;
+  -webkit-font-smoothing:antialiased;
+}
+::selection{background:var(--selection);color:var(--ink)}
+img,svg{display:block;max-width:100%}
+a{color:inherit;text-decoration:underline;text-decoration-color:var(--line-2);text-underline-offset:3px;text-decoration-thickness:1px;transition:text-decoration-color .2s var(--ease)}
+a:hover{text-decoration-color:var(--ink)}
+:focus-visible{outline:2px solid var(--data);outline-offset:3px;border-radius:2px}
+.skip{position:absolute;left:12px;top:-60px;z-index:50;background:var(--ink);color:var(--paper);font-family:var(--sans);font-size:13px;padding:10px 14px;border-radius:999px;text-decoration:none}
+.skip:focus{top:12px}
+.sr-only{position:absolute;width:1px;height:1px;margin:-1px;padding:0;overflow:hidden;clip-path:inset(50%);white-space:nowrap;border:0}
+
+/* ---------- top ---------- */
+.top{
+  position:sticky;top:0;z-index:30;
+  background:var(--top-bg);
+  -webkit-backdrop-filter:saturate(180%) blur(18px);
+  backdrop-filter:saturate(180%) blur(18px);
+  border-bottom:1px solid var(--line);
+}
+/* theme toggle */
+.top__name{order:1}
+.top__nav{order:2;margin-left:auto}
+.top__actions{order:3;display:flex;align-items:center;gap:10px}
+.theme-toggle{width:34px;height:34px;display:grid;place-items:center;background:none;border:0;color:var(--muted);cursor:pointer;border-radius:6px;flex:none;transition:color .2s var(--ease),background .2s var(--ease)}
+.theme-toggle:hover{color:var(--ink);background:var(--hover)}
+.theme-toggle .icon{width:18px;height:18px}
+.theme-toggle .icon-sun{display:none}
+.theme-toggle.is-dark .icon-moon{display:none}
+.theme-toggle.is-dark .icon-sun{display:block}
+
+.top__in{
+  max-width:1040px;height:58px;margin:0 auto;padding:0 24px;
+  display:flex;align-items:center;justify-content:space-between;gap:24px;
+}
+.top__name{font-family:var(--sans);font-weight:600;font-size:14px;letter-spacing:-.01em;color:var(--ink);text-decoration:none}
+.top__nav{display:flex;align-items:center;gap:26px;font-family:var(--sans);font-size:13.5px}
+.top__nav a{color:var(--muted);text-decoration:none;transition:color .2s var(--ease)}
+.top__nav a:hover,.top__nav a[aria-current="true"]{color:var(--ink)}
+.top__cta{
+  color:var(--paper) !important;background:var(--ink);padding:7px 15px;border-radius:999px;
+  font-weight:500;transition:background .2s var(--ease),transform .2s var(--ease);
+}
+.top__cta:hover{background:var(--ink-hover);transform:translateY(-1px)}
+
+/* ---------- cover ---------- */
+.cover{max-width:1040px;margin:0 auto;padding:0 24px}
+
+/* ---------- article frame ---------- */
+.article{
+  display:grid;
+  grid-template-columns:minmax(0,1fr) minmax(0,var(--measure)) minmax(0,1fr);
+  padding:0 24px;
+}
+.article > *{grid-column:2;min-width:0}
+.bleed{grid-column:2;width:100%}
+
+/* ---------- masthead ---------- */
+.masthead{text-align:center;padding-top:clamp(52px,7vw,96px)}
+.masthead h1{
+  font-family:var(--serif);font-weight:400;
+  font-size:clamp(46px,6.9vw,94px);line-height:.98;letter-spacing:-.02em;
+  margin:0 auto;max-width:960px;color:var(--ink);text-wrap:balance;
+}
+.deck{
+  font-family:var(--text);font-size:clamp(18px,1.55vw,21px);line-height:1.5;
+  color:var(--muted);max-width:44ch;margin:24px auto 0;text-wrap:balance;
+}
+.byline{
+  display:flex;flex-wrap:wrap;justify-content:center;gap:8px 26px;
+  margin-top:30px;font-family:var(--sans);font-size:12.5px;letter-spacing:.01em;color:var(--muted);
+}
+.byline span:first-child{color:var(--ink)}
+
+/* ---------- abstract ---------- */
+.abstract{
+  background:var(--panel);border-radius:12px;
+  padding:clamp(24px,4vw,40px);margin:clamp(32px,4.5vw,56px) auto 0;
+  max-width:var(--measure);
+}
+.abstract__label{
+  font-family:var(--serif);font-style:italic;font-size:20px;color:var(--assume);
+  margin:0 0 12px;
+}
+.abstract p.abstract__label{color:var(--assume)}
+.abstract p{margin:0 0 1em;font-size:18.5px;line-height:1.62;color:var(--body)}
+.abstract p:last-child{margin-bottom:0}
+
+/* ---------- sections ---------- */
+.sec{margin-top:clamp(52px,6.5vw,88px);scroll-margin-top:84px}
+.sec h2{
+  font-family:var(--serif);font-weight:400;font-size:clamp(30px,3.4vw,40px);
+  line-height:1.08;letter-spacing:-.012em;color:var(--ink);
+  margin:0 0 .7em;display:flex;align-items:baseline;gap:16px;
+}
+.sec h2 .n{
+  font-style:italic;font-size:.6em;color:var(--data);letter-spacing:0;
+  transform:translateY(-.26em);flex:none;width:.62em;
+}
+.sec h3{
+  font-family:var(--serif);font-weight:400;font-size:clamp(22px,2.1vw,26px);
+  line-height:1.2;letter-spacing:-.008em;color:var(--ink);
+  margin:2em 0 .5em;display:flex;align-items:baseline;gap:.42em;
+}
+.sec h3 .h3n{font-style:italic;font-size:.8em;color:var(--data);letter-spacing:0;transform:translateY(-.06em)}
+.sec p{margin:0 0 1.05em;text-wrap:pretty}
+.sec p:last-child{margin-bottom:0}
+
+/* ---------- figures ---------- */
+.figure{margin:clamp(26px,3.4vw,40px) 0}
+.figure__panel{background:var(--panel);border-radius:10px;padding:clamp(16px,2.4vw,24px)}
+.figure__chart{width:100%;height:auto}
+.figure__cap{
+  display:grid;grid-template-columns:auto minmax(0,1fr);gap:12px;
+  margin:13px 2px 0;font-family:var(--sans);font-size:13px;line-height:1.55;color:var(--muted);
+}
+.figure__cap b{color:var(--ink);font-weight:600;white-space:nowrap}
+.figure__cap span{text-wrap:balance}
+.svg-label{font-family:var(--sans);font-size:15px;fill:var(--muted);letter-spacing:.01em}
+.svg-value{font-family:var(--sans);font-size:17px;font-weight:600;fill:var(--ink);font-variant-numeric:tabular-nums}
+.svg-grid{stroke:var(--chart-grid);stroke-width:1}
+.svg-axis{stroke:var(--chart-axis);stroke-width:1}
+.bar-before{fill:var(--cell)}
+.bar-after,.bar-solid{fill:var(--data)}
+.cell{fill:var(--cell)}
+.svg-accent{fill:var(--data)}
+.svg-soft{fill:var(--body)}
+.svg-on-data{fill:var(--on-data)}
+.chart-grid{stroke:var(--chart-grid);stroke-width:1}
+.chart-axis{stroke:var(--chart-axis);stroke-width:1}
+.chart-end-base{fill:var(--baseline)}
+.chart-end-data{fill:var(--data)}
+.line-base{fill:none;stroke:var(--baseline);stroke-width:2;stroke-linecap:round}
+.line-data{fill:none;stroke:var(--data);stroke-width:2.5;stroke-linecap:round}
+.band{fill:var(--band)}
+.band-accent{fill:var(--data);opacity:.16}
+
+/* figure reveals */
+figure[data-reveal] .bar{transform:scaleX(0);transform-origin:left center;transform-box:fill-box;transition:transform .9s var(--ease)}
+figure[data-reveal].in .bar{transform:scaleX(1)}
+figure[data-reveal] .bar--b{transition-delay:.12s}
+figure[data-reveal] .cell{opacity:0;transform:translateY(4px);transition:opacity .5s var(--ease),transform .5s var(--ease);transition-delay:calc(var(--i) * 4ms)}
+figure[data-reveal].in .cell{opacity:1;transform:none}
+figure[data-reveal] .reveal{width:0;transition:width 1.15s var(--ease)}
+figure[data-reveal].in .reveal{width:900px}
+
+/* ---------- figure 1: catalog anatomy ---------- */
+.anatomy{display:grid;grid-template-columns:1fr 150px 1fr;gap:16px;align-items:center;padding:4px 0}
+.anatomy__sources{display:grid;gap:10px}
+.src{background:var(--surface);border:1px solid var(--line-2);border-radius:4px;padding:9px 12px;font-family:var(--sans)}
+.src__k{display:block;font-size:10px;font-weight:500;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-bottom:3px}
+.src__v{font-size:13px;color:var(--ink)}
+.anatomy__merge{position:relative;height:1px;background:var(--line-2)}
+.anatomy__merge span{
+  position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);
+  background:var(--panel);padding:0 9px;font-family:var(--sans);font-size:11px;
+  color:var(--assume);white-space:nowrap;
+}
+.anatomy__record{
+  background:var(--surface);border:1px solid var(--ink);border-radius:4px;
+  padding:14px 16px;font-family:var(--sans);display:grid;gap:2px;align-content:center;
+}
+.rec__k{font-size:10px;font-weight:500;letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
+.rec__name{font-family:var(--serif);font-size:25px;line-height:1.05;color:var(--ink);margin:4px 0 6px}
+.rec__sku{font-size:12px;color:var(--ink)}
+.rec__cat{font-size:11.5px;color:var(--muted)}
+
+/* ---------- figure 5: the model ---------- */
+.fig5__out{display:flex;flex-wrap:wrap;align-items:flex-end;gap:8px 20px;margin:2px 0 4px}
+.fig5__num{
+  font-family:var(--serif);font-size:clamp(40px,5.4vw,62px);line-height:.95;
+  color:var(--data);letter-spacing:-.01em;font-variant-numeric:lining-nums;
+}
+.fig5__unit{font-family:var(--sans);font-size:13px;color:var(--muted);padding-bottom:8px;max-width:30ch;line-height:1.4}
+.fig5__chart{margin-top:8px}
+.fig5__legend{display:flex;flex-wrap:wrap;gap:6px 22px;font-family:var(--sans);font-size:12px;color:var(--muted);margin:10px 0 0}
+.fig5__legend i{display:inline-block;width:16px;height:2px;background:var(--baseline);vertical-align:3px;margin-right:7px}
+.fig5__legend i.is-data{background:var(--data)}
+.fig5__legend i.is-band{background:var(--band-key);height:10px;vertical-align:-1px}
+.controls{
+  margin-top:16px;border-top:1px solid var(--line-2);padding-top:16px;
+  display:grid;grid-template-columns:1fr 1fr auto;gap:22px;align-items:start;
+}
+.control{font-family:var(--sans)}
+.control label{display:flex;justify-content:space-between;gap:12px;font-size:12.5px;color:var(--muted);margin-bottom:8px}
+.control output{font-weight:600;color:var(--assume);font-variant-numeric:tabular-nums}
+.control input[type=range]{-webkit-appearance:none;appearance:none;width:100%;height:20px;background:transparent;margin:0;cursor:pointer}
+.control input[type=range]::-webkit-slider-runnable-track{height:2px;background:var(--line-2);border-radius:2px}
+.control input[type=range]::-webkit-slider-thumb{
+  -webkit-appearance:none;appearance:none;width:16px;height:16px;border-radius:50%;
+  background:var(--surface);border:1px solid var(--line-2);margin-top:-7px;
+  box-shadow:0 1px 3px rgba(0,0,0,.12);transition:border-color .2s var(--ease),transform .2s var(--ease);
+}
+.control input[type=range]:hover::-webkit-slider-thumb{border-color:var(--data)}
+.control input[type=range]:active::-webkit-slider-thumb{transform:scale(1.08)}
+.control input[type=range]:focus-visible{outline:2px solid var(--data);outline-offset:6px;border-radius:2px}
+.control input[type=range]::-moz-range-track{height:2px;background:var(--line-2);border-radius:2px}
+.control input[type=range]::-moz-range-thumb{width:14px;height:14px;border-radius:50%;background:#fff;border:1px solid var(--line-2)}
+.reset{
+  font-family:var(--sans);font-size:12px;color:var(--muted);background:none;border:0;
+  border-bottom:1px solid var(--line-2);padding:0 0 2px;cursor:pointer;margin-top:22px;
+  justify-self:start;text-align:left;
+}
+.reset:hover{color:var(--ink);border-color:var(--ink)}
+
+/* ---------- method ---------- */
+.method{border-top:1px solid var(--line-2);margin-top:8px}
+.method__row{display:grid;grid-template-columns:130px minmax(0,1fr);gap:22px;padding:14px 0;border-bottom:1px solid var(--line)}
+.method__row dt{font-family:var(--sans);font-size:13px;font-weight:500;color:var(--muted);padding-top:2px}
+.method__row[data-kind="measured"] dt{color:var(--data)}
+.method__row[data-kind="derived"] dt{color:var(--data-soft)}
+.method__row[data-kind="assumed"] dt{color:var(--assume)}
+.method__row dd{margin:0;font-size:16px;line-height:1.6}
+
+/* ---------- contact ---------- */
+.contact{margin-top:clamp(52px,6.5vw,88px);padding-top:clamp(28px,3.5vw,40px)}
+.contact h2{font-family:var(--serif);font-weight:400;font-size:clamp(30px,3.4vw,40px);line-height:1.1;margin:0 0 .5em;letter-spacing:-.012em;color:var(--ink)}
+.contact p{margin:0 0 1.4em}
+.actions{display:flex;flex-wrap:wrap;align-items:center;gap:14px 22px}
+.pill{
+  display:inline-block;font-family:var(--sans);font-size:14px;font-weight:500;
+  background:var(--ink);color:var(--paper);text-decoration:none;padding:12px 22px;border-radius:999px;
+  transition:background .2s var(--ease),transform .2s var(--ease);
+}
+.pill:hover{background:var(--ink-hover);transform:translateY(-1px);text-decoration:none}
+.textlink{font-family:var(--sans);font-size:14px;color:var(--muted);text-decoration:none;border-bottom:1px solid var(--line-2);padding-bottom:2px}
+.textlink:hover{color:var(--ink);border-color:var(--ink)}
+
+/* ---------- footer ---------- */
+.foot{
+  margin-top:clamp(52px,6.5vw,88px);border-top:1px solid var(--line);
+  padding:24px 0 52px;font-family:var(--sans);font-size:12px;line-height:1.7;color:var(--muted);
+}
+.foot__in{max-width:var(--measure);margin:0 auto;padding:0}
+.foot__in p{margin:0;max-width:70ch}
+.foot__in p + p{margin-top:3px}
+
+@media (max-width:760px){
+  body{font-size:17.5px;line-height:1.62}
+  .cover{padding:0 20px}
+  .article{grid-template-columns:minmax(0,1fr) minmax(0,var(--measure)) minmax(0,1fr);padding:0 20px}
+  .top__in{padding:0 20px}
+  .masthead{padding-top:44px}
+  .masthead h1{max-width:none}
+  .byline{gap:6px 12px;font-size:12px;margin-top:24px}
+  .svg-label{font-size:26px}
+  .svg-value{font-size:28px}
+  .axis-note{display:none}
+  .abstract{padding:22px;border-radius:10px}
+  .abstract p{font-size:17px}
+  .sec h2{gap:12px}
+  .figure__cap{grid-template-columns:1fr;gap:4px}
+  .anatomy{grid-template-columns:1fr;gap:12px}
+  .anatomy__merge{height:46px;background:linear-gradient(var(--line-2),var(--line-2)) center/1px 100% no-repeat}
+  .anatomy__merge span{padding:4px 8px}
+  .controls{grid-template-columns:1fr;gap:18px}
+  .reset{margin-top:4px}
+  .method__row{grid-template-columns:1fr;gap:4px}
+  .fig5__unit{max-width:none;padding-bottom:0}
+  .top__nav a:not(.top__cta){display:none}
+  .foot__in{padding:0 20px}
+}
+@media (prefers-reduced-motion:reduce){
+  *{transition-duration:.001ms !important;animation-duration:.001ms !important}
+  html{scroll-behavior:auto}
+}
+@media print{
+  .top,.actions,.controls,.reset{display:none}
+  body{font-size:10.5pt;color:#000}
+  .abstract,.figure__panel{background:#fff;border:1px solid #ddd}
+  .figure{break-inside:avoid}
+}
+</style>
+<link rel="stylesheet" href="assets/tui.css">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+
+<header class="top">
+  <div class="top__in">
+    <a class="top__name" href="index.html">Van Sirisouk</a>
+    <nav class="top__nav" aria-label="Report sections">
+      <a href="#problem">Problem</a>
+      <a href="#systems">Systems</a>
+      <a href="#scale">Scale</a>
+      <a href="#method">Method</a>
+      <a class="top__cta" href="#contact">Contact</a>
+    </nav>
+    <div class="top__actions">
+      <a class="ask" href="ask.html?from=report" aria-label="Ask the site" title="Ask the site">
+        <span class="ask__track" aria-hidden="true"><span class="ask__knob"></span></span>
+        <span class="ask__label" aria-hidden="true">Ask</span>
+      </a>
+      <button class="theme-toggle" type="button" aria-label="Switch to dark theme" aria-pressed="false">
+        <svg class="icon icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M21 12.8A8.5 8.5 0 1 1 11.2 3a6.6 6.6 0 0 0 9.8 9.8z"/></svg>
+        <svg class="icon icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="4.2"/><path d="M12 2.6v2.2M12 19.2v2.2M2.6 12h2.2M19.2 12h2.2M5.3 5.3l1.6 1.6M17.1 17.1l1.6 1.6M18.7 5.3l-1.6 1.6M6.9 17.1l-1.6 1.6"/></svg>
+      </button>
+    </div>
+  </div>
+</header>
+
+<main id="main">
+<div class="cover" id="top">
+
+  <header class="masthead">
+    <h1>How a catalog learns to file itself</h1>
+    <p class="deck">Four years of product data work, and the arithmetic that makes small improvements matter.</p>
+    <div class="byline">
+      <span>Van Sirisouk</span>
+      <span>New York</span>
+      <span>October 2026</span>
+      <span>3 minute read</span>
+    </div>
+  </header>
+
+  <section class="abstract" aria-label="Abstract">
+    <p class="abstract__label">Abstract</p>
+    <p>Between 2023 and 2025 I worked on the product catalog behind Walmart's e-commerce site: reconciling supplier data, removing duplicate records, and automating a submission process that people had been doing by hand.</p>
+    <p>The results read like small numbers. Queries ran 30% faster. Sessions got 22% shorter. A pipeline processed 450,000 records a second. The figures below show why they matter at catalog scale, and each one states the assumption it rests on.</p>
+  </section>
+</div>
+
+<article class="article">
+
+  <section class="sec" id="problem" aria-labelledby="problem-h">
+    <h2 id="problem-h"><span class="n" aria-hidden="true">1</span>The same shirt, six ways</h2>
+    <p>A catalog is not a list. It is an agreement about what each thing is. Clothing breaks that agreement first: one style becomes two products by color and six SKUs by size, and every supplier names them differently.</p>
+
+    <figure class="figure bleed" aria-labelledby="fig1-cap">
+      <div class="figure__panel">
+        <div class="anatomy">
+          <div class="anatomy__sources">
+            <div class="src"><span class="src__k">Supplier A</span><span class="src__v">Navy tee, M</span></div>
+            <div class="src"><span class="src__k">Supplier B</span><span class="src__v">Tee / Navy / Medium</span></div>
+            <div class="src"><span class="src__k">Supplier C</span><span class="src__v">T-SHIRT NVY MD</span></div>
+          </div>
+          <div class="anatomy__merge" aria-hidden="true"><span>the same garment?</span></div>
+          <div class="anatomy__record">
+            <span class="rec__k">Catalog record</span>
+            <span class="rec__name">Crew tee, Navy</span>
+            <span class="rec__sku">SKU CT-NVY-M</span>
+            <span class="rec__cat">Apparel / Tops / Tees</span>
+          </div>
+        </div>
+      </div>
+      <figcaption class="figure__cap" id="fig1-cap">
+        <b>Figure 1</b>
+        <span>Three submissions for one garment, and the single record the catalog needs before it can file any of them. Illustrative of the mechanism, not an actual submission.</span>
+      </figcaption>
+    </figure>
+  </section>
+
+  <section class="sec" id="systems" aria-labelledby="systems-h">
+    <h2 id="systems-h"><span class="n" aria-hidden="true">2</span>Three systems</h2>
+
+    <h3 id="sys-cleanup"><span class="h3n" aria-hidden="true">2.1</span>Cleaning</h3>
+    <p>Years of failed submissions leave duplicates. The service merges them in place, per tenant, and writes an audit trail, so queries stop scanning rows that say the same thing twice.</p>
+
+    <figure class="figure bleed" data-reveal aria-labelledby="fig2-cap">
+      <div class="figure__panel">
+        <svg class="figure__chart" viewBox="0 0 900 300" role="img" aria-label="Bar chart. Query latency indexed to the pre-cleanup baseline: 100 before the cleanup, 70 after, a 30 percent reduction.">
+          <g class="svg-grid">
+            <line x1="160" y1="40" x2="160" y2="240"></line>
+            <line x1="335" y1="40" x2="335" y2="240"></line>
+            <line x1="510" y1="40" x2="510" y2="240"></line>
+            <line x1="685" y1="40" x2="685" y2="240"></line>
+            <line x1="860" y1="40" x2="860" y2="240"></line>
+          </g>
+          <text class="svg-label" x="160" y="264" text-anchor="middle">0</text>
+          <text class="svg-label" x="335" y="264" text-anchor="middle">25</text>
+          <text class="svg-label" x="510" y="264" text-anchor="middle">50</text>
+          <text class="svg-label" x="685" y="264" text-anchor="middle">75</text>
+          <text class="svg-label" x="860" y="264" text-anchor="middle">100</text>
+          <text class="svg-label" x="140" y="74" text-anchor="end">Before</text>
+          <text class="svg-label" x="140" y="170" text-anchor="end">After</text>
+
+          <rect class="bar bar-before" x="160" y="52" width="700" height="44"></rect>
+          <rect class="bar bar--b bar-after" x="160" y="148" width="490" height="44"></rect>
+
+          <text class="svg-value svg-soft" x="848" y="80" text-anchor="end">100</text>
+          <text class="svg-value svg-on-data" x="638" y="176" text-anchor="end">70</text>
+          <text class="svg-value svg-accent" x="666" y="176">−30%</text>
+
+          <line class="svg-axis" x1="160" y1="240" x2="860" y2="240"></line>
+          <text class="svg-label axis-note" x="160" y="288">Query latency, indexed to the pre-cleanup baseline</text>
+        </svg>
+      </div>
+      <figcaption class="figure__cap" id="fig2-cap">
+        <b>Figure 2</b>
+        <span>Query latency indexed to the pre-cleanup baseline. The raw milliseconds were not kept, so the index is the measurement.</span>
+      </figcaption>
+    </figure>
+
+    <h3 id="sys-intake"><span class="h3n" aria-hidden="true">2.2</span>Intake</h3>
+    <p>Layouts arrived as files and were filed by hand. The pipeline validates and publishes one on arrival, at 450,000 records a second.</p>
+
+    <figure class="figure bleed" data-reveal aria-labelledby="fig3-cap">
+      <div class="figure__panel">
+        <svg class="figure__chart" viewBox="0 0 900 460" role="img" aria-label="Unit chart. One second of pipeline output equals 104 person-days of manual filing, drawn as one short bar and 104 small squares.">
+          <text class="svg-label" x="44" y="44">One second</text>
+          <rect class="bar-solid" x="44" y="140" width="16" height="220" rx="4"></rect>
+          <text class="svg-label" x="44" y="388">of pipeline</text>
+
+          <text class="svg-label" x="250" y="44">104 person-days of filing</text>
+          <g id="fig3-grid"></g>
+          <text class="svg-label" x="250" y="446">One square is one working day at 20 seconds</text>
+        </svg>
+      </div>
+      <figcaption class="figure__cap" id="fig3-cap">
+        <b>Figure 3</b>
+        <span>One second of pipeline against one person filing at 20 seconds per record. The 20 seconds is my estimate.</span>
+      </figcaption>
+    </figure>
+
+    <h3 id="sys-seller"><span class="h3n" aria-hidden="true">2.3</span>Submissions</h3>
+    <p>External sellers had no clean way in, so edge cases became tickets. The app validates and previews before it writes, and the average session got 22% shorter. On a form, shorter means fewer dead ends.</p>
+  </section>
+
+  <section class="sec" id="scale" aria-labelledby="scale-h">
+    <h2 id="scale-h"><span class="n" aria-hidden="true">3</span>What it adds up to</h2>
+    <p>At 390,000 submissions a day, the app handles about 142 million a year. That is the multiplier. A quarter of that traffic, six minutes a session, and the 22% is worth roughly 780,000 hours.</p>
+
+    <figure class="figure bleed" data-reveal aria-labelledby="fig4-cap">
+      <div class="figure__panel">
+        <svg class="figure__chart" viewBox="0 0 900 320" role="img" aria-label="Cumulative line chart. Submissions accumulate from zero in January to 142.4 million by December, at a steady 390,000 a day.">
+          <defs>
+            <clipPath id="fig4-clip"><rect class="reveal" x="0" y="0" width="900" height="320"></rect></clipPath>
+          </defs>
+          <g class="svg-grid">
+            <line x1="70" y1="60" x2="860" y2="60"></line>
+            <line x1="70" y1="125" x2="860" y2="125"></line>
+            <line x1="70" y1="190" x2="860" y2="190"></line>
+            <line x1="70" y1="255" x2="860" y2="255"></line>
+          </g>
+          <text class="svg-label" x="68" y="64" text-anchor="end">150M</text>
+          <text class="svg-label" x="68" y="129" text-anchor="end">100M</text>
+          <text class="svg-label" x="68" y="194" text-anchor="end">50M</text>
+          <text class="svg-label" x="68" y="259" text-anchor="end">0</text>
+
+          <g clip-path="url(#fig4-clip)">
+            <path class="band-accent" d="M70 255 L860 63 L860 255 Z"></path>
+            <path class="line-data" d="M70 255 L860 63"></path>
+          </g>
+          <circle class="chart-end-data" cx="860" cy="63" r="4.5"></circle>
+          <text class="svg-value" x="852" y="48" text-anchor="end">142.4M</text>
+
+          <line class="svg-axis" x1="70" y1="255" x2="860" y2="255"></line>
+          <text class="svg-label" x="70" y="284" text-anchor="start">Jan</text>
+          <text class="svg-label" x="267" y="284" text-anchor="middle">Apr</text>
+          <text class="svg-label" x="465" y="284" text-anchor="middle">Jul</text>
+          <text class="svg-label" x="662" y="284" text-anchor="middle">Oct</text>
+          <text class="svg-label" x="860" y="284" text-anchor="end">Dec</text>
+          <text class="svg-label axis-note" x="70" y="308">Cumulative submissions at 390,000 a day</text>
+        </svg>
+      </div>
+      <figcaption class="figure__cap" id="fig4-cap">
+        <b>Figure 4</b>
+        <span>Annual volume at the measured daily rate. A projection, not a count.</span>
+      </figcaption>
+    </figure>
+
+    <p>The model below makes the last two numbers yours to change.</p>
+
+    <figure class="figure bleed" aria-labelledby="fig5-cap">
+      <div class="figure__panel">
+        <div class="fig5__out">
+          <span class="fig5__num" id="f5-hours">782,925</span>
+          <span class="fig5__unit">seller-hours returned in a year</span>
+        </div>
+        <div class="fig5__legend" aria-hidden="true">
+          <span><i></i>Sessions at today's length</span>
+          <span><i class="is-data"></i>Sessions 22% shorter</span>
+          <span><i class="is-band"></i>Time returned</span>
+        </div>
+        <svg class="figure__chart fig5__chart" id="f5-svg" viewBox="0 0 900 380" role="img" aria-labelledby="f5-alt">
+          <title id="f5-alt">Cumulative seller hours over twelve months, at two session lengths</title>
+          <g id="f5-grid"></g>
+          <path class="band" id="f5-band"></path>
+          <path class="line-base" id="f5-base"></path>
+          <path class="line-data" id="f5-actual"></path>
+          <g id="f5-ends"></g>
+          <g id="f5-ticks"></g>
+        </svg>
+
+        <div class="controls">
+          <div class="control">
+            <label for="f5-share">Share of traffic done by a person <output id="f5-share-out" for="f5-share">25%</output></label>
+            <input id="f5-share" type="range" min="5" max="100" step="5" value="25" aria-describedby="fig5-cap">
+          </div>
+          <div class="control">
+            <label for="f5-mins">Baseline session <output id="f5-mins-out" for="f5-mins">6 min</output></label>
+            <input id="f5-mins" type="range" min="2" max="12" step="1" value="6" aria-describedby="fig5-cap">
+          </div>
+          <button class="reset" id="f5-reset" type="button">Reset assumptions</button>
+        </div>
+        <p class="sr-only" role="status" aria-live="polite" id="f5-status"></p>
+      </div>
+      <figcaption class="figure__cap" id="fig5-cap">
+        <b>Figure 5</b>
+        <span>Cumulative seller hours at two session lengths. The shaded band is the time the 22% returns. Volume is fixed at 390,000 a day; the two controls are assumptions.</span>
+      </figcaption>
+    </figure>
+  </section>
+
+  <section class="sec" id="method" aria-labelledby="method-h">
+    <h2 id="method-h"><span class="n" aria-hidden="true">4</span>Method</h2>
+    <p>Measurement and projection are different things. So are estimates.</p>
+    <dl class="method">
+      <div class="method__row" data-kind="measured">
+        <dt>Measured</dt>
+        <dd>30% faster queries, $1,200 a year in storage, 450,000 records a second, 390,000 submissions a day, and 22% shorter sessions. Source: internal dashboards at the time, and my notes.</dd>
+      </div>
+      <div class="method__row" data-kind="derived">
+        <dt>Derived</dt>
+        <dd>Annual submissions (daily × 365). Filing time (records × 20 seconds). Hours returned (volume × human share × session × 22%). Arithmetic on measured inputs, not new measurements.</dd>
+      </div>
+      <div class="method__row" data-kind="assumed">
+        <dt>Assumed</dt>
+        <dd>20 seconds per record. 25% human traffic. Six minutes per session. Figure 5 exposes the last two as controls.</dd>
+      </div>
+      <div class="method__row">
+        <dt>Not measured</dt>
+        <dd>Revenue. Attribution was not mine to claim, and a dollar figure would have been invented.</dd>
+      </div>
+    </dl>
+  </section>
+
+  <section class="contact" id="contact" aria-labelledby="contact-h">
+    <h2 id="contact-h">About the author</h2>
+    <p>I'm a software engineer in New York. I work on growth at Atlassian now, and before that on Walmart's product catalog. I like problems where the data exists but nobody can use it yet.</p>
+    <div class="actions">
+      <a class="pill" href="mailto:hello@vansirisouk.com">Email me</a>
+      <a class="textlink" href="https://www.linkedin.com/in/van-s/" target="_blank" rel="noopener">LinkedIn</a>
+      <a class="textlink" href="index.html">The site</a>
+    </div>
+  </section>
+
+</article>
+</main>
+
+<footer class="foot">
+  <div class="foot__in">
+    <p>Written, designed, and built by Van Sirisouk. Revised October 2026.</p>
+    <p>Set in Instrument Serif, Literata, and Instrument Sans. One HTML file, no framework, no trackers.</p>
+  </div>
+</footer>
+
+<script>
+(function () {
+  var reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  /* ---------- figure 3: 104 unit squares ---------- */
+  var grid = document.getElementById('fig3-grid');
+  if (grid) {
+    var cols = 13, size = 34, gap = 8, ox = 250, oy = 86, n = 104;
+    var frag = document.createDocumentFragment();
+    for (var i = 0; i < n; i++) {
+      var r = Math.floor(i / cols), c = i % cols;
+      var rect = document.createElementNS('http://www.w3.org/2000/svg', 'rect');
+      rect.setAttribute('x', ox + c * (size + gap));
+      rect.setAttribute('y', oy + r * (size + gap));
+      rect.setAttribute('width', size);
+      rect.setAttribute('height', size);
+      rect.setAttribute('rx', 3);
+      rect.setAttribute('class', 'cell');
+      rect.style.setProperty('--i', i);
+      frag.appendChild(rect);
+    }
+    grid.appendChild(frag);
+  }
+
+  /* ---------- reveal figures once ---------- */
+  var figures = [].slice.call(document.querySelectorAll('figure[data-reveal]'));
+  if (reduced || !('IntersectionObserver' in window)) {
+    figures.forEach(function (f) { f.classList.add('in'); });
+  } else {
+    var obs = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) {
+        if (e.isIntersecting) { e.target.classList.add('in'); obs.unobserve(e.target); }
+      });
+    }, { threshold: 0.25 });
+    figures.forEach(function (f) { obs.observe(f); });
+  }
+
+  /* ---------- figure 5: what the percentage is worth ---------- */
+  var VOL = 390000, DAYS = 365, CUT = 0.22;
+  var shareEl = document.getElementById('f5-share');
+  var minsEl = document.getElementById('f5-mins');
+  var shareOut = document.getElementById('f5-share-out');
+  var minsOut = document.getElementById('f5-mins-out');
+  var hoursEl = document.getElementById('f5-hours');
+  var basePath = document.getElementById('f5-base');
+  var actualPath = document.getElementById('f5-actual');
+  var bandPath = document.getElementById('f5-band');
+  var gridG = document.getElementById('f5-grid');
+  var ticksG = document.getElementById('f5-ticks');
+  var endsG = document.getElementById('f5-ends');
+  var statusEl = document.getElementById('f5-status');
+  var svg = document.getElementById('f5-svg');
+  if (!svg) return;
+
+  var M, W, H, pw, ph;
+
+  function fmt(n) {
+    if (n >= 1000000) return (n / 1000000).toFixed(n >= 10000000 ? 0 : 1) + 'M';
+    if (n >= 1000) return Math.round(n / 1000) + 'k';
+    return String(Math.round(n));
+  }
+  function commas(n) { return Math.round(n).toLocaleString('en-US'); }
+  function niceMax(v) {
+    var exp = Math.pow(10, Math.floor(Math.log10(v)));
+    var f = v / exp;
+    var m = f <= 1 ? 1 : f <= 2 ? 2 : f <= 2.5 ? 2.5 : f <= 4 ? 4 : f <= 5 ? 5 : 10;
+    return m * exp;
+  }
+
+  function draw() {
+    var mobile = window.innerWidth < 760;
+    W = 900;
+    H = mobile ? 520 : 380;
+    M = { t: mobile ? 36 : 44, r: mobile ? 108 : 96, b: mobile ? 48 : 46, l: mobile ? 92 : 76 };
+    pw = W - M.l - M.r;
+    ph = H - M.t - M.b;
+    var tickCount = mobile ? 2 : 4;
+    svg.setAttribute('viewBox', '0 0 ' + W + ' ' + H);
+
+    var share = +shareEl.value / 100;
+    var mins = +minsEl.value;
+    var human = VOL * share;
+    var savedYear = human * (mins * CUT / 60) * DAYS;
+    var baseYear = human * (mins / 60) * DAYS;
+    var actualYear = baseYear - savedYear;
+
+    shareOut.textContent = Math.round(share * 100) + '%';
+    minsOut.textContent = mins + ' min';
+    hoursEl.textContent = commas(savedYear);
+
+    var top = niceMax(baseYear);
+    var px = function (m) { return M.l + pw * (m / 12); };
+    var py = function (h) { return M.t + ph * (1 - h / top); };
+
+    var d1 = '', d2 = '';
+    for (var m = 0; m <= 12; m++) {
+      var b = baseYear * m / 12, a = actualYear * m / 12;
+      d1 += (m === 0 ? 'M' : 'L') + px(m).toFixed(1) + ' ' + py(b).toFixed(1) + ' ';
+      d2 += (m === 0 ? 'M' : 'L') + px(m).toFixed(1) + ' ' + py(a).toFixed(1) + ' ';
+    }
+    basePath.setAttribute('d', d1);
+    actualPath.setAttribute('d', d2);
+    bandPath.setAttribute('d', d1 + 'L' + px(12).toFixed(1) + ' ' + py(actualYear).toFixed(1) + ' ' + d2.replace('M', 'L') + 'Z');
+
+    var g = '', t = '';
+    for (var i = 0; i <= tickCount; i++) {
+      var val = top * i / tickCount;
+      var y = py(val).toFixed(1);
+      g += '<line class="chart-grid" x1="' + M.l + '" y1="' + y + '" x2="' + (W - M.r) + '" y2="' + y + '"/>';
+      t += '<text class="svg-label" x="' + (M.l - 12) + '" y="' + (+y + 4) + '" text-anchor="end">' + fmt(val) + '</text>';
+    }
+    gridG.innerHTML = g;
+    ticksG.innerHTML = t +
+      '<line class="chart-axis" x1="' + M.l + '" y1="' + (M.t + ph) + '" x2="' + (W - M.r) + '" y2="' + (M.t + ph) + '"/>' +
+      '<text class="svg-label" x="' + M.l + '" y="' + (H - 20) + '">Month 1</text>' +
+      (mobile ? '<text class="svg-label" x="' + (M.l + pw / 2) + '" y="' + (H - 20) + '" text-anchor="middle">Month 6</text>' : '') +
+      '<text class="svg-label" x="' + (W - M.r) + '" y="' + (H - 20) + '" text-anchor="end">Month 12</text>';
+
+    endsG.innerHTML =
+      '<circle class="chart-end-base" cx="' + px(12) + '" cy="' + py(baseYear) + '" r="4"/>' +
+      '<circle class="chart-end-data" cx="' + px(12) + '" cy="' + py(actualYear) + '" r="4.5"/>' +
+      '<text class="svg-value" x="' + (px(12) + 12) + '" y="' + (py(baseYear) + 4) + '">' + fmt(baseYear) + '</text>' +
+      '<text class="svg-value svg-accent" x="' + (px(12) + 12) + '" y="' + (py(actualYear) + 4) + '">' + fmt(actualYear) + '</text>';
+
+    svg.setAttribute('aria-label',
+      'Cumulative seller hours over twelve months. At ' + Math.round(share * 100) + ' percent human traffic and a ' + mins +
+      ' minute session, sessions 22 percent shorter return ' + commas(savedYear) + ' hours in a year, against ' + fmt(baseYear) + ' hours spent in total.');
+
+    statusEl.textContent = commas(savedYear) + ' hours returned per year at these assumptions';
+  }
+
+  shareEl.addEventListener('input', draw);
+  minsEl.addEventListener('input', draw);
+  document.getElementById('f5-reset').addEventListener('click', function () {
+    shareEl.value = 25; minsEl.value = 6; draw();
+  });
+  draw();
+
+  var rt;
+  window.addEventListener('resize', function () {
+    clearTimeout(rt);
+    rt = setTimeout(draw, 150);
+  });
+
+  /* ---------- section highlight in nav ---------- */
+  var navLinks = [].slice.call(document.querySelectorAll('.top__nav a[href^="#"]'));
+  var sections = ['problem', 'systems', 'scale', 'method', 'contact'].map(function (id) { return document.getElementById(id); }).filter(Boolean);
+  if ('IntersectionObserver' in window && sections.length) {
+    var navObs = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) {
+        if (!e.isIntersecting) return;
+        navLinks.forEach(function (a) {
+          if (a.getAttribute('href') === '#' + e.target.id) a.setAttribute('aria-current', 'true');
+          else a.removeAttribute('aria-current');
+        });
+      });
+    }, { rootMargin: '-45% 0px -50% 0px' });
+    sections.forEach(function (s) { navObs.observe(s); });
+  }
+})();
+</script>
+<script src="assets/theme.js"></script>
+</body>
+</html>

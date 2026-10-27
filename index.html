@@ -1,0 +1,169 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Van Sirisouk, software engineer</title>
+<meta name="description" content="Van Sirisouk is a software engineer in New York. Product catalogs, data pipelines, and growth engineering at Atlassian.">
+<meta name="color-scheme" content="light dark">
+<script>try{var t=localStorage.getItem('vs-theme');if(t)document.documentElement.setAttribute('data-theme',t);}catch(e){}</script>
+<meta property="og:title" content="Van Sirisouk, software engineer">
+<meta property="og:description" content="I build the systems behind product data. Currently on growth at Atlassian.">
+<meta property="og:type" content="profile">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%23f6f6f3'/%3E%3Ctext x='16' y='23' font-family='Georgia,serif' font-size='19' text-anchor='middle' fill='%232b3a8f'%3EV%3C/text%3E%3C/svg%3E">
+<link rel="stylesheet" href="assets/site.css">
+<link rel="stylesheet" href="assets/tui.css">
+<style>
+.hero{padding-block:clamp(52px,8vw,104px) clamp(36px,4.5vw,56px)}
+.hero h1{
+  font-family:var(--serif);font-weight:400;color:var(--ink);
+  font-size:clamp(50px,7.6vw,104px);line-height:.94;letter-spacing:-.02em;margin:0;
+}
+.statement{
+  font-size:clamp(19px,1.7vw,22px);line-height:1.5;color:var(--body);
+  max-width:44ch;margin:18px 0 0;text-wrap:pretty;
+}
+.actions{display:flex;flex-wrap:wrap;align-items:center;gap:12px 22px;margin-top:30px}
+
+.results{
+  display:grid;grid-template-columns:repeat(3,minmax(0,1fr));
+  border-top:1px solid var(--line-2);border-bottom:1px solid var(--line-2);
+}
+.result{
+  display:block;padding:26px 30px;border-right:1px solid var(--line);
+  text-decoration:none;color:inherit;transition:background .18s var(--ease);
+}
+.result:last-child{border-right:0}
+.result:hover{background:var(--hover)}
+.result:hover .result__what{color:var(--ink)}
+.result__num{
+  font-family:var(--serif);font-size:clamp(36px,4vw,50px);line-height:1;
+  color:var(--data);letter-spacing:-.01em;display:block;
+}
+.result__unit{font-family:var(--sans);font-size:11.5px;color:var(--muted);display:block;margin-top:9px}
+.result__what{font-size:14.5px;line-height:1.5;color:var(--body);margin:14px 0 0;max-width:30ch;transition:color .18s var(--ease)}
+
+.band-link{margin:14px 0 0;font-family:var(--sans);font-size:13px}
+.band-link a{color:var(--data);text-decoration-color:var(--line-2)}
+.band-link a:hover{color:var(--ink)}
+
+.contact-strip{margin-top:clamp(52px,7vw,84px);border-top:1px solid var(--line);padding-top:28px}
+.contact-strip__label{font-family:var(--sans);font-size:11.5px;color:var(--muted);margin:0 0 10px}
+.contact-strip .mail{
+  font-family:var(--serif);font-size:clamp(24px,3vw,30px);color:var(--ink);
+  text-decoration:none;border-bottom:1px solid var(--line-2);padding-bottom:2px;
+  transition:border-color .2s var(--ease);
+}
+.contact-strip .mail:hover{border-color:var(--ink)}
+.contact-strip__note{
+  display:flex;flex-wrap:wrap;gap:10px 22px;align-items:baseline;
+  font-family:var(--sans);font-size:13px;color:var(--muted);margin:16px 0 0;
+}
+
+@media (max-width:760px){
+  .hero{padding-top:40px}
+  .results{grid-template-columns:1fr}
+  .result{padding:22px 0;border-right:0;border-bottom:1px solid var(--line)}
+  .result:last-child{border-bottom:0}
+  .result__what{max-width:none}
+}
+</style>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+
+<header class="top">
+  <div class="top__in">
+    <a class="top__name" href="index.html">Van Sirisouk</a>
+    <nav class="top__nav" id="site-nav" aria-label="Site">
+      <a href="work.html">Work</a>
+      <a href="report.html">Report</a>
+      <a href="about.html">About</a>
+      <a class="top__cta" href="mailto:hello@vansirisouk.com">Contact</a>
+    </nav>
+    <div class="top__actions">
+      <a class="ask" href="ask.html?from=index" aria-label="Ask the site" title="Ask the site">
+        <span class="ask__track" aria-hidden="true"><span class="ask__knob"></span></span>
+        <span class="ask__label" aria-hidden="true">Ask</span>
+      </a>
+      <button class="theme-toggle" type="button" aria-label="Switch to dark theme" aria-pressed="false">
+        <svg class="icon icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M21 12.8A8.5 8.5 0 1 1 11.2 3a6.6 6.6 0 0 0 9.8 9.8z"/></svg>
+        <svg class="icon icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="4.2"/><path d="M12 2.6v2.2M12 19.2v2.2M2.6 12h2.2M19.2 12h2.2M5.3 5.3l1.6 1.6M17.1 17.1l1.6 1.6M18.7 5.3l-1.6 1.6M6.9 17.1l-1.6 1.6"/></svg>
+      </button>
+      <button class="top__menu" type="button" aria-expanded="false" aria-controls="site-nav">Menu</button>
+    </div>
+  </div>
+</header>
+
+<main id="main">
+  <section class="wrap hero" aria-labelledby="who">
+    <h1 id="who">Van Sirisouk</h1>
+    <p class="badgeline">
+      <span class="sr-only">Currently</span>
+      <span class="bgroup">
+        <span class="badge"><span class="badge__label">Software Engineer II</span></span>
+        <span class="conn">at</span>
+        <span class="badge"><span class="badge__label">Atlassian</span></span>
+      </span>
+      <span class="bgroup">
+        <span class="conn conn-in">in</span>
+        <span class="badge badge--loc">
+          <svg class="pin" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true" focusable="false"><path d="M12 21s7-6.2 7-11a7 7 0 1 0-14 0c0 4.8 7 11 7 11z"/><circle cx="12" cy="10" r="2.5"/></svg><span class="badge__label">New York</span>
+        </span>
+      </span>
+    </p>
+    <p class="statement">I build the systems behind product data. Catalogs that file themselves, pipelines that keep up with suppliers, and forms that stop wasting people's time.</p>
+    <div class="actions">
+      <a class="btn-rect" href="work.html">See the work</a>
+      <a class="textlink" href="report.html">Read the report</a>
+    </div>
+  </section>
+
+  <section class="wrap" aria-label="Results at a glance">
+    <div class="results">
+      <a class="result" href="work.html#attire-intake">
+        <span class="result__num">450,000</span>
+        <span class="result__unit">records per second</span>
+        <span class="result__what">The attire intake pipeline. One second of it replaces 104 days of filing.</span>
+      </a>
+      <a class="result" href="work.html#seller-submissions">
+        <span class="result__num">390,000</span>
+        <span class="result__unit">submissions a day</span>
+        <span class="result__what">The seller app, built with two engineers. Sessions got 22% shorter.</span>
+      </a>
+      <a class="result" href="work.html#catalog-cleanup">
+        <span class="result__num">30%</span>
+        <span class="result__unit">faster queries</span>
+        <span class="result__what">After merging duplicate records across a multi-tenant catalog.</span>
+      </a>
+    </div>
+    <p class="band-link"><a href="report.html#scale">What 22% is worth at scale</a></p>
+  </section>
+
+  <section class="wrap contact-strip" aria-label="Contact">
+    <p class="contact-strip__label">Hiring, referring, or just curious</p>
+    <a class="mail" href="mailto:hello@vansirisouk.com">hello@vansirisouk.com</a>
+    <p class="contact-strip__note">
+      <span>Email is fastest. I read everything, and I answer.</span>
+      <a class="textlink" href="https://www.linkedin.com/in/van-s/" target="_blank" rel="noopener">LinkedIn</a>
+      <a class="textlink" href="about.html">More about me</a>
+    </p>
+  </section>
+</main>
+
+<footer class="foot">
+  <div class="foot__in">
+    <p>Van Sirisouk, software engineer. Revised October 2026.</p>
+    <div class="foot__links">
+      <a href="work.html">Work</a>
+      <a href="report.html">Report</a>
+      <a href="about.html">About</a>
+      <a href="mailto:hello@vansirisouk.com">Email</a>
+    </div>
+  </div>
+</footer>
+
+<script src="assets/site.js"></script>
+<script src="assets/theme.js"></script>
+</body>
+</html>
