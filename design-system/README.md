@@ -33,9 +33,9 @@ Read [the narrative](narrative.md) for the feel. Read the foundations before mak
 | Doc | Answers | Read when |
 |---|---|---|
 | [The feel of the site](narrative.md) | Why the site feels quiet, measured, and a little austere, and what it refuses | You need the intent before the rules |
-| [Typography](foundations/typography.md) | Families, local faces, the 13 contract tokens, implemented sizes by surface, measures, chart type, the chat step | You are setting or changing type |
-| [Color and theme](foundations/color-and-theme.md) | The four materials, light and dark tokens, contrast, chart colors, theme switching | You are adding color or a theme state |
-| [Space, shape, and motion](foundations/space-shape-motion.md) | Frames, grids, spacing, radii, hairlines, elevation, breakpoints, motion | You are changing layout, shape, or animation |
+| [Typography](foundations/typography.md) | Families and the loader, the 13 contract steps, utilities, floors, measures, chart type, the conversational step | You are setting or changing type |
+| [Color and theme](foundations/color-and-theme.md) | The four materials, the role table in both themes, how a colour reaches an element, measured contrast, the theme's application | You are adding color or a theme state |
+| [Space, shape, and motion](foundations/space-shape-motion.md) | Frames, one gutter, the spacing base and rhythm tokens, radii, hairlines, elevation, breakpoints, motion | You are changing layout, shape, or animation |
 | [Accessibility](foundations/accessibility.md) | Focus, skip link, semantics, live regions, keyboard paths, contrast, targets, known gaps | You are changing behavior or checking a release |
 | [Content and provenance](foundations/content-and-provenance.md) | The fact registry, the four provenance classes, the accent mapping, the single-source rule, the arithmetic | You are adding or moving a number |
 | [Navigation](components/navigation.md) | Top bar, links, Contact CTA, Ask switch, theme toggle, menu, skip link, footer, report section nav | You are touching the bar or a global control |

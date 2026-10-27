@@ -42,11 +42,11 @@ typography:
     fontWeight: 400
     lineHeight: 1.2
     letterSpacing: "-0.008em"
-  lede:
-    fontFamily: Literata
-    fontSize: 18.5px
+  serif-label:
+    fontFamily: Instrument Serif
+    fontSize: 20px
     fontWeight: 400
-    lineHeight: 1.6
+    lineHeight: 1.35
   body:
     fontFamily: Literata
     fontSize: 19px
@@ -91,11 +91,10 @@ rounded:
   xl: 12px
   pill: 999px
 spacing:
-  xs: 4px
-  sm: 8px
-  md: 14px
-  lg: 24px
-  xl: 40px
+  base: 4px
+  gutter: 32px
+  block: 48px
+  section: 96px
 components:
   contact-pill:
     backgroundColor: "{colors.primary}"
@@ -152,7 +151,7 @@ Ink blue (`#131A2B`) is the text and the one action. It is a very dark navy, not
 Two accents, each with a job:
 
 - Indigo (`#2B3A8F`) means measurement. It colors result numbers, section numerals, chart marks, and the links that lead to data. Nothing decorative is indigo.
-- Clay (`#95522C`) means assumption. It appears in four places only: the italic Abstract label, the inference in Figure 1, the Assumed row in the method table, and the two model inputs. It is the only warm note in the system.
+- Clay (`#95522C`) means assumption. It appears in five places only: the italic Abstract label, the inference in Figure 1, the Assumed row in the method table, the two model inputs, and the note on an answer the site cannot give. It is the only warm note in the system.
 
 If a new element needs color, it has to earn one of those two meanings. There is no third accent, and badges, navigation, captions, and role metadata stay neutral.
 
@@ -160,13 +159,13 @@ Supporting tokens, not component colors: surface `#FFFFFF`, body `#303645`, mute
 
 Dark mode is a second token set, not a filter. Ground `#0C1018`, panel `#131824`, surface `#1A1F2B`, line `#232A38`, ink `#EEF1F7`, body `#C2C8D4`, muted `#9299A8`. Indigo lifts to `#A9B3FF` and clay to `#D8A06E`. The Contact pill inverts to a light fill with dark type.
 
-Contrast floors, measured: body 12:1, muted 5.8:1, indigo 10:1, clay 5.5:1 on the panel. Do not lighten the muted color below `#5F6673` on white.
+Contrast floors, measured in the built theme. Light: body 12.1:1, muted 5.8:1, indigo 10:1, clay 5.5:1 on the panel, ink 17.4:1. Dark: body 11.3:1, muted 6.7:1, indigo 9.6:1 on the ground, clay 7.7:1 on the panel, ink 16.8:1. Do not lighten the muted color below `#5F6673` on white.
 
 ## Typography
 
-Instrument Serif is the display voice and appears only at 26px and above. Literata is the reading face for body copy at 19px, and Instrument Sans is the interface face for labels, captions, navigation, and figure text.
+Instrument Serif is the display voice. It carries statements at 26px and above, and appears nowhere below a 20px floor, which is the one size recorded for a serif label. Literata is the reading face for body copy at 19px, and Instrument Sans is the interface face for labels, captions, navigation, and figure text.
 
-The scale steps once per level: 104 display, 40 h2, 26 h3, 19 body, 13 caption, 10 caps key. Nothing sits between two steps, with one documented exception: the chat page (`ask.html`) runs at 16.5px Literata for messages and the input, 13.5px Instrument Sans for suggestions, and 10.5px for metadata.
+The scale steps once per level: 104 display, 94 display, 60 display, 40 h2, 26 h3, 20 serif label, 19 reading, 16 interface, 13 caption, 12.5 label, 10 caps key. Nothing sits between two steps. There is one documented exception: the conversational surface runs at 16.5px for messages and the input, 13.5px for suggestions, and 10.5px for metadata. The reading size is one value, 19px, on every prose surface at every width.
 
 Display tracking is one value, `-0.02em`, on every h1. Headings tighten in steps (`-0.012em` at h2, `-0.008em` at h3). Caps keys take `0.1em` because uppercase without tracking reads as a lump.
 
@@ -178,9 +177,9 @@ Do not justify text. Ragged right with `text-wrap: pretty` on paragraphs and `ba
 
 ## Layout
 
-The site frame is 1040px with 24px gutters. The report body is a 720px reading column that also holds the figures. The report masthead is the one exception: it uses the 1040 frame and a title up to 960px, because display type can use width that text cannot.
+The site frame is 1040px with one 32px gutter at every width. The report body is a 720px reading column that also holds the figures. The report masthead is the one exception: it uses the 1040 frame and a title up to 960px, because display type can use width that text cannot.
 
-On mobile everything collapses to one 350px column, and the report's cover title drops to 46px.
+On mobile everything collapses to one fluid column inside the same 32px gutter, and the report's cover title uses the 60px display step.
 
 Vertical rhythm comes from section spacing, not from cards. Avoid wrapping sections in extra containers.
 
@@ -194,7 +193,7 @@ Shapes carry meaning. Rectangles are facts and surfaces: badges at 4px, panels a
 
 ## Components
 
-`contact-pill` is the only filled pill on a page and the only high-emphasis invitation. It inverts in dark mode. The chat send (`ask.html`) is a filled circle, but it is a control, not an invitation.
+`contact-pill` is the only filled pill on a page and the only high-emphasis invitation. It uses the 12.5px label step at medium weight, one size for the bar and for a document's closing block, and it inverts in dark mode. The chat send (`ask.html`) is a filled circle, but it is a control, not an invitation.
 
 `badge` states a fact about the person, not a category. It stays neutral and never takes an accent color.
 

@@ -49,40 +49,40 @@ calls for, so no group starts on top of undocumented work.
 
 ## 3. Tokens, theme, and their checks
 
-- [ ] 3.1 Author the theme block: clear the colour namespace so no default palette exists, and define
+- [x] 3.1 Author the theme block: clear the colour namespace so no default palette exists, and define
       every contract role as an inline reference to a raw variable, with the light values in the root
       scope. Verify: an off-contract utility such as `bg-red-500` generates no CSS at all, while every
       contract role generates its utility.
-- [ ] 3.2 Put the dark values in an attribute scope and in an OS-preference scope that redefine the
+- [x] 3.2 Put the dark values in an attribute scope and in an OS-preference scope that redefine the
       same raw variables, so one class string serves both themes. Verify: both themes render correctly
       and no `dark:` utility appears in the source.
-- [ ] 3.3 Declare the three families through the framework's font loader with their recorded weights
+- [x] 3.3 Declare the three families through the framework's font loader with their recorded weights
       and styles, map their variables into the font namespace of the theme block, and define the type
       steps, tracking, radii, measures, and the single spacing base there too, plus three named layout
       tokens for gutters and section rhythm. Verify: every contract value has a utility, no component
       uses a size outside the recorded scale, there is no hand-written face declaration anywhere, and
       the page makes no third-party font request.
-- [ ] 3.4 Resolve the six debt clusters from `design.md` D9 in the contract and the theme block
+- [x] 3.4 Resolve the six debt clusters from `design.md` D9 in the contract and the theme block
       together: one reading size, serif floor 20px, in-between sizes removed, one invitation size, one
       gutter value, clay's five places. Verify: the check fails if any value sits between two recorded
       steps.
-- [ ] 3.5 Replace the token check script with one that parses the theme block and the raw variable
+- [x] 3.5 Replace the token check script with one that parses the theme block and the raw variable
       scopes and compares them to `DESIGN.md` front matter in both directions. Verify: mutating one
       role colour in `DESIGN.md` fails the check; reverting it passes.
-- [ ] 3.6 Close the escape hatches: a check that fails on an arbitrary value or a raw colour literal in
+- [x] 3.6 Close the escape hatches: a check that fails on an arbitrary value or a raw colour literal in
       any class string or inline style. Verify: a planted `bg-[#f6f6f3]` and a planted `p-[13px]` both
       fail the check, and pass once replaced with tokens.
-- [ ] 3.7 Implement the theme as a client effect applied after hydration, with the system preference as
+- [x] 3.7 Implement the theme as a client effect applied after hydration, with the system preference as
       the painted default, and the control reading its state after mount. Verify: a reader with no
       stored choice sees the system theme from the first paint; a stored choice applies once
       interactive and holds across surfaces; with scripting disabled the system preference stands.
-- [ ] 3.8 Record measured contrast for every text pairing in both themes, and update the contract's
+- [x] 3.8 Record measured contrast for every text pairing in both themes, and update the contract's
       floors with the dark theme's measured values. Verify: the recorded numbers match a measured run
       and every pairing meets text 4.5:1 and non-text 3:1.
-- [ ] 3.9 Rewrite the typography, colour and theme, and space and shape docs around the new values and
+- [x] 3.9 Rewrite the typography, colour and theme, and space and shape docs around the new values and
       the utility names. Verify: the docs state the same values as the contract, name no retired
       stylesheet, and `DESIGN.md` lints clean.
-- [ ] 3.10 Carry the print rules forward from the current stylesheets: black on white, no top bar, figures
+- [x] 3.10 Carry the print rules forward from the current stylesheets: black on white, no top bar, figures
       present, captions kept with their figures. They stay for now and can be dropped later if they add
       nothing. Verify: a print preview of the report and one marketing surface is legible, and no
       navigation furniture appears.

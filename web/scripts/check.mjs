@@ -8,6 +8,8 @@ const steps = [
   ["tokens", process.execPath, ["scripts/check-tokens.mjs"]],
   ["artifacts", process.execPath, ["scripts/check-artifacts.mjs"]],
   ["content", process.execPath, ["scripts/check-content.mjs"]],
+  ["styles", process.execPath, ["scripts/check-styles.mjs"]],
+  ["contrast", process.execPath, ["scripts/contrast.mjs"]],
   ["unit", "node_modules/.bin/vitest", ["run"]],
   ["e2e", "node_modules/.bin/playwright", ["test"]],
   ["bundle", process.execPath, ["scripts/check-bundle.mjs"]],

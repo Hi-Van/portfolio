@@ -1,1 +1,255 @@
 @import "tailwindcss";
+
+/* ---------------------------------------------------------------------------
+   The theme block. Tailwind generates one utility per token, so the contract's
+   values are the only values a class can express.
+
+   The colour namespace is cleared first: no default palette exists, so an
+   off-contract colour cannot be written as a utility. Tailwind fails silently
+   on an unknown utility, so `npm run check` bans arbitrary values as well.
+
+   `inline` is required. Without it a utility resolves `var(--paper)` where the
+   theme variable is declared, which is the root, so a dark override would never
+   reach it.
+--------------------------------------------------------------------------- */
+
+@theme inline {
+  --color-*: initial;
+
+  --color-paper: var(--paper);
+  --color-ink: var(--ink);
+  --color-indigo: var(--indigo);
+  --color-clay: var(--clay);
+  --color-panel: var(--panel);
+  --color-body: var(--body);
+  --color-muted: var(--muted);
+  --color-badge: var(--badge);
+
+  --color-line: var(--line);
+  --color-line-strong: var(--line-strong);
+  --color-badge-line: var(--badge-line);
+  --color-hover: var(--hover);
+  --color-selection: var(--selection);
+  --color-on-data: var(--on-data);
+
+  --color-chart-grid: var(--chart-grid);
+  --color-chart-axis: var(--chart-axis);
+  --color-chart-cell: var(--chart-cell);
+  --color-chart-baseline: var(--chart-baseline);
+  --color-band: var(--band);
+
+  /* Three voices. The variables come from next/font. */
+  --font-display: var(--font-instrument-serif), Georgia, serif;
+  --font-reading: var(--font-literata), Georgia, serif;
+  --font-ui: var(--font-instrument-sans), system-ui, sans-serif;
+
+  /* One scale. No size sits between two steps. */
+  --text-display-home: 104px;
+  --text-display-home--line-height: 0.94;
+  --text-display-report: 94px;
+  --text-display-report--line-height: 0.98;
+  --text-display-page: 60px;
+  --text-display-page--line-height: 1.02;
+  --text-heading-2: 40px;
+  --text-heading-2--line-height: 1.08;
+  --text-heading-3: 26px;
+  --text-heading-3--line-height: 1.2;
+  /* The serif floor: labels and decks that must stay serif. */
+  --text-serif-label: 20px;
+  --text-serif-label--line-height: 1.35;
+  /* The reading size. One value on every prose surface.
+     Named `reading`, not `body`: `--color-body` already owns the text-body utility. */
+  --text-reading: 19px;
+  --text-reading--line-height: 1.66;
+  --text-body-small: 16px;
+  --text-body-small--line-height: 1.6;
+  --text-caption: 13px;
+  --text-caption--line-height: 1.55;
+  --text-label: 12.5px;
+  --text-label--line-height: 1.66;
+  --text-caps: 10px;
+  --text-caps--line-height: 1.62;
+  --text-caps--font-weight: 500;
+  --text-caps--letter-spacing: 0.1em;
+  --text-chart: 15px;
+  --text-chart--line-height: 1;
+  --text-chart-value: 17px;
+  --text-chart-value--line-height: 1;
+
+  --tracking-display: -0.02em;
+  --tracking-heading-2: -0.012em;
+  --tracking-heading-3: -0.008em;
+  --tracking-caps: 0.1em;
+
+  /* Shape carries intent. */
+  --radius-fact: 4px;
+  --radius-action: 6px;
+  --radius-panel: 10px;
+  --radius-abstract: 12px;
+  --radius-pill: 999px;
+
+  /* Frames and the reading measure. */
+  --container-frame: 1040px;
+  --container-measure: 720px;
+  --container-chat: 860px;
+
+  /* One 4px numeric base for component spacing, plus three named rhythm tokens. */
+  --spacing: 4px;
+  --spacing-gutter: 32px;
+  --spacing-block: 48px;
+  --spacing-section: 96px;
+}
+
+/* ---------------------------------------------------------------------------
+   Raw values. Light lives here; dark redefines the same names, so one class
+   string serves both themes and no `dark:` utility exists anywhere.
+--------------------------------------------------------------------------- */
+
+:root {
+  --paper: #ffffff;
+  --ink: #131a2b;
+  --indigo: #2b3a8f;
+  --clay: #95522c;
+  --panel: #f6f6f3;
+  --body: #303645;
+  --muted: #5f6673;
+  --badge: #eeeee8;
+  --line: #e6e6e2;
+  --line-strong: #d3d3cc;
+  --badge-line: #d8d8d0;
+  --hover: rgb(19 26 43 / 0.04);
+  --selection: #e3e6f4;
+  --on-data: #ffffff;
+  --chart-grid: #e2e2dc;
+  --chart-axis: #d3d3cc;
+  --chart-cell: #c9cbcf;
+  --chart-baseline: #b6b9be;
+  --band: #e3e4f0;
+}
+
+[data-theme="dark"] {
+  --paper: #0c1018;
+  --ink: #eef1f7;
+  --indigo: #a9b3ff;
+  --clay: #d8a06e;
+  --panel: #131824;
+  --body: #c2c8d4;
+  --muted: #9299a8;
+  --badge: #1a1f2b;
+  --line: #232a38;
+  --line-strong: #2e3746;
+  --badge-line: #2e3746;
+  --hover: rgb(238 241 247 / 0.06);
+  --selection: #24305e;
+  --on-data: #0c1018;
+  --chart-grid: #232a38;
+  --chart-axis: #2e3746;
+  --chart-cell: #2e3746;
+  --chart-baseline: #3a4457;
+  --band: #1e2450;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --paper: #0c1018;
+    --ink: #eef1f7;
+    --indigo: #a9b3ff;
+    --clay: #d8a06e;
+    --panel: #131824;
+    --body: #c2c8d4;
+    --muted: #9299a8;
+    --badge: #1a1f2b;
+    --line: #232a38;
+    --line-strong: #2e3746;
+    --badge-line: #2e3746;
+    --hover: rgb(238 241 247 / 0.06);
+    --selection: #24305e;
+    --on-data: #0c1018;
+    --chart-grid: #232a38;
+    --chart-axis: #2e3746;
+    --chart-cell: #2e3746;
+    --chart-baseline: #3a4457;
+    --band: #1e2450;
+  }
+}
+
+/* ---------------------------------------------------------------------------
+   Base
+--------------------------------------------------------------------------- */
+
+html {
+  -webkit-text-size-adjust: 100%;
+  background: var(--paper);
+  color: var(--body);
+}
+
+body {
+  font-family: var(--font-reading);
+  font-size: var(--text-reading);
+  line-height: var(--text-reading--line-height);
+  text-wrap: pretty;
+}
+
+::selection {
+  background: var(--selection);
+}
+
+:focus-visible {
+  outline: 2px solid var(--indigo);
+  outline-offset: 3px;
+  border-radius: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    transition-duration: 0.001ms !important;
+    animation-duration: 0.001ms !important;
+  }
+
+  html {
+    scroll-behavior: auto;
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  html {
+    scroll-behavior: smooth;
+  }
+}
+
+/* ---------------------------------------------------------------------------
+   Print. Kept from the previous build; dropped later if it earns nothing.
+   Black on white, no bar, figures and their captions kept together.
+--------------------------------------------------------------------------- */
+
+@media print {
+  :root,
+  [data-theme="dark"],
+  :root:not([data-theme="light"]) {
+    --paper: #ffffff;
+    --ink: #000000;
+    --indigo: #000000;
+    --clay: #000000;
+    --body: #000000;
+    --muted: #333333;
+    --panel: #ffffff;
+    --line: #dddddd;
+    --line-strong: #bbbbbb;
+    --badge: #ffffff;
+    --badge-line: #dddddd;
+    --chart-grid: #dddddd;
+    --chart-axis: #bbbbbb;
+    --chart-cell: #cccccc;
+    --chart-baseline: #999999;
+    --band: #eeeeee;
+    --on-data: #ffffff;
+    --hover: transparent;
+    --selection: transparent;
+  }
+
+  body {
+    font-size: 10.5pt;
+  }
+}
