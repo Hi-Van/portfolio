@@ -1,7 +1,8 @@
 #!/usr/bin/env node
 // Every source file must be named in a context document, so the next agent can
-// find it. Dependency folders, build output, and screenshots are excluded; the
-// test tree is named as a directory rather than file by file.
+// find it. Context includes every AGENTS.md in the tree, so a folder's
+// navigation file can name its own files. Dependency folders, build output, and
+// generated artefacts are excluded; the test tree is named as a directory.
 
 import { readdirSync, readFileSync, statSync } from "node:fs";
 import { dirname, join, relative } from "node:path";
@@ -32,10 +33,13 @@ const ROOT_SOURCE = [
   "biome.json",
   "package.json",
   "tsconfig.json",
+  "proxy.ts",
+  "public/og.png",
 ];
 const GROUPED = { "web/tests": "web/tests/" };
 
-const CONTEXT_DOCS = [
+/** Documents that carry context. Every AGENTS.md counts, plus the four root docs. */
+const ROOT_DOCS = [
   join(repo, "AGENTS.md"),
   join(repo, "README.md"),
   join(repo, "DESIGN.md"),
@@ -59,9 +63,14 @@ function docs() {
       return "";
     }
   };
-  const parts = CONTEXT_DOCS.map(read);
-  // Every file in the design-system tree counts as context.
+  const parts = ROOT_DOCS.map(read);
+  // The design-system tree and every AGENTS.md are context.
   parts.push(...walk(join(repo, "design-system")).map(read));
+  parts.push(
+    ...walk(web)
+      .filter((path) => /(^|\/)AGENTS\.md$/.test(path))
+      .map(read),
+  );
   return parts.join("\n");
 }
 
@@ -77,8 +86,12 @@ const files = [
   ...ROOT_SOURCE.map((file) => join(web, file)),
 ];
 const missing = [];
+let counted = 0;
 
 for (const file of files) {
+  // A navigation file is context, not source.
+  if (/(^|\/)AGENTS\.md$/.test(file)) continue;
+  counted += 1;
   const rel = relative(repo, file).split("\\").join("/");
   if (text.includes(rel)) continue;
   const grouped = Object.entries(GROUPED).find(([prefix]) =>
@@ -92,11 +105,9 @@ if (missing.length > 0) {
   process.stderr.write(
     `check-artifacts: ${missing.length} source file(s) named nowhere\n` +
       `${missing.map((file) => `  ${file}`).join("\n")}\n` +
-      "Name each one in AGENTS.md, README.md, DESIGN.md, or the design-system tree.\n",
+      "Name each one in an AGENTS.md, README.md, DESIGN.md, or the design-system tree.\n",
   );
   process.exit(1);
 }
 
-process.stdout.write(
-  `check-artifacts: ${files.length} source files, all named\n`,
-);
+process.stdout.write(`check-artifacts: ${counted} source files, all named\n`);

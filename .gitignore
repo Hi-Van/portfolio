@@ -20,3 +20,6 @@ build/
 coverage/
 test-results/
 playwright-report/
+
+# typescript incremental build info
+*.tsbuildinfo

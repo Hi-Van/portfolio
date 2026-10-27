@@ -14,7 +14,9 @@ tag holding the site's previous static form.
 | A token or theme change | `DESIGN.md` Colors, then `web/scripts/check-tokens.mjs` |
 | Component or layout work | `design-system/components/` and `design-system/surfaces/` |
 | The agent, its answers, or its citations | `design-system/surfaces/chat.md`, `design-system/components/messaging.md`, `web/lib/ask/` |
-| What the change intended | `openspec/changes/replatform-site/design.md` |
+| Working inside `web/` | `web/AGENTS.md`, then the `AGENTS.md` in the folder you are editing |
+| What the change intended | `openspec/changes/archive/2026-10-27-replatform-site/design.md` |
+| What the site must guarantee | `openspec/specs/<capability>/spec.md` |
 | Copy that ships | `README.md`: "The numbers, and where they come from" |
 
 ## Layout
@@ -23,6 +25,13 @@ tag holding the site's previous static form.
 |---|---|
 | `DESIGN.md` | The token contract: eight role colours, thirteen type steps, shapes, rules. Lints clean |
 | `design-system/` | The component reference: narrative, five foundations, five component groups, three surfaces |
+| `web/AGENTS.md` | The application's entry point: commands, invariants, request shapes, gotchas |
+| `web/app/AGENTS.md` | Route map, the endpoint's contract, the theme layer |
+| `web/components/AGENTS.md` | Component groups, server and client boundaries, styling rules |
+| `web/content/AGENTS.md` | The fact registry, adding a number, the corpus, the copy |
+| `web/lib/AGENTS.md` | The answer path, the stream guard, the credential |
+| `web/scripts/AGENTS.md` | Every check, what it forbids, and the three generators |
+| `web/tests/AGENTS.md` | Where a test goes, how to run one, which test protects which rule |
 | `web/app/` | Routes. `layout.tsx` holds the frame, fonts, and providers; `page.tsx` home, `work/`, `about/`, `report/`, `ask/`, and `api/ask/route.ts` the answer endpoint |
 | `web/app/globals.css` | The theme block, three colour scopes, base layer, focus ring, print |
 | `web/app/providers.tsx` | The theme provider wrapper |
@@ -75,7 +84,7 @@ tag holding the site's previous static form.
 | `web/next.config.ts` | Turbopack with the Tailwind loader; cache components and partial prefetching |
 | `web/vitest.config.mts`, `web/playwright.config.ts` | The two test runners |
 | `web/biome.json`, `web/package.json`, `web/tsconfig.json` | Format and lint, dependencies, compiler settings |
-| `openspec/` | The change that built this, and the specs it will archive into |
+| `openspec/` | The archived change that built this, and the six durable capability specs under `specs/` |
 | `preview/` | 14 captures of the current build, in both themes and at two widths. Evidence, not source. Regenerate with `web/scripts/capture.mjs` |
 
 ## Commands
