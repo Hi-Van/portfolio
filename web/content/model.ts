@@ -42,7 +42,8 @@ export function sellerHoursReturned(input: {
   sessionMinutes: number;
   sessionReduction: number;
 }): number {
-  const sessions = annualSubmissions(input.submissionsPerDay) * input.humanShare;
+  const sessions =
+    annualSubmissions(input.submissionsPerDay) * input.humanShare;
   const minutes = sessions * input.sessionMinutes;
   return (minutes / 60) * input.sessionReduction;
 }

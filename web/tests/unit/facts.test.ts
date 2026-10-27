@@ -2,7 +2,11 @@ import { describe, expect, test } from "vitest";
 import { accentFor } from "../../content/accent";
 import { facts, factsFor } from "../../content/facts";
 import { factIds } from "../../content/ids";
-import { DEFAULT_ASSUMPTIONS, annualSubmissions, sellerHoursReturned } from "../../content/model";
+import {
+  annualSubmissions,
+  DEFAULT_ASSUMPTIONS,
+  sellerHoursReturned,
+} from "../../content/model";
 
 const entries = Object.values(facts);
 
@@ -13,7 +17,8 @@ describe("the fact registry", () => {
   });
 
   test("holds the README's figures plus the one derived display the home band states", () => {
-    const byKind = (kind: string) => entries.filter((entry) => entry.provenance.kind === kind).length;
+    const byKind = (kind: string) =>
+      entries.filter((entry) => entry.provenance.kind === kind).length;
     expect(byKind("measured")).toBe(8);
     expect(byKind("derived")).toBe(4);
     expect(byKind("assumed")).toBe(3);
@@ -25,10 +30,14 @@ describe("the fact registry", () => {
     for (const entry of entries) {
       switch (entry.provenance.kind) {
         case "measured":
-          expect(entry.provenance.mechanism.length, entry.id).toBeGreaterThan(10);
+          expect(entry.provenance.mechanism.length, entry.id).toBeGreaterThan(
+            10,
+          );
           break;
         case "derived":
-          expect(entry.provenance.mechanism.length, entry.id).toBeGreaterThan(10);
+          expect(entry.provenance.mechanism.length, entry.id).toBeGreaterThan(
+            10,
+          );
           expect(entry.provenance.inputs.length, entry.id).toBeGreaterThan(0);
           break;
         case "assumed":
@@ -45,15 +54,19 @@ describe("the fact registry", () => {
     for (const entry of entries) {
       if (entry.value === undefined) continue;
       const digits = entry.display.replace(/[^0-9.]/g, "");
-      expect(digits, `${entry.id}: display ${entry.display} vs value ${entry.value}`).toBe(
-        String(entry.value),
-      );
+      expect(
+        digits,
+        `${entry.id}: display ${entry.display} vs value ${entry.value}`,
+      ).toBe(String(entry.value));
     }
   });
 
   test("keeps employer-scoped figures on the surface that discusses them", () => {
     for (const entry of entries) {
-      if (entry.provenance.kind === "measured" && entry.provenance.where === "meta") {
+      if (
+        entry.provenance.kind === "measured" &&
+        entry.provenance.where === "meta"
+      ) {
         expect(entry.sources, entry.id).toEqual(["work"]);
       }
     }
@@ -62,7 +75,9 @@ describe("the fact registry", () => {
 
 describe("derived figures follow their inputs", () => {
   test("annual submissions is the daily rate times 365", () => {
-    expect(annualSubmissions(facts["submissions-per-day"].value!)).toBe(facts["submissions-per-year"].value);
+    expect(annualSubmissions(facts["submissions-per-day"].value!)).toBe(
+      facts["submissions-per-year"].value,
+    );
   });
 
   test("person-days is the filing hours divided by 24", () => {
@@ -84,15 +99,23 @@ describe("derived figures follow their inputs", () => {
 
 describe("the accent mapping", () => {
   test("indigo is measured, clay is assumed, and nothing else is coloured", () => {
-    expect(accentFor({ kind: "measured", where: "walmart", mechanism: "x" })).toBe("data");
-    expect(accentFor({ kind: "derived", inputs: [], mechanism: "x" })).toBe("data");
-    expect(accentFor({ kind: "assumed", control: "human-share" })).toBe("assume");
+    expect(
+      accentFor({ kind: "measured", where: "walmart", mechanism: "x" }),
+    ).toBe("data");
+    expect(accentFor({ kind: "derived", inputs: [], mechanism: "x" })).toBe(
+      "data",
+    );
+    expect(accentFor({ kind: "assumed", control: "human-share" })).toBe(
+      "assume",
+    );
     expect(accentFor({ kind: "not-measured", note: "x" })).toBe("neutral");
   });
 
   test("surfaces only receive figures scoped to them", () => {
     expect(factsFor("about")).toHaveLength(0);
-    expect(factsFor("work").every((entry) => entry.sources.includes("work"))).toBe(true);
+    expect(
+      factsFor("work").every((entry) => entry.sources.includes("work")),
+    ).toBe(true);
   });
 });
 

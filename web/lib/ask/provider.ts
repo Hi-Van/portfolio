@@ -9,7 +9,10 @@ export const LIMITS = {
 } as const;
 
 export function hasCredential(): boolean {
-  return typeof process.env.DEEPSEEK_API_KEY === "string" && process.env.DEEPSEEK_API_KEY.length > 0;
+  return (
+    typeof process.env.DEEPSEEK_API_KEY === "string" &&
+    process.env.DEEPSEEK_API_KEY.length > 0
+  );
 }
 
 /** Read at request time, never at module load, and never sent to the client. */

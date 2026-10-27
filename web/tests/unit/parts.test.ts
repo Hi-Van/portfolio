@@ -1,6 +1,6 @@
 import { expect, test } from "vitest";
-import { REFUSAL } from "../../lib/ask/compose";
 import { visibleAnswer } from "../../lib/agent/parts";
+import { REFUSAL } from "../../lib/ask/compose";
 
 test("an answer is the text it streamed", () => {
   const result = visibleAnswer([

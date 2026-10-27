@@ -3,7 +3,7 @@
 // JSX text nodes for digits, because that is where prose lives. Expressions and
 // attributes are left alone: they are the normal path for a registered fact.
 
-import { readFileSync, readdirSync, statSync } from "node:fs";
+import { readdirSync, readFileSync, statSync } from "node:fs";
 import { join } from "node:path";
 
 const ROOTS = ["app", "components"];
@@ -47,4 +47,6 @@ if (offences.length > 0) {
   process.exit(1);
 }
 
-process.stdout.write(`check-content: ${files.length} surfaces, no unregistered numbers\n`);
+process.stdout.write(
+  `check-content: ${files.length} surfaces, no unregistered numbers\n`,
+);

@@ -1,5 +1,4 @@
 import Link from "next/link";
-import { PageMain } from "../../components/shell/page-main";
 import { AnnualVolume } from "../../components/figures/annual-volume";
 import { Figure } from "../../components/figures/figure";
 import { LatencyBars } from "../../components/figures/latency-bars";
@@ -7,6 +6,7 @@ import { SubmissionsDiagram } from "../../components/figures/submissions-diagram
 import { UnitGrid } from "../../components/figures/unit-grid";
 import { Model } from "../../components/report/model";
 import { SectionNav } from "../../components/report/section-nav";
+import { PageMain } from "../../components/shell/page-main";
 import { readingMinutes, renderProse, report } from "../../content/report";
 import { site } from "../../content/site";
 
@@ -125,8 +125,13 @@ export default function Report() {
             </dl>
           </section>
 
-          <section id="contact" className="mt-block scroll-mt-40 border-t border-line pt-6">
-            <p className="font-ui text-label text-muted">{report.author.label}</p>
+          <section
+            id="contact"
+            className="mt-block scroll-mt-40 border-t border-line pt-6"
+          >
+            <p className="font-ui text-label text-muted">
+              {report.author.label}
+            </p>
             <p className="mt-2 max-w-measure text-reading text-body">
               {report.author.body}
             </p>

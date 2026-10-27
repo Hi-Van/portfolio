@@ -35,12 +35,18 @@ for (const [key, role] of Object.entries(ROLE_MAP)) {
   if (!expected) continue;
   const actual = light[`--${role}`];
   if (!actual) {
-    problems.push(`--${role} is missing from the light scope (DESIGN.md colors.${key})`);
+    problems.push(
+      `--${role} is missing from the light scope (DESIGN.md colors.${key})`,
+    );
   } else if (actual.toLowerCase() !== expected) {
-    problems.push(`--${role} is ${actual}, DESIGN.md colors.${key} is ${expected}`);
+    problems.push(
+      `--${role} is ${actual}, DESIGN.md colors.${key} is ${expected}`,
+    );
   }
   if (!themeNames.includes(`--color-${role}`)) {
-    problems.push(`--color-${role} is not in the Tailwind theme block, so no utility can use it`);
+    problems.push(
+      `--color-${role} is not in the Tailwind theme block, so no utility can use it`,
+    );
   }
 }
 
@@ -51,10 +57,12 @@ for (const [label, vars] of [
   ["the system-preference scope", media],
 ]) {
   for (const name of lightNames) {
-    if (!(name in vars)) problems.push(`${name} is in :root but not in ${label}`);
+    if (!(name in vars))
+      problems.push(`${name} is in :root but not in ${label}`);
   }
   for (const name of Object.keys(vars)) {
-    if (!(name in light)) problems.push(`${name} is in ${label} but not in :root`);
+    if (!(name in light))
+      problems.push(`${name} is in ${label} but not in :root`);
   }
 }
 

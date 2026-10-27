@@ -6,7 +6,10 @@ export function SiteFooter() {
     <footer className="mt-section border-t border-line print:hidden">
       <div className="mx-auto flex max-w-frame flex-col gap-6 px-gutter py-block sm:flex-row sm:items-center sm:justify-between">
         <p className="font-ui text-label text-muted">{site.name}</p>
-        <nav aria-label="Footer" className="flex flex-wrap items-center gap-x-6 gap-y-2">
+        <nav
+          aria-label="Footer"
+          className="flex flex-wrap items-center gap-x-6 gap-y-2"
+        >
           {site.surfaces.map((item) => (
             <Link
               key={item.href}

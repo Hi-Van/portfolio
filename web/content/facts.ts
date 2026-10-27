@@ -30,7 +30,8 @@ export const facts: Record<FactId, Fact> = {
     provenance: {
       kind: "measured",
       where: "walmart",
-      mechanism: "Merged duplicate records stopped being stored more than once.",
+      mechanism:
+        "Merged duplicate records stopped being stored more than once.",
     },
     sources: ["work", "report"],
   },
@@ -234,5 +235,7 @@ export function fact(id: FactId): Fact {
 }
 
 export function factsFor(surface: Fact["sources"][number]): Fact[] {
-  return Object.values(facts).filter((entry) => entry.sources.includes(surface));
+  return Object.values(facts).filter((entry) =>
+    entry.sources.includes(surface),
+  );
 }

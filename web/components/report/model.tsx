@@ -6,10 +6,10 @@ import { scaleLinear } from "@visx/scale";
 import { Area, LinePath } from "@visx/shape";
 import { useMemo, useState } from "react";
 import { fact } from "../../content/facts";
-import { report } from "../../content/report";
-import { Figure } from "../figures/figure";
 import { compact, grouped } from "../../content/format";
 import { DEFAULT_ASSUMPTIONS, sellerHoursReturned } from "../../content/model";
+import { report } from "../../content/report";
+import { Figure } from "../figures/figure";
 
 const WIDTH = 900;
 const HEIGHT = 380;
@@ -28,7 +28,9 @@ export function Model() {
   const daily = fact("submissions-per-day").value ?? 0;
   const reduction = (fact("session-shorter").value ?? 0) / 100;
 
-  const [share, setShare] = useState(Math.round(DEFAULT_ASSUMPTIONS.humanShare * 100));
+  const [share, setShare] = useState(
+    Math.round(DEFAULT_ASSUMPTIONS.humanShare * 100),
+  );
   const [minutes, setMinutes] = useState(DEFAULT_ASSUMPTIONS.sessionMinutes);
 
   const series = useMemo(() => {
@@ -39,14 +41,16 @@ export function Model() {
         humanShare,
         sessionMinutes: minutes,
         sessionReduction: 1,
-      }) * (day / 365);
+      }) *
+      (day / 365);
     const shorter = (day: number) =>
       sellerHoursReturned({
         submissionsPerDay: daily,
         humanShare,
         sessionMinutes: minutes,
         sessionReduction: reduction,
-      }) * (day / 365);
+      }) *
+      (day / 365);
     const points = DAYS.map((day, index) => ({
       month: index + 1,
       today: today(day),
@@ -65,14 +69,19 @@ export function Model() {
   const innerWidth = WIDTH - MARGIN.left - MARGIN.right;
   const innerHeight = HEIGHT - MARGIN.top - MARGIN.bottom;
   const x = scaleLinear<number>({ domain: [1, 12], range: [0, innerWidth] });
-  const y = scaleLinear<number>({ domain: [0, series.max], range: [innerHeight, 0] });
+  const y = scaleLinear<number>({
+    domain: [0, series.max],
+    range: [innerHeight, 0],
+  });
 
   return (
     <Figure number={5} caption={report.figures.fig5}>
       <p className="font-display text-display-page tracking-display text-indigo">
         {grouped(returned)}
       </p>
-      <p className="font-ui text-label text-muted">seller-hours returned in a year</p>
+      <p className="font-ui text-label text-muted">
+        seller-hours returned in a year
+      </p>
 
       <svg
         viewBox={`0 0 ${WIDTH} ${HEIGHT}`}
@@ -112,10 +121,19 @@ export function Model() {
             strokeWidth="2.5"
             fill="none"
           />
-          <text x={0} y={-8} className="fill-muted text-chart-narrow md:text-chart font-ui">
+          <text
+            x={0}
+            y={-8}
+            className="fill-muted text-chart-narrow md:text-chart font-ui"
+          >
             {compact(series.max)}
           </text>
-          <text x={innerWidth} y={innerHeight + 26} textAnchor="end" className="fill-muted text-chart-narrow md:text-chart font-ui">
+          <text
+            x={innerWidth}
+            y={innerHeight + 26}
+            textAnchor="end"
+            className="fill-muted text-chart-narrow md:text-chart font-ui"
+          >
             Dec
           </text>
         </Group>
@@ -131,7 +149,10 @@ export function Model() {
           <dt>Sessions {fact("session-shorter").display} shorter</dt>
         </div>
         <div className="flex items-center gap-2">
-          <span aria-hidden="true" className="block h-2 w-5 rounded-fact bg-band" />
+          <span
+            aria-hidden="true"
+            className="block h-2 w-5 rounded-fact bg-band"
+          />
           <dt>Time returned</dt>
         </div>
       </dl>
@@ -140,7 +161,9 @@ export function Model() {
         <label className="flex flex-col gap-2 font-ui text-label text-ink">
           <span className="flex items-baseline justify-between gap-3">
             <span>Share of traffic done by a person</span>
-            <output className="font-semibold tabular-nums text-clay">{share}%</output>
+            <output className="font-semibold tabular-nums text-clay">
+              {share}%
+            </output>
           </span>
           <Slider.Root
             value={share}
@@ -167,7 +190,9 @@ export function Model() {
         <label className="flex flex-col gap-2 font-ui text-label text-ink">
           <span className="flex items-baseline justify-between gap-3">
             <span>Baseline session</span>
-            <output className="font-semibold tabular-nums text-clay">{minutes} min</output>
+            <output className="font-semibold tabular-nums text-clay">
+              {minutes} min
+            </output>
           </span>
           <Slider.Root
             value={minutes}

@@ -213,7 +213,9 @@ body {
   *,
   *::before,
   *::after {
+    /* biome-ignore lint/complexity/noImportantStyles: a reduced-motion preference must beat every component transition */
     transition-duration: 0.001ms !important;
+    /* biome-ignore lint/complexity/noImportantStyles: same rule, same reason */
     animation-duration: 0.001ms !important;
   }
 

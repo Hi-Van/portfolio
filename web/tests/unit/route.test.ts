@@ -27,10 +27,17 @@ beforeEach(() => {
 });
 
 test("an invalid request never opens a stream", async () => {
-  for (const body of [{}, { question: "" }, { question: "x".repeat(281) }, { question: 7 }]) {
+  for (const body of [
+    {},
+    { question: "" },
+    { question: "x".repeat(281) },
+    { question: 7 },
+  ]) {
     const response = await ask(body);
     expect(response.status).toBe(400);
-    expect(response.headers.get("content-type")).not.toContain("text/event-stream");
+    expect(response.headers.get("content-type")).not.toContain(
+      "text/event-stream",
+    );
   }
 });
 

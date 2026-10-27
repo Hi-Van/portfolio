@@ -57,7 +57,8 @@ export function createStreamGuard(allowed: Set<string>) {
 
       let holdFrom = held.length;
       const open = held.lastIndexOf(ANCHOR_OPEN);
-      if (open !== -1 && held.indexOf(ANCHOR_CLOSE, open) === -1) holdFrom = open;
+      if (open !== -1 && held.indexOf(ANCHOR_CLOSE, open) === -1)
+        holdFrom = open;
 
       const trailing = held.slice(0, holdFrom).match(/[0-9][0-9,.]*$/);
       if (trailing) holdFrom -= trailing[0].length;

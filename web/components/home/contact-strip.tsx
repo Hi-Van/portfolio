@@ -1,6 +1,6 @@
 import Link from "next/link";
-import { site } from "../../content/site";
 import { home } from "../../content/home";
+import { site } from "../../content/site";
 
 export function ContactStrip() {
   return (

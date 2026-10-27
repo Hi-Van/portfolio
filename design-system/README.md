@@ -2,31 +2,32 @@
 title: Design system
 group: Index
 status: current
-reviewed: 2026-10-26
+reviewed: 2026-10-27
 sources:
   - DESIGN.md
-  - assets/site.css
-  - assets/tui.css
-  - index.html
-  - work.html
-  - about.html
-  - report.html
-  - ask.html
+  - web/app/globals.css
+  - web/components
+  - web/content
 ---
 
 # Design system
 
-The component reference for the Van Sirisouk site. It describes the five pages as they are built: exact classes, measurements, variants, states, and the places where `DESIGN.md` has fallen behind the CSS. `DESIGN.md` remains the token contract. This tree is the working reference for anyone changing a component.
+The component reference for the Van Sirisouk site. It describes the application as it is built: the
+tokens, the components, the surfaces, and the checks that hold them together. `DESIGN.md` remains the
+token contract.
 
-Read [the narrative](narrative.md) for the feel. Read the foundations before making a new component. Read the component doc before editing a class, and the surface doc before changing a page composition.
+Read [the narrative](narrative.md) for the feel. Read the foundations before making a new component.
+Read the component doc before changing one, and the surface doc before changing a page's composition.
 
 ## The system in one screen
 
-- Four materials: white paper, ink blue, indigo for measured data, clay for assumptions. No third accent.
+- Four materials: white paper, ink blue, indigo for measurement, clay for assumption. No third accent.
 - Three voices: Instrument Serif for statements, Literata for reading, Instrument Sans for interface.
-- Shapes: 4px badges, 6px secondary action, 10px panels, 12px abstract, 999px for the Contact pill and the chat field, 44px circle for the chat send.
-- Structure: 1040px frame on the marketing pages, 720px measure in the report, 860px in the chat, 58px top bar. No drop shadows except the range thumb.
-- Five pages: home, work, about, report, ask. The chat is a room, not an overlay. It reads this site only.
+- Shapes: 4px badges, 6px secondary actions, 10px panels, 12px abstract, 999px for the invitation and
+  the composer field, a 44px circle for send.
+- Structure: a 1040px frame, a 720px reading column in the report, an 860px agent room, a 64px bar,
+  one 32px gutter at every width.
+- Five surfaces, one answer endpoint, one fact registry.
 
 ## Read in this order
 
@@ -36,93 +37,106 @@ Read [the narrative](narrative.md) for the feel. Read the foundations before mak
 | [Typography](foundations/typography.md) | Families and the loader, the 13 contract steps, utilities, floors, measures, chart type, the conversational step | You are setting or changing type |
 | [Color and theme](foundations/color-and-theme.md) | The four materials, the role table in both themes, how a colour reaches an element, measured contrast, the theme's application | You are adding color or a theme state |
 | [Space, shape, and motion](foundations/space-shape-motion.md) | Frames, one gutter, the spacing base and rhythm tokens, radii, hairlines, elevation, breakpoints, motion | You are changing layout, shape, or animation |
-| [Accessibility](foundations/accessibility.md) | Focus, skip link, semantics, live regions, keyboard paths, contrast, targets, known gaps | You are changing behavior or checking a release |
 | [Content and provenance](foundations/content-and-provenance.md) | The fact registry, the four provenance classes, the accent mapping, the single-source rule, the arithmetic | You are adding or moving a number |
-| [Navigation](components/navigation.md) | Top bar, links, Contact CTA, Ask switch, theme toggle, menu, skip link, footer, report section nav | You are touching the bar or a global control |
-| [Actions](components/actions.md) | Filled pill, compact Contact CTA, outlined rectangle, text links, mail links, reset | You are adding or restyling an action |
-| [Inputs](components/inputs.md) | Model sliders, their states and value text, reset; the composer when the agent surface lands | You are changing a field or a slider |
-| [Evidence and data display](components/evidence.md) | Badges, result tiles, system rows, role rows, figures, charts, abstract, method rows, headings, byline | You are presenting a number |
-| [Chat messages](components/messaging.md) | Message rows, inline citations, the refusal note, withdrawal, suggestions, the waiting and failure rows, announcement | You are changing the transcript |
-| [Report](surfaces/report.md) | The report as a document: masthead, abstract, 720 column, five figures, the model, method, section navigation | You are changing report composition |
-| [Chat](surfaces/chat.md) | The agent as a room: composition, where the conversation lives, composer, return path, the answer endpoint | You are changing the chat surface |
+| [Accessibility](foundations/accessibility.md) | Focus, skip link, landmarks, targets, keyboard paths, contrast, reduced motion, no-script behaviour, known gaps | You are changing behavior or checking a release |
+| [Navigation](components/navigation.md) | The bar, its order, the invitation, the agent switch, the theme control, the disclosure, skip link, footer | You are touching the bar or a global control |
+| [Actions](components/actions.md) | The invitation, the outlined action, text and mail links, states that do not exist | You are adding or restyling an action |
+| [Inputs](components/inputs.md) | The model's sliders, their states and value text, the reset control | You are changing a field or a slider |
+| [Evidence and data display](components/evidence.md) | Badges, result cells, role and system rows, figures, captions, method rows, headings, byline | You are presenting a number |
+| [Chat messages](components/messaging.md) | Message rows, inline citations, the refusal note, withdrawal, suggestions, waiting and failure rows, announcement | You are changing the transcript |
+| [Report](surfaces/report.md) | The report as a document: masthead, abstract, reading column, five figures, the model, method, section navigation | You are changing report composition |
+| [Chat](surfaces/chat.md) | The agent as a room: composition, where the conversation lives, composer, return path, the endpoint | You are changing the chat surface |
 | [Pages](surfaces/pages.md) | Home, work, and about composition | You are changing a page layout |
 
 ## Coverage map
 
-Every class group in the site maps to one doc, and the content model maps to its own foundation. If a class is not listed here, it is page-specific or a new component that needs a doc before it spreads.
+Every source file maps to one doc. A file that is named nowhere fails `check-artifacts`.
 
-| Group | Classes and selectors | Doc |
+| Group | Files | Doc |
 |---|---|---|
-| Content | `web/content/ids.ts`, `types.ts`, `facts.ts`, `model.ts`, `accent.ts`, `scripts/check-content.mjs` | [Content and provenance](foundations/content-and-provenance.md) |
-| Navigation | `.top`, `.top__in`, `.top__name`, `.top__nav`, `.top__cta`, `.top__actions`, `.top__menu`, `.theme-toggle`, `.ask`, `.ask__track`, `.ask__knob`, `.ask__label`, `.skip`, `.foot`, `.foot__in`, `.foot__links` | [Navigation](components/navigation.md) |
-| Actions | `.pill`, `.btn-rect`, `.textlink`, `.mail`, `.reset` | [Actions](components/actions.md) |
-| Inputs | `.agent__composer`, `.composer`, `.composer__input`, `.composer__send`, `.agent__hint`, `.controls`, `.control`, range inputs | [Inputs](components/inputs.md) |
-| Evidence | `.badgeline`, `.bgroup`, `.badge`, `.badge--loc`, `.badge__label`, `.pin`, `.results`, `.result`, `.result__num`, `.result__unit`, `.result__what`, `.role-row`, `.role-meta`, `.systems`, `.system`, `.system__name`, `.system__desc`, `.system__res`, `.systems--facts` | [Evidence](components/evidence.md) |
-| Figures and method | `.figure`, `.figure__panel`, `.figure__chart`, `.figure__cap`, `.anatomy`, `.src`, `.rec__name`, chart mark classes, `.abstract`, `.abstract__label`, `.method`, `.method__row`, `.sec`, `.byline`, `.deck`, `.fig5__num`, `.contact` | [Evidence](components/evidence.md) |
-| Messaging | `.agent__log`, `.msg`, `.msg__body`, `.msg__meta`, `.msg__avatar`, `.msg__who`, `.msg__tag`, `.msg__time`, `.msg__text`, `.msg__note`, `.msg__src`, `.msg__suggest`, `.msg__system`, `.msg__typing` | [Chat messages](components/messaging.md) |
-| Report surface | `.cover`, `.masthead`, `.article`, `.bleed`, report sections and footer | [Report](surfaces/report.md) |
-| Chat surface | `.agent`, `.agent__in`, `.agent__head`, `.agent__title`, `.agent__hash`, `.agent__rule`, `.agent__topic`, `.agent__log` | [Chat](surfaces/chat.md) |
-| Page surfaces | `.wrap`, `.hero`, `.statement`, `.actions`, `.contact-strip`, `.page-head`, `.lede`, `.prose`, `.about-grid`, `.facts`, `.contact-card`, `.work-foot` | [Pages](surfaces/pages.md) |
+| Theme and tokens | `web/app/globals.css`, `web/app/providers.tsx`, `web/components/theme/` | [Color and theme](foundations/color-and-theme.md) |
+| Content model | `web/content/facts.ts`, `ids.ts`, `types.ts`, `model.ts`, `accent.ts` | [Content and provenance](foundations/content-and-provenance.md) |
+| Page copy | `web/content/home.ts`, `work.ts`, `about.ts`, `report.ts`, `site.ts`, `format.ts`, `index.ts` | [Pages](surfaces/pages.md), [Report](surfaces/report.md) |
+| Frame | `web/components/shell/` | [Navigation](components/navigation.md) |
+| Actions and inputs | `web/components/shell/contact-pill.tsx`, `web/components/report/model.tsx` | [Actions](components/actions.md), [Inputs](components/inputs.md) |
+| Evidence | `web/components/evidence/badge.tsx`, `web/components/home/results-band.tsx`, `web/components/work/role-row.tsx` | [Evidence](components/evidence.md) |
+| Figures | `web/components/figures/`, `web/components/report/model.tsx` | [Evidence](components/evidence.md), [Report](surfaces/report.md) |
+| Agent | `web/components/agent/`, `web/lib/ask/`, `web/lib/agent/`, `web/app/api/ask/route.ts` | [Chat](surfaces/chat.md), [Chat messages](components/messaging.md) |
+| Checks | `web/scripts/` | [Accessibility](foundations/accessibility.md), this index |
+| Tests | `web/tests/` | The doc for the thing each test covers |
 
 ## Source of truth
 
-The CSS, markup, and scripts are the source for what the site does today. The component docs quote those values. `DESIGN.md` is the token contract: role colors, the type scale, shape language, and the rules the tokens cannot carry.
+The code is the source for what the site does today; these docs quote it. `DESIGN.md` is the contract
+for colour, type, and shape. When a doc and the code disagree, fix both in the same change and record
+what changed here.
 
-When the two disagree, the doc records both under `Divergences`. Neither the docs nor the contract should be edited to hide a mismatch. If you fix one, change the code, `DESIGN.md`, and the doc in the same pass.
+Three checks make the contract enforceable rather than aspirational. `check-tokens` compares the
+stylesheet to `DESIGN.md` in both directions. `check-content` fails when a surface prints a digit that
+did not come from the registry. `check-styles` fails on an arbitrary value, a raw colour, or a
+`dark:` variant. A fourth, `check-bundle`, proves the client ships nothing it should not.
 
-## Contract debt
+## The debt this rebuild closed
 
-These are documented disagreements, not code changes waiting in this tree. Each link goes to the full note.
+The previous static build carried thirteen recorded disagreements between the contract and the
+stylesheet. They were resolved by decision rather than recorded again:
 
-| Area | `DESIGN.md` | Implemented | Recorded in |
-|---|---|---|---|
-| Reading size | Literata body at 19px | 17.5px on the site pages, 17px under 760; 19px only on the report; 16.5px in the chat | [Typography](foundations/typography.md) |
-| Serif minimum | Instrument Serif only at 26px and above | 20px abstract label, 20px system result, 25px record name, 16px chat avatar | [Typography](foundations/typography.md) |
-| Scale purity | Nothing sits between steps | `.statement` 19 to 22, `.lede` 18.5, `.deck` 18 to 21, report and about headings on local clamps | [Typography](foundations/typography.md) |
-| h2 tracking | -0.012em | -0.015em on work, -0.014em on about, -0.012em only on the report | [Typography](foundations/typography.md) |
-| Caps floor | 10px | 9.5px on the chat bot tag and source label | [Typography](foundations/typography.md) |
-| Contact pill type | 12.5px label | 13.5px compact CTA, 14px full pill | [Typography](foundations/typography.md), [Actions](components/actions.md) |
-| One filled pill | One per page | The report has two: Contact in the bar and Email me in the closing block | [Actions](components/actions.md) |
-| Badge | body text, 4px padding | ink text, 5px 10px padding, 4px radius | [Evidence](components/evidence.md) |
-| Spacing tokens | 4, 8, 14, 24, 40 | No spacing tokens; literal values from 2 to 150 | [Space, shape, and motion](foundations/space-shape-motion.md) |
-| Report frame | 1040 with 24px gutters, 720 body | Cover and bar 1040 at 24; article is a full width grid with a 720 middle; main pages use 32px gutters | [Space, shape, and motion](foundations/space-shape-motion.md) |
-| Mobile report | One 350px column | One fluid column between 20px gutters; the 46px masthead floor arrives near a 667px viewport | [Space, shape, and motion](foundations/space-shape-motion.md) |
-| Report tokens | Shared token set | The report repeats the tokens and five font faces inline; the Firefox range thumb is hardcoded `#fff` | [Color and theme](foundations/color-and-theme.md), [Evidence](components/evidence.md), [Inputs](components/inputs.md) |
-| Clay count | Four places | The chat adds a fifth: the clay note on an unstated answer | [Color and theme](foundations/color-and-theme.md), [The feel of the site](narrative.md) |
+| Was | Is |
+|---|---|
+| Reading size 17.5px on site pages, 17px narrow, 19px only in the report | One reading size, 19px, on every prose surface at every width |
+| Serif at 20, 25, and 16px in places | A 20px serif floor, with the 25px record name promoted to the 26px step and a glyph avatar exempt |
+| Sizes between the scale steps | Removed; a heading steps down rather than shrinking |
+| Three invitation label sizes | One, at the 12.5px label step |
+| Gutters of 24, 32, and 20 by viewport | One 32px gutter at every width |
+| A declared spacing scale the build never used | A 4px numeric base plus three named rhythm tokens |
+| Clay in four documented places | Five: the fifth is the note on an unstated answer |
+| Two token copies, one in the report | One theme block in `web/app/globals.css` |
+| Chart labels at one size | 15 units wide, 26 narrow, so a scaled figure stays legible |
+| A scroll reveal that hid three figures without scripting | Deleted; figures are drawn, not revealed |
+
+The one line left open is the 9.5px uppercase instances on the chat tag and source label. It belongs to
+the accessibility change, and `design.md` lists it under that change's scope.
 
 ## What is not in the system
 
-There is no modal, dialog, toast, tooltip, popover, dropdown, breadcrumb, search, pagination, tab, accordion, generic table, generic form, select, checkbox, radio, disabled state, error state, success state, or empty state. The chat has a typing row, not a loading skeleton. The report has a method definition list, not a data table component.
+There is no modal, dialog, toast, tooltip, popover, dropdown, breadcrumb, search, pagination, tab,
+accordion, generic table, generic form, select, checkbox, radio, disabled state, error field, or empty
+state. The model has sliders, not a form. The report has a definition list, not a data table.
 
-A new pattern needs a doc here before it needs a second use. Group it by the reader's task, not by file count.
+A new pattern needs a doc here before it needs a second use, and a primitive needs a pattern before it
+needs a dependency.
 
 ## Changing a component
 
-1. Read this index, the component doc, and the source rule.
-2. Change the CSS, markup, or script. Use tokens, not hex values. Keep the `file://` and offline constraints.
-3. Update the doc's variants, states, measurements, and divergences in the same pass.
-4. Update the coverage map if a class or group is new.
+1. Read this index, the component doc, and the source.
+2. Change the component. Use tokens, never a literal. Keep the frame and the floor.
+3. Update the doc's variants, states, and measurements in the same change.
+4. Update the coverage map if a file is new.
 5. Update `DESIGN.md` if a token changes, then run its lint.
-6. Run the token and artifact checks. Open the page at 390, 768, and 1440 in both themes. Move focus through the change.
-7. Capture a current screenshot in `preview/` if the doc references one, and remove the stale capture it replaces.
+6. Run `npm run check` and open the surface at 390, 768, and 1440 in both themes.
+7. Move focus through the change with a keyboard.
 
 ## Doc conventions
 
 - Frontmatter carries title, group, status, reviewed date, and sources.
-- Component docs follow Anatomy, Variants, States, Measurements and tokens, Usage, Do and don't, Accessibility, Source.
+- Component docs follow Anatomy, Variants, States, Measurements and tokens, Usage, Do and don't,
+  Accessibility, Source.
 - State tables name absent states instead of inventing them.
 - Prose uses no em dashes or en dashes, straight quotes, sentence case headings, and no AI vocabulary.
-- Screenshots are evidence, not source. A capture that shows an older component is marked stale in the doc.
+- Cite files, never line numbers. A line number rots on the first edit.
 - Links are relative and resolve inside this tree.
 
 ## Verification
 
-Thirteen docs plus this index: one narrative, four foundations, five component groups, three surfaces. The source files were hashed before the writing wave and matched after it. `scripts/check-artifact-coverage.py` names the tree, `scripts/check-design-tokens.py` checks the two token copies, and `npx -y @google/design.md lint DESIGN.md` checks the contract.
+Fourteen docs plus this index: one narrative, five foundations, five component groups, three surfaces.
+The checks in `web/scripts/` and the two test runners hold the code to the docs. `check-artifacts`
+names every source file; `DESIGN.md` lints clean; the suite and the browser tests are the release gate.
 
-If you add a doc, add it to the read order and the coverage map here, then run the artifact check. A page that the index does not name is invisible to the next agent.
+If you add a doc, add it to the read order and the coverage map here.
 
 ## Related
 
-- [DESIGN.md](../DESIGN.md) for the token contract and the hard rules.
+- [DESIGN.md](../DESIGN.md) for the token contract.
 - [README.md](../README.md) for the project state and number provenance.
 - [AGENTS.md](../AGENTS.md) for the navigation map and commands.
+- `openspec/changes/replatform-site/design.md` for why the medium is what it is.

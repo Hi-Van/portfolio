@@ -5,10 +5,16 @@
 //   3. the transferred client script per route is reported
 
 import { spawnSync } from "node:child_process";
-import { readFileSync, readdirSync, statSync } from "node:fs";
+import { readdirSync, readFileSync, statSync } from "node:fs";
 import { join } from "node:path";
 
-const forbiddenPackages = ["zod", "zustand", "swr", "valibot", "@upstash/redis"];
+const forbiddenPackages = [
+  "zod",
+  "zustand",
+  "swr",
+  "valibot",
+  "@upstash/redis",
+];
 const forbiddenMarkers = [/deepseek/i, /DEEPSEEK_API_KEY/, /@ai-sdk\/deepseek/];
 
 function fail(message) {
@@ -19,9 +25,12 @@ function fail(message) {
 const pkg = JSON.parse(readFileSync("package.json", "utf8"));
 const installed = { ...pkg.dependencies, ...pkg.devDependencies };
 const present = forbiddenPackages.filter((name) => name in installed);
-if (present.length > 0) fail(`forbidden dependency installed: ${present.join(", ")}`);
+if (present.length > 0)
+  fail(`forbidden dependency installed: ${present.join(", ")}`);
 
-const build = spawnSync("node_modules/.bin/next", ["build"], { stdio: "inherit" });
+const build = spawnSync("node_modules/.bin/next", ["build"], {
+  stdio: "inherit",
+});
 if (build.status !== 0) fail("the build failed");
 
 function walk(dir) {

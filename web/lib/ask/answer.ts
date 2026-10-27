@@ -1,7 +1,7 @@
 import { streamText } from "ai";
 import type { Chunk } from "../../content/corpus";
-import type { Turn } from "./guards";
 import { compose, REFUSAL, retrieve } from "./compose";
+import type { Turn } from "./guards";
 import { hasCredential, LIMITS, model } from "./provider";
 
 const SYSTEM = [

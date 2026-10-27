@@ -3,7 +3,7 @@
 // cleared palette: no arbitrary value and no raw colour may appear in a class
 // string or an inline style.
 
-import { readFileSync, readdirSync, statSync } from "node:fs";
+import { readdirSync, readFileSync, statSync } from "node:fs";
 import { join } from "node:path";
 
 const ROOTS = ["app", "components"];
@@ -34,10 +34,14 @@ for (const file of files) {
   const lines = readFileSync(file, "utf8").split("\n");
   lines.forEach((line, index) => {
     if (RAW_COLOUR.test(line)) {
-      offences.push(`${file}:${index + 1} raw colour  ${line.trim().slice(0, 70)}`);
+      offences.push(
+        `${file}:${index + 1} raw colour  ${line.trim().slice(0, 70)}`,
+      );
     }
     if (DARK_VARIANT.test(line)) {
-      offences.push(`${file}:${index + 1} dark: variant  ${line.trim().slice(0, 70)}`);
+      offences.push(
+        `${file}:${index + 1} dark: variant  ${line.trim().slice(0, 70)}`,
+      );
     }
     for (const hit of line.matchAll(ARBITRARY)) {
       offences.push(`${file}:${index + 1} arbitrary value  ${hit[0]}`);
@@ -53,4 +57,6 @@ if (offences.length > 0) {
   process.exit(1);
 }
 
-process.stdout.write(`check-styles: ${files.length} components, no arbitrary values or raw colours\n`);
+process.stdout.write(
+  `check-styles: ${files.length} components, no arbitrary values or raw colours\n`,
+);

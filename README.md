@@ -1,129 +1,140 @@
 # Van Sirisouk, personal site
 
-Five static pages, shared CSS, no build step, no framework, no trackers.
+A measurement-first portfolio. Five surfaces, one answer endpoint, no trackers. The site is a Next.js
+application in `web/`; the design contract is `DESIGN.md`; the component reference is
+`design-system/`.
 
-| Page | Job |
+## The surfaces
+
+| Surface | Job |
 |---|---|
-| `index.html` | Who you are, three numbers, one contact path. About one screen and a half |
-| `work.html` | Roles and systems, including the FAIR AI internship at Meta, with deep links into the report |
-| `about.html` | The bio, the facts, and the email |
-| `report.html` | The visual report. Five figures, the live model, method note. About 500 words |
-| `ask.html` | The site agent: a chat page that answers from these pages, cites them, and refuses when the answer is not there |
+| `/` | Who this is, three measured results, one way to get in touch. About a screen and a half |
+| `/work` | Roles and systems, including the FAIR AI internship at Meta, with deep links into the report |
+| `/about` | The bio, the facts, the address |
+| `/report` | The document: five figures, the model, the method note |
+| `/ask` | The agent: answers from this site, cites the page each answer came from |
 
-The split exists on purpose. The home page answers "who is this and what did they ship" in under a minute. The work page carries the systems. The report carries the reasoning, the model, and the method, in roughly 500 words with five figures, and doubles as the template for future writing.
-
-The agent is its own page, not an overlay. The switch in the top bar is a link to `ask.html`, and it stays on while you are there.
-
-The calculator has one home: section 3 of the report, where it is Figure 4. The home's band links to it rather than repeating it. An earlier Impact page duplicated the model and was cut for that reason.
+The split is deliberate. The home page answers "who is this and what did they ship" in under a
+minute. The work page carries the systems. The report carries the reasoning, the model, and the
+method. The agent is its own room, reached by the switch in the top bar.
 
 ## Run it
 
-Open `index.html`. Fonts are local, so it works offline. Every page links through `assets/site.css`, `assets/site.js`, and `assets/theme.js`. All five load `assets/tui.css` for the nav switch; `ask.html` also loads `assets/tui.js`. Page-specific rules sit in a `<style>` block in each file. The report still carries its own stylesheet inline because it is a separate document type.
+```bash
+cd web
+npm install
+npm run dev        # localhost:3000
+npm run build      # prerenders every surface
+npm run check      # the gate
+```
 
-`python3 scripts/check-artifact-coverage.py` verifies that every source file is named in `AGENTS.md`, `README.md`, `DESIGN.md`, or `design-system/README.md`.
+The five surfaces are prerendered. The answer endpoint is dynamic. There is no database and no
+analytics.
 
-## Site agent
+`npm run check` runs eight steps and reports each one: tokens, artifacts, content, styles, contrast,
+unit, e2e, bundle. It exits non-zero if any failed. It builds twice, once for the bundle scan and once
+inside Playwright, so it takes about a minute.
 
-`ask.html` is replaced by `/ask`, a room with a transcript, a composer, and four suggested
-questions. The conversation lives above the route, so it survives moving between pages and clears on
-reload. Nothing a reader types is stored.
+```bash
+npx -y @google/design.md lint DESIGN.md       # 0 errors, 0 warnings
+```
 
-An answer is retrieved from the section of this site that covers the question, streamed to the
-reader, and cited inline with a link to that section. An answer that is not on the site is refused
-with one fixed sentence: "Not stated on the site."
+## The agent
 
-The endpoint at `/api/ask` accepts one question of up to 280 characters and the turns before it, and
-answers with a stream. A stream guard holds back a numeral until it is complete and traces it against
-the retrieved passage; an untraced number withdraws the answer and leaves the refusal. The guard also
-holds back an anchor until it closes, so a half-written citation never renders.
+`/ask` is a room with a transcript, a composer, and four suggested questions. The conversation lives
+above the route, so it survives moving between pages and clears on reload. Nothing a reader types is
+stored.
+
+An answer is retrieved from the section of this site that covers the question, streamed to the reader,
+and cited inline with a link to that section. An answer that is not on the site is refused with one
+fixed sentence: "Not stated on the site."
+
+The endpoint at `/api/ask` accepts one question of up to 280 characters and the turns before it. A
+stream guard holds a numeral until it is complete and traces it against the retrieved passage; an
+untraced number withdraws the answer and leaves the refusal. The guard also holds an anchor until it
+closes, so a half-written citation never renders.
 
 With `DEEPSEEK_API_KEY` set, the answer is composed by the pinned model at a 400-token ceiling.
 Without it, the retrieved passage is the answer, so a checkout with no key still answers and still
-cites. The question suite is the gate: 30 questions, a 23% refusal rate, no false refusals, no
-answered question that should have been refused, no untraced number in any answer, and no withdrawal
-in the suite. Cost per question is bounded by the 400-token output ceiling rather than measured,
-because no credential is configured in this checkout.
+cites.
 
-## Dark mode
-
-Each page follows the operating system until the reader flips the toggle in the top bar. The choice is stored under `vs-theme` and wins from then on. `assets/theme.js` owns the switch. A four line script in each page's head applies the stored choice before first paint, so a dark reader never gets a white flash on the way in.
-
-The palette is a second token set, not a filter or an inverted stylesheet. `[data-theme="dark"]` and `@media (prefers-color-scheme: dark)` point at the same values, so the page works with JavaScript off, and the toggle only takes over when someone asks it to.
-
-Figures follow the theme through the same tokens. Charts use classes such as `.bar-before`, `.cell`, `.line-data`, `.band`, and `.chart-grid`, which map to `--cell`, `--data`, `--band`, and `--chart-grid`, so no chart carries a hex value of its own.
-
-Measured contrast in both themes: body 12.1:1 light and 11.3:1 dark, muted labels 5.8:1 and 6.7:1, indigo on the figure panel 9.2:1 and 8.9:1. All above AA.
-
-The dark ground is `#0c1018`, an ink-blue near-black rather than a neutral one, so panels (`#131824`), cards (`#1a1f2b`), and hairlines still separate. The indigo lifts from `#2b3a8f` to `#a9b3ff` and the clay from `#95522c` to `#d8a06e`, and the Contact pill inverts to a light fill with dark type so it stays the one filled pill in the bar. The report adds a second filled pill in its closing contact block.
-
-## Design system
-
-`DESIGN.md` is the spec. YAML front matter carries the role tokens (ink, indigo, clay, white, panel, body, muted, badge) and the type scale; the body explains the rules that the tokens cannot: the two-accent meaning, the 720px measure, caps tracking, the small-type floors, the shape language, and what not to do.
-
-The component reference is in `design-system/README.md`: the narrative, four foundations, five component groups, and three surface docs. It describes the implemented values and records where `DESIGN.md` is behind the CSS.
-
-```bash
-npx -y @google/design.md lint DESIGN.md          # 0 errors, 0 warnings
-python3 scripts/check-design-tokens.py           # 8 role colors, both stylesheets
-```
-
-The spec is role-based rather than a mirror of every CSS variable. Surfaces, chart marks, and the dark palette are documented in the Colors section because the spec only lets components reference a background and text pair.
-
-`assets/site.css` is the implementation. `report.html` carries its own copy because it is a standalone document, so the check script verifies both against the spec and fails on drift.
-
-## Navigation
-
-Desktop: Work, Report, About, a Contact pill, and the Ask switch. Mobile: a Menu button that reveals the list. The Ask switch is on every page and links to the chat page. The menu closes on Escape, on a link click, and when the viewport widens past 760px.
+The question suite is the gate: 30 questions, a 23% refusal rate, no false refusals, no answered
+question that should have been refused, no untraced number in any answer, and no withdrawal. Cost per
+question is bounded by the output ceiling rather than measured, because no credential is configured in
+this checkout.
 
 ## The numbers, and where they come from
 
-Measured at Walmart, and repeated as measurements:
+Every number is defined once in `web/content/facts.ts` and rendered from there. Each carries a class
+and a mechanism.
 
-- 30% faster queries after the catalog cleanup service
-- $1,200 a year in storage saved
-- 450,000 records a second through the intake pipeline
-- 390,000 submissions a day through the seller app
-- 22% shorter average session after launch
+Measured at Walmart:
 
-Measured at Meta, and stated only on the work page:
+- query time after the catalog cleanup
+- storage cost removed a year
+- records a second through the intake pipeline
+- submissions a day through the seller app
+- shorter average seller session
 
-- 600,000 queries a second through the API data pipelines
-- 350% platform performance after batching subscription events in the Python API
-- 67% smaller build after moving model packages onto platform infrastructure
+Measured at Meta, stated only on the work surface:
 
-Derived with arithmetic, labeled as derived:
+- queries a second through the API data pipelines
+- platform performance after batching subscription events
+- smaller build after moving model packages
 
-- Annual submissions: daily rate times 365
-- Human filing time: records times 20 seconds
-- Seller hours returned: volume times human share times session length times 22%
+Derived, with the arithmetic stated:
 
-Assumed, and exposed as controls in the calculator:
+- annual submissions: the daily rate times 365
+- filing time: records times 20 seconds, expressed in hours and in person-days
+- seller hours returned: annual submissions times the human share times the session length times the
+  measured cut
 
-- 20 seconds per record when filed by hand
-- 25% of submissions are human sessions
-- a 6 minute baseline session
+Assumed, and exposed as controls in the model:
+
+- time to file one record by hand, fixed and stated rather than adjustable
+- the share of traffic that is human
+- a baseline session length
 
 Not measured, stated as such: revenue.
 
-## Replace before this goes live
+A build check fails when a surface prints a digit outside the registry. The report states its figures
+through placeholders resolved from the same registry, so its prose cannot drift from the rest of the
+site.
 
-- Every number and claim in the report comes from the LinkedIn profile or is arithmetic on it. Check each one against your own records before publishing. The three supplier submissions in Figure 1 are illustrative, not a real submission.
-- The Meta numbers on the work page also come from the profile and are not in the report.
-- `hello@vansirisouk.com` is a placeholder. It appears four times in `index.html`, four times in `about.html`, twice in `work.html` (nav and footer), and once each in `ask.html` and the report's email button.
-- The Meta internship is dated on the work page. Synchrony and Edgewell are still named without dates in the "Before 2023" row; the profile dates them Sep 2022 to May 2023 and May to Jul 2021.
-- The Atlassian entry is deliberately generic. Add one real detail if it is not under NDA.
-- The "3 minute read" in the report matches roughly 500 words.
+## Design system
 
-## Design notes
+`DESIGN.md` is the contract: eight role colours in two themes, thirteen type steps, the shape language,
+and the rules the tokens cannot carry. `design-system/README.md` is the component reference, including
+where the implemented values and the contract were reconciled in this rebuild.
 
-Type: Instrument Serif for display, Literata for reading, Instrument Sans for interface and figure labels. Display tracking is one value, -0.02em, on every h1. The smallest type has a floor: 10px at weight 500 for the uppercase figure keys, 13px captions, 12px byline on mobile, and chart labels at 15 SVG units (about 11px at the 720 column) with 17 units for values. Paragraphs and captions use text-wrap: pretty to keep a single word off the last line; captions and the report deck use balance. The chat page runs one step smaller: 16.5px/1.62 Literata for messages and the input, 13.5px Instrument Sans for suggestions, 10.5px for metadata. It is the one documented exception to the scale.
+Six checks hold the two together:
 
-Color: white (`#ffffff`) under an ink-blue (`#131a2b`), with two accents that carry meaning rather than mood. Indigo (`#2b3a8f`) is measurement and structure: result numbers, section numerals, chart marks, data links. Clay (`#95522c`) is the assumption: the abstract label, the inference in Figure 1, the Assumed row in the method table, the two model inputs, and the chat note on an unstated answer. Nothing else is colored. Panels are a light neutral (`#f6f6f3`) and cards are white, so the surfaces separate without a second hue, and the clay stays the only warm note in the system. In dark the ground is `#0c1018`, an ink-blue near-black; type lifts to `#eef1f7`; the two accents lift to `#a9b3ff` and `#d8a06e`.
+| Check | Fails when |
+|---|---|
+| tokens | The stylesheet and `DESIGN.md` disagree, or a theme scope misses a variable |
+| artifacts | A source file is named in no context document |
+| content | A surface prints a digit outside the registry |
+| styles | A component uses an arbitrary value, a raw colour, or a `dark:` variant |
+| contrast | A text pairing falls below AA in either theme |
+| bundle | The build fails, a removed library returns, or a model module reaches the client |
 
-Shapes: rectangles carry facts and surfaces, one filled pill carries the invitation. Badges are 4px filled rectangles with a hairline border, panels and figures are 10px, the secondary action is a 6px ink-outlined rectangle, and the only filled pill in the bar is Contact; the chat field is a 999px outlined pill and the send is a 44px filled circle. The report adds a second filled pill in its closing contact block.
+## Theme
 
-Home: 1040px canvas, hero with status badges for role, employer, and location, then a results band whose cells link to the work page. No calculator, no bio, no role list.
+The site follows the operating system until the reader chooses. The choice is stored under `vs-theme`
+and applied once the page is interactive, which means a reader whose choice differs from their system
+sees the system theme for one frame. That is a recorded decision, not an oversight: see
+`openspec/changes/replatform-site/design.md` D6.
 
-Report: the masthead uses the 1040px site frame, the title can breathe to 960px, and everything from the abstract down is a 720px reading column, figures included. The top bar stays on the site frame. On mobile the report becomes one fluid column with 20px gutters. Figure 1 is an HTML diagram of three supplier submissions resolving to one record; the rest are SVG charts with captions that state their assumptions.
+## Before this goes live
 
-Motion: the calculator responds to the reader, and nothing moves on its own. `prefers-reduced-motion` is respected.
+- `hello@vansirisouk.com` is a placeholder. It is set once in `web/content/site.ts` and read
+  everywhere.
+- Canonical addresses, share metadata, and the share image are not wired yet.
+- There is no résumé path and no designed missing-page surface.
+- The Meta figures and every Walmart figure still want a check against your own records.
+
+## The previous medium
+
+`assets/` and `preview/` hold the static site this replaced: five documents, two stylesheets, four
+scripts, and thirty screenshots. They are evidence of what the design was, not source for what it is,
+and they are removed at cutover. The `baseline-static` tag restores the whole thing in one checkout.

@@ -2,9 +2,9 @@
 
 import {
   AnimatePresence,
+  domAnimation,
   LazyMotion,
   MotionConfig,
-  domAnimation,
   m,
   useReducedMotion,
 } from "motion/react";
@@ -27,6 +27,7 @@ export function Menu() {
   const panelRef = useRef<HTMLDivElement>(null);
   const wasOpen = useRef(false);
 
+  // biome-ignore lint/correctness/useExhaustiveDependencies: a route change closes the disclosure
   useEffect(() => {
     setOpen(false);
   }, [pathname]);
@@ -107,7 +108,9 @@ export function Menu() {
                   ))}
                   <Link
                     href={`/ask?from=${fromKey(pathname)}`}
-                    aria-current={pathname.startsWith("/ask") ? "page" : undefined}
+                    aria-current={
+                      pathname.startsWith("/ask") ? "page" : undefined
+                    }
                     className="inline-flex min-h-11 items-center font-ui text-body-small text-ink"
                   >
                     Ask

@@ -2,7 +2,7 @@
 
 import { useChat } from "@ai-sdk/react";
 import { DefaultChatTransport } from "ai";
-import { createContext, useContext, type ReactNode } from "react";
+import { createContext, type ReactNode, useContext } from "react";
 
 /**
  * The conversation lives above the route, so moving between surfaces keeps the
@@ -24,7 +24,10 @@ function textOf(message: { parts: { type: string; text?: string }[] }): string {
 const transport = new DefaultChatTransport({
   api: "/api/ask",
   prepareSendMessagesRequest: ({ messages }) => {
-    const typed = messages as { role: string; parts: { type: string; text?: string }[] }[];
+    const typed = messages as {
+      role: string;
+      parts: { type: string; text?: string }[];
+    }[];
     const last = typed.at(-1);
     return {
       body: {
@@ -48,6 +51,7 @@ export function ChatProvider({ children }: { children: ReactNode }) {
 
 export function useAgentChat(): Chat {
   const chat = useContext(ChatContext);
-  if (chat === null) throw new Error("useAgentChat must be used inside ChatProvider");
+  if (chat === null)
+    throw new Error("useAgentChat must be used inside ChatProvider");
   return chat;
 }

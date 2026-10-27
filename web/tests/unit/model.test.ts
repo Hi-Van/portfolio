@@ -1,8 +1,8 @@
 import { expect, test } from "vitest";
 import {
-  DEFAULT_ASSUMPTIONS,
   annualSubmissions,
   clamp,
+  DEFAULT_ASSUMPTIONS,
   defaultOutput,
   filingHoursPerSecond,
   sellerHoursReturned,
@@ -29,14 +29,22 @@ test("the default assumptions return 782,925 seller hours", () => {
 });
 
 test("doubling the human share doubles the returned hours", () => {
-  const base = { submissionsPerDay: 390_000, sessionMinutes: 6, sessionReduction: 0.22 };
+  const base = {
+    submissionsPerDay: 390_000,
+    sessionMinutes: 6,
+    sessionReduction: 0.22,
+  };
   const single = sellerHoursReturned({ ...base, humanShare: 0.25 });
   const double = sellerHoursReturned({ ...base, humanShare: 0.5 });
   expect(double / single).toBeCloseTo(2, 6);
 });
 
 test("the default output matches the facts the prose states", () => {
-  const output = defaultOutput({ submissionsPerDay: 390_000, recordsPerSecond: 450_000, sessionReduction: 0.22 });
+  const output = defaultOutput({
+    submissionsPerDay: 390_000,
+    recordsPerSecond: 450_000,
+    sessionReduction: 0.22,
+  });
   expect(output.submissionsPerYear).toBe(142_350_000);
   expect(output.filingHoursPerSecond).toBe(2_500);
   expect(Math.round(output.sellerHours)).toBe(782_925);
@@ -49,7 +57,11 @@ test("clamp keeps a control inside its range", () => {
 });
 
 test("the session length control moves the returned hours", () => {
-  const base = { submissionsPerDay: 390_000, humanShare: 0.25, sessionReduction: 0.22 };
+  const base = {
+    submissionsPerDay: 390_000,
+    humanShare: 0.25,
+    sessionReduction: 0.22,
+  };
   const six = sellerHoursReturned({ ...base, sessionMinutes: 6 });
   const twelve = sellerHoursReturned({ ...base, sessionMinutes: 12 });
   expect(twelve / six).toBeCloseTo(2, 6);

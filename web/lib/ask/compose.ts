@@ -1,15 +1,68 @@
-import { corpus, type Chunk } from "../../content/corpus";
+import { type Chunk, corpus } from "../../content/corpus";
 
 /** One fixed sentence, compared byte for byte by a test. */
 export const REFUSAL = "Not stated on the site.";
 
 const STOP = new Set([
-  "what", "when", "where", "why", "how", "which", "does", "did", "do",
-  "is", "was", "were", "are", "the", "a", "an", "of", "to", "in", "on", "at",
-  "for", "and", "or", "he", "his", "him", "she", "her", "it", "its", "that",
-  "this", "there", "tell", "me", "about", "many", "much", "will", "would",
-  "can", "could", "should", "have", "has", "had", "be", "been", "not", "no",
-  "next", "year", "years", "number", "numbers", "get", "got", "like",
+  "what",
+  "when",
+  "where",
+  "why",
+  "how",
+  "which",
+  "does",
+  "did",
+  "do",
+  "is",
+  "was",
+  "were",
+  "are",
+  "the",
+  "a",
+  "an",
+  "of",
+  "to",
+  "in",
+  "on",
+  "at",
+  "for",
+  "and",
+  "or",
+  "he",
+  "his",
+  "him",
+  "she",
+  "her",
+  "it",
+  "its",
+  "that",
+  "this",
+  "there",
+  "tell",
+  "me",
+  "about",
+  "many",
+  "much",
+  "will",
+  "would",
+  "can",
+  "could",
+  "should",
+  "have",
+  "has",
+  "had",
+  "be",
+  "been",
+  "not",
+  "no",
+  "next",
+  "year",
+  "years",
+  "number",
+  "numbers",
+  "get",
+  "got",
+  "like",
 ]);
 
 /** Good enough for a keyword scorer: cleaned, cleaning, cleans all become clean. */
@@ -34,7 +87,8 @@ function score(chunk: Chunk, question: string): number {
     }
     if (keywords.has(root)) hits += 3;
     else if (keywords.has(word)) hits += 2;
-    else if (root.length >= 5 && chunk.text.toLowerCase().includes(root)) hits += 1;
+    else if (root.length >= 5 && chunk.text.toLowerCase().includes(root))
+      hits += 1;
   }
   return hits;
 }

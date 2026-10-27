@@ -16,9 +16,9 @@ export function SectionNav() {
   const [active, setActive] = useState<string>("abstract");
 
   useEffect(() => {
-    const elements = ITEMS.map((item) => document.getElementById(item.id)).filter(
-      (element): element is HTMLElement => element !== null,
-    );
+    const elements = ITEMS.map((item) =>
+      document.getElementById(item.id),
+    ).filter((element): element is HTMLElement => element !== null);
     if (elements.length === 0) return;
 
     const observer = new IntersectionObserver(

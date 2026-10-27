@@ -45,7 +45,10 @@ export function SiteHeader() {
           <div className="hidden md:block">
             <ContactPill compact />
           </div>
-          <AskSwitch current={pathname.startsWith("/ask")} from={fromKey(pathname)} />
+          <AskSwitch
+            current={pathname.startsWith("/ask")}
+            from={fromKey(pathname)}
+          />
           <Menu />
           <ThemeToggle />
         </div>

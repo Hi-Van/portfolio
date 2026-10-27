@@ -12,7 +12,10 @@ export default function About() {
       <div className="mt-block grid gap-block md:grid-cols-3">
         <div className="max-w-measure md:col-span-2">
           {about.paragraphs.map((paragraph) => (
-            <p key={paragraph.slice(0, 24)} className="mt-4 text-reading text-body">
+            <p
+              key={paragraph.slice(0, 24)}
+              className="mt-4 text-reading text-body"
+            >
               {paragraph}
             </p>
           ))}

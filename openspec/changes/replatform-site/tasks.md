@@ -241,17 +241,17 @@ calls for, so no group starts on top of undocumented work.
 
 ## 10. Context documents and checks
 
-- [ ] 10.1 Rewrite `AGENTS.md` around the new layout, commands, and hard rules, removing every rule
+- [x] 10.1 Rewrite `AGENTS.md` around the new layout, commands, and hard rules, removing every rule
       that described the retired medium. Verify: a reader can follow its commands and none fails.
-- [ ] 10.2 Rewrite `README.md`: what the site is, how to run it, the number provenance, and the agent's
+- [x] 10.2 Rewrite `README.md`: what the site is, how to run it, the number provenance, and the agent's
       behaviour, with the stale "replace before launch" list reduced to what is still outstanding.
       Verify: every claim in it is true of the shipped build.
-- [ ] 10.3 Update `DESIGN.md` with the six resolved clusters and confirm it still lints clean. Verify:
+- [x] 10.3 Update `DESIGN.md` with the six resolved clusters and confirm it still lints clean. Verify:
       `npx -y @google/design.md lint DESIGN.md` reports 0 errors and 0 warnings.
-- [ ] 10.4 Replace the artifact coverage check with one that enumerates the source tree, excluding
+- [x] 10.4 Replace the artifact coverage check with one that enumerates the source tree, excluding
       dependency and build directories, and requires each file to be named in a context doc. Verify:
       it passes on a clean tree and fails on an added unnamed file.
-- [ ] 10.5 Confirm no document in the repository cites a line number or a selector as the unit of
+- [x] 10.5 Confirm no document in the repository cites a line number or a selector as the unit of
       specification. Verify: a grep for the retired citation pattern returns nothing.
 
 ## 11. Launch readiness

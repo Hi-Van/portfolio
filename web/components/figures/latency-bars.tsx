@@ -16,7 +16,14 @@ export function LatencyBars() {
       role="img"
       aria-label="Bar chart. Query latency indexed to the pre-cleanup baseline: one hundred before the cleanup, seventy after."
     >
-      <line x1="200" y1={baseline} x2="700" y2={baseline} className="stroke-chart-baseline" strokeWidth="1" />
+      <line
+        x1="200"
+        y1={baseline}
+        x2="700"
+        y2={baseline}
+        className="stroke-chart-baseline"
+        strokeWidth="1"
+      />
       {bars.map((bar) => {
         const height = bar.value * scale;
         return (

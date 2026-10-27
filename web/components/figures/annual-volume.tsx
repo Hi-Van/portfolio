@@ -19,13 +19,19 @@ const MONTH_LABELS = ["Jan", "Apr", "Jul", "Dec"];
 export function AnnualVolume() {
   const daily = fact("submissions-per-day").value ?? 0;
   const total = fact("submissions-per-year").value ?? 0;
-  const points = DAYS.map((day, index) => ({ month: index + 1, value: daily * day }));
+  const points = DAYS.map((day, index) => ({
+    month: index + 1,
+    value: daily * day,
+  }));
 
   const innerWidth = WIDTH - MARGIN.left - MARGIN.right;
   const innerHeight = HEIGHT - MARGIN.top - MARGIN.bottom;
 
   const x = scaleLinear<number>({ domain: [1, 12], range: [0, innerWidth] });
-  const y = scaleLinear<number>({ domain: [0, total], range: [innerHeight, 0] });
+  const y = scaleLinear<number>({
+    domain: [0, total],
+    range: [innerHeight, 0],
+  });
 
   return (
     <svg
@@ -68,7 +74,9 @@ export function AnnualVolume() {
               key={label}
               x={x(month) ?? 0}
               y={innerHeight + 26}
-              textAnchor={index === 0 ? "start" : index === 3 ? "end" : "middle"}
+              textAnchor={
+                index === 0 ? "start" : index === 3 ? "end" : "middle"
+              }
               className="fill-muted text-chart-narrow md:text-chart font-ui"
             >
               {label}
@@ -76,7 +84,11 @@ export function AnnualVolume() {
           );
         })}
 
-        <text x={0} y={-8} className="fill-muted text-chart-narrow md:text-chart font-ui">
+        <text
+          x={0}
+          y={-8}
+          className="fill-muted text-chart-narrow md:text-chart font-ui"
+        >
           {compact(total)}
         </text>
       </Group>

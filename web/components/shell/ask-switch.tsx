@@ -4,7 +4,13 @@ import Link from "next/link";
  * A link that reads as a switch and states its position with aria-current.
  * It is navigation, not a control, so it does not claim a switch role.
  */
-export function AskSwitch({ current, from }: { current: boolean; from: string }) {
+export function AskSwitch({
+  current,
+  from,
+}: {
+  current: boolean;
+  from: string;
+}) {
   return (
     <Link
       href={current ? "/ask" : `/ask?from=${from}`}

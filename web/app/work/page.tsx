@@ -9,7 +9,9 @@ export default function Work() {
         <h1 className="font-display text-display-page tracking-display text-ink">
           {work.heading}
         </h1>
-        <p className="mt-6 max-w-statement text-reading text-body">{work.lede}</p>
+        <p className="mt-6 max-w-statement text-reading text-body">
+          {work.lede}
+        </p>
       </header>
 
       <div className="mt-block border-t border-line">

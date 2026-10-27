@@ -1,4 +1,4 @@
-import { readFileSync, readdirSync, statSync } from "node:fs";
+import { readdirSync, readFileSync, statSync } from "node:fs";
 import { join } from "node:path";
 import { expect, test } from "vitest";
 import { fact, factsFor } from "../../content/facts";
@@ -12,10 +12,14 @@ function walk(dir: string): string[] {
 }
 
 test("the address is written once and read everywhere", () => {
-  const files = [...walk("app"), ...walk("components"), ...walk("content")].filter((file) =>
-    /\.(ts|tsx)$/.test(file),
+  const files = [
+    ...walk("app"),
+    ...walk("components"),
+    ...walk("content"),
+  ].filter((file) => /\.(ts|tsx)$/.test(file));
+  const holders = files.filter((file) =>
+    readFileSync(file, "utf8").includes(site.email),
   );
-  const holders = files.filter((file) => readFileSync(file, "utf8").includes(site.email));
   expect(holders).toEqual(["content/site.ts"]);
 });
 

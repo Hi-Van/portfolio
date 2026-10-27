@@ -23,12 +23,23 @@ export function UnitGrid() {
       role="img"
       aria-label="Unit chart. One second of pipeline output equals one hundred and four person-days of manual filing, drawn as one bar and one hundred and four squares."
     >
-      <rect x="60" y="40" width="60" height="34" rx="3" className="fill-indigo" />
+      <rect
+        x="60"
+        y="40"
+        width="60"
+        height="34"
+        rx="3"
+        className="fill-indigo"
+      />
       <text x="132" y="63" className="fill-ink text-chart font-ui">
         one second of pipeline
       </text>
 
-      <text x="60" y="104" className="fill-muted text-chart-narrow md:text-chart font-ui">
+      <text
+        x="60"
+        y="104"
+        className="fill-muted text-chart-narrow md:text-chart font-ui"
+      >
         {fact("filing-person-days").display} person-days of filing
       </text>
 

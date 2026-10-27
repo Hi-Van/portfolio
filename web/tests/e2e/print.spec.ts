@@ -1,6 +1,8 @@
 import { expect, test } from "@playwright/test";
 
-test("print puts black on white regardless of the screen theme", async ({ page }) => {
+test("print puts black on white regardless of the screen theme", async ({
+  page,
+}) => {
   await page.emulateMedia({ colorScheme: "dark", media: "print" });
   await page.goto("/");
   const styles = await page.evaluate(() => {

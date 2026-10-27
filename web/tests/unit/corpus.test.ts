@@ -4,7 +4,9 @@ import { report } from "../../content/report";
 import { work } from "../../content/work";
 
 test("every anchor a reader could ask about has a chunk", () => {
-  const anchors = new Set(corpus.map((chunk) => `${chunk.surface}#${chunk.anchor ?? ""}`));
+  const anchors = new Set(
+    corpus.map((chunk) => `${chunk.surface}#${chunk.anchor ?? ""}`),
+  );
   for (const section of report.sections) {
     expect(anchors.has(`report#${section.id}`), section.id).toBe(true);
     for (const sub of section.subsections ?? []) {

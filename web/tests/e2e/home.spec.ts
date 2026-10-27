@@ -1,8 +1,12 @@
 import { expect, test } from "@playwright/test";
 
-test("the home surface states who, what, and three measured results", async ({ page }) => {
+test("the home surface states who, what, and three measured results", async ({
+  page,
+}) => {
   await page.goto("/");
-  await expect(page.getByRole("heading", { level: 1, name: "Van Sirisouk" })).toBeVisible();
+  await expect(
+    page.getByRole("heading", { level: 1, name: "Van Sirisouk" }),
+  ).toBeVisible();
   await expect(page.getByText("Software Engineer II")).toBeVisible();
   await expect(page.getByText("Atlassian")).toBeVisible();
   await expect(page.getByText("New York")).toBeVisible();
@@ -11,7 +15,9 @@ test("the home surface states who, what, and three measured results", async ({ p
   ).toBeVisible();
 });
 
-test("every band cell shows a registered number and links into the work surface", async ({ page }) => {
+test("every band cell shows a registered number and links into the work surface", async ({
+  page,
+}) => {
   await page.goto("/");
   const band = page.getByRole("list").first();
   const links = band.getByRole("link");
@@ -27,7 +33,9 @@ test("every band cell shows a registered number and links into the work surface"
   }
 });
 
-test("the band points at the report for what the cut is worth", async ({ page }) => {
+test("the band points at the report for what the cut is worth", async ({
+  page,
+}) => {
   await page.goto("/");
   const link = page.getByRole("link", { name: /worth at scale/i });
   await expect(link).toHaveAttribute("href", "/report");

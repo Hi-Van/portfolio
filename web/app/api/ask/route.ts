@@ -1,10 +1,13 @@
-import { createUIMessageStream, createUIMessageStreamResponse, type UIMessageStreamWriter } from "ai";
+import {
+  createUIMessageStream,
+  createUIMessageStreamResponse,
+  type UIMessageStreamWriter,
+} from "ai";
 import { answerChunks } from "../../../lib/ask/answer";
-import { REFUSAL } from "../../../lib/ask/compose";
+import { REFUSAL, retrieve } from "../../../lib/ask/compose";
 import { allowedDigits, createStreamGuard } from "../../../lib/ask/guard";
 import { isAskRequest } from "../../../lib/ask/guards";
 import { LIMITS } from "../../../lib/ask/provider";
-import { retrieve } from "../../../lib/ask/compose";
 
 export async function POST(request: Request) {
   const body = await request.json().catch(() => null);

@@ -1,100 +1,141 @@
 # AGENTS.md: van-sirisouk
 
-Personal portfolio for Van Sirisouk. Five static HTML pages, no build step, no framework, no
-server. It must open from `file://` and work offline. `DESIGN.md` is the written token contract.
-The implemented component reference is `design-system/README.md`; the CSS and markup are the
-source for what the components do today.
-
-State: pre-refactor. Styles live in the shared stylesheets plus inline page styles. There is no
-separate component layer. Read `design-system/README.md` and the page you are changing before
-editing shared CSS.
+A measurement-first personal portfolio. The site is a Next.js application in `web/`, the design
+contract is `DESIGN.md`, the component reference is `design-system/`, and the change that built the
+application is `openspec/changes/replatform-site/`. It is a git repository with a `baseline-static`
+tag holding the site's previous static form.
 
 ## Read first
 
 | Task | Read |
 |---|---|
 | Any visual change | `design-system/README.md`, the named component doc, then `DESIGN.md` |
-| Component variant, state, or measurement | `design-system/README.md`, then the named component or foundation doc |
-| Copy, numbers, captions | `README.md`: "The numbers, and where they come from" and "Replace before this goes live" |
-| Token or theme change | `DESIGN.md` Colors and Typography, then `scripts/check-design-tokens.py` |
-| Layout or state reference | `preview/` screenshots, but treat them as evidence, not source |
-| Chat page, composer, or agent copy | `ask.html`, `assets/tui.js`, `assets/tui.css` |
+| Any number, caption, or claim | `design-system/foundations/content-and-provenance.md`, then `web/content/facts.ts` |
+| A token or theme change | `DESIGN.md` Colors, then `web/scripts/check-tokens.mjs` |
+| Component or layout work | `design-system/components/` and `design-system/surfaces/` |
+| The agent, its answers, or its citations | `design-system/surfaces/chat.md`, `design-system/components/messaging.md`, `web/lib/ask/` |
+| What the change intended | `openspec/changes/replatform-site/design.md` |
+| Copy that ships | `README.md`: "The numbers, and where they come from" |
 
 ## Layout
 
 | Path | What it is |
 |---|---|
-| `index.html`, `work.html`, `report.html`, `about.html` | The four content pages. `report.html` is a separate document with inline styles |
-| `ask.html` | The site agent, a dedicated chat page. The nav switch is a link to it, on while there |
-| `assets/site.css` | All shared styles and every token today |
-| `assets/site.js` | Mobile menu |
-| `assets/theme.js` | Theme toggle, storage under `vs-theme` |
-| `assets/tui.css` | Chat page and nav switch styles. The switch uses the base tokens; the chat page reads `--tui-*` from `assets/site.css` |
-| `assets/tui.js` | Chat index, `match(q)`, messages, composer, `?from=` return, Escape |
-| `assets/fonts/` | Five local woff2 files (Instrument Serif, Literata, Instrument Sans) |
-| `DESIGN.md` | Design contract. Lints clean with the `design.md` CLI |
-| `design-system/` | `README.md` index, `narrative.md`, `foundations/`, `components/`, `surfaces/`. The implemented component reference, with divergences from `DESIGN.md` |
-| `README.md` | Project state, number provenance, launch caveats |
-| `scripts/` | `check-design-tokens.py` compares the eight role colors in `DESIGN.md` with the CSS; `check-artifact-coverage.py` verifies this map names every source file |
-| `preview/` | 6.7 MB of review screenshots (30 files, Oct 2026), generated. Not source |
+| `DESIGN.md` | The token contract: eight role colours, thirteen type steps, shapes, rules. Lints clean |
+| `design-system/` | The component reference: narrative, five foundations, five component groups, three surfaces |
+| `web/app/` | Routes. `layout.tsx` holds the frame, fonts, and providers; `page.tsx` home, `work/`, `about/`, `report/`, `ask/`, and `api/ask/route.ts` the answer endpoint |
+| `web/app/globals.css` | The theme block, three colour scopes, base layer, focus ring, print |
+| `web/app/providers.tsx` | The theme provider wrapper |
+| `web/components/shell/` | `site-header.tsx`, `menu.tsx`, `ask-switch.tsx`, `contact-pill.tsx`, `site-footer.tsx`, `skip-link.tsx`, `page-main.tsx` |
+| `web/components/theme/` | `theme-provider.tsx`, `theme-toggle.tsx` |
+| `web/components/home/` | `results-band.tsx`, `contact-strip.tsx` |
+| `web/components/work/` | `role-row.tsx` |
+| `web/components/about/` | `contact-card.tsx` |
+| `web/components/evidence/` | `badge.tsx` |
+| `web/components/figures/` | `figure.tsx`, `submissions-diagram.tsx`, `latency-bars.tsx`, `unit-grid.tsx`, `annual-volume.tsx` |
+| `web/components/report/` | `model.tsx` (figure 5 and its two sliders), `section-nav.tsx` |
+| `web/components/agent/` | `chat-provider.tsx` (the conversation above the route), `agent-room.tsx` |
+| `web/content/facts.ts` | The registry. Every number the site states |
+| `web/content/ids.ts` | The id vocabulary: surfaces, facts, controls |
+| `web/content/types.ts` | The provenance union |
+| `web/content/model.ts` | The report's arithmetic, shared by the render and the controls |
+| `web/content/accent.ts` | The only place a provenance becomes a colour role |
+| `web/content/corpus.ts` | The agent's reach: one chunk per anchorable section |
+| `web/content/report.ts` | The report's copy, captions, placeholder resolution, word count |
+| `web/content/home.ts` | The home copy and the band's data path |
+| `web/content/work.ts` | Roles and systems |
+| `web/content/about.ts` | The bio and the facts list |
+| `web/content/site.ts` | The name, the address, the routes |
+| `web/content/format.ts` | Compact and grouped number formatting for figures |
+| `web/content/index.ts` | The content barrel |
+| `web/lib/ask/compose.ts` | Retrieval and the fixed refusal |
+| `web/lib/ask/answer.ts` | The answer source: the model when configured, the passage when not |
+| `web/lib/ask/guard.ts` | The stream guard: numerals held until traced, anchors until closed |
+| `web/lib/ask/guards.ts` | The request predicate |
+| `web/lib/ask/provider.ts` | The model, its output ceiling, the question ceiling |
+| `web/lib/agent/` | `parts.ts`, which reads a message and its withdrawal |
+| `web/scripts/check.mjs` | The runner: every step, reported separately |
+| `web/scripts/check-tokens.mjs` | Contract drift, in both directions |
+| `web/scripts/check-artifacts.mjs` | Every source file named in a context doc |
+| `web/scripts/check-content.mjs` | No number printed outside the registry |
+| `web/scripts/check-styles.mjs` | No arbitrary value, raw colour, or `dark:` variant |
+| `web/scripts/check-bundle.mjs` | The build, the client chunks, the forbidden packages |
+| `web/scripts/contrast.mjs` | Every text pairing in both themes |
+| `web/scripts/lib/tokens.mjs` | Shared parsing for the token checks |
+| `web/tests/` | `unit/` for logic, `e2e/` for behaviour in a browser, `types/` for compile-time assertions |
+| `web/next.config.ts` | Turbopack with the Tailwind loader; cache components and partial prefetching |
+| `web/vitest.config.mts`, `web/playwright.config.ts` | The two test runners |
+| `web/biome.json`, `web/package.json`, `web/tsconfig.json` | Format and lint, dependencies, compiler settings |
+| `openspec/` | The change that built this, and the specs it will archive into |
+| `preview/` | 30 screenshots of the previous static site. Evidence, not source |
+| `assets/` | The previous static site's stylesheets, scripts, and fonts. Retired at cutover |
 
 ## Commands
 
 ```bash
-open index.html                          # the only build step
-npx -y @google/design.md lint DESIGN.md  # 0 errors, 0 warnings
-python3 scripts/check-design-tokens.py   # 8 role colors x 2 stylesheets
-python3 scripts/check-artifact-coverage.py  # every source file is named in the context docs
+cd web
+npm run dev                # the site at localhost:3000
+npm run build              # prerenders every surface
+npm run check              # the gate: tokens, artifacts, content, styles, contrast, unit, e2e, bundle
+npm run lint               # biome
 ```
 
-Verify layout by opening a page at 390, 768, and 1440 in both themes. There is no test suite.
+`npm run check` runs every step and reports each one, then exits non-zero if any failed. It builds the
+application twice, once for the bundle scan and once inside Playwright's server, so it takes about a
+minute.
+
+`npx -y @google/design.md lint DESIGN.md` must report 0 errors and 0 warnings.
 
 ## Hard rules
 
-- No framework, bundler, or build step. No server requirement. If a change breaks `file://`, it is
-  wrong.
-- Classic IIFE scripts, not ES modules. Modules are blocked by CORS on `file://`.
-- Tokens are the only place a color may be defined. No raw hex in HTML, SVG attributes, or JS
-  strings. Charts use token-backed classes such as `bar-after`, `line-data`, `cell`, `band`.
-- Two accents, each with a job: indigo is measured data, clay is an assumption. Never add a third
-  accent, and never color badges, navigation, captions, or role metadata.
-- Type is fixed: Instrument Serif for display, Literata for reading, Instrument Sans for interface.
-  Every h1 uses `-0.02em` tracking. Do not invent sizes between the scale steps, except the
-  documented chat page step in `DESIGN.md`.
-- Shapes are semantic: 4px facts, 6px secondary action, 10px panels, 12px abstract. 999px is the
-  Contact pill and the chat input field; the chat send is a 44px filled circle. One filled pill in
-  the bar. The report adds a second filled pill in its closing contact block; see
-  `design-system/components/actions.md`.
-- The design-system docs describe implemented values, including the places where `DESIGN.md` is
-  behind. If you change a component, update its doc and the coverage map in the same pass.
-- Copy rules are normative: first person, no em dashes, every number carries a mechanism, every
-  figure caption states its assumption, no invented data.
-- Accessibility floor: 44px targets, a 2px focus outline at 3px offset, a skip link, landmarks, and
-  reduced motion. The theme toggle (34px) and the mobile menu control (30px) are still below the
-  target floor; fix them when you touch the top bar.
-- `report.html` carries its own token copy. A token change means editing both `assets/site.css` and
-  `report.html`.
-- The chat page is `calc(100dvh - 59px)` because the top bar is 58px plus its 1px border. If the
-  bar height changes, change the `.agent` height in `tui.css`.
+- **A number comes from the registry.** `web/content/facts.ts` is the only place a number is defined.
+  `check-content.mjs` fails when a JSX text node contains a digit. A derived figure names its inputs by
+  id and is computed in `web/content/model.ts`.
+- **Colour comes from a role.** The Tailwind colour namespace is cleared, so an off-contract colour has
+  no utility. `check-styles.mjs` fails on an arbitrary value, a raw hex, or a `dark:` variant.
+  `check-tokens.mjs` fails when the stylesheet and `DESIGN.md` disagree in either direction.
+- **Two accents, each with a job.** Indigo is measurement. Clay is assumption, in five places: the
+  abstract label, figure 1's inference, the assumed method row, the two model sliders, and the note on
+  an unstated answer. Nothing else is coloured.
+- **Three voices.** Instrument Serif for statements at 26px and above (20px for a serif label),
+  Literata for reading, Instrument Sans for interface. The reading size is 19px everywhere.
+- **One reading column.** The report's prose and its figures share 720px. Shortening it means
+  re-checking chart label size in the same change.
+- **Shapes carry meaning.** 4px facts, 6px secondary actions, 10px panels, 12px abstract, 999px pill.
+  One filled invitation per page; a document may repeat it in its closing block. No drop shadows.
+- **The floor is not advisory.** 44px targets, a 2px focus ring at 3px offset, a skip link, landmarks,
+  reduced motion, measured contrast. A browser test measures the targets; do not lower them to fit a
+  layout.
+- **Content is visible before scripting.** Nothing may start at zero opacity or zero scale and wait for
+  an animation. The agent's withdrawal is the one exception, and it is deliberate.
+- **Copy rules.** First person, no em dashes, every number carries a mechanism, every figure caption
+  states its assumption, no invented data.
 
 ## Gotchas
 
-- This folder is not a git repository. There is no history and no revert. Copy a file before a
-  risky rewrite.
-- `preview/` is 6.7 MB and 30 screenshots, and will drown a naive `grep -r`. Exclude it. `.DS_Store`
-  is macOS noise and is ignored by the coverage check.
-- The palette is settled: white paper, ink-blue text, indigo data, clay assumptions. Do not copy
-  colors out of screenshots; read the tokens in `assets/site.css`.
-- `report.html` carries its own `<style>` block. Page-specific overrides live there, not in
-  `assets/site.css`.
+- `web/AGENTS.md` is written by `next dev`. Leave it. The version in use differs from older Next
+  releases: route segment config is limited, `cacheComponents` is on, and Tailwind runs through a
+  Turbopack loader rather than PostCSS.
+- Vitest 5 declares Node `^22.12 || ^24 || >=26`. This machine runs 25, which prints an engine warning
+  and works. Pin a supported line before CI.
+- The theme is applied after hydration by design (`design.md` D6). A reader whose stored choice differs
+  from their system sees one frame of the system theme. Do not "fix" that with an inline script without
+  changing the decision first.
+- `preview/` and `assets/` are the previous medium. Do not read values out of them; read the tokens.
+- The report's copy states numbers through `{fact-id}` placeholders resolved at render. A literal digit
+  in a report paragraph is a bug.
+- Without `DEEPSEEK_API_KEY` the endpoint answers from the retrieved passage instead of the model. Both
+  paths go through the same guard.
 
 ## Launch blockers
 
-- `hello@vansirisouk.com` is a placeholder. Replace before publishing.
-- Production origin is unset; canonical URLs, `og:url`, and any sitemap depend on it.
-- No résumé link yet.
-- There is no social image or 404 page yet.
+- `hello@vansirisouk.com` is a placeholder, set in `web/content/site.ts` and read everywhere.
+- No résumé path yet.
+- No share image, no designed missing-page surface.
+- The social and canonical metadata still needs the origin wired per surface.
 
-Verified 2026-10-26: five pages including `ask.html`, the design-system tree (13 docs plus the
-index), `DESIGN.md` lint clean, token check passing for both stylesheets, artifact coverage passing
-for every source file.
+## Verified
+
+As of 2026-10-27, group 9 of the change: 48 unit tests, 52 browser tests, the token, content, style,
+contrast and bundle checks, and `DESIGN.md` linting clean. The artifact check across every source file
+passes as of this file.

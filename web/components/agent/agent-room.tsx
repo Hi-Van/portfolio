@@ -1,11 +1,18 @@
 "use client";
 
-import { AnimatePresence, LazyMotion, MotionConfig, domAnimation, m, useReducedMotion } from "motion/react";
+import {
+  AnimatePresence,
+  domAnimation,
+  LazyMotion,
+  MotionConfig,
+  m,
+  useReducedMotion,
+} from "motion/react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { useEffect, useRef, useState, type ReactNode } from "react";
-import { isRefusal } from "../../lib/ask/compose";
+import { type ReactNode, useEffect, useRef, useState } from "react";
 import { visibleAnswer } from "../../lib/agent/parts";
+import { isRefusal } from "../../lib/ask/compose";
 import { useAgentChat } from "./chat-provider";
 
 const MAX_QUESTION = 280;
@@ -42,7 +49,8 @@ function renderWithAnchors(text: string): ReactNode[] {
     const [whole, surface, anchor, label] = match;
     const start = match.index ?? 0;
     if (start > cursor) nodes.push(text.slice(cursor, start));
-    const href = surface === "home" ? "/" : `/${surface}${anchor ? `#${anchor}` : ""}`;
+    const href =
+      surface === "home" ? "/" : `/${surface}${anchor ? `#${anchor}` : ""}`;
     nodes.push(
       <Link
         key={`${start}-${label}`}
@@ -66,7 +74,8 @@ function messageText(parts: { type: string; text?: string }[]): string {
 }
 
 export function AgentRoom() {
-  const { messages, sendMessage, status, error, regenerate, stop } = useAgentChat();
+  const { messages, sendMessage, status, error, regenerate, stop } =
+    useAgentChat();
   const router = useRouter();
 
   const [input, setInput] = useState("");
@@ -103,10 +112,9 @@ export function AgentRoom() {
     if (!finished) return;
     const last = messages.at(-1);
     if (!last || last.role !== "assistant") return;
-    const text = visibleAnswer(last.parts as { type: string; text?: string }[]).text.replace(
-      ANCHOR,
-      "",
-    );
+    const text = visibleAnswer(
+      last.parts as { type: string; text?: string }[],
+    ).text.replace(ANCHOR, "");
     setAnnouncement(isRefusal(text) ? text : `Answer: ${text}`);
   }, [messages, status]);
 
@@ -126,6 +134,7 @@ export function AgentRoom() {
     });
   }, [messages]);
 
+  // biome-ignore lint/correctness/useExhaustiveDependencies: the log follows the transcript as it grows
   useEffect(() => {
     logRef.current?.scrollTo({ top: logRef.current.scrollHeight });
   }, [messages]);
@@ -139,9 +148,9 @@ export function AgentRoom() {
 
   return (
     <div className="mx-auto flex max-w-chat flex-col gap-4">
-      <p role="status" aria-live="polite" className="sr-only">
+      <output aria-live="polite" className="sr-only">
         {announcement}
-      </p>
+      </output>
 
       <div
         ref={logRef}
@@ -175,8 +184,12 @@ export function AgentRoom() {
               {messages.map((message) => {
                 const mine = message.role === "user";
                 const text = mine
-                  ? messageText(message.parts as { type: string; text?: string }[])
-                  : visibleAnswer(message.parts as { type: string; text?: string }[]).text;
+                  ? messageText(
+                      message.parts as { type: string; text?: string }[],
+                    )
+                  : visibleAnswer(
+                      message.parts as { type: string; text?: string }[],
+                    ).text;
                 return (
                   <m.article
                     key={message.id}
@@ -185,10 +198,14 @@ export function AgentRoom() {
                     exit={reduce ? { opacity: 0 } : { opacity: 0, y: -6 }}
                     transition={{ duration: 0.18, ease: "easeOut" }}
                     className="flex flex-col gap-1"
-                    aria-label={mine ? "Your question" : "The site agent's answer"}
+                    aria-label={
+                      mine ? "Your question" : "The site agent's answer"
+                    }
                   >
                     <p className="flex items-baseline gap-2 font-ui text-caps tracking-caps text-muted uppercase">
-                      <span className="text-ink">{mine ? "You" : "Site agent"}</span>
+                      <span className="text-ink">
+                        {mine ? "You" : "Site agent"}
+                      </span>
                       <span>{times[message.id] ?? ""}</span>
                     </p>
                     <p className="text-reading text-body">
@@ -196,7 +213,8 @@ export function AgentRoom() {
                     </p>
                     {!mine && isRefusal(text.replace(ANCHOR, "")) ? (
                       <p className="mt-1 font-ui text-caption text-clay">
-                        This answer is not on the site, so the agent does not guess.
+                        This answer is not on the site, so the agent does not
+                        guess.
                       </p>
                     ) : null}
                   </m.article>
@@ -260,7 +278,10 @@ export function AgentRoom() {
             className="inline-flex size-11 items-center justify-center rounded-pill bg-ink text-paper"
           >
             <span className="sr-only">Stop the answer</span>
-            <span aria-hidden="true" className="block size-3 rounded-fact bg-paper" />
+            <span
+              aria-hidden="true"
+              className="block size-3 rounded-fact bg-paper"
+            />
           </button>
         ) : (
           <button

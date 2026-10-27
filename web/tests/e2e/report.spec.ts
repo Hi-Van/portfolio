@@ -1,12 +1,28 @@
 import { expect, test } from "@playwright/test";
 import { readingMinutes, wordCount } from "../../content/report";
 
-test("the report is a document: masthead, abstract, numbered sections, method, contact", async ({ page }) => {
+test("the report is a document: masthead, abstract, numbered sections, method, contact", async ({
+  page,
+}) => {
   await page.goto("/report");
-  await expect(page.getByRole("heading", { level: 1, name: /catalog learns to file itself/i })).toBeVisible();
-  await expect(page.locator("#abstract").getByText("Abstract", { exact: true })).toBeVisible();
-  for (const title of ["The same shirt, six ways", "Three systems", "What it adds up to", "Method"]) {
-    await expect(page.getByRole("heading", { name: new RegExp(title, "i") })).toBeVisible();
+  await expect(
+    page.getByRole("heading", {
+      level: 1,
+      name: /catalog learns to file itself/i,
+    }),
+  ).toBeVisible();
+  await expect(
+    page.locator("#abstract").getByText("Abstract", { exact: true }),
+  ).toBeVisible();
+  for (const title of [
+    "The same shirt, six ways",
+    "Three systems",
+    "What it adds up to",
+    "Method",
+  ]) {
+    await expect(
+      page.getByRole("heading", { name: new RegExp(title, "i") }),
+    ).toBeVisible();
   }
   await expect(page.getByText(/About the author/)).toBeVisible();
 });
@@ -29,7 +45,9 @@ test("prose and figures share one column", async ({ page }) => {
   expect(Math.abs(p!.width - f!.width)).toBeLessThanOrEqual(1);
 });
 
-test("five figures with captions that state an assumption", async ({ page }) => {
+test("five figures with captions that state an assumption", async ({
+  page,
+}) => {
   await page.goto("/report");
   await expect(page.locator("figure")).toHaveCount(5);
   const captions = await page.locator("figcaption").allInnerTexts();
@@ -58,17 +76,28 @@ test("both sliders meet the target floor", async ({ page }) => {
   }
 });
 
-test("changing an assumption recomputes the output and the chart", async ({ page }) => {
+test("changing an assumption recomputes the output and the chart", async ({
+  page,
+}) => {
   await page.goto("/report");
-  const before = await page.getByText("seller-hours returned in a year").locator("..").innerText();
+  const before = await page
+    .getByText("seller-hours returned in a year")
+    .locator("..")
+    .innerText();
   const share = page.getByRole("slider").first();
   await share.focus();
-  for (let step = 0; step < 3; step += 1) await page.keyboard.press("ArrowRight");
-  const after = await page.getByText("seller-hours returned in a year").locator("..").innerText();
+  for (let step = 0; step < 3; step += 1)
+    await page.keyboard.press("ArrowRight");
+  const after = await page
+    .getByText("seller-hours returned in a year")
+    .locator("..")
+    .innerText();
   expect(after).not.toBe(before);
 });
 
-test("the section navigation states position and stays reachable at 390", async ({ page }) => {
+test("the section navigation states position and stays reachable at 390", async ({
+  page,
+}) => {
   await page.setViewportSize({ width: 390, height: 844 });
   await page.goto("/report");
   const nav = page.getByRole("navigation", { name: "Report sections" });
@@ -78,9 +107,14 @@ test("the section navigation states position and stays reachable at 390", async 
     await expect(link).toBeVisible();
   }
   await page.locator("#scale").scrollIntoViewIfNeeded();
-  await expect(nav.getByRole("link", { name: "3 Scale" })).toHaveAttribute("aria-current", "location");
+  await expect(nav.getByRole("link", { name: "3 Scale" })).toHaveAttribute(
+    "aria-current",
+    "location",
+  );
   const overflow = await page.evaluate(
-    () => document.documentElement.scrollWidth - document.documentElement.clientWidth,
+    () =>
+      document.documentElement.scrollWidth -
+      document.documentElement.clientWidth,
   );
   expect(overflow).toBeLessThanOrEqual(0);
 });
@@ -88,12 +122,18 @@ test("the section navigation states position and stays reachable at 390", async 
 test.describe("without scripting", () => {
   test.use({ javaScriptEnabled: false });
 
-  test("all five figures and the default outputs are present", async ({ page }) => {
+  test("all five figures and the default outputs are present", async ({
+    page,
+  }) => {
     await page.goto("/report");
     await expect(page.locator("figure")).toHaveCount(5);
     await expect(page.getByText("782,925")).toBeVisible();
     await expect(page.getByRole("slider")).toHaveCount(2);
-    const cells = await page.locator("figure").nth(2).locator(".fill-chart-cell").count();
+    const cells = await page
+      .locator("figure")
+      .nth(2)
+      .locator(".fill-chart-cell")
+      .count();
     expect(cells).toBe(104);
     const paths = await page.locator("svg path").count();
     expect(paths).toBeGreaterThanOrEqual(3);
@@ -103,10 +143,14 @@ test.describe("without scripting", () => {
     await page.setViewportSize({ width: 390, height: 844 });
     await page.goto("/report");
     const overflow = await page.evaluate(
-      () => document.documentElement.scrollWidth - document.documentElement.clientWidth,
+      () =>
+        document.documentElement.scrollWidth -
+        document.documentElement.clientWidth,
     );
     expect(overflow).toBeLessThanOrEqual(0);
-    await expect(page.locator("#abstract").getByText("Abstract", { exact: true })).toBeVisible();
+    await expect(
+      page.locator("#abstract").getByText("Abstract", { exact: true }),
+    ).toBeVisible();
   });
 });
 
@@ -123,18 +167,26 @@ test("mounting the model produces no hydration warning", async ({ page }) => {
   expect(problems).toEqual([]);
 });
 
-test("chart labels stay legible at the reading measure and on a phone", async ({ page }) => {
+test("chart labels stay legible at the reading measure and on a phone", async ({
+  page,
+}) => {
   await page.setViewportSize({ width: 960, height: 900 });
   await page.goto("/report");
-  const wide = await page.locator("figure").nth(3).locator("text").first().evaluate(
-    (node) => node.getBoundingClientRect().height,
-  );
+  const wide = await page
+    .locator("figure")
+    .nth(3)
+    .locator("text")
+    .first()
+    .evaluate((node) => node.getBoundingClientRect().height);
   expect(wide).toBeGreaterThanOrEqual(10);
 
   await page.setViewportSize({ width: 390, height: 844 });
   await page.goto("/report");
-  const narrow = await page.locator("figure").nth(3).locator("text").first().evaluate(
-    (node) => node.getBoundingClientRect().height,
-  );
+  const narrow = await page
+    .locator("figure")
+    .nth(3)
+    .locator("text")
+    .first()
+    .evaluate((node) => node.getBoundingClientRect().height);
   expect(narrow).toBeGreaterThanOrEqual(9);
 });

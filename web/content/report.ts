@@ -10,7 +10,10 @@ import type { FactId } from "./ids";
 const PLACEHOLDER = /\{([a-z0-9-]+)\}/g;
 
 export function renderProse(text: string): string {
-  return text.replace(PLACEHOLDER, (_match, id: string) => fact(id as FactId).display);
+  return text.replace(
+    PLACEHOLDER,
+    (_match, id: string) => fact(id as FactId).display,
+  );
 }
 
 export function placeholdersIn(text: string): string[] {
@@ -22,7 +25,12 @@ export type ReportSection = {
   number: string;
   title: string;
   paragraphs: string[];
-  subsections?: { id: string; number: string; title: string; paragraphs: string[] }[];
+  subsections?: {
+    id: string;
+    number: string;
+    title: string;
+    paragraphs: string[];
+  }[];
 };
 
 export const report = {

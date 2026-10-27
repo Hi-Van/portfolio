@@ -14,7 +14,11 @@ const thirtyPercent: Fact = {
   unit: "percent",
   display: "30%",
   label: "query time",
-  provenance: { kind: "measured", where: "walmart", mechanism: "merged duplicates" },
+  provenance: {
+    kind: "measured",
+    where: "walmart",
+    mechanism: "merged duplicates",
+  },
   sources: ["home"],
 };
 
@@ -26,8 +30,8 @@ export const rawNumber = renderNumber(30);
 // @ts-expect-error a display string is not a fact either
 export const rawString = renderNumber("30%");
 
-import { accentFor } from "../../content/accent";
 import type { Accent } from "../../content/accent";
+import { accentFor } from "../../content/accent";
 
 // @ts-expect-error an accent comes from a provenance object, never from a string
 export const fromString: Accent = accentFor("measured");

@@ -1,4 +1,4 @@
-import { expect, test, type Page } from "@playwright/test";
+import { expect, type Page, test } from "@playwright/test";
 
 const ROUTES = ["/", "/work", "/about", "/report", "/ask"];
 
@@ -12,7 +12,9 @@ async function headerOrder(page: Page) {
   );
 }
 
-test("every surface carries the same bar in the same order", async ({ page }) => {
+test("every surface carries the same bar in the same order", async ({
+  page,
+}) => {
   const seen: string[] = [];
   for (const route of ROUTES) {
     await page.goto(route);
@@ -30,21 +32,23 @@ test("every surface carries the same bar in the same order", async ({ page }) =>
   expect(seen[0]).toContain("Ask");
 });
 
-test("the current surface is stated in a way assistive technology announces", async ({ page }) => {
+test("the current surface is stated in a way assistive technology announces", async ({
+  page,
+}) => {
   await page.goto("/work");
   const primary = page.getByRole("navigation", { name: "Primary" }).first();
-  await expect(primary.getByRole("link", { name: "Work", exact: true })).toHaveAttribute(
-    "aria-current",
-    "page",
-  );
+  await expect(
+    primary.getByRole("link", { name: "Work", exact: true }),
+  ).toHaveAttribute("aria-current", "page");
   await page.goto("/ask");
-  await expect(page.locator("header").getByRole("link", { name: /^Ask$/ })).toHaveAttribute(
-    "aria-current",
-    "page",
-  );
+  await expect(
+    page.locator("header").getByRole("link", { name: /^Ask$/ }),
+  ).toHaveAttribute("aria-current", "page");
 });
 
-test("every header and footer control meets the target floor", async ({ page }) => {
+test("every header and footer control meets the target floor", async ({
+  page,
+}) => {
   await page.setViewportSize({ width: 1280, height: 900 });
   await page.goto("/work");
   const controls = page.locator("header a, header button, footer a");
@@ -55,8 +59,14 @@ test("every header and footer control meets the target floor", async ({ page }) 
     if (!(await control.isVisible())) continue;
     const box = await control.boundingBox();
     expect(box, `control ${index}`).not.toBeNull();
-    expect(box!.height, `height of ${await control.innerText()}`).toBeGreaterThanOrEqual(44);
-    expect(box!.width, `width of ${await control.innerText()}`).toBeGreaterThanOrEqual(44);
+    expect(
+      box!.height,
+      `height of ${await control.innerText()}`,
+    ).toBeGreaterThanOrEqual(44);
+    expect(
+      box!.width,
+      `width of ${await control.innerText()}`,
+    ).toBeGreaterThanOrEqual(44);
   }
 });
 
@@ -78,7 +88,9 @@ test("the skip link comes first and focus is visible", async ({ page }) => {
 test.describe("narrow viewport", () => {
   test.use({ viewport: { width: 390, height: 844 } });
 
-  test("the menu control meets the target floor at this width", async ({ page }) => {
+  test("the menu control meets the target floor at this width", async ({
+    page,
+  }) => {
     await page.goto("/work");
     const box = await page.getByRole("button", { name: "Menu" }).boundingBox();
     expect(box).not.toBeNull();
@@ -86,12 +98,16 @@ test.describe("narrow viewport", () => {
     expect(box!.width).toBeGreaterThanOrEqual(44);
   });
 
-  test("the disclosure opens, moves focus in, and returns it on Escape", async ({ page }) => {
+  test("the disclosure opens, moves focus in, and returns it on Escape", async ({
+    page,
+  }) => {
     await page.goto("/work");
     const control = page.getByRole("button", { name: "Menu" });
     await control.click();
     await expect(page.locator("#menu-panel")).toBeVisible();
-    await expect(page.getByRole("link", { name: "Work", exact: true }).first()).toBeFocused();
+    await expect(
+      page.getByRole("link", { name: "Work", exact: true }).first(),
+    ).toBeFocused();
     await page.keyboard.press("Escape");
     await expect(page.locator("#menu-panel")).toHaveCount(0);
     await expect(page.getByRole("button", { name: "Menu" })).toBeFocused();
@@ -100,7 +116,10 @@ test.describe("narrow viewport", () => {
   test("choosing a link closes the disclosure", async ({ page }) => {
     await page.goto("/about");
     await page.getByRole("button", { name: "Menu" }).click();
-    await page.locator("#menu-panel").getByRole("link", { name: "Work" }).click();
+    await page
+      .locator("#menu-panel")
+      .getByRole("link", { name: "Work" })
+      .click();
     await expect(page).toHaveURL(/\/work$/);
     await expect(page.locator("#menu-panel")).toHaveCount(0);
   });
@@ -117,7 +136,9 @@ test.describe("narrow viewport", () => {
 test.describe("reduced motion", () => {
   test.use({ viewport: { width: 390, height: 844 }, reducedMotion: "reduce" });
 
-  test("the disclosure appears in its end state with no travel", async ({ page }) => {
+  test("the disclosure appears in its end state with no travel", async ({
+    page,
+  }) => {
     await page.goto("/about");
     await page.getByRole("button", { name: "Menu" }).click();
     const panel = page.locator("#menu-panel");
@@ -130,7 +151,9 @@ test.describe("reduced motion", () => {
   });
 });
 
-test("no focusable element on any surface is missing a visible indicator", async ({ page }) => {
+test("no focusable element on any surface is missing a visible indicator", async ({
+  page,
+}) => {
   for (const route of ROUTES) {
     await page.goto(route);
     for (let step = 0; step < 12; step += 1) {
@@ -141,24 +164,35 @@ test("no focusable element on any surface is missing a visible indicator", async
         const style = getComputedStyle(node);
         return {
           tag: node.tagName,
-          label: node.getAttribute("aria-label") ?? node.textContent?.trim().slice(0, 24) ?? "",
+          label:
+            node.getAttribute("aria-label") ??
+            node.textContent?.trim().slice(0, 24) ??
+            "",
           width: style.outlineWidth,
           offset: style.outlineOffset,
         };
       });
       if (result === null) break;
-      expect(result.width, `${route} ${result.tag} ${result.label}`).toBe("2px");
-      expect(result.offset, `${route} ${result.tag} ${result.label}`).toBe("3px");
+      expect(result.width, `${route} ${result.tag} ${result.label}`).toBe(
+        "2px",
+      );
+      expect(result.offset, `${route} ${result.tag} ${result.label}`).toBe(
+        "3px",
+      );
     }
   }
 });
 
-test("no surface scrolls horizontally at the narrowest viewport", async ({ page }) => {
+test("no surface scrolls horizontally at the narrowest viewport", async ({
+  page,
+}) => {
   await page.setViewportSize({ width: 390, height: 844 });
   for (const route of ROUTES) {
     await page.goto(route);
     const overflow = await page.evaluate(
-      () => document.documentElement.scrollWidth - document.documentElement.clientWidth,
+      () =>
+        document.documentElement.scrollWidth -
+        document.documentElement.clientWidth,
     );
     expect(overflow, route).toBeLessThanOrEqual(0);
   }

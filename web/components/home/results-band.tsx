@@ -1,6 +1,6 @@
 import Link from "next/link";
-import { bandCells } from "../../content/home";
 import { fact } from "../../content/facts";
+import { bandCells } from "../../content/home";
 
 /**
  * Three measured results, each rendered from the registry and each a link into

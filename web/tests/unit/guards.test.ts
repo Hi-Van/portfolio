@@ -24,8 +24,13 @@ test("an empty, missing, or over-long question is rejected", () => {
 
 test("a malformed history is rejected", () => {
   expect(isAskRequest({ question: "Hi", history: "nope" })).toBe(false);
-  expect(isAskRequest({ question: "Hi", history: [{ role: "system", text: "x" }] })).toBe(false);
   expect(
-    isAskRequest({ question: "Hi", history: Array.from({ length: 13 }, () => ({ role: "user", text: "x" })) }),
+    isAskRequest({ question: "Hi", history: [{ role: "system", text: "x" }] }),
+  ).toBe(false);
+  expect(
+    isAskRequest({
+      question: "Hi",
+      history: Array.from({ length: 13 }, () => ({ role: "user", text: "x" })),
+    }),
   ).toBe(false);
 });
