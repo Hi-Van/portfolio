@@ -33,6 +33,8 @@ tag holding the site's previous static form.
 | `web/proxy.ts` | One canonical host: www and http redirect to the apex; local and preview hosts are left alone |
 | `web/public/og.png` | The share image, rendered from the home surface at 1200 by 630 |
 | `web/scripts/make-og.mjs` | Regenerates the share image from a running server |
+| `web/scripts/capture.mjs` | Regenerates the review screenshots |
+| `web/scripts/measure.mjs` | Reports transferred script per surface |
 | `web/components/shell/` | `site-header.tsx`, `menu.tsx`, `ask-switch.tsx`, `contact-pill.tsx`, `site-footer.tsx`, `skip-link.tsx`, `page-main.tsx` |
 | `web/components/theme/` | `theme-provider.tsx`, `theme-toggle.tsx` |
 | `web/components/home/` | `results-band.tsx`, `contact-strip.tsx` |
@@ -74,8 +76,7 @@ tag holding the site's previous static form.
 | `web/vitest.config.mts`, `web/playwright.config.ts` | The two test runners |
 | `web/biome.json`, `web/package.json`, `web/tsconfig.json` | Format and lint, dependencies, compiler settings |
 | `openspec/` | The change that built this, and the specs it will archive into |
-| `preview/` | 30 screenshots of the previous static site. Evidence, not source |
-| `assets/` | The previous static site's stylesheets, scripts, and fonts. Retired at cutover |
+| `preview/` | 14 captures of the current build, in both themes and at two widths. Evidence, not source. Regenerate with `web/scripts/capture.mjs` |
 
 ## Commands
 
@@ -84,7 +85,10 @@ cd web
 npm run dev                # the site at localhost:3000
 npm run build              # prerenders every surface
 npm run check              # the gate: tokens, artifacts, content, styles, contrast, unit, e2e, bundle
+npm run test:browsers      # the integration pass in Firefox and WebKit
 npm run lint               # biome
+node scripts/capture.mjs   # review screenshots, needs a running server
+node scripts/measure.mjs   # transferred script per surface, needs a running server
 ```
 
 `npm run check` runs every step and reports each one, then exits non-zero if any failed. It builds the
@@ -128,7 +132,7 @@ minute.
 - The theme is applied after hydration by design (`design.md` D6). A reader whose stored choice differs
   from their system sees one frame of the system theme. Do not "fix" that with an inline script without
   changing the decision first.
-- `preview/` and `assets/` are the previous medium. Do not read values out of them; read the tokens.
+- `preview/` is current evidence, not source. Read the tokens, never a screenshot.
 - The report's copy states numbers through `{fact-id}` placeholders resolved at render. A literal digit
   in a report paragraph is a bug.
 - Without `DEEPSEEK_API_KEY` the endpoint answers from the retrieved passage instead of the model. Both

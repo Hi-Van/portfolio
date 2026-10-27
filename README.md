@@ -31,6 +31,14 @@ npm run check      # the gate
 The five surfaces are prerendered. The answer endpoint is dynamic. There is no database and no
 analytics.
 
+Supported browsers: the last two versions of Chrome, Edge, Firefox, and Safari. The surfaces are
+checked in Chromium, Firefox, and WebKit by `npm run test:browsers` in `web/`. The site uses
+`min-h-dvh` and `color-mix` through the Tailwind theme, so older engines will degrade.
+
+One platform caveat: WebKit on macOS does not move focus to links with Tab unless the reader turns it
+on. The skip link is first in the document everywhere, and the keyboard path is asserted where the
+platform provides it.
+
 `npm run check` runs eight steps and reports each one: tokens, artifacts, content, styles, contrast,
 unit, e2e, bundle. It exits non-zero if any failed. It builds twice, once for the bundle scan and once
 inside Playwright, so it takes about a minute.
@@ -38,6 +46,22 @@ inside Playwright, so it takes about a minute.
 ```bash
 npx -y @google/design.md lint DESIGN.md       # 0 errors, 0 warnings
 ```
+
+## What ships
+
+Measured from the production build, transferred script per surface:
+
+| Surface | Script | CSS | Total |
+|---|---|---|---|
+| `/` | 300 KiB | 7 KiB | 491 KiB |
+| `/work` | 300 KiB | 7 KiB | 491 KiB |
+| `/report` | 300 KiB | 7 KiB | 488 KiB |
+| `/about` | 300 KiB | 7 KiB | 492 KiB |
+| `/ask` | 300 KiB | 7 KiB | 492 KiB |
+
+The framework is most of that. The chat provider is in every surface's bundle because the conversation
+lives above the route, and the report adds visx for two figures. There is no budget here, by decision:
+the number is recorded rather than enforced.
 
 ## The agent
 
@@ -131,8 +155,14 @@ sees the system theme for one frame. That is a recorded decision, not an oversig
 - There is no résumé yet. Nothing on the site promises one.
 - The old site is still live at the origin until cutover.
 
+## Review screenshots
+
+`preview/` holds fourteen captures of the current build: five surfaces in both themes at 1440, three
+narrow surfaces at 390, and the menu open. Regenerate them with `web/scripts/capture.mjs` against a
+running server. They are evidence, never source.
+
 ## The previous medium
 
-`assets/` and `preview/` hold the static site this replaced: five documents, two stylesheets, four
-scripts, and thirty screenshots. They are evidence of what the design was, not source for what it is,
-and they are removed at cutover. The `baseline-static` tag restores the whole thing in one checkout.
+The static site is removed. The `baseline-static` tag restores it in one checkout: five documents, two
+stylesheets, four scripts, five fonts, and the two Python checks that held the old token copies in
+step.

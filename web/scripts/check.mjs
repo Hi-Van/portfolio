@@ -11,7 +11,7 @@ const steps = [
   ["styles", process.execPath, ["scripts/check-styles.mjs"]],
   ["contrast", process.execPath, ["scripts/contrast.mjs"]],
   ["unit", "node_modules/.bin/vitest", ["run"]],
-  ["e2e", "node_modules/.bin/playwright", ["test"]],
+  ["e2e", "node_modules/.bin/playwright", ["test", "--project=chromium"]],
   ["bundle", process.execPath, ["scripts/check-bundle.mjs"]],
 ];
 

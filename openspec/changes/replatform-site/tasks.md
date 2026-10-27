@@ -276,26 +276,26 @@ calls for, so no group starts on top of undocumented work.
 
 ## 12. Cutover and integration
 
-- [ ] 12.1 Switch every address to the new medium and remove the retired documents, stylesheets,
+- [x] 12.1 Switch every address to the new medium and remove the retired documents, stylesheets,
       scripts, and the five font files in one commit. Verify: all five addresses resolve, no reference to
       a retired path remains, and `git show --stat` shows only retirements.
-- [ ] 12.2 Run the full surface pass at 390, 768, and 1440 in both themes and record the result.
+- [x] 12.2 Run the full surface pass at 390, 768, and 1440 in both themes and record the result.
       Verify: no horizontal overflow, no failed contrast, no missing target.
-- [ ] 12.3 Run the script-off pass across all five surfaces. Verify: every figure and the report's
+- [x] 12.3 Run the script-off pass across all five surfaces. Verify: every figure and the report's
       default outputs are present, and the theme follows the system preference.
-- [ ] 12.4 Run the keyboard and screen-reader pass across all five surfaces. Verify: skip link first,
+- [x] 12.4 Run the keyboard and screen-reader pass across all five surfaces. Verify: skip link first,
       focus visible throughout, menu focus contained and returned, answers announced.
-- [ ] 12.5 Record total transferred script per surface, including the motion runtime and the chat
+- [x] 12.5 Record total transferred script per surface, including the motion runtime and the chat
       provider that every surface now carries, and write the numbers into the README. This is a record,
       not a gate: there is no budget to fail.
-- [ ] 12.6 Regenerate the review screenshots and remove the ones that show the retired medium. Verify:
+- [x] 12.6 Regenerate the review screenshots and remove the ones that show the retired medium. Verify:
       every screenshot referenced by a doc is current.
-- [ ] 12.7 Confirm the baseline tag still restores a working site. Verify: check out the tag in a
+- [x] 12.7 Confirm the baseline tag still restores a working site. Verify: check out the tag in a
       scratch worktree, open the home surface, and confirm it renders.
-- [ ] 12.8 Run the reduced-motion pass across all five surfaces: no transition runs, the menu and the
+- [x] 12.8 Run the reduced-motion pass across all five surfaces: no transition runs, the menu and the
       transcript land in their end state, and no content is hidden behind motion that will not play.
       Verify: with the preference set, a recorded sweep finds no travel and nothing missing.
-- [ ] 12.9 Decide the supported browser floor, record it in the README, and check every surface against
+- [x] 12.9 Decide the supported browser floor, record it in the README, and check every surface against
       it. Verify: the floor is stated, and the oldest supported browser renders every surface with its
       figures and inputs intact.
 

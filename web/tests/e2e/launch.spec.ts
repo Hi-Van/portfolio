@@ -128,7 +128,9 @@ test("nothing on any surface implies a résumé exists", async ({ page }) => {
     expect(text, route).not.toMatch(/r[eé]sum[eé]|\bCV\b/i);
     const hrefs = await page
       .locator("a")
-      .evaluateAll((nodes) => nodes.map((node) => node.getAttribute("href") ?? ""));
+      .evaluateAll((nodes) =>
+        nodes.map((node) => node.getAttribute("href") ?? ""),
+      );
     expect(
       hrefs.filter((href) => /resume|curriculum|\/cv\b|cv\.pdf/i.test(href)),
       route,
