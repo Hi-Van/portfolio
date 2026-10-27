@@ -1,14 +1,11 @@
-import { ThemeToggle } from "../components/theme/theme-toggle";
+import { PageMain } from "../components/shell/page-main";
 
 export default function Home() {
   return (
-    <main className="mx-auto flex min-h-dvh max-w-frame flex-col gap-block px-gutter py-section">
-      <div className="flex items-center justify-between">
-        <p className="font-ui text-caps tracking-caps text-muted uppercase">
-          Van Sirisouk
-        </p>
-        <ThemeToggle />
-      </div>
+    <PageMain className="mx-auto flex min-h-dvh max-w-frame flex-col gap-block px-gutter py-section">
+      <p className="font-ui text-caps tracking-caps text-muted uppercase">
+        Van Sirisouk
+      </p>
       <h1 className="font-display text-display-home tracking-display text-ink">
         Numbers, and how they were produced.
       </h1>
@@ -16,6 +13,6 @@ export default function Home() {
         The site is being rebuilt. This surface exists to hold the frame, the
         type scale, and the theme while the rest arrives.
       </p>
-    </main>
+    </PageMain>
   );
 }

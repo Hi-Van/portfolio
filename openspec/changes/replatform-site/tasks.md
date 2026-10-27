@@ -89,24 +89,24 @@ calls for, so no group starts on top of undocumented work.
 
 ## 4. Frame and navigation
 
-- [ ] 4.1 Build the frame, top bar, navigation, one invitation, agent switch, theme control, skip
+- [x] 4.1 Build the frame, top bar, navigation, one invitation, agent switch, theme control, skip
       link, and footer with the order the shell spec requires. Verify: all five surfaces render the
       same bar in the same order.
-- [ ] 4.2 Mark the current surface in a way assistive technology announces, including on the agent
+- [x] 4.2 Mark the current surface in a way assistive technology announces, including on the agent
       surface. Verify: a screen reader announces current on each surface, including the agent.
-- [ ] 4.3 Expand every control to a 44 by 44 target, including the theme control and the menu. Verify:
+- [x] 4.3 Expand every control to a 44 by 44 target, including the theme control and the menu. Verify:
       measured boxes report at least 44 in both dimensions for every interactive element.
-- [ ] 4.4 Build the narrow-viewport navigation as a hand-written disclosure rather than a menu
+- [x] 4.4 Build the narrow-viewport navigation as a hand-written disclosure rather than a menu
       primitive, because it is navigation and not an application menu: open, close on Escape, close on
       selection, close on widen, focus into the panel on open, focus back to the control on close.
       Animate the panel's entry and exit with the motion library under one reduced-motion
       configuration. Verify: a scripted keyboard walk reaches every link and returns focus, with
       reduced motion the panel appears and leaves with no travel, and the markup exposes an expanded
       state rather than menu semantics.
-- [ ] 4.5 Confirm the skip link is the first focusable element and the focus indicator is 2px at 3px
+- [x] 4.5 Confirm the skip link is the first focusable element and the focus indicator is 2px at 3px
       offset on every focusable element, including filled controls. Verify: a focus sweep across all
       five surfaces finds no element without a visible indicator.
-- [ ] 4.6 Rewrite the navigation, actions, and accessibility docs. Verify: the docs no longer cite a
+- [x] 4.6 Rewrite the navigation, actions, and accessibility docs. Verify: the docs no longer cite a
       line number, and the accessibility doc's target table lists no failures.
 
 ## 5. Home surface

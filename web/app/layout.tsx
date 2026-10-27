@@ -1,5 +1,8 @@
 import type { Metadata, Viewport } from "next";
 import { Instrument_Sans, Instrument_Serif, Literata } from "next/font/google";
+import { SiteFooter } from "../components/shell/site-footer";
+import { SiteHeader } from "../components/shell/site-header";
+import { SkipLink } from "../components/shell/skip-link";
 import { Providers } from "./providers";
 import "./globals.css";
 
@@ -39,10 +42,16 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html
       lang="en"
+      data-scroll-behavior="smooth"
       className={`${display.variable} ${reading.variable} ${ui.variable}`}
     >
       <body>
-        <Providers>{children}</Providers>
+        <Providers>
+          <SkipLink />
+          <SiteHeader />
+          {children}
+          <SiteFooter />
+        </Providers>
       </body>
     </html>
   );
