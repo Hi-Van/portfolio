@@ -9,6 +9,7 @@ import { SectionNav } from "../../components/report/section-nav";
 import { PageMain } from "../../components/shell/page-main";
 import { readingMinutes, renderProse, report } from "../../content/report";
 import { site } from "../../content/site";
+import { pageMetadata } from "../../lib/seo";
 
 function Paragraphs({ children }: { children: string[] }) {
   return (
@@ -21,6 +22,12 @@ function Paragraphs({ children }: { children: string[] }) {
     </>
   );
 }
+
+export const metadata = pageMetadata({
+  title: "How a catalog learns to file itself",
+  description: "Five figures, the model, and the method note.",
+  path: "/report",
+});
 
 export default function Report() {
   const minutes = readingMinutes();

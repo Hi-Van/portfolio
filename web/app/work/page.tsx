@@ -1,6 +1,13 @@
 import { PageMain } from "../../components/shell/page-main";
 import { RoleRow } from "../../components/work/role-row";
 import { work } from "../../content/work";
+import { pageMetadata } from "../../lib/seo";
+
+export const metadata = pageMetadata({
+  title: "Work",
+  description: "Roles and systems, with the numbers behind them.",
+  path: "/work",
+});
 
 export default function Work() {
   return (

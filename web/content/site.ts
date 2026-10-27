@@ -4,6 +4,8 @@ export type NavItem = { href: string; label: string };
 
 export const site = {
   name: "Van Sirisouk",
+  /** The production origin. Every absolute address derives from this one value. */
+  origin: "https://vansiriso.uk",
   /** Placeholder. Task 11.1 replaces it and a test proves the old one is gone. */
   email: "hello@vansirisouk.com",
   nav: [
@@ -26,6 +28,11 @@ export function fromKey(pathname: string): string {
   if (pathname.startsWith("/report")) return "report";
   if (pathname.startsWith("/about")) return "about";
   return "index";
+}
+
+/** An absolute address for a surface or an asset. */
+export function urlFor(path: string): string {
+  return new URL(path, site.origin).toString();
 }
 
 export function isCurrent(pathname: string, href: string): boolean {

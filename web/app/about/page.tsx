@@ -1,6 +1,13 @@
 import { ContactCard } from "../../components/about/contact-card";
 import { PageMain } from "../../components/shell/page-main";
 import { about } from "../../content/about";
+import { pageMetadata } from "../../lib/seo";
+
+export const metadata = pageMetadata({
+  title: "About",
+  description: "The bio, the facts, and the address.",
+  path: "/about",
+});
 
 export default function About() {
   return (

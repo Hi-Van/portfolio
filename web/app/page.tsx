@@ -4,12 +4,36 @@ import { ContactStrip } from "../components/home/contact-strip";
 import { ResultsBand } from "../components/home/results-band";
 import { PageMain } from "../components/shell/page-main";
 import { home } from "../content/home";
+import { site, urlFor } from "../content/site";
+import { pageMetadata } from "../lib/seo";
+
+export const metadata = pageMetadata({
+  title: "Van Sirisouk, software engineer",
+  description:
+    "Who this is, three measured results, and one way to get in touch.",
+  path: "/",
+});
+
+const personSchema = {
+  "@context": "https://schema.org",
+  "@type": "Person",
+  name: site.name,
+  url: urlFor("/"),
+  jobTitle: "Software Engineer",
+  worksFor: { "@type": "Organization", name: home.status.employer },
+  address: { "@type": "PostalAddress", addressLocality: home.status.location },
+};
 
 export default function Home() {
   const { status } = home;
 
   return (
     <PageMain className="mx-auto max-w-frame px-gutter">
+      {/* Structured data must be a JSON string. The rule is off for this file in biome.json because it is built from constants. */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(personSchema) }}
+      />
       <section className="pt-block pb-block">
         <h1 className="font-display text-display-home tracking-display text-ink">
           {home.heading}

@@ -258,19 +258,19 @@ calls for, so no group starts on top of undocumented work.
 
 - [ ] 11.1 Replace the placeholder address with the real one and confirm every former occurrence
       renders from the single constant. Verify: a grep for the placeholder returns nothing.
-- [ ] 11.2 Configure the production origin `https://vansiriso.uk` in one constant, redirect `www`
+- [x] 11.2 Configure the production origin `https://vansiriso.uk` in one constant, redirect `www`
       and plain `http` to it, and build each surface's canonical address and share metadata from that
       constant. Verify: each canonical is absolute, begins with `https://vansiriso.uk`, resolves to
       its own surface, and no two surfaces share one; `www` and `http` requests land on the apex.
-- [ ] 11.3 Build the missing-page surface in the site frame with a route back. Verify: an unknown
+- [x] 11.3 Build the missing-page surface in the site frame with a route back. Verify: an unknown
       address renders it with the shared bar.
-- [ ] 11.4 Produce the share image and confirm it is legible at thumbnail size. Verify: a preview
+- [x] 11.4 Produce the share image and confirm it is legible at thumbnail size. Verify: a preview
       render shows the site's own image.
 - [ ] 11.5 Decide the résumé question and either publish it at a stated address or remove any
       implication that one exists. Verify: the route is real or absent everywhere.
-- [ ] 11.6 Confirm no third-party requests occur beyond those a reader's action causes. Verify: a
+- [x] 11.6 Confirm no third-party requests occur beyond those a reader's action causes. Verify: a
       network log on each surface, including the agent.
-- [ ] 11.7 Define the crawler rules, a sitemap, and a person schema for structured data, choosing the
+- [x] 11.7 Define the crawler rules, a sitemap, and a person schema for structured data, choosing the
       details at build time. Verify: both crawler files name the production origin only, the sitemap
       lists every surface and no preview host, and the structured data validates.
 

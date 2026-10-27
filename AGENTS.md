@@ -26,6 +26,13 @@ tag holding the site's previous static form.
 | `web/app/` | Routes. `layout.tsx` holds the frame, fonts, and providers; `page.tsx` home, `work/`, `about/`, `report/`, `ask/`, and `api/ask/route.ts` the answer endpoint |
 | `web/app/globals.css` | The theme block, three colour scopes, base layer, focus ring, print |
 | `web/app/providers.tsx` | The theme provider wrapper |
+| `web/app/not-found.tsx` | The missing-page surface, inside the frame |
+| `web/app/robots.ts` | Crawler rules, naming the production origin |
+| `web/app/sitemap.ts` | The five surfaces, absolute, at the production origin |
+| `web/lib/seo.ts` | Per-surface metadata, including the share image |
+| `web/proxy.ts` | One canonical host: www and http redirect to the apex; local and preview hosts are left alone |
+| `web/public/og.png` | The share image, rendered from the home surface at 1200 by 630 |
+| `web/scripts/make-og.mjs` | Regenerates the share image from a running server |
 | `web/components/shell/` | `site-header.tsx`, `menu.tsx`, `ask-switch.tsx`, `contact-pill.tsx`, `site-footer.tsx`, `skip-link.tsx`, `page-main.tsx` |
 | `web/components/theme/` | `theme-provider.tsx`, `theme-toggle.tsx` |
 | `web/components/home/` | `results-band.tsx`, `contact-strip.tsx` |

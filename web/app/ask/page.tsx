@@ -1,11 +1,13 @@
 import { AgentRoom } from "../../components/agent/agent-room";
 import { PageMain } from "../../components/shell/page-main";
+import { pageMetadata } from "../../lib/seo";
 
-export const metadata = {
-  title: "Ask · Van Sirisouk",
+export const metadata = pageMetadata({
+  title: "Ask",
   description:
     "An agent that answers from this site and cites the page each answer came from.",
-};
+  path: "/ask",
+});
 
 export default function Ask() {
   return (

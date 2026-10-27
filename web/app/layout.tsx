@@ -4,6 +4,7 @@ import { ChatProvider } from "../components/agent/chat-provider";
 import { SiteFooter } from "../components/shell/site-footer";
 import { SiteHeader } from "../components/shell/site-header";
 import { SkipLink } from "../components/shell/skip-link";
+import { site } from "../content/site";
 import { Providers } from "./providers";
 import "./globals.css";
 
@@ -29,9 +30,20 @@ const ui = Instrument_Sans({
 });
 
 export const metadata: Metadata = {
-  title: "Van Sirisouk",
+  metadataBase: new URL(site.origin),
+  title: {
+    default: "Van Sirisouk",
+    template: "%s · Van Sirisouk",
+  },
   description:
     "A measurement-first portfolio: the systems, the numbers, and how they were produced.",
+  openGraph: {
+    type: "website",
+    siteName: site.name,
+    url: "/",
+    images: [{ url: "/og.png", width: 1200, height: 630, alt: site.name }],
+  },
+  twitter: { card: "summary_large_image" },
 };
 
 export const viewport: Viewport = {
