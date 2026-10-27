@@ -3,13 +3,38 @@ import { corpus, type Chunk } from "../../content/corpus";
 /** One fixed sentence, compared byte for byte by a test. */
 export const REFUSAL = "Not stated on the site.";
 
+const STOP = new Set([
+  "what", "when", "where", "why", "how", "which", "does", "did", "do",
+  "is", "was", "were", "are", "the", "a", "an", "of", "to", "in", "on", "at",
+  "for", "and", "or", "he", "his", "him", "she", "her", "it", "its", "that",
+  "this", "there", "tell", "me", "about", "many", "much", "will", "would",
+  "can", "could", "should", "have", "has", "had", "be", "been", "not", "no",
+  "next", "year", "years", "number", "numbers", "get", "got", "like",
+]);
+
+/** Good enough for a keyword scorer: cleaned, cleaning, cleans all become clean. */
+function stem(word: string): string {
+  return word.replace(/(ing|ed|es|s)$/u, "");
+}
+
 function score(chunk: Chunk, question: string): number {
-  const words = question.toLowerCase().split(/[^a-z0-9]+/).filter(Boolean);
+  const words = question
+    .toLowerCase()
+    .split(/[^a-z0-9]+/)
+    .filter((word) => word.length > 1 && !STOP.has(word));
+  if (words.length === 0) return 0;
+
+  const keywords = new Set(chunk.keywords.map(stem));
   let hits = 0;
   for (const word of words) {
-    if (chunk.keywords.some((keyword) => keyword === word)) hits += 2;
-    else if (chunk.keywords.some((keyword) => keyword.includes(word) && word.length > 3)) hits += 1;
-    else if (chunk.text.toLowerCase().includes(word) && word.length > 4) hits += 1;
+    const root = stem(word);
+    if (/^\d+$/.test(word)) {
+      if (chunk.text.includes(word)) hits += 3;
+      continue;
+    }
+    if (keywords.has(root)) hits += 3;
+    else if (keywords.has(word)) hits += 2;
+    else if (root.length >= 5 && chunk.text.toLowerCase().includes(root)) hits += 1;
   }
   return hits;
 }
@@ -24,7 +49,7 @@ export function retrieve(question: string): Chunk | null {
       bestScore = value;
     }
   }
-  return bestScore > 0 ? best : null;
+  return bestScore >= 3 ? best : null;
 }
 
 /**

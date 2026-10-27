@@ -24,9 +24,25 @@ Open `index.html`. Fonts are local, so it works offline. Every page links throug
 
 ## Site agent
 
-`ask.html` is a local chat page, built as a channel: a header, message rows with an author and a time, and a composer at the bottom. `assets/tui.js` holds a keyword index of 13 topics across the four content pages, and `match(q)` picks one by score. There is no network call and no model. Every answer names the page it came from and links to the anchor, and anything outside the index gets the same line: "Not stated on the site."
+`ask.html` is replaced by `/ask`, a room with a transcript, a composer, and four suggested
+questions. The conversation lives above the route, so it survives moving between pages and clears on
+reload. Nothing a reader types is stored.
 
-The switch carries `?from=` so the chat page knows where to send you back. Escape does the same. To put a real model behind it, replace `match(q)` and keep the answer and source renderers.
+An answer is retrieved from the section of this site that covers the question, streamed to the
+reader, and cited inline with a link to that section. An answer that is not on the site is refused
+with one fixed sentence: "Not stated on the site."
+
+The endpoint at `/api/ask` accepts one question of up to 280 characters and the turns before it, and
+answers with a stream. A stream guard holds back a numeral until it is complete and traces it against
+the retrieved passage; an untraced number withdraws the answer and leaves the refusal. The guard also
+holds back an anchor until it closes, so a half-written citation never renders.
+
+With `DEEPSEEK_API_KEY` set, the answer is composed by the pinned model at a 400-token ceiling.
+Without it, the retrieved passage is the answer, so a checkout with no key still answers and still
+cites. The question suite is the gate: 30 questions, a 23% refusal rate, no false refusals, no
+answered question that should have been refused, no untraced number in any answer, and no withdrawal
+in the suite. Cost per question is bounded by the 400-token output ceiling rather than measured,
+because no credential is configured in this checkout.
 
 ## Dark mode
 

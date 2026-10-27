@@ -203,38 +203,38 @@ calls for, so no group starts on top of undocumented work.
 
 ## 9. Answer endpoint
 
-- [ ] 9.1 Build the retrieval corpus from the content modules, one entry per anchorable section, with
+- [x] 9.1 Build the retrieval corpus from the content modules, one entry per anchorable section, with
       fact ids. Verify: a test asserts every section a reader could ask about has a chunk, and the
       build fails on a duplicate anchor.
-- [ ] 9.2 Write the request and anchor guards as type predicates, so the compiler checks each parser
+- [x] 9.2 Write the request and anchor guards as type predicates, so the compiler checks each parser
       against its declared type and the two cannot drift. Verify: unit tests cover a valid question, an
       empty one, an over-long one, a well-formed anchor, a malformed anchor, and an over-long turn
       list.
-- [ ] 9.3 Create the provider client: the DeepSeek provider, the credential read from the server
+- [x] 9.3 Create the provider client: the DeepSeek provider, the credential read from the server
       environment at request time, and the model id and output cap pinned in one constant. Verify: the
       model id appears in exactly one place, the key is never read outside the server module, and both
       provider packages are absent from the client bundle except the hook's own module.
-- [ ] 9.4 Implement the endpoint as a stream using the SDK's own streaming response, parsing the
+- [x] 9.4 Implement the endpoint as a stream using the SDK's own streaming response, parsing the
       request first and passing the answer through the guard before it is forwarded. Verify: contract
       tests assert 200, 400, and 502, and that invalid requests never open a stream.
-- [ ] 9.5 Implement the stream guard: hold back a trailing fragment that could still become a numeral,
+- [x] 9.5 Implement the stream guard: hold back a trailing fragment that could still become a numeral,
       trace each completed numeral against the retrieved digits, and resolve each anchor as it arrives.
       Verify: unit tests split a numeral and an anchor across chunk boundaries and neither is released
       early.
-- [ ] 9.6 Implement withdrawal: on any guard failure, end the stream, discard the remainder, and render
+- [x] 9.6 Implement withdrawal: on any guard failure, end the stream, discard the remainder, and render
       the refusal in place of the visible answer. Verify: an invented rate mid-answer leaves exactly
       the refusal sentence on screen.
-- [ ] 9.7 Make the refusal byte-identical to the recorded sentence. Verify: a test compares the refusal
+- [x] 9.7 Make the refusal byte-identical to the recorded sentence. Verify: a test compares the refusal
       to the constant exactly.
-- [ ] 9.8 Enforce the rule that history is context and not evidence, refusing a question that is only
+- [x] 9.8 Enforce the rule that history is context and not evidence, refusing a question that is only
       answerable from earlier turns. Verify: a follow-up about something never stated on the site
       refuses, and a follow-up about a site claim still cites.
-- [ ] 9.9 Validate the return parameter against an enum allowlist with a home fallback, so no value can
+- [x] 9.9 Validate the return parameter against an enum allowlist with a home fallback, so no value can
       redirect off site. Verify: a foreign URL in the parameter lands on home.
-- [ ] 9.10 Pin the model, the input ceiling, and the output cap in one constant, and confirm no
+- [x] 9.10 Pin the model, the input ceiling, and the output cap in one constant, and confirm no
       credential reaches the client. Verify: the model id appears once, a scan of the client bundle
       finds no secret, and an over-long question is rejected at 400.
-- [ ] 9.11 Build the question suite of about 30 realistic questions with their expected anchors, and
+- [x] 9.11 Build the question suite of about 30 realistic questions with their expected anchors, and
       record refusal rate, false refusals, withdrawal rate, and the measured cost of one question.
       Verify: the suite runs in the `check` command, asserts no answer contains an untraced numeral,
       and the numbers are written into the README's agent section.

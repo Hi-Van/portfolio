@@ -136,3 +136,8 @@ test.describe("reduced motion", () => {
     expect(transform).toBe("none");
   });
 });
+
+test("a foreign return parameter lands on home", async ({ page }) => {
+  await page.goto("/ask?from=https://evil.example/steal");
+  await expect(page.getByRole("link", { name: /back to home/i })).toHaveAttribute("href", "/");
+});

@@ -50,6 +50,24 @@ export const corpus: Chunk[] = [
   },
   {
     surface: "report",
+    anchor: "problem",
+    label: "report, the problem",
+    href: "/report#problem",
+    heading: "The same shirt, six ways",
+    text: "A catalog is an agreement about what each thing is. Clothing breaks it first: one style becomes two products by color and six SKUs by size, and every supplier names them differently. The catalog needs one record before it can file any of them.",
+    keywords: ["catalog", "problem", "shirt", "sku", "skus", "supplier", "suppliers", "duplicate", "agreement", "color", "size"],
+  },
+  {
+    surface: "report",
+    anchor: "systems",
+    label: "report, three systems",
+    href: "/report#systems",
+    heading: "Three systems",
+    text: "Three systems carry the work: a cleanup service that merges duplicate records, an intake pipeline that files layouts on arrival, and a seller app that validates a submission before it lands.",
+    keywords: ["systems", "three", "overview", "architecture", "what", "built", "shipped"],
+  },
+  {
+    surface: "report",
     anchor: "scale",
     label: "report, what it adds up to",
     href: "/report#scale",
@@ -100,7 +118,7 @@ export const corpus: Chunk[] = [
     href: "/about",
     heading: "About",
     text: "A software engineer in New York, working on growth at Atlassian, and before that on Walmart's product catalog. The through line is product data: catalogs that agree with themselves, and pipelines that keep up.",
-    keywords: ["about", "who", "values", "focus", "cares", "background", "you"],
+    keywords: ["about", "who", "values", "focus", "cares", "background", "you", "person", "him"],
   },
   {
     surface: "home",
