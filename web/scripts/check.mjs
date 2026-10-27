@@ -7,6 +7,7 @@ import { spawnSync } from "node:child_process";
 const steps = [
   ["tokens", process.execPath, ["scripts/check-tokens.mjs"]],
   ["artifacts", process.execPath, ["scripts/check-artifacts.mjs"]],
+  ["content", process.execPath, ["scripts/check-content.mjs"]],
   ["unit", "node_modules/.bin/vitest", ["run"]],
   ["e2e", "node_modules/.bin/playwright", ["test"]],
   ["bundle", process.execPath, ["scripts/check-bundle.mjs"]],

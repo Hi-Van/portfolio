@@ -37,6 +37,7 @@ Read [the narrative](narrative.md) for the feel. Read the foundations before mak
 | [Color and theme](foundations/color-and-theme.md) | The four materials, light and dark tokens, contrast, chart colors, theme switching | You are adding color or a theme state |
 | [Space, shape, and motion](foundations/space-shape-motion.md) | Frames, grids, spacing, radii, hairlines, elevation, breakpoints, motion | You are changing layout, shape, or animation |
 | [Accessibility](foundations/accessibility.md) | Focus, skip link, semantics, live regions, keyboard paths, contrast, targets, known gaps | You are changing behavior or checking a release |
+| [Content and provenance](foundations/content-and-provenance.md) | The fact registry, the four provenance classes, the accent mapping, the single-source rule, the arithmetic | You are adding or moving a number |
 | [Navigation](components/navigation.md) | Top bar, links, Contact CTA, Ask switch, theme toggle, menu, skip link, footer, report section nav | You are touching the bar or a global control |
 | [Actions](components/actions.md) | Filled pill, compact Contact CTA, outlined rectangle, text links, mail links, reset | You are adding or restyling an action |
 | [Inputs](components/inputs.md) | Chat composer, send circle, range controls, reset | You are changing a field or a slider |
@@ -48,10 +49,11 @@ Read [the narrative](narrative.md) for the feel. Read the foundations before mak
 
 ## Coverage map
 
-Every class group in the site maps to one doc. If a class is not listed here, it is page-specific or a new component that needs a doc before it spreads.
+Every class group in the site maps to one doc, and the content model maps to its own foundation. If a class is not listed here, it is page-specific or a new component that needs a doc before it spreads.
 
 | Group | Classes and selectors | Doc |
 |---|---|---|
+| Content | `web/content/ids.ts`, `types.ts`, `facts.ts`, `model.ts`, `accent.ts`, `scripts/check-content.mjs` | [Content and provenance](foundations/content-and-provenance.md) |
 | Navigation | `.top`, `.top__in`, `.top__name`, `.top__nav`, `.top__cta`, `.top__actions`, `.top__menu`, `.theme-toggle`, `.ask`, `.ask__track`, `.ask__knob`, `.ask__label`, `.skip`, `.foot`, `.foot__in`, `.foot__links` | [Navigation](components/navigation.md) |
 | Actions | `.pill`, `.btn-rect`, `.textlink`, `.mail`, `.reset` | [Actions](components/actions.md) |
 | Inputs | `.agent__composer`, `.composer`, `.composer__input`, `.composer__send`, `.agent__hint`, `.controls`, `.control`, range inputs | [Inputs](components/inputs.md) |

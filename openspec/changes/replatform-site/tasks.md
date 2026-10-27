@@ -27,23 +27,24 @@ calls for, so no group starts on top of undocumented work.
 
 ## 2. Content model and fact registry
 
-- [ ] 2.1 Define the fact, provenance, and claim types as specified in `design.md` D4. Verify: the
+- [x] 2.1 Define the fact, provenance, and claim types as specified in `design.md` D4. Verify: the
       types admit a measured, a derived, an assumed, and a not-measured example, and reject a raw
       number where a fact is required (type-level test).
-- [ ] 2.2 Move every number from the README's provenance list into the registry with its unit,
+- [x] 2.2 Move every number from the README's provenance list into the registry with its unit,
       display form, provenance class, and mechanism. Verify: a test asserts the registry holds all
-      13 documented figures and that each has a mechanism.
-- [ ] 2.3 Implement the derived arithmetic as one pure module and unit-test it: daily to annual at
+      15 documented figures, the count the README's provenance list actually contains, and that each has
+      a mechanism.
+- [x] 2.3 Implement the derived arithmetic as one pure module and unit-test it: daily to annual at
       365, human filing time at 20 seconds per record, and seller hours as volume times human share
       times session length times the 22% cut. Verify: tests assert 390,000 daily becomes 142,350,000
       annual and the default assumptions produce 782,925 hours.
-- [ ] 2.4 Add a build-time check that fails when a surface prints a numeric literal that is not
+- [x] 2.4 Add a build-time check that fails when a surface prints a numeric literal that is not
       sourced from the registry. Verify: a deliberately planted literal fails the check, then passes
       once replaced.
-- [ ] 2.5 Map provenance to the accent rule in one place: measured to indigo, assumed to clay,
+- [x] 2.5 Map provenance to the accent rule in one place: measured to indigo, assumed to clay,
       derived to indigo with its mechanism shown, not-measured to neutral. Verify: a test asserts the
       mapping and that no other class can request an accent.
-- [ ] 2.6 Write the content section of `design-system/` describing the registry, the provenance
+- [x] 2.6 Write the content section of `design-system/` describing the registry, the provenance
       classes, and the single source rule. Verify: links resolve and the doc names every fact id.
 
 ## 3. Tokens, theme, and their checks
