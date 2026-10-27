@@ -40,7 +40,11 @@ export function SiteHeader() {
         </nav>
 
         <div className="flex items-center gap-2">
-          <ContactPill compact />
+          {/* Below the breakpoint the invitation lives in the disclosure panel,
+              so the bar fits the narrowest viewport without shrinking a target. */}
+          <div className="hidden md:block">
+            <ContactPill compact />
+          </div>
           <AskSwitch current={pathname.startsWith("/ask")} />
           <Menu />
           <ThemeToggle />

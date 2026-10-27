@@ -120,17 +120,17 @@ calls for, so no group starts on top of undocumented work.
 
 ## 6. Work and about surfaces
 
-- [ ] 6.1 Build the work surface: role rows, system rows, results, and deep links into the report.
+- [x] 6.1 Build the work surface: role rows, system rows, results, and deep links into the report.
       Verify: parity with `preview/work.png`, and every report link resolves to an existing anchor.
-- [ ] 6.2 Keep employer-scoped figures on the work surface only, with the Meta figures rendered from
+- [x] 6.2 Keep employer-scoped figures on the work surface only, with the Meta figures rendered from
       the registry. Verify: a test asserts no Meta fact is referenced by the report or the home
       surface.
-- [ ] 6.3 Build the about surface: bio, facts, contact card. Verify: parity with `preview/about.png`
+- [x] 6.3 Build the about surface: bio, facts, contact card. Verify: parity with `preview/about.png`
       at 1440 and 390.
-- [ ] 6.4 Move the contact address into one constant and render it everywhere it appears. Verify:
+- [x] 6.4 Move the contact address into one constant and render it everywhere it appears. Verify:
       changing the constant changes all 12 former occurrences, and a grep for the placeholder returns
       nothing.
-- [ ] 6.5 Update the page-surfaces doc for home, work, and about. Verify: the doc's class list matches
+- [x] 6.5 Update the page-surfaces doc for home, work, and about. Verify: the doc's class list matches
       the components that shipped, and every link resolves.
 
 ## 7. Report surface

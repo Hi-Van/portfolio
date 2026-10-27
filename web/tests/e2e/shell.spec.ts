@@ -152,3 +152,14 @@ test("no focusable element on any surface is missing a visible indicator", async
     }
   }
 });
+
+test("no surface scrolls horizontally at the narrowest viewport", async ({ page }) => {
+  await page.setViewportSize({ width: 390, height: 844 });
+  for (const route of ROUTES) {
+    await page.goto(route);
+    const overflow = await page.evaluate(
+      () => document.documentElement.scrollWidth - document.documentElement.clientWidth,
+    );
+    expect(overflow, route).toBeLessThanOrEqual(0);
+  }
+});
