@@ -1,5 +1,5 @@
-import { cn } from 'cn';
 import type { ComponentPropsWithoutRef, ElementType } from 'react';
+import { cn } from '@/lib/utils';
 
 type ShellProps = ComponentPropsWithoutRef<'div'> & {
 	as?: ElementType;
