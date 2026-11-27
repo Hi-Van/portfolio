@@ -153,6 +153,75 @@ check(
 	'app/icon.png exists and is not empty'
 );
 
+// The built document. These are the runtime half of the port contract: the
+// theme is chosen before paint, the language and colour-scheme are declared,
+// the metadata is exact, and no font host is named anywhere.
+const BUILT_HTML = 'out/index.html';
+const BUILT_TITLE = 'Van Sirisouk, software engineer';
+const BUILT_DESCRIPTION =
+	'Van Sirisouk is a software engineer in New York. Product data, catalogs, pipelines, and the forms that keep supplier data usable at scale.';
+const builtHtml = read(BUILT_HTML);
+
+check(builtHtml !== null, `${BUILT_HTML} exists (run npm run build)`);
+
+if (builtHtml !== null) {
+	check(builtHtml.includes('vs-theme'), `${BUILT_HTML} names the theme key`);
+	check(
+		/<html\b[^>]*\blang="en"/.test(builtHtml),
+		`${BUILT_HTML} sets html lang to en`
+	);
+	check(
+		/<meta name="color-scheme" content="light dark"/.test(builtHtml),
+		`${BUILT_HTML} declares color-scheme light dark`
+	);
+	check(
+		builtHtml.includes(`<title>${BUILT_TITLE}</title>`),
+		`${BUILT_HTML} has the exact title`
+	);
+	check(
+		builtHtml.includes(`content="${BUILT_DESCRIPTION}"`),
+		`${BUILT_HTML} has the exact description`
+	);
+
+	const themeScript = builtHtml.match(
+		/<script\b([^>]*)>([^<]*vs-theme[^<]*)<\/script>/
+	);
+
+	check(themeScript !== null, `${BUILT_HTML} has an inline theme script`);
+
+	if (themeScript) {
+		const attributes = themeScript[1];
+		const scriptIndex = themeScript.index ?? -1;
+		const headOpen = builtHtml.indexOf('<head');
+		const headClose = builtHtml.indexOf('</head>');
+		const bodyOpen = builtHtml.indexOf('<body');
+
+		check(
+			!/\bsrc\s*=/.test(attributes),
+			'theme script has no src attribute'
+		);
+		check(!/\bdefer\b/.test(attributes), 'theme script is not deferred');
+		check(!/\basync\b/.test(attributes), 'theme script is not async');
+		check(
+			scriptIndex > headOpen && headOpen !== -1,
+			'theme script sits inside head'
+		);
+		check(
+			scriptIndex < headClose && headClose !== -1,
+			'theme script sits before head closes'
+		);
+		check(
+			scriptIndex < bodyOpen && bodyOpen !== -1,
+			'theme script sits before body opens'
+		);
+	}
+
+	check(
+		!/fonts\.(googleapis|gstatic)\.com/.test(builtHtml),
+		`${BUILT_HTML} names no Google Fonts host`
+	);
+}
+
 if (failures.length > 0) {
 	console.error(`\nartifacts: ${failures.length} failed`);
 	process.exit(1);

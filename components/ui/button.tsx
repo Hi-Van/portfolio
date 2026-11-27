@@ -15,7 +15,7 @@ const buttonVariants = cva(
 			size: {
 				control: 'px-5',
 				icon: 'size-11 p-0',
-				nav: 'h-11 px-3.5 max-[860px]:rounded-secondary',
+				nav: 'h-11 px-3.5 max-[861px]:rounded-secondary',
 			},
 		},
 		defaultVariants: {

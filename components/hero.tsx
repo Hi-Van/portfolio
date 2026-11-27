@@ -11,10 +11,10 @@ export function Hero() {
 	return (
 		<Shell
 			as="section"
-			className="hero pt-[116px] text-center max-[860px]:pt-[92px]"
+			className="hero pt-[116px] text-center max-[861px]:pt-[92px]"
 			aria-labelledby="hero-title"
 		>
-			<p className="eyebrow inline-flex h-8 items-center gap-[10px] rounded-chip border border-line-strong bg-panel pr-[13px] pl-[10px] text-small font-medium tracking-[-0.01em] text-copy max-[520px]:h-auto max-[520px]:min-h-[34px] max-[520px]:flex-wrap max-[520px]:justify-center max-[520px]:gap-y-px max-[520px]:px-[13px] max-[520px]:py-[7px] max-[520px]:text-center max-[520px]:text-[clamp(11px,calc((100vw_-_48px)/28.5),13px)]">
+			<p className="eyebrow inline-flex h-8 items-center gap-[10px] rounded-chip border border-line-strong bg-panel pr-[13px] pl-[10px] text-small font-medium tracking-[-0.01em] text-copy max-[521px]:h-auto max-[521px]:min-h-[34px] max-[521px]:flex-wrap max-[521px]:justify-center max-[521px]:gap-y-px max-[521px]:px-[13px] max-[521px]:py-[7px] max-[521px]:text-center max-[521px]:text-[clamp(11px,calc((100vw_-_48px)/28.5),13px)]">
 				<Icon name="heroPin" size={24} />
 				<span>{SITE.location}</span>
 				<span
@@ -42,12 +42,12 @@ export function Hero() {
 				)}
 			</h1>
 
-			<p className="hero__deck mx-auto mt-6 max-w-[54ch] text-lead text-copy max-[860px]:max-w-[46ch]">
+			<p className="hero__deck mx-auto mt-6 max-w-[54ch] text-lead text-copy max-[861px]:max-w-[46ch]">
 				{HERO_DECK.map((run) => {
 					if (run.code) {
 						return (
 							<code
-								className="rounded-secondary border border-line-strong bg-panel px-1.5 py-px font-pixel text-ink max-[860px]:text-[18px]"
+								className="rounded-secondary border border-line-strong bg-panel px-1.5 py-px font-pixel text-ink max-[861px]:text-[18px]"
 								key={run.text}
 							>
 								{run.text}
@@ -67,7 +67,7 @@ export function Hero() {
 				})}
 			</p>
 
-			<div className="hero__actions mt-[30px] flex flex-wrap items-center justify-center gap-x-[14px] gap-y-3 max-[520px]:gap-x-3 max-[520px]:gap-y-2.5">
+			<div className="hero__actions mt-[30px] flex flex-wrap items-center justify-center gap-x-[14px] gap-y-3 max-[521px]:gap-x-3 max-[521px]:gap-y-2.5 print:hidden">
 				{/* biome-ignore lint/a11y/useSemanticElements: the prototype's labelled link strip is a group, not a form fieldset */}
 				<div
 					className="socials socials--fill inline-flex rounded-control"

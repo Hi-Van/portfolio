@@ -29,7 +29,7 @@ export function Clock() {
 			dateTime={reading.iso}
 		>
 			<span
-				className="eyebrow__weekday max-[520px]:hidden"
+				className="eyebrow__weekday max-[521px]:hidden"
 				data-clock-weekday
 			>
 				{reading.weekday}

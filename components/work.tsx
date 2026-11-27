@@ -18,7 +18,7 @@ export function Work() {
 				label="Work"
 				note={WORK_NOTE}
 			/>
-			<div className="rows mt-1 flex flex-col gap-[68px] max-[860px]:gap-[46px]">
+			<div className="rows mt-1 flex flex-col gap-[68px] max-[861px]:gap-[46px]">
 				{WORK_ROWS.map((row) => (
 					<WorkRow key={row.org} row={row} />
 				))}

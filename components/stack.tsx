@@ -22,7 +22,7 @@ export function Stack() {
 				{STACK_GROUPS.map((group) => (
 					<div
 						key={group.label}
-						className="stack__group grid grid-cols-[200px_1fr] gap-x-10 gap-y-1.5 border-t border-line py-5 first:border-t-0 max-[860px]:grid-cols-1 max-[860px]:gap-0 max-[860px]:py-4"
+						className="stack__group grid grid-cols-[200px_1fr] gap-x-10 gap-y-1.5 border-t border-line py-5 first:border-t-0 max-[861px]:grid-cols-1 max-[861px]:gap-0 max-[861px]:py-4"
 					>
 						<dt className="inline-flex items-center gap-2 pt-[3px] text-small font-medium tracking-[-0.01em] text-subtle">
 							<Icon name={group.icon} size={24} />

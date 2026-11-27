@@ -45,7 +45,7 @@ export function Footer() {
 			as="footer"
 			className="foot relative mt-[72px] flex flex-wrap items-center justify-between gap-x-6 gap-y-[10px] overflow-hidden pt-6 pb-[160px] text-small text-subtle before:absolute before:top-0 before:right-pad before:left-pad before:h-px before:bg-line-strong before:content-['']"
 		>
-			<div className="foot__main foot__inner relative z-10 flex w-full flex-wrap items-baseline justify-between gap-x-10 gap-y-[14px] max-[520px]:gap-y-0">
+			<div className="foot__main foot__inner relative z-10 flex w-full flex-wrap items-baseline justify-between gap-x-10 gap-y-[14px] max-[521px]:gap-y-0">
 				<p className="foot__who m-0 leading-[1.55] text-subtle">
 					<span className="foot__id foot__name whitespace-nowrap">
 						<b className="font-semibold text-copy">
@@ -68,7 +68,7 @@ export function Footer() {
 					{FOOTER.nav.map((item) => (
 						<a
 							key={item.href}
-							className="inline-flex min-h-11 items-center hover:text-ink"
+							className="inline-flex min-h-11 min-w-11 items-center justify-center hover:text-ink"
 							href={item.href}
 						>
 							{item.label}
@@ -76,11 +76,11 @@ export function Footer() {
 					))}
 				</nav>
 			</div>
-			<div className="foot__meta relative z-10 order-3 mt-[22px] flex basis-full flex-wrap items-baseline justify-between gap-x-8 gap-y-1 text-[12px] text-subtle max-[520px]:mt-[14px]">
+			<div className="foot__meta relative z-10 order-3 mt-[22px] flex basis-full flex-wrap items-baseline justify-between gap-x-8 gap-y-1 text-[12px] text-subtle max-[521px]:mt-[14px]">
 				<span className="foot__made block">
 					<FooterRuns runs={FOOTER.made} />
 				</span>
-				<span className="foot__credit flex flex-col items-end gap-[2px] text-right max-[520px]:items-start max-[520px]:text-left">
+				<span className="foot__credit flex flex-col items-end gap-[2px] text-right max-[521px]:items-start max-[521px]:text-left">
 					{FOOTER.credits.map((line) => (
 						<span key={line[0].key}>
 							<FooterRuns runs={line} />

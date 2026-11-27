@@ -4,7 +4,7 @@ import type { WorkRow as WorkRowData } from '@/content/types';
 export function WorkRow({ row }: { row: WorkRowData }) {
 	return (
 		<article className="row">
-			<div className="row__head flex items-start gap-3.5 max-[860px]:flex-wrap">
+			<div className="row__head flex items-start gap-3.5 max-[861px]:flex-wrap">
 				<div className="row__titles min-w-0 flex-1">
 					<h3 className="row__title flex items-start gap-2 text-[20px] leading-[1.3] font-medium tracking-[-0.015em]">
 						<Icon
@@ -31,7 +31,7 @@ export function WorkRow({ row }: { row: WorkRowData }) {
 						</span>
 					</p>
 				</div>
-				<p className="row__when ml-auto flex flex-none items-center gap-[7px] pt-[5px] text-small font-medium whitespace-nowrap text-subtle tabular-nums max-[860px]:mt-1 max-[860px]:ml-0 max-[860px]:basis-full max-[860px]:pt-0">
+				<p className="row__when ml-auto flex flex-none items-center gap-[7px] pt-[5px] text-small font-medium whitespace-nowrap text-subtle tabular-nums max-[861px]:mt-1 max-[861px]:ml-0 max-[861px]:basis-full max-[861px]:pt-0">
 					<Icon
 						name="calendar"
 						size={16}
@@ -44,11 +44,11 @@ export function WorkRow({ row }: { row: WorkRowData }) {
 				{row.items.map((item, index) => (
 					<li
 						key={`${row.org}-${index}`}
-						className="item grid grid-cols-[132px_1fr] gap-x-7 gap-y-1 border-b border-line py-[13px] last:border-b-0 last:pb-[2px] max-[860px]:grid-cols-1 max-[860px]:gap-y-1.5 max-[860px]:py-3 max-[860px]:last:pb-[2px]"
+						className="item grid grid-cols-[132px_1fr] gap-x-7 gap-y-1 border-b border-line py-[13px] last:border-b-0 last:pb-[2px] max-[861px]:grid-cols-1 max-[861px]:gap-y-1.5 max-[861px]:py-3 max-[861px]:last:pb-[2px]"
 					>
 						{item.figure ? (
-							<span className="item__metric flex flex-col gap-0.5 max-[860px]:flex-row max-[860px]:items-baseline max-[860px]:gap-[7px]">
-								<b className="font-pixel text-[22px] leading-[1.25] font-normal tracking-normal text-data tabular-nums max-[860px]:text-[20px]">
+							<span className="item__metric flex flex-col gap-0.5 max-[861px]:flex-row max-[861px]:items-baseline max-[861px]:gap-[7px]">
+								<b className="font-pixel text-[22px] leading-[1.25] font-normal tracking-normal text-data tabular-nums max-[861px]:text-[20px]">
 									{item.figure}
 								</b>
 								<span className="text-micro leading-[1.3] font-medium tracking-[0.01em] text-subtle">

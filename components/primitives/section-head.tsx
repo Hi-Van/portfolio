@@ -19,7 +19,7 @@ export function SectionHead({
 	return (
 		<div
 			className={cn(
-				'section__head flex items-baseline justify-between gap-6 border-b border-line-strong pb-[18px] max-[520px]:flex-col max-[520px]:gap-1.5',
+				'section__head flex items-baseline justify-between gap-6 border-b border-line-strong pb-[18px] max-[521px]:flex-col max-[521px]:gap-1.5',
 				className
 			)}
 		>

@@ -22,7 +22,7 @@ export function About() {
 				label="About"
 				note={ABOUT_NOTE}
 			/>
-			<div className="about about__grid grid grid-cols-[180px_minmax(0,1fr)_260px] items-start gap-x-12 pt-[26px] max-[1080px]:grid-cols-[168px_minmax(0,1fr)] max-[1080px]:gap-x-8 max-[1080px]:gap-y-2 max-[860px]:grid-cols-1 max-[860px]:gap-1.5">
+			<div className="about about__grid grid grid-cols-[180px_minmax(0,1fr)_260px] items-start gap-x-12 pt-[26px] max-[1081px]:grid-cols-[168px_minmax(0,1fr)] max-[1081px]:gap-x-8 max-[1081px]:gap-y-2 max-[861px]:grid-cols-1 max-[861px]:gap-1.5">
 				<p className="about__short label inline-flex items-center gap-2 self-start text-micro font-medium tracking-[0.1em] text-subtle uppercase">
 					{ABOUT_LABEL}
 				</p>
@@ -44,7 +44,7 @@ export function About() {
 						</p>
 					))}
 				</div>
-				<dl className="facts grid gap-0 max-[1080px]:col-start-2 max-[1080px]:mt-[30px] max-[860px]:col-start-auto max-[860px]:mt-6">
+				<dl className="facts grid gap-0 max-[1081px]:col-start-2 max-[1081px]:mt-[30px] max-[861px]:col-start-auto max-[861px]:mt-6">
 					{ABOUT_FACTS.map((fact) => (
 						<div
 							key={fact.term}

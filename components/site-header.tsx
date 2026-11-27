@@ -14,6 +14,12 @@ import { useTheme } from '@/components/use-theme';
 import { SITE } from '@/content/site';
 import { cn } from '@/lib/utils';
 
+// The prototype captures its scroll baseline when the script runs, before the
+// reader has moved the page. This module is evaluated before `load`, so it is
+// the same baseline in the port; taking it in the effect would be too late if
+// hydration finished after the first scroll.
+const initialScrollY = typeof window === 'undefined' ? 0 : window.scrollY;
+
 function BrandName() {
 	return (
 		<span className="brand__name font-pixel text-[18px] leading-none font-normal tracking-[0] whitespace-nowrap">
@@ -61,7 +67,7 @@ export function SiteHeader() {
 		const header = headerRef.current;
 		if (!header) return;
 
-		lastYRef.current = window.scrollY || 0;
+		lastYRef.current = initialScrollY;
 
 		const onScroll = () => {
 			const y = window.scrollY;
