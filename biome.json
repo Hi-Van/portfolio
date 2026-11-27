@@ -13,7 +13,8 @@
 			"!**/out",
 			"!**/test-results",
 			"!**/playwright-report",
-			"!**/blob-report"
+			"!**/blob-report",
+			"!next-env.d.ts"
 		]
 	},
 	"formatter": {
