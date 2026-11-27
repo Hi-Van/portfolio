@@ -1,4 +1,24 @@
 import type { Metadata, Viewport } from 'next';
+import { Geist_Pixel, Instrument_Sans } from 'next/font/google';
+import { SkipLink } from '@/components/skip-link';
+import './globals.css';
+
+const geistPixel = Geist_Pixel({
+	subsets: ['latin'],
+	weight: '400',
+	variable: '--font-geist-pixel',
+	display: 'swap',
+});
+
+const instrumentSans = Instrument_Sans({
+	subsets: ['latin'],
+	style: ['normal', 'italic'],
+	variable: '--font-instrument-sans',
+	display: 'swap',
+});
+
+const themeScript =
+	'try{var t=localStorage.getItem("vs-theme");if(t)document.documentElement.setAttribute("data-theme",t);}catch(e){}';
 
 export const metadata: Metadata = {
 	title: 'Van Sirisouk, software engineer',
@@ -16,8 +36,18 @@ export default function RootLayout({
 	children: React.ReactNode;
 }>) {
 	return (
-		<html lang="en">
-			<body id="top">{children}</body>
+		<html
+			lang="en"
+			className={`${geistPixel.variable} ${instrumentSans.variable}`}
+			suppressHydrationWarning
+		>
+			<head>
+				<script dangerouslySetInnerHTML={{ __html: themeScript }} />
+			</head>
+			<body id="top">
+				<SkipLink />
+				{children}
+			</body>
 		</html>
 	);
 }
