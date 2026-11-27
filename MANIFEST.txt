@@ -1,0 +1,501 @@
+Concept build: agreement-1
+A single-page portfolio direction. Open index.html directly. There is no build step.
+
+Source files
+DESIGN.md                          the token spec: YAML front matter plus the rationale, canonical sections.
+                                   Lints clean (`npx -y @google/design.md lint DESIGN.md`). Role colours are
+                                   compared against site.css by `python3 scripts/check-design-tokens.py
+                                   DESIGN.md site.css`, which must print "6 role colours match". Dark-theme
+                                   values live in the Colors prose, because the spec has no theme axis.
+README.md                          what the folder is, how to run it, the rules the page holds itself to
+AGENTS.md                          orientation for coding agents: read order, file map, commands, invariants, traps
+PORTING.md                         how to rebuild this in a framework: content model, component inventory,
+                                   behaviour specs, accessibility contract, acceptance checks
+index.html                           63291 bytes  e196b16b190ed0900cc888e8f0804b71a2be48f8953632335e40c4f889ed8d6f
+site.css                           27320 bytes  c807b369615118a5215992cf3ef6879d147f2d0fa7c3d02b898eb84896a63ee7
+app.js                             4706 bytes  808862ccee5f30054564bbcd6eaab2e14c668be7245444118e220a606d6cdd2c
+
+Fonts (Google Fonts, SIL OFL 1.1, self-hosted, variable, latin subset, no network)
+assets/fonts/fraunces-var.woff2        67388 bytes  48282a415ec22e31beaf0a0666e6fae0c8cbddcd0b1f6e729f27c3ade8a64e43
+assets/fonts/instrument-sans-var.woff2 29904 bytes  6219bc4bfdfc5d9b2201dcdf046218b122a758f932e25ed5f168f929b7ca2311
+assets/fonts/OFL-fraunces.txt         licence
+assets/fonts/OFL-instrument-sans.txt  licence
+assets/fonts/FONTS.txt                sources, request URLs, hashes, why self-hosted
+
+Direction
+Type and spacing discipline from the General Intelligence Company: 13/15px interface sans at weight 500,
+one display tracking value, tight display leading, generous vertical rhythm.
+Layout from Notion: a centred statement, then one full-width band carrying three measured results. Nothing
+in a sidebar.
+Colour carries meaning. Indigo marks measured values, clay marks assumptions. One display face (Fraunces),
+one interface face (Instrument Sans). No third.
+
+Page structure
+Hero, About, Stack, Work, then the footer. Four sections, in the owner's order: who he is, what he works
+with, then the roles. Work used to sit directly under the hero and now closes the page, which puts the longest
+table last and the two short blocks early.
+The nav follows the page in the same order, About / Stack / Work, in the island, the mobile menu and the
+footer. One consequence the owner may want to revisit: the hero's "See the work" button now jumps past two
+sections to the bottom of the page.
+There is no Contact section. The owner cut it and folded its contents into the hero: GitHub, LinkedIn and
+Email sit as one segmented control beside the primary "See the work", so the page opens with the way in
+rather than repeating it 4,000 pixels later. The résumé link that lived in Contact moved to the footer.
+The social control is icons only: no labels, 52px segments with 1px dividers inside a single 44px pill.
+
+Weight was flipped on request: the social group is now the FILLED control (`.socials--fill`, ink fill, paper
+icons) and the CTA is the OUTLINED one (`.btn--line`, ink text).
+
+The dark ramp is near neutral by request. Ground and hairlines were desaturated from 25-33% to 9-11% chroma at
+the same lightness, so `--paper` #101114 reads as charcoal rather than blue-black; `--panel` #191a1e,
+`--card` #1f2126, `--line` #292c31 and `--line-strong` #383c44 follow it. Text keeps a faint cool tint (`--ink`
+#f1f2f5, `--body` #c3c9d6, `--muted` #99a1b2) so the page still reads ink-blue rather than grey, and `--data`
+#a9b3ff is now the only saturated blue in dark mode. Contrast on the new ground: ink 16.9:1, body 11.4:1,
+muted 7.3:1, data 9.5:1.
+
+The group takes the PRIMARY button's fill, not a variant of it: `--ink` ground, `--paper` glyph, the same
+inversion in dark mode. Its one difference from `.btn--fill` is a 2px outline in `--chip-line`.
+
+`--chip-line` is the chip's own hue and chroma lifted one lightness step: #2f406a edging #131a2b in light,
+#b2b7c8 edging #f1f2f5 in dark. Two earlier answers were rejected as "the colours don't feel like they belong",
+and the reason was measurable in both cases. The crossed-over `--line-inverse` is a near-neutral grey (H220 S10%)
+against a saturated navy chip (H222 S39%) in light mode, and in dark mode it is warm cream #d3d3cc (H60 S7%)
+against cool white #f1f2f5 (H225 S17%): in each case the outline and the chip were drawn in different materials.
+Keeping the hue and only moving lightness makes the pill read as one object with a lit edge, a keycap.
+
+The edge is 1px, not 2px: at 2px on a 44px chip the outline outsized the thing it outlined. The border must
+still differ from the fill in some way, because an ink border on an ink ground makes the outline and both
+dividers vanish into the slab. The segments overlap by the full 2px
+(`margin-left: -1px`), so the shared edge reads as one 1px divider rather than a doubled 2px seam, and the chip
+is border-box, so the 44px height and 52px width are unchanged. Measured at 1x, the painted dividers are single
+device pixels at offsets 51 and 102.
+
+The CTA draws its rim from `--line-strong` too. Hover LIFTS the fill rather than darkening it: #232c45 in light
+mode (the ink mixed 18% toward paper, a visible step that keeps the paper icon at contrast; the primary's own
+#1d2740 sits too close to the ink to register), and #dfe3ea in dark. The dark hover has to move DOWN, not up: the chip is light there, and the previous #f5f6f8
+measured 1.03:1 against the #f1f2f5 chip, so hovering did nothing visible. The
+CTA keeps `order: -1` on a phone, so the action still comes first in the stacked layout even though it is no
+longer the heaviest thing on the row. The filled group needs `outline-color: var(--paper)` for its inset
+focus ring, because the site-wide ring is indigo and indigo disappears on an ink fill. Each link carries its
+name in aria-label, which is what the labels were doing before. On mobile the group spans the column,
+splits into three equal segments, and sits under the primary: the action comes first on a phone, then the
+ways to reach him. That is done with order:-1 on the primary, so the DOM keeps the group first and only the
+visual order changes.
+The "Answers in a day. Résumé on request." line that sat under the buttons is gone at the owner's request; the
+hero now goes straight from the buttons to the band.
+Contact also happened to be the only block whose rule sat above its label rather than under it, so the page
+lost its one stray divider in the process.
+The hero carries the statement, two buttons, and the band under the label "Cooler parts of my experience":
+three numbers, each with a unit and one sentence about what produced it.
+Button weights are the owner's call: "See the work" is the filled primary in the second slot, and "Email me"
+is the outlined secondary in the first. That reads as the right hierarchy for a portfolio, where the work
+should be one click away, and it puts the bow on ink where its silver head reads best.
+Sections are separated by air, not by rules. There is no divider between sections: 124px between one block's
+last line and the next block's label on desktop, 92px on mobile, against 68px and 46px between the roles
+inside Work. The ratio is what does the grouping.
+Each block closes itself instead. The band ends on a rule, the work table ends on a rule, the stack table and
+the facts table each end on one. A section's label then carries its own rule underneath, and content follows
+immediately. So a reader sees: content, its closing rule, air, the next label, the label rule, content.
+The footer does not add a rule of its own: the facts table already closes About, and a footer border would
+put two lines about 20px apart at the end of the page. It uses padding instead.
+
+Footer
+One row on paper: name, role and year on the left, About / Stack / Work / Résumé / Top on the right, the icon
+credit under the name, and the level scene along the bottom.
+The only thing separating it from the page is a single 1px --line-strong rule above it, drawn by
+::before at inset var(--pad) so it lines up with every other rule in the page rather than with the shell's
+outer box. 72px of margin sits above the rule and 40px below it.
+Two versions were rejected before this one: a full-bleed panel with a display-serif signature, and a footer
+split into three labelled columns with hairlines between them. The owner wanted the footer distinguished from
+the sections, not sectioned internally, and a rule plus air does exactly that.
+Because the footer now owns the closing rule, the work table gave up its own border-bottom. Two rules 72px
+apart at the same width read as a mistake.
+Footer links keep the site's 44px minimum target and sit at an 18px gap on one line; on mobile the row wraps
+and the links stay on a single line under the name.
+
+Footer scene
+A flat pixel level along the bottom edge: nine hills forming a rolling horizon, six bushes, five pipes of
+different heights, a block group at the start of the level, one jump pit, a flag, and brick ground. No clouds.
+1144x128 box, 1:1 with the footer box at the 1080 frame.
+It borrows the composition of a side-scrolling level, not anyone's sprites. No character, no coins, no question
+block; that block was removed on the owner's call because it is the most identifiable Nintendo asset here.
+One unit, U = 6px, after the scene was zoomed out a quarter from a U = 8 build. Every element is a whole
+number of U:
+  pipe shaft    4U        24; mouth 5U = 30, lip 2U = 12
+  pipe heights  9U / 7U / 5U / 4U / 4U     54 / 42 / 30 / 24, plus one at 11U = 66
+  flagpole      1U x 11U  6 x 66
+  pennant       3U tapering to 1U in 1U steps, 3U tall
+  hill base     22U to 40U, 3 to 11 steps of 1U, inset 2U per side per step
+  bush          4U x 3U   24 x 18
+  brick         22px face with 2px mortar = 4U pitch, 9px course
+Hills run from 18 to 66 tall so the horizon has peaks and dips rather than one repeated bump. Pipes come in five
+heights: 66, 54, 42, 30 and 24.
+The pit at x 690 to 770 breaks the floor and the seam only. carve() is applied to the floor courses and
+nowhere else, so the hills keep running behind it.
+The pit's interior is filled in d-hill, the same tone as the hills, so the gap reads as background seen through a
+missing floor. Not paper, which reads as the page showing through and makes the level look cut in half; and not a
+dark void, which reads as a solid block sitting in the floor. There is no d-void class; do not reintroduce one.
+Both walls are lined the way the floor is lined, and the two lines join. The floor carries a 2px d-base lining
+along its top edge; each wall carries the same 2px d-base lining down its full depth, placed on the pit edge
+itself, x 690 on the left and x 768 on the right. That puts each vertical lining exactly where the horizontal
+lining stops, so the corner closes as one L instead of two lines that miss each other by 4px, which is what
+happened when the lining sat inside a separate wall face.
+Three earlier versions were wrong in different ways: carving the pit through the hills deleted the background the
+gap is meant to reveal; bare paper read as the page itself; a dark fill read as a block, not a hole.
+How the strip crops: preserveAspectRatio is xMaxYMax slice, so the art is anchored to its right edge and
+the left side is cropped away as the viewport narrows. A 390 wide window shows 754 to 1144: the flag, the last
+two pipes and the right hand hills. This was xMin for one pass, to keep the jump pit out of phone crops; the owner
+preferred the right edge, which keeps the flag in shot instead. Note that the right anchor does put 16px of the
+pit on a 390 wide screen, at the very left edge.
+Mortar is the floor only.
+Blocks: one group, a single row of four at x 360 to 432 on row 3 (y 56), sitting between the first two pipes
+rather than at the very start. No stacked blocks: a second tier was drawn and then removed on the owner's call.
+Paint order matters here. Blocks are emitted after the hills, so they read as foreground; emitting them earlier
+in the file put them behind the hill and they were clipped by its silhouette, which looks like a rendering bug.
+Every position is a whole multiple of the block size in x and a whole number of blocks up from the floor line;
+they sit side by side or stack exactly and never stagger by a fraction of a block. A 6px-step diagonal run was
+drawn at one point and was wrong: it looked plausible but no such placement exists on the grid. The generator
+asserts this and reports 0 off-grid.
+One block in the group carries the accent: the fourth of the row, at x 414. It is the only colour in the scene
+apart from the pennant, and the position was picked at random to break the grey.
+Tones, solid colour-mix against --paper: d-hill 10%, d-bush 16%, d-ground 22%, d-block 24%, d-pipe 24%,
+d-base 28%, d-pole 32%, d-top 42%, d-accent 55% of --data, d-accent-lo 78% for the highlighted block's border.
+Pipes used to sit at 30%, within 2% of the floor's edging at 28%, and the two read as the same colour. Pipes are
+24% now, lighter than the edging and darker than the paving, so they read as objects standing on the floor. The spread matters: with hills, ground
+and blocks all inside 14 to 22% the variation existed but could not be seen. Hills are now the palest thing in
+the strip and the floor is the darkest large surface, so the horizon recedes.
+The canonical copy is assets/scene/foot-decor.svg; index.html inlines it verbatim.
+
+Icons
+Two sets, both credited in the footer as "Icons by Pxlkit and Pixelarticons". 24 symbols inlined in one
+sprite, no runtime fetch.
+pixelarticons, Gerrit Halfmann, MIT, 24 grid. Everything that has to be measured or read small:
+  menu, close, sun, moon                         navigation and the theme control
+  github, linkedin, mail                         the hero social chips
+  briefcase                                      the Work label
+  blocks, cart, card, globe, building            the employer mark on each role title
+  person, pin, calendar                          the field icons on company, city and date
+Pxlkit, Joangel De La Rosa, asset licence, 16 grid. The coloured content marks:
+  xp-bar -> chart        the Cooler parts label in the hero
+  gear -> code           the Stack label
+  friends -> user        the About label
+  grid -> layout         the Stack table, frontend
+  cloud-sync             the Stack table, backend
+  arrow (gamification)   the hero CTA arrow: a bow, at 24px, authored palette
+Render sizes are 24, 16 and nothing between. 24px is pixel exact for a 24 grid icon; 16px is two thirds and
+only survives because those glyphs are simple silhouettes.
+The CTA arrow is Pxlkit's bow from the gamification pack, in its authored palette, at 24px like the rest of
+the Pxlkit marks. At its native 16px the drawing read as a speck, because the art fills only 8 of the 16
+rows; at 32px it overpowered the label. 24px is the pass that does neither.
+The arrow carries a 1px rim: four hard drop-shadows one pixel out in each direction, no blur, in the divider
+colour (var(--line-strong), #d3d3cc light). Light mode only. That is the same token as the eyebrow separator,
+the section rules and the CTA's own border, so the arrow is edged in the page's line colour and not a new one. The CTA is now the outlined button, so the arrow sits on paper
+where its silver head (#C0C0C0) and white tip would otherwise dissolve into the page; the ink rim draws the
+sprite's edge for it. In dark mode the rim is switched off (`[data-theme="dark"] .ico--btn { filter: none }`)
+because against dark paper it reads as a halo rather than an edge. Drawn into the grid instead, the rim would need an 18 wide box, since the tip
+touches column 15, and that would put the art off the 1.5x scale. Licence copies in assets/icons/, usage notes in
+assets/icons/ICONS.txt.
+
+Colour and motion
+Pxlkit art is used as authored, each glyph carrying its own palette as inline hex. Fixed hex cannot follow the
+theme; measured against the surfaces it sits on, at-sign teal is 3.68:1 on paper and gear grey 3.00:1 on the
+dark panel.
+pixelarticons art uses currentColor, so it does follow the theme: --body for the employer mark, --muted for
+the field icons, --ink for navigation.
+Motion: i-code is spinning-gear, four frames on a 1.1s loop, step-end so nothing interpolates. Under
+prefers-reduced-motion it stops with frame one visible.
+Rejected: HackerNoon's Pixel Icon Library, because the npm package says MIT and the site says CC BY 4.0. A
+portfolio should not carry an attribution question it cannot settle.
+
+Cost of the pass
+Semantics: the Pxlkit section labels are approximations. About is two people, Stack is a gear. Pxlkit has no briefcase or chart that reads at this size.
+Legibility: Pxlkit's 16 grid at 24px is a 1.5x scale, so its label marks read softer than the Work icons,
+which are all pixelarticons on an exact 24 or 16. Work is now the crispest section on the page, which is
+appropriate since it carries the numbers.
+File size: the Pxlkit glyphs dominate index.html, because each is a rect per colour run rather than one path.
+Converting those runs to paths would cut it substantially if it ever matters.
+
+About section
+Three columns: a 180px label gutter, the prose, and a 260px profile column, 48px apart. 180 + 48 + 544 + 48 +
+260 = 1080.
+The facts used to sit under the prose as a 140px label / value table, which left the right third of the frame
+empty at the 1080 width. They now run in that third as a stacked card: small-caps muted label over the value,
+hairline between items, no rules in the gutter.
+The prose column at 544px carries about 62 characters a line, which is inside the target range, so moving the
+facts out cost nothing in measure.
+Breakpoints: at 1080 and below the grid drops to 168px + 1fr and the facts move under the prose in the body
+column, not into the gutter. At 860 and below everything stacks in one column, with the facts 24px below the
+prose. Both were checked; the first draft sent the facts into the 168px gutter at tablet width.
+
+Voice
+Written to match the live site at vansiriso.uk: first person, plain verbs, contractions, one idea per
+sentence, no em dashes. His own lines there ("Human visualizing 1&0 for other humans", "connecting people to
+products", "Part-time nerd") are direct and a little geeky, so the copy answers questions in the same
+register instead of writing about itself.
+Every sentence says who did the work. "The cleanup service made queries faster" became "I wrote the cleanup
+service that made queries 30% faster and saved $1,200 a year in storage".
+Rhetorical contrasts were cut. An old caption read "The mechanism, not the org chart"; it told you what the
+drawing was not instead of what it was.
+The h1 is the name now, not a thesis: "Vanouphon Sirisouk." with "Van", the "S" and the full stop in `--data`
+(.hero__mark). That monogram is the only chromatic accent in the hero, and the heading still reads as a plain name
+with the colour removed, so it is a signature and not decoration. The line is set in Geist Pixel (`--pixel`,
+self-hosted, 16.9 KB), not Fraunces: this is the one display line on the page that uses the pixel face, and the
+sections below stay serif. Pixel type has rules that serif settings break, so the h1 drops the negative tracking
+and the Fraunces variation axes, and its line-height goes to 1.06 instead of 0.99.
+The claim moved down into the deck: "Human visualizing 1&0 for other humans.", with the 1&0 set as inline `code` in
+the same face. The chip is 1em, not shrunken: below roughly 16px the stepped glyph edges smear. Panel tone,
+`--line-strong` hairline, small radius.
+
+Every figure on the page is in the pixel face too: `.band__num` (the three stats) and `.item__metric b` (the per-role
+metrics). Both drop negative tracking, pin `font-weight: 400` and set `font-synthesis: none`, because the face has no
+bold and a synthesised one smears the blocks. Sizes: `--t-num` for the band, 22px for the inline metrics. 22 is a
+floor, not a preference. At 18px the pixel steps resolve into a plain geometric and the numbers stop reading as
+pixel at all, while 24 starts to shout over the body copy. Serif headings (h2) stay Fraunces: the pixel face is the
+voice of the name and the numbers, not the page's default.
+Scanned after editing: no em dashes, en dashes, curly quotes, or terms from the AI-vocabulary list, and no
+sentence over 30 words outside the extracted SVG labels.
+
+Hero and the band
+The hero used to end in a diagram panel: three supplier files reconciling into one record and two surfaces,
+with a caption and a mobile list. The owner cut it. His reasons were that the drawing was unproven and
+unrelated to the page's argument, and he was right: it illustrated a mechanism, not an outcome, while the
+numbers that prove the work sat in a separate section below it.
+What replaced it is that section, moved up: the "Cooler parts of my experience" label and the three-cell band, now the last
+element of the hero. The label's right-hand note ("Atlassian since June 2025. Walmart, 2023 to 2025.") was
+cut at the owner's request, so the label stands alone above the figures. 832,000 page views, 28.1% retention, 450,000 records per second.
+The band keeps text-align left inside a centred hero, and the hero has no bottom padding now, so the band's
+closing rule is the section's closing edge and the next section's 124px does the separating.
+Removed with the diagram: 7.8KB of SVG, the figure caption, the mobile list, the figure and f-* CSS blocks,
+and four sprite symbols that nothing else used (files, database, monitor, upload) plus users, which the
+Atlassian mark stopped using when it became blocks. index.html went from 61,886 to 53622 bytes.
+
+Work section
+Five roles, one column each. Two icon-text rows and a date: the employer mark and the job title, then a
+person and the company with a pin and the city, then the date with a calendar pushed to the right edge by
+margin-left auto.
+The owner swapped the title and company icons, so the company's mark sits beside the job title and the person
+sits beside the company name. The mark keeps the stronger tone (ico--id, --body) and the field icons stay
+muted, which is what still distinguishes identity from label after the swap.
+Sizes: the title mark is 24px, the person, pin and calendar are 16px. All four centre in one 24px column at
+the content edge, the 16px ones carrying 4px of side margin, so every text run starts at the same x.
+The title icon is pinned to the first line (flex-start plus 5px) so a title that wraps to two lines does not
+leave the icon floating beside the break.
+Each role then lists its results as metric rows: a 132px column holding a compact figure in indigo with its
+unit beneath in 11px muted, and one sentence beside it. The point is that every figure sits on the same x
+down the page, so a reader can scan the numbers alone.
+Two items have no figure and keep an empty first column, so their sentences still start at the same x.
+Roles are separated by air alone, 68px on desktop and 46px on mobile, with no rule between them. The only
+lines inside the section are the ones above and between a role's metric items, which is what makes each role
+read as its own small table.
+On mobile the header wraps into four stacked rows, icons still in one column at x=24 and text at x=48.
+
+Shape: pills
+Every button and badge is a pill, radius 999px: the hero badge, the hero buttons, the segmented social group,
+the nav
+links, the island and its controls, the mobile menu row, the skip link, and the fact chips.
+The only remaining non-pill shape is the mobile dropdown, which is a surface rather than a control.
+The hero badge is the one piece of hero furniture that is not plain paper: it sits on `--panel`, #f4f4f1 in
+light and #202329 in dark, with the same 1px `--line-strong` hairline. The fill is what separates it from the
+prose below it; the hairline alone let it read as another line of text. `--panel` was declared but unused before
+this, so the badge is its first and only user. Light mode is at the pale end of the range: #ecece8 read as too dark a slab against pure white paper, and
+#f8f8f6 stops reading as a fill at all. #f4f4f1 is the lightest step that still lands as a surface.
+
+Chips and the badge carry horizontal padding of 16px and 13px so the rounded ends do not clip the text.
+
+Navigation
+A floating island, after the General Intelligence Company: fixed, 16px from the top, centred on the page,
+60px tall, 12px radius, hairline border, a glass fill with a backdrop blur.
+Glass, blur only: no frost. The fill is 38% paper and the backdrop filter is blur(16px) with no saturate.
+Border, inset highlight and shadow carry the edge so the pane still reads as a surface. Gated behind
+@supports, with the opaque card as the fallback.
+The distinction that matters: frost is a milky layer that lightens whatever sits behind the bar. Blur alone
+keeps the colours behind it and only softens their edges, so the bar looks like clear glass rather than
+frosted plastic.
+Consequence: over blank paper the bar renders white, because 38% white over white is white. The blur only
+registers when something passes beneath it.
+Legibility is a function of what is behind the bar. Over this page's light sections the labels sit at roughly
+8:1; over a dense dark panel they would drop toward 2:1. If a dark section is ever added behind the bar,
+raise the fill to 55-60% rather than raising the blur.
+Layout: radius 999px on a 60px bar, 640px minimum width. The 44px ghost circle sits 8px from the top, 8px
+from the bottom and 8px from the right outer edge, so it is concentric with the 30px pill cap. Padding is 7px
+because the bar's 1px border sits outside it; 8px put the circle 9px in and broke the symmetry. Left padding
+stays 22px for the brand.
+The navigation group is pushed right by margin-left auto, closes with 24px of padding before the toggle, and
+holds 44px links with 14px side padding and a 4px gap.
+Mobile pill is 56px tall, full width, padding 0 12px 0 16px, same 999px radius.
+The theme toggle is a 44px ghost circle: 1px border of ink at 22%, transparent fill at rest, on hover the
+border goes to full ink and a 3.5% ink tint fills the circle.
+On mobile the island toggle is hidden and the theme control moves inside the hamburger menu: a 48px row at
+the foot of the list, above a hairline, with the moon or sun icon, the label "Dark mode", and a 34x20 switch.
+Both buttons carry data-theme-toggle, and the script paints aria-pressed and the label on every one of them,
+so the island button hidden on mobile still holds the correct state when the breakpoint changes.
+Section scroll-margin-top is 112px and the hero top 116px.
+The theme toggle's light-side icon is Pxlkit full-moon: at 24px crescent-moon's bite closes up and reads as a
+letter C. full-moon reads as a disc with marks, so neither is ideal at this size.
+
+Behaviour
+Hides on scroll down past 180px, returns on scroll up or when focus enters it.
+A nav click pins it for one second, otherwise the jump itself hides the bar you just used.
+Every section id carries scroll-margin-top 112px, so a heading lands clear of the island.
+The mobile menu drops out of the island as an opaque paper panel, not a translucent one.
+The New York clock lives in the hero badge, after a hairline divider. It prints bare time because the badge
+already names the city, uses tabular numerals so the digits do not jitter, and refreshes every 15 seconds from
+America/New_York through Intl.DateTimeFormat, so a reader in another timezone still sees New York time.
+The zone abbreviation comes from the same formatter with timeZoneName short, so it prints EST in winter and
+EDT in summer without a hardcoded string. It renders at 11px with 0.06em tracking so it reads as a qualifier.
+The skip link is fixed above the island at z-index 70.
+
+Measure
+Content column 1080px inside a 1144px outer frame at 1440, body 17px. The owner asked for the column to grow
+twice: 900 to 1080 took the margins from 270px to 180px a side and the band cells from 300 to 360.
+The text measure did not grow with it. Prose stays capped at 600px, which measures 62 to 77 characters a line
+at 17px, and metric sentences stay at 60ch, about 72 characters at 16px. Raising the frame and the text column
+together is what got reverted once: at 660px the prose ran about 80 characters and the page lost its
+proportion. Width and measure are separate decisions, and the empty right margin inside a row is the price of
+keeping 70 characters.
+A band cell reads at 360px with the supporting sentence at three to four lines.
+The first build ran a 1200px frame at 16px, which measured 82 to 90 characters a line.
+The band's figures are 40px in Fraunces with tabular numerals, so 832,000 and 450,000 sit on the same optical
+width. Cells are 300px each, which is why the supporting sentences are two to three lines.
+
+Experience, sourced
+Every role, date, location and number comes from one of two places:
+  https://www.linkedin.com/in/van-s/  (pulled 2026-10-27)
+  the résumé image at media.licdn.com (read 2026-11-26, 1487x1925 PNG)
+  Atlassian, Software Engineer II, Growth, Jun 2025 to present, New York
+    28.1% D1 to D6 retention and 10% sign-ups on the JIRA Service Management authoring migration
+    832,000 page views and 18% engagement on the Team '26 Rovo tour, 3% of Atlassian.com traffic
+    content-to-ID mapping for AI recommendations, 40-visualization observability dashboard
+  Walmart Global Tech, Software Engineer, Merchant Tools, Aug 2023 to May 2025, Bentonville
+    390,000 submissions a day, 22% shorter sessions, 450,000 records per second, 30% faster queries
+  Synchrony, Software Engineer, Account Services, Sep 2022 to May 2023, Stamford
+    1,000,000+ accounts, alerts service on Kafka, 30% less alert development time
+  Meta, Software Engineer Intern, AI T&C, May 2022 to Aug 2022, New York
+    600,000 QPS, 350% platform performance, 67% smaller build
+  Edgewell Personal Care, System Engineer Intern, May 2021 to Jul 2021, Milford, Connecticut
+    $14,000 annual cloud cost removed, 17% more test coverage, 20,000 queries per second
+
+Two corrections the résumé forced
+  Walmart title is Software Engineer, Merchant Tools. The LinkedIn line "Product Categorization and
+  Placements" is the work, not the title.
+  Synchrony is a Software Engineer role in Account Services, not the internship the LinkedIn About text
+  implies. The page follows the résumé and splits it into its own row.
+  Edgewell is on LinkedIn and not on the résumé. Van asked for it to stay, so it is the fifth row. It is the
+  only row not on the résumé.
+
+The band carries three numbers from the two most recent employers: reach, retention, throughput. None of them
+appear anywhere else on the page in the same form, which is what keeps it from being a summary of a summary.
+The Stack section is the résumé's own two skill groups, verbatim.
+
+Verified this pass
+No section dividers: zero elements matching .section report a border-top width.
+At 1440, 1100, 960, 880 and 390: no horizontal overflow, no a or button under 44px.
+Document height 3,966px at 1440 and 5,624px at 390.
+All use references resolve to one of the 23 symbols; none point at a removed figure symbol.
+Heading outline runs h1 to h2 to h3 with no skipped level. Focus ring on every control, skip link first in
+tab order, reduced motion respected.
+Not verified by tooling: colour contrast of the Pxlkit palettes against both themes, which was measured by
+hand and is recorded in assets/icons/ICONS.txt.
+
+Preview captures
+preview/home-1440-full.png        full page
+preview/home-1440-hero.png        hero with the band
+preview/home-1440-work.png        work, first two roles
+preview/home-1440-work-b.png      work, lower roles
+preview/home-1440-stack.png       stack
+preview/home-1440-about.png       about
+preview/home-1440-footer.png      about's close and the footer
+preview/home-390-hero.png         mobile hero
+preview/home-390-work.png         mobile work
+preview/home-1440-dark-*.png      dark theme
+preview/island-*.png              the island, light and dark
+preview/zoom-head.png             one role header at 3x
+
+Placeholder before this ships
+The résumé link in the footer points at a mailto, not a file. Send the PDF and it becomes a download.
+The GitHub handle comes from the earlier build and is not on the résumé, so confirm it is still the one to show.
+
+Footer credits
+The footer is text only. Two rows, no controls: row one is `.foot__main`, "Van Sirisouk, Software Engineer. 2026."
+on the first line with the mail link alone beneath it, and the nav right-aligned. That sentence is one unit:
+`.foot__id` carries `white-space: nowrap`, so it never breaks mid-sentence at a narrow width, and the title is
+title-cased while the rest of the page still uses sentence case for the same role; row two is `.foot__meta` at 12px,
+muted, with the "Made with" line on the left and the tool and icon credits on the right, so the width is used
+without adding furniture. The credits close the row right-aligned against the nav above, and fall back to the
+left edge once the meta block stacks on a phone. Both blocks align to the top of the row, so the single made
+line sits level with the first credit line rather than sinking to the second. Horizontal: the text and the rule sit on `var(--pad)`. The level is the full footer box at every width,
+`left: 0; right: 0; width: 100%`, so it bleeds `var(--pad)` past the column on each side.
+  - Desktop, 861px and up: a mask does the framing, not the box width. Stops are `transparent 0` → `#000 var(--pad)`
+    → `#000 calc(100% - var(--pad))` → `transparent 100%`, so the level is clear at its own edges and reaches full
+    opacity exactly where the content column starts and ends. The landscape's visible weight is the column; the
+    32px outside it is pure dissolve. Do not solve this by setting the box to the column width instead: the art is
+    1144 wide, so a column-width box crops it and the ends read as a slice through hills and bricks.
+  - 860px and below: no mask at all. The level runs to both screen edges, past the 24px text margins, and the frame
+    edge is the screen edge, so there is nothing to hide.
+An extra 24px inset on the words was tried and reverted: it only ever looked intentional on text, never on the rule
+or the level.
+
+The scene is `assets/scene/foot-decor.svg`, inlined in index.html, 187 rects in a 1144x128 box, panning from the
+right on narrow screens. Every fill is a `color-mix` of `--ink` at a fixed percentage (classes .d-hill .d-bush
+.d-block .d-ground .d-base .d-top .d-pipe .d-pole .d-accent .d-accent-lo), so it fades with the theme and stays
+behind the text. A NES Super Mario palette was tried and rejected: fixed hex fills made the strip read as a bright
+pasted-on band and flattened the page, because the scene stopped responding to the theme at all. Keep the tones
+derived from --ink.
+
+A second hill plane was built as `foot-decor-depth.svg` (ten hills, 12 to 36px, 1 to 5 steps, tone at 15% of --ink
+which had to sit between the background hills at 10% and the bushes at 16%) and rejected live: ten crossing
+silhouettes read as noise at 1x, because every crossing adds a stepped corner to parse and the page above is
+already quiet. The file and its .d-hill-mid class were deleted on 2026-11-27. Nothing in the live scene changed:
+index.html still inlines foot-decor.svg, the one-plane original, 187 rects.
+
+What a retry would need, so the drawing does not start from nothing: three or four low hills at 12 to 18px rather
+than ten, no crossings over the tall background peaks, depth from the silhouette crossing and never from an
+outline (a 2px contour per step reads as horizontal stripes), the same 6px steps and 12px inset as the background
+hills, the same ground line at y=110, and nothing above y=68. Judge at 1x, not on a zoom.
+
+Vertical order, measured rather than eyeballed. `.foot__main` aligns on the BASELINE, not on the box top: the
+nav's links are 44px targets with their text centred, so flex-start dropped "About" 12px below "Van Sirisouk" and
+the two halves of the row read as unaligned. On a baseline they share one line whatever the box heights are, and
+`.foot__meta` does the same so the made line and the first credit line sit level.
+Rhythm, measured from the boundary rule to the text, not to the box: 37px to the first line, 36px between the
+two rows, 32px from the last credit line to the level scene. The 37 comes from 24px of padding plus the line box;
+48px of padding put 61px of air under the rule, which read as a gap rather than a section opening.
+On a phone the nav drops to its own line, where those 44px boxes add 12px of air above their text, so the row gap
+goes to 0 and the meta margin to 14px; measured gaps there are 16, 40 and 32.
+
+Type carries the hierarchy, in two devices with one job each. Bold marks the person: `Van Sirisouk` is the only
+bold text in the footer, so the name is the one thing the eye lands on. Italic marks a lead-in, the verb that
+introduces a list of names ("Made with", "Built with", "Icons by"), which separates the label from the proper
+nouns without capitals or a second colour. Nothing else is emphasised; a footer with four competing emphases
+is worse than one with none.
+
+The italics are real files, not synthesised: the roman woff2 files carry no italic axis, so `font-style: italic`
+was shearing the roman, which is visible at 12px on a serif page. `assets/fonts/instrument-sans-italic.woff2`
+is now declared and used; `fraunces-italic.woff2` is declared but unused, so the browser never requests it.
+
+Every size is the one the footer already had: 13px for the name, mail and nav, 12px for both credits. The place
+comes out of the identity line: the year stays there, and New York survives only in the made line.
+
+A fuller version was built first and rejected as too busy: a 34px Fraunces mail call-to-action, the social icon
+group, a "Say hello" and an "Index" label, and a "Back to top" pill. Four new controls in a footer that needs
+none. If the footer ever needs more presence, add line length and space, not elements.
+  Made with [heart] by [user] and [robot] in New York
+  Built with DeepSeek, Hermes Agent, and OpenCode.
+  Icons by Pxlkit and Pixelarticons.
+The made line carries no words for what the glyphs show: the heart is the love, the figure is the human and the
+robot is the machine, so "humans" and "AI" were cut. The tools credit and the icon credit are different kinds of
+statement and read as two lines rather than one sentence split by a full stop. They close the meta row, with the
+made line on the left; both blocks align to the top of the row so the single made line sits level with the first
+credit line instead of sinking to the second.
+The three glyphs are Pxlkit's own, converted from the pack source grids (heart from gamification, add-user's
+figure from social, robot from ui) so the palettes are authored: red heart, blue person, grey and teal robot.
+The human is Pxlkit's `User` mark from @pxlkit/social, not its `friends` mark: friends is two figures and already
+belongs to the About label as `i-user`. Take `User` from the published package (@pxlkit/social v1.2.5, 47 icons)
+rather than the GitHub repo, whose main branch has 43 and no user.ts. They
+render at 16px, one unit per pixel, because 14px would be a 0.875 scale and smear. Like every other Pxlkit mark
+on the page their colour is fixed and does not follow the theme. See ICONS.txt for the palettes and paths.
+The sentence reads "Made with [heart] by [human] humans and [robot] AI in New York", which is the owner's
+correction from "Made with ... humans and ... AI by in New York".
+Tools are attributed, not just named: DeepSeek, Hermes Agent and OpenCode are links, as Pxlkit and Pixelarticons
+already were. Credit links stay inline (`min-height: 0`), so they are word-sized rather than 44px targets; that is
+deliberate for a credit line and matches the two asset credits that came before them. That override needs to
+out-specify `.foot a` (hence `.foot .foot__credit a`), which otherwise inflated every credit line to a 44px box.
