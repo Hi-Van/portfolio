@@ -1,0 +1,46 @@
+{
+	"name": "van-sirisouk",
+	"version": "0.1.0",
+	"private": true,
+	"scripts": {
+		"dev": "next dev",
+		"build": "next build",
+		"serve": "serve out -l 3100",
+		"lint": "biome check",
+		"format": "biome format --write",
+		"typecheck": "tsc --noEmit --incremental false",
+		"test:e2e": "npm run build && playwright test --project=chromium",
+		"test:browsers": "npm run build && playwright test --project=firefox --project=webkit",
+		"lint:design": "npx -y @google/design.md lint DESIGN.md",
+		"check": "node scripts/check.mjs"
+	},
+	"dependencies": {
+		"@base-ui/react": "^1.9.0",
+		"@pxlkit/core": "1.4.0",
+		"@pxlkit/gamification": "1.2.5",
+		"@pxlkit/social": "1.2.5",
+		"@pxlkit/ui": "1.2.6",
+		"@pxlkit/weather": "1.2.5",
+		"class-variance-authority": "^0.7.1",
+		"cn": "^0.5.2",
+		"next": "16.4.6",
+		"pixelarticons": "2.4.2",
+		"react": "19.3.0",
+		"react-dom": "19.3.0",
+		"shadcn": "^4.23.1",
+		"tw-animate-css": "^1.4.0"
+	},
+	"devDependencies": {
+		"@axe-core/playwright": "4.14.0",
+		"@biomejs/biome": "2.4.2",
+		"@playwright/test": "1.64.1",
+		"@tailwindcss/postcss": "4.3.3",
+		"@types/node": "24.19.2",
+		"@types/react": "^19",
+		"@types/react-dom": "^19",
+		"postcss": "^8.5.0",
+		"serve": "14.2.4",
+		"tailwindcss": "4.3.3",
+		"typescript": "^5"
+	}
+}
