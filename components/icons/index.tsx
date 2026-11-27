@@ -3,7 +3,7 @@ import { renderIconDataUri } from '@pxlkit/core/vanilla';
 import { Arrow, Heart, XpBar } from '@pxlkit/gamification';
 import { Friends, User as SocialUser } from '@pxlkit/social';
 import { CloudSync, Grid, Robot } from '@pxlkit/ui';
-import { Compass, CrescentMoon } from '@pxlkit/weather';
+import { Compass, Moon } from '@pxlkit/weather';
 import {
 	Blocks,
 	Briefcase,
@@ -55,7 +55,7 @@ export const ICONS = {
 	about: { kind: 'pxlkit', icon: Friends },
 	frontend: { kind: 'pxlkit', icon: Grid },
 	backend: { kind: 'pxlkit', icon: CloudSync },
-	themeMoon: { kind: 'pxlkit', icon: CrescentMoon },
+	themeMoon: { kind: 'pxlkit', icon: Moon },
 	arrow: { kind: 'pxlkit', icon: Arrow },
 	heart: { kind: 'pxlkit', icon: Heart },
 	footerUser: { kind: 'pxlkit', icon: SocialUser },

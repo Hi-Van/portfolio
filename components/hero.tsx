@@ -47,7 +47,7 @@ export function Hero() {
 					if (run.code) {
 						return (
 							<code
-								className="rounded-secondary border border-line-strong bg-panel px-1.5 py-px font-pixel text-ink max-[861px]:text-[18px]"
+								className="rounded-secondary border border-line-strong bg-panel px-1.5 py-px font-pixel text-ink max-[861px]:text-[18px] max-[861px]:leading-[26.5px]"
 								key={run.text}
 							>
 								{run.text}

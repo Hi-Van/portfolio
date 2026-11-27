@@ -52,6 +52,11 @@ export function ThemeSwitch({
 
 	return (
 		<div className="flex h-12 w-full items-center gap-2.5 border-t border-line px-3.5">
+			{dark ? (
+				<AnimatedIcon name="themeSun" size={24} />
+			) : (
+				<Icon name="themeMoon" size={24} />
+			)}
 			<Label
 				htmlFor={id}
 				className="flex-1 text-nav font-medium text-ink"
