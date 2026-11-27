@@ -1,0 +1,77 @@
+/* Footer scene. An original pixel diorama in the shape of a side-scrolling
+   first level. Every tone is the ink token mixed into the paper token, so the
+   art follows the theme and never competes with the footer text. */
+.foot__decor {
+	position: absolute;
+	right: 0;
+	bottom: 0;
+	left: 0;
+	width: 100%;
+	height: 128px;
+	pointer-events: none;
+	z-index: 0;
+}
+
+/* Solid colour-mix tones, not alpha: the shapes overlap, and two stacked
+   fills would compound. The tones recede from hill to ground to base. */
+.d-hill {
+	fill: color-mix(in srgb, var(--ink) 10%, var(--paper));
+}
+
+.d-bush {
+	fill: color-mix(in srgb, var(--ink) 16%, var(--paper));
+}
+
+.d-block {
+	fill: color-mix(in srgb, var(--ink) 24%, var(--paper));
+}
+
+.d-ground {
+	fill: color-mix(in srgb, var(--ink) 22%, var(--paper));
+}
+
+.d-base {
+	fill: color-mix(in srgb, var(--ink) 28%, var(--paper));
+}
+
+.d-top {
+	fill: color-mix(in srgb, var(--ink) 42%, var(--paper));
+}
+
+.d-pipe {
+	fill: color-mix(in srgb, var(--ink) 24%, var(--paper));
+}
+
+.d-pole {
+	fill: color-mix(in srgb, var(--ink) 32%, var(--paper));
+}
+
+.d-accent {
+	fill: color-mix(in srgb, var(--data) 55%, var(--paper));
+}
+
+.d-accent-lo {
+	fill: color-mix(in srgb, var(--data) 78%, var(--paper));
+}
+
+/* Desktop: the level bleeds the footer box and is opaque exactly at the
+   content column edges, so the visible weight is the column and the extra
+   pad on each side is a dissolve rather than a crop. */
+@media (min-width: 861px) {
+	.foot__decor {
+		-webkit-mask-image: linear-gradient(
+			90deg,
+			transparent 0,
+			#000 var(--pad),
+			#000 calc(100% - var(--pad)),
+			transparent 100%
+		);
+		mask-image: linear-gradient(
+			90deg,
+			transparent 0,
+			#000 var(--pad),
+			#000 calc(100% - var(--pad)),
+			transparent 100%
+		);
+	}
+}
