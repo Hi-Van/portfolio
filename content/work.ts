@@ -1,9 +1,16 @@
-import type { IconName } from '@/components/icons';
+import {
+	Blocks,
+	Building,
+	CreditCard,
+	Globe,
+	ShoppingCart,
+} from 'pixelarticons/react';
+import type { ComponentType, SVGProps } from 'react';
 
 export type WorkRowData = {
 	org: string;
 	city: string;
-	icon: IconName;
+	icon: ComponentType<SVGProps<SVGSVGElement>>;
 	title: string;
 	dates: string;
 	items: { figure?: string; figureLabel?: string; text: string }[];
@@ -17,7 +24,7 @@ export const WORK_ROWS: WorkRowData[] = [
 	{
 		org: 'Atlassian',
 		city: 'New York',
-		icon: 'blocks',
+		icon: Blocks,
 		title: 'Software Engineer II, Growth',
 		dates: 'Jun 2025 to now',
 		items: [
@@ -44,7 +51,7 @@ export const WORK_ROWS: WorkRowData[] = [
 	{
 		org: 'Walmart Global Tech',
 		city: 'Bentonville, Arkansas',
-		icon: 'cart',
+		icon: ShoppingCart,
 		title: 'Software Engineer, Merchant Tools',
 		dates: 'Aug 2023 to May 2025',
 		items: [
@@ -68,7 +75,7 @@ export const WORK_ROWS: WorkRowData[] = [
 	{
 		org: 'Synchrony',
 		city: 'Stamford, Connecticut',
-		icon: 'card',
+		icon: CreditCard,
 		title: 'Software Engineer, Account Services',
 		dates: 'Sep 2022 to May 2023',
 		items: [
@@ -90,7 +97,7 @@ export const WORK_ROWS: WorkRowData[] = [
 	{
 		org: 'Meta',
 		city: 'New York',
-		icon: 'globe',
+		icon: Globe,
 		title: 'Software Engineer Intern, AI T&C',
 		dates: 'May 2022 to Aug 2022',
 		items: [
@@ -114,7 +121,7 @@ export const WORK_ROWS: WorkRowData[] = [
 	{
 		org: 'Edgewell Personal Care',
 		city: 'Milford, Connecticut',
-		icon: 'building',
+		icon: Building,
 		title: 'System Engineer Intern',
 		dates: 'May 2021 to Jul 2021',
 		items: [

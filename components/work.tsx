@@ -1,4 +1,5 @@
-import { Icon } from '@/components/icons';
+import { Briefcase } from 'pixelarticons/react';
+import { PIXEL_ICON_PROPS } from '@/components/icons';
 import { SectionHead } from '@/components/primitives/section-head';
 import { Shell } from '@/components/primitives/shell';
 import { WorkRow } from '@/components/work-row';
@@ -14,7 +15,9 @@ export function Work() {
 		>
 			<SectionHead
 				id="work-title"
-				icon={<Icon name="work" size={24} className="text-subtle" />}
+				icon={
+					<Briefcase {...PIXEL_ICON_PROPS} className="text-subtle" />
+				}
 				label="Work"
 				note={WORK_NOTE}
 			/>

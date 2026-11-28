@@ -74,18 +74,22 @@ function alphaOf(color: string): number {
 	return parts?.length === 4 ? Number(parts[3]) : 1;
 }
 
-async function expectIconsHidden(page: Page) {
-	const icons = await page
-		.locator('[data-slot="icon"]')
-		.evaluateAll((nodes) =>
-			nodes.map((node) => ({
-				tag: node.tagName.toLowerCase(),
-				hidden: node.getAttribute('aria-hidden'),
-			}))
-		);
+// Every svg and img on the page is decorative: an svg by aria-hidden, an image
+// by an empty alt. Narrow this if a meaningful image or illustration lands.
+async function expectAllGraphicsHidden(page: Page) {
+	const graphics = await page.locator('svg, img').evaluateAll((nodes) =>
+		nodes.map((node) =>
+			node.tagName === 'IMG'
+				? {
+						hidden:
+							node.getAttribute('alt') === '' ? 'true' : 'false',
+					}
+				: { hidden: node.getAttribute('aria-hidden') }
+		)
+	);
 
-	expect(icons.length).toBeGreaterThan(0);
-	expect(icons.filter((icon) => icon.hidden !== 'true')).toEqual([]);
+	expect(graphics.length).toBeGreaterThan(0);
+	expect(graphics.filter((graphic) => graphic.hidden !== 'true')).toEqual([]);
 }
 
 for (const width of WIDTHS) {
@@ -234,29 +238,41 @@ test('fonts: both next/font faces pass document.fonts.check', async ({
 	const fonts = await page.evaluate(async () => {
 		await document.fonts.ready;
 
-		// `--font-instrument-sans` also names Next's generated fallback
-		// ("Instrument Sans Fallback", src: local("Arial")). That is not a
-		// next/font face, and on a machine without Arial `fonts.load` over the
-		// whole list rejects with NetworkError. Test the real family only.
+		// next/font appends a generated fallback family after the real face
+		// (`"Instrument Sans", "Instrument Sans Fallback"`). That fallback is
+		// `src: local("Arial")`, which a Linux runner may not resolve, so loading
+		// the whole stack rejects with NetworkError. Only the first family is the
+		// next/font face under test.
 		const firstFamily = (value: string) =>
 			(value.split(',')[0] ?? '').trim().replace(/^['"]|['"]$/g, '');
+
 		const root = getComputedStyle(document.documentElement);
 		const pixel = firstFamily(root.getPropertyValue('--font-geist-pixel'));
 		const sans = firstFamily(
 			root.getPropertyValue('--font-instrument-sans')
 		);
 
-		await document.fonts.load(`18px "${pixel}"`);
-		await document.fonts.load(`17px "${sans}"`);
+		const pixelFaces = await document.fonts.load(`18px "${pixel}"`);
+		const sansFaces = await document.fonts.load(`17px "${sans}"`);
 
 		return {
-			pixel: document.fonts.check(`18px "${pixel}"`),
-			sans: document.fonts.check(`17px "${sans}"`),
+			pixel,
+			sans,
+			pixelFaces: pixelFaces.length,
+			sansFaces: sansFaces.length,
+			pixelLoaded: document.fonts.check(`18px "${pixel}"`),
+			sansLoaded: document.fonts.check(`17px "${sans}"`),
 		};
 	});
 
-	expect(fonts.pixel).toBe(true);
-	expect(fonts.sans).toBe(true);
+	expect(fonts.pixel).not.toBe('');
+	expect(fonts.sans).not.toBe('');
+	// A load that matches no declared face resolves with an empty array, and
+	// check() is then vacuously true: require a matched face before trusting it.
+	expect(fonts.pixelFaces).toBeGreaterThan(0);
+	expect(fonts.sansFaces).toBeGreaterThan(0);
+	expect(fonts.pixelLoaded).toBe(true);
+	expect(fonts.sansLoaded).toBe(true);
 });
 
 for (const theme of THEMES) {
@@ -365,12 +381,12 @@ test('icons: every icon slot is hidden from assistive technology', async ({
 	page,
 }) => {
 	await openAt(page, 1440, HEIGHT);
-	await expectIconsHidden(page);
+	await expectAllGraphicsHidden(page);
 
 	await openWithTheme(page, 'dark', 390, 844);
 	await page.locator('button.menu-btn').click();
 	await expect(page.locator('#site-nav')).toBeVisible();
-	await expectIconsHidden(page);
+	await expectAllGraphicsHidden(page);
 });
 
 test('breakpoints: 1080, 860, 520 and 380 are the last mobile widths', async ({

@@ -37,13 +37,16 @@ mirror what is on the page today, including counts, so a port can be diffed agai
 ```ts
 type BandCell   = { figure: string; unit: string; say: string }          // 3 on the page
 type Fact       = { term: string; detail: string }                       // 5
-type StackGroup = { icon: IconName; label: string; items: string[] }      // 2
+type StackGroup = { icon: PxlKitData; label: string; items: string[] }    // 2
 type WorkItem   = { figure?: string; figureLabel?: string; text: string } // 16 across the rows
 type WorkRow    = {
-  org: string; city: string; icon: IconName;
+  org: string; city: string; icon: ComponentType<SVGProps<SVGSVGElement>>;
   title: string; dates: string; items: WorkItem[]
 }                                                                        // 5
 ```
+
+The port stores icon references, not names: `PxlKitData` from `@pxlkit/core` for a stack group and a
+Pixelarticons component for a work row. The old `IconName` registry type no longer exists.
 
 Current values, so the port can be verified against them:
 
@@ -245,10 +248,12 @@ contract; this section records where the framework rebuild had a choice to make 
   footer lines sit in their components. This is a deliberate exception to "lift all content into data",
   because a single-use string in a module adds indirection without a second consumer, and the tests
   assert the rendered text instead.
-- **Icon names derive from the registries.** `IconName` is `keyof typeof ICONS` and `AnimatedIconName` is
-  `keyof typeof ANIMATED_ICONS`. There is no hand-maintained union to update, so adding an entry to a
-  registry is the whole change. `WorkRowData`, the only exported type, lives in `content/work.ts`; the
-  deleted `content/types.ts` hub is not replaced.
+- **Icons are imported where they render.** Each section imports its glyphs from the package that
+  publishes them: Pixelarticons from `pixelarticons/react`, Pxlkit data from the `@pxlkit/*` package.
+  `PxlKitIcon` renders static Pxlkit data, `AnimatedPxlKitIcon` plus `useReducedMotion` renders the
+  animated pair, and `components/icons/index.tsx` is only the SVG shell for custom art. `WorkRowData`
+  holds its `icon` as a component type and lives in `content/work.ts`; the deleted `content/types.ts`
+  hub is not replaced.
 - **The theme control is neutral before the theme resolves.** `useTheme` reports `theme: null` until a
   layout effect reads the `data-theme` attribute the pre-paint script applied. Until then, and for
   readers without JavaScript, the island button has no `aria-pressed`, its accessible name is "Toggle
@@ -257,8 +262,9 @@ contract; this section records where the framework rebuild had a choice to make 
   the moon in the neutral state is acceptable.
 - **Reduced motion is a CSS block, not only a hook.** `app/globals.css` keeps the prototype's
   `prefers-reduced-motion: reduce` block, which collapses animation and transition durations and disables
-  smooth scrolling. `useReducedMotion` also holds the animated icon on its first frame. The CSS block is
-  what covers transitions and any animation the hook does not own, so keep both paths.
+  smooth scrolling. The theme control and the stack section call `useReducedMotion` and pass
+  `playing={!reduced}` to `AnimatedPxlKitIcon`, so the gear and sun hold their first frame. The CSS
+  block is what covers transitions and any animation the hook does not own, so keep both paths.
 - **The clock and the footer year are build-time values.** The hero clock's first reading is computed in
   the server render (`formatNow(new Date())`) and passed into `Clock` as `initial`; the client updates it
   every 15 seconds. Without JavaScript that reading stays, so a stale export shows a stale time. The

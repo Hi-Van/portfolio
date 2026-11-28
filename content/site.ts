@@ -1,3 +1,5 @@
+import { GithubSolid, Linkedin, MailSharp } from 'pixelarticons/react';
+
 export const SITE = {
 	nameSegments: [
 		{ text: 'Van', mark: true },
@@ -17,19 +19,19 @@ export const SITE = {
 		{
 			label: 'GitHub',
 			href: 'https://github.com/Hi-Van',
-			icon: 'github',
+			icon: GithubSolid,
 			rel: 'me',
 		},
 		{
 			label: 'LinkedIn',
 			href: 'https://www.linkedin.com/in/van-s/',
-			icon: 'linkedin',
+			icon: Linkedin,
 			rel: 'me',
 		},
 		{
 			label: 'Email',
 			href: 'mailto:contact@vansiriso.uk',
-			icon: 'mail',
+			icon: MailSharp,
 			rel: undefined,
 		},
 	],

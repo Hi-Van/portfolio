@@ -65,7 +65,7 @@ test.describe('hero', () => {
 
 		const action = page.getByRole('link', { name: 'See the work' });
 		await expect(action).toHaveAttribute('href', '#work');
-		await expect(action.locator('[data-slot="icon"]')).toHaveCount(1);
+		await expect(action.locator('img')).toHaveCount(1);
 	});
 
 	test('renders the New York eyebrow and the clock nodes', async ({
