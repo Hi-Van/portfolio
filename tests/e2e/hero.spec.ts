@@ -3,6 +3,18 @@ import { expect, test } from '@playwright/test';
 const DECK =
 	"Human visualizing 1&0 for other humans. Right now I'm a software engineer on the growth team at Atlassian.";
 
+function figureValue(figure: string): number {
+	const cleaned = figure.replace(/[$,%]/g, '');
+	const last = cleaned.at(-1)?.toLowerCase();
+	if (last === 'k') {
+		return Number(cleaned.slice(0, -1)) * 1_000;
+	}
+	if (last === 'm') {
+		return Number(cleaned.slice(0, -1)) * 1_000_000;
+	}
+	return Number(cleaned);
+}
+
 test.describe('hero', () => {
 	test.beforeEach(async ({ page }) => {
 		await page.goto('/');
@@ -149,6 +161,17 @@ test.describe('hero', () => {
 	});
 });
 
+test('proof figures also appear in the work rows', async ({ page }) => {
+	await page.goto('/');
+	const band = await page.locator('.band__num').allTextContents();
+	const work = await page.locator('#work .item__metric b').allTextContents();
+	const workValues = work.map(figureValue);
+
+	for (const figure of band) {
+		expect(workValues).toContain(figureValue(figure));
+	}
+});
+
 test.describe('clock', () => {
 	test('reads New York time and ticks every 15 seconds', async ({ page }) => {
 		await page.clock.install({ time: new Date('2026-01-15T15:00:55Z') });
@@ -185,24 +208,24 @@ test.describe('clock', () => {
 test.describe('clock without JavaScript', () => {
 	test.use({ javaScriptEnabled: false });
 
-	test('renders the static New York fallback', async ({ page }) => {
+	test('renders a fresh New York reading', async ({ page }) => {
 		await page.goto('/');
 
 		await expect(page.locator('#hero-title')).toHaveText(
 			'Vanouphon Sirisouk.'
 		);
-		await expect(page.locator('[data-clock-weekday]')).toHaveText(
-			'Friday, '
-		);
-		await expect(page.locator('[data-clock-date]')).toHaveText(
-			'November 27, 2026'
-		);
-		await expect(page.locator('[data-clock-time]')).toHaveText(
-			'4:43 AM EST'
-		);
-		await expect(page.locator('time[data-clock]')).toHaveAttribute(
-			'datetime',
-			'2026-11-27T09:43:00Z'
-		);
+		const value = await page
+			.locator('time[data-clock]')
+			.getAttribute('datetime');
+		expect(value).toBeTruthy();
+		// This test serves the existing out/; `npm run check` and
+		// `npm run test:e2e` rebuild it first, so the reading is build-time
+		// fresh. A bare `playwright test` can hit a day-old artifact.
+		const age = Date.now() - Date.parse(value ?? '');
+		expect(age).toBeGreaterThanOrEqual(0);
+		expect(
+			age,
+			'out/ is older than 24 hours; run npm run build before this test'
+		).toBeLessThan(24 * 60 * 60 * 1000);
 	});
 });
