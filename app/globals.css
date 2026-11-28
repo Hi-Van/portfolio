@@ -100,7 +100,6 @@
 		inset 0 1px 0 rgba(255, 255, 255, 0.55),
 		0 2px 6px rgba(19, 26, 43, 0.06), 0 16px 40px rgba(19, 26, 43, 0.12);
 	--menu-shadow: 0 18px 44px rgba(19, 26, 43, 0.16);
-	--btn-hover: #1d2740;
 	--social-hover: #232c45;
 
 	--frame: 1080px;
@@ -147,7 +146,6 @@
 	--island-shadow-scrolled:
 		inset 0 1px 0 rgba(255, 255, 255, 0.07), 0 2px 6px rgba(0, 0, 0, 0.4),
 		0 16px 40px rgba(0, 0, 0, 0.5);
-	--btn-hover: #f5f6f8;
 	--social-hover: #dfe3ea;
 
 	color-scheme: dark;
@@ -176,7 +174,6 @@
 		--island-shadow-scrolled:
 			inset 0 1px 0 rgba(255, 255, 255, 0.07),
 			0 2px 6px rgba(0, 0, 0, 0.4), 0 16px 40px rgba(0, 0, 0, 0.5);
-		--btn-hover: #f5f6f8;
 		--social-hover: #dfe3ea;
 
 		color-scheme: dark;
