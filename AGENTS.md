@@ -49,7 +49,7 @@ runtime. This checkout is on `develop`; `master` is a different application with
 | `components/ui/` | shadcn on Base UI: `button`, `label`, `popover`, `switch` |
 | `components/icons/` | package icon registry, animated wrapper, generated nav mark and footer scene |
 | `components/primitives/` | section head and shell |
-| `content/` | `site`, `about`, `stack`, and `work`: repeated structured copy only |
+| `content/` | `site`, `about`, `stack`, and `work`: repeated structured copy, section notes, and labels |
 | `hooks/use-reduced-motion.ts` | media-query hook used by the animated icon |
 | `lib/` | `utils.ts` (`cn`), `theme.ts`, `clock.ts` |
 | `scripts/check.mjs` | the gate: lint, build, typecheck, tokens, artifacts, chromium; stops at the first failure |
@@ -113,9 +113,10 @@ Break one of these and the change is wrong even if it looks right.
   ramp inside that query. An explicit light choice on a dark OS stays light.
 - **No sprite.** Do not hand-inline an icon sheet. The nav mark and footer scene are the only inline
   SVG art, and they come from `scripts/sync-art.mjs`.
-- **Copy has one home.** Repeated structured copy lives in `content/` as typed modules. Prose that
-  renders once lives in the component that renders it. Do not move a one-off paragraph into
-  `content/`, or a repeated list into a component.
+- **Copy has one home.** Repeated structured copy lives in `content/` as typed modules. Prose rendered
+  once lives in its component, except a section's single note or label, which stays in `content/`
+  beside the data it heads. Do not move a one-off paragraph into `content/`, or a repeated list into a
+  component.
 - **The design values are the product.** Do not tune spacing, type sizes, radii, colours, or copy while
   porting. Change `DESIGN.md` and `app/globals.css` together, then run the checks.
 
@@ -124,7 +125,7 @@ Break one of these and the change is wrong even if it looks right.
 | task | file |
 | --- | --- |
 | repeated copy: labels, lists, figures | `content/*.ts` |
-| prose rendered once | the component that renders it |
+| prose rendered once, other than a section note or label | the component that renders it |
 | section order and page shape | `app/page.tsx` |
 | nav labels and links | `content/site.ts` |
 | section markup | `components/<section>.tsx` |

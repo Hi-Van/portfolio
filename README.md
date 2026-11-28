@@ -72,7 +72,9 @@ npm run build
 npm run serve
 ```
 
-`next build` writes `out/`. `npm run serve` serves that folder on <http://localhost:3100>, the origin
+`next build` writes `out/`. `devDependencies` are required to build: `shadcn` is a devDependency that
+supplies the `@tailwindcss` CSS the build compiles. `npm run serve` serves that folder on
+<http://localhost:3100>, the origin
 the Playwright config expects. Playwright does not use `npm run serve`; it starts
 `serve out -l $PORT` itself, with `PORT` defaulting to 3100, so `PORT=3200 npx playwright test` runs
 the suite on port 3200. There is no Node server, no API route, and no dynamic rendering in
@@ -167,7 +169,7 @@ class names kept on rendered elements as test and traceability hooks.
 | --- | --- |
 | `app/` | the route: `layout.tsx` (fonts, theme script, metadata), `page.tsx`, `globals.css`, `foot-scene.css`, `icon.png` |
 | `components/` | sections plus `ui/` primitives, `icons/` registry and inline art, and `primitives/` |
-| `content/` | repeated structured copy as typed modules, one per repeated region, plus `site.ts`; prose rendered once lives in its component |
+| `content/` | repeated structured copy as typed modules, one per repeated region, plus `site.ts`; prose rendered once lives in its component, apart from each section's single note or label |
 | `hooks/`, `lib/` | reduced motion, theme, clock, and `cn` |
 | `scripts/` | the gate and the two checks, plus `sync-art.mjs` |
 | `tests/e2e/` | the acceptance specs |

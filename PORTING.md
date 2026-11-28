@@ -237,13 +237,14 @@ contract; this section records where the framework rebuild had a choice to make 
 - **Tests read the port's font plumbing.** Font assertions read the `--font-geist-pixel` variable and the
   computed family, not a literal family name, because `next/font` hashes it. Request assertions expect font
   files under `_next/static/media` on this origin, and fail on any request to another origin.
-- **Repeated copy lives in `content/`; one-off prose lives in its component.** The content model above
-  lifts the page into data, and that remains the rule for content with more than one reader: navigation,
-  socials, facts, the about label, stack groups, work rows, and notes. Prose that renders once does not
-  become a data object: the hero deck, the about paragraphs, the proof band sentences, and the footer
-  lines sit in their components. This is a deliberate exception to "lift all content into data", because
-  a single-use string in a module adds indirection without a second consumer, and the tests assert the
-  rendered text instead.
+- **Repeated copy lives in `content/`; one-off prose lives in its component, except a section's single
+  note or label.** The content model above lifts the page into data, and that remains the rule for
+  content with more than one reader: navigation, socials, facts, the about label, stack groups, work
+  rows, and the section notes (`ABOUT_NOTE`, `STACK_NOTE`, `WORK_NOTE`). Prose that renders once does
+  not become a data object: the hero deck, the about paragraphs, the proof band sentences, and the
+  footer lines sit in their components. This is a deliberate exception to "lift all content into data",
+  because a single-use string in a module adds indirection without a second consumer, and the tests
+  assert the rendered text instead.
 - **Icon names derive from the registries.** `IconName` is `keyof typeof ICONS` and `AnimatedIconName` is
   `keyof typeof ANIMATED_ICONS`. There is no hand-maintained union to update, so adding an entry to a
   registry is the whole change. `WorkRowData`, the only exported type, lives in `content/work.ts`; the
