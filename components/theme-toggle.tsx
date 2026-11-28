@@ -1,10 +1,11 @@
 'use client';
 
-import { Icon } from '@/components/icons';
-import { AnimatedIcon } from '@/components/icons/animated-icon';
+import { AnimatedPxlKitIcon, PxlKitIcon } from '@pxlkit/core';
+import { Moon, PulsingSun } from '@pxlkit/weather';
 import { Button } from '@/components/ui/button';
 import { Label } from '@/components/ui/label';
 import { Switch } from '@/components/ui/switch';
+import { useReducedMotion } from '@/hooks/use-reduced-motion';
 import type { Theme } from '@/lib/theme';
 
 type ThemeControlProps = {
@@ -17,6 +18,7 @@ type ThemeControlProps = {
  * light state shows the static moon and the dark state the animated sun.
  */
 export function ThemeToggle({ theme, onToggle }: ThemeControlProps) {
+	const reduced = useReducedMotion();
 	const known = theme !== null;
 	const dark = theme === 'dark';
 
@@ -38,9 +40,14 @@ export function ThemeToggle({ theme, onToggle }: ThemeControlProps) {
 			onClick={onToggle}
 		>
 			{dark ? (
-				<AnimatedIcon name="themeSun" size={24} />
+				<AnimatedPxlKitIcon
+					icon={PulsingSun}
+					size={24}
+					decorative
+					playing={!reduced}
+				/>
 			) : (
-				<Icon name="themeMoon" size={24} />
+				<PxlKitIcon icon={Moon} size={24} decorative />
 			)}
 		</Button>
 	);
@@ -55,14 +62,20 @@ export function ThemeSwitch({
 	onToggle,
 	id = 'theme-switch',
 }: ThemeControlProps & { id?: string }) {
+	const reduced = useReducedMotion();
 	const dark = theme === 'dark';
 
 	return (
 		<div className="flex h-12 w-full items-center gap-2.5 border-t border-line px-3.5">
 			{dark ? (
-				<AnimatedIcon name="themeSun" size={24} />
+				<AnimatedPxlKitIcon
+					icon={PulsingSun}
+					size={24}
+					decorative
+					playing={!reduced}
+				/>
 			) : (
-				<Icon name="themeMoon" size={24} />
+				<PxlKitIcon icon={Moon} size={24} decorative />
 			)}
 			<Label
 				htmlFor={id}

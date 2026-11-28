@@ -1,10 +1,16 @@
+'use client';
+
+import { AnimatedPxlKitIcon } from '@pxlkit/core';
+import { SpinningGear } from '@pxlkit/ui';
 import { Icon } from '@/components/icons';
-import { AnimatedIcon } from '@/components/icons/animated-icon';
 import { SectionHead } from '@/components/primitives/section-head';
 import { Shell } from '@/components/primitives/shell';
 import { STACK_GROUPS, STACK_NOTE } from '@/content/stack';
+import { useReducedMotion } from '@/hooks/use-reduced-motion';
 
 export function Stack() {
+	const reduced = useReducedMotion();
+
 	return (
 		<Shell
 			as="section"
@@ -14,7 +20,14 @@ export function Stack() {
 		>
 			<SectionHead
 				id="stack-title"
-				icon={<AnimatedIcon name="stack" size={24} />}
+				icon={
+					<AnimatedPxlKitIcon
+						icon={SpinningGear}
+						size={24}
+						decorative
+						playing={!reduced}
+					/>
+				}
 				label="Stack"
 				note={STACK_NOTE}
 			/>

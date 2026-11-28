@@ -21,10 +21,9 @@ test.describe('theme', () => {
 			'dark'
 		);
 
-		const animated = toggle.locator('span[data-slot="icon"]');
-		const staticIcon = toggle.locator('[data-slot="icon"]:not(span)');
+		const animated = toggle.locator('div:has(> img)');
 		await expect(animated).toHaveCount(0);
-		await expect(staticIcon).toHaveCount(1);
+		await expect(toggle.locator('img')).toHaveCount(1);
 
 		await toggle.click();
 
@@ -32,8 +31,9 @@ test.describe('theme', () => {
 			'data-theme',
 			'dark'
 		);
-		await expect(toggle.locator('span[data-slot="icon"]')).toHaveCount(1);
-		await expect(staticIcon).toHaveCount(0);
+		await expect(toggle.locator('div:has(> img)')).toHaveCount(1);
+		await expect(toggle.locator('img')).toHaveCount(1);
+		await expect(toggle.locator('span[data-slot="icon"]')).toHaveCount(0);
 		await expect(toggle).toHaveAttribute('aria-pressed', 'true');
 		await expect(toggle).toHaveAttribute(
 			'aria-label',
@@ -69,12 +69,13 @@ test.describe('theme', () => {
 		await expect(panel).toBeVisible();
 
 		const control = panel.locator('[role="switch"]:visible');
-		const animated = panel.locator('span[data-slot="icon"]');
-		const staticIcon = panel.locator('[data-slot="icon"]:not(span)');
+		const animated = panel.locator('div > div > img');
+		const icons = panel.locator('img');
 		await expect(control).toHaveCount(1);
 		await expect(control).toHaveAttribute('aria-checked', 'false');
 		await expect(animated).toHaveCount(0);
-		await expect(staticIcon).toHaveCount(1);
+		await expect(icons).toHaveCount(1);
+		await expect(panel.locator('span[data-slot="icon"]')).toHaveCount(0);
 
 		await control.click();
 
@@ -84,7 +85,8 @@ test.describe('theme', () => {
 		);
 		await expect(control).toHaveAttribute('aria-checked', 'true');
 		await expect(animated).toHaveCount(1);
-		await expect(staticIcon).toHaveCount(0);
+		await expect(icons).toHaveCount(1);
+		await expect(panel.locator('span[data-slot="icon"]')).toHaveCount(0);
 
 		const stored = await page.evaluate(() =>
 			localStorage.getItem('vs-theme')

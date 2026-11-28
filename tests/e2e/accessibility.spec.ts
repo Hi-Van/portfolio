@@ -210,7 +210,7 @@ test('reduced motion: the animated icon holds its first frame and durations coll
 	// Dark mode renders both animated wrappers: the stack gear and the sun.
 	await openWithTheme(page, 'dark', 1440, HEIGHT);
 
-	const wrappers = page.locator('[data-slot="icon"][data-reduced-motion]');
+	const wrappers = page.locator('div:has(> img)');
 	const count = await wrappers.count();
 
 	// Exactly the stack gear and the theme sun; a third would be untested here.
@@ -218,8 +218,6 @@ test('reduced motion: the animated icon holds its first frame and durations coll
 
 	for (let index = 0; index < count; index += 1) {
 		const wrapper = wrappers.nth(index);
-		await expect(wrapper).toHaveAttribute('data-reduced-motion', 'true');
-
 		const image = wrapper.locator('img').first();
 		const before = await image.getAttribute('src');
 
@@ -235,6 +233,8 @@ test('reduced motion: the animated icon holds its first frame and durations coll
 
 		expect(await image.getAttribute('src')).toBe(before);
 	}
+
+	await expect(page.locator('[data-reduced-motion]')).toHaveCount(0);
 
 	const durations = await page.evaluate(() => {
 		const button = document.querySelector('.btn');
