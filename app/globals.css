@@ -270,3 +270,19 @@
 		cursor: pointer;
 	}
 }
+
+/* Reduced motion: collapse every transition and animation to a single frame.
+   The !important is deliberate — it must beat the utility classes that set
+   durations per component. The Pxlkit hook still stops the frame sequence. */
+/* biome-ignore-start lint/complexity/noImportantStyles: must beat every per-component duration */
+@media (prefers-reduced-motion: reduce) {
+	*,
+	*::before,
+	*::after {
+		animation-duration: 0.01ms !important;
+		animation-iteration-count: 1 !important;
+		transition-duration: 0.01ms !important;
+		scroll-behavior: auto !important;
+	}
+}
+/* biome-ignore-end lint/complexity/noImportantStyles: end of the reset */

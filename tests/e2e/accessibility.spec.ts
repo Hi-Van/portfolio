@@ -203,7 +203,7 @@ test('print: the island, hero actions and scene are dropped, text kept', async (
 	await expect(page.locator('main#main')).toBeVisible();
 });
 
-test('reduced motion: the animated icon holds its first frame', async ({
+test('reduced motion: the animated icon holds its first frame and durations collapse', async ({
 	page,
 }) => {
 	await page.emulateMedia({ reducedMotion: 'reduce' });
@@ -223,4 +223,24 @@ test('reduced motion: the animated icon holds its first frame', async ({
 
 	expect(before).toBeTruthy();
 	expect(after).toBe(before);
+
+	const durations = await page.evaluate(() => {
+		const button = document.querySelector('.btn');
+		const bar = document.querySelector('.bar');
+		if (!(button instanceof HTMLElement) || !(bar instanceof HTMLElement)) {
+			throw new Error(
+				'reduced motion: expected .btn and .bar in the document'
+			);
+		}
+
+		return {
+			button: getComputedStyle(button).transitionDuration,
+			bar: getComputedStyle(bar).transitionDuration,
+		};
+	});
+
+	for (const value of Object.values(durations)) {
+		const parts = value.split(',').map((part) => parseFloat(part));
+		expect(parts.every((part) => part < 0.001)).toBe(true);
+	}
 });
