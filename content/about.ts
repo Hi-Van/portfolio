@@ -1,10 +1,8 @@
-import type { Fact } from './types';
-
 export const ABOUT_NOTE = 'New York, NY';
 
 export const ABOUT_LABEL = 'The short version';
 
-export const ABOUT_FACTS: Fact[] = [
+export const ABOUT_FACTS = [
 	{
 		term: 'Currently',
 		detail: 'Software Engineer II, Growth at Atlassian, since June 2025',
@@ -19,4 +17,4 @@ export const ABOUT_FACTS: Fact[] = [
 	},
 	{ term: 'Based in', detail: 'New York, NY, Eastern time' },
 	{ term: 'Education', detail: 'B.S. Computer Science, UConn, 2023' },
-];
+] as const;

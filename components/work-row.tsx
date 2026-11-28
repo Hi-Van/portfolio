@@ -1,5 +1,5 @@
 import { Icon } from '@/components/icons';
-import type { WorkRow as WorkRowData } from '@/content/types';
+import type { WorkRowData } from '@/content/work';
 
 export function WorkRow({ row }: { row: WorkRowData }) {
 	return (

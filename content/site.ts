@@ -1,18 +1,9 @@
-import type { NameSegment, NavItem, SocialLink } from './types';
-
-export const SITE: {
-	nameSegments: NameSegment[];
-	email: string;
-	location: string;
-	nav: NavItem[];
-	socials: SocialLink[];
-	workLink: string;
-} = {
+export const SITE = {
 	nameSegments: [
 		{ text: 'Van', mark: true },
-		{ text: 'ouphon ' },
+		{ text: 'ouphon ', mark: false },
 		{ text: 'S', mark: true },
-		{ text: 'irisouk' },
+		{ text: 'irisouk', mark: false },
 		{ text: '.', mark: true },
 	],
 	email: 'contact@vansiriso.uk',
@@ -39,7 +30,8 @@ export const SITE: {
 			label: 'Email',
 			href: 'mailto:contact@vansiriso.uk',
 			icon: 'mail',
+			rel: undefined,
 		},
 	],
 	workLink: '#work',
-};
+} as const;

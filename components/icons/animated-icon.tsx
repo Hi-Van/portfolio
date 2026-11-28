@@ -3,7 +3,6 @@
 import { type AnimatedPxlKitData, AnimatedPxlKitIcon } from '@pxlkit/core';
 import { SpinningGear } from '@pxlkit/ui';
 import { PulsingSun } from '@pxlkit/weather';
-import type { AnimatedIconName } from '@/content/types';
 import { useReducedMotion } from '@/hooks/use-reduced-motion';
 
 type AnimatedEntry = {
@@ -13,7 +12,9 @@ type AnimatedEntry = {
 const ANIMATED_ICONS = {
 	stack: { icon: SpinningGear },
 	themeSun: { icon: PulsingSun },
-} satisfies Record<AnimatedIconName, AnimatedEntry>;
+} satisfies Record<string, AnimatedEntry>;
+
+export type AnimatedIconName = keyof typeof ANIMATED_ICONS;
 
 type AnimatedIconProps = {
 	name: AnimatedIconName;
