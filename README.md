@@ -167,7 +167,7 @@ class names kept on rendered elements as test and traceability hooks.
 | --- | --- |
 | `app/` | the route: `layout.tsx` (fonts, theme script, metadata), `page.tsx`, `globals.css`, `foot-scene.css`, `icon.png` |
 | `components/` | sections plus `ui/` primitives, `icons/` registry and inline art, and `primitives/` |
-| `content/` | repeated structured copy as typed modules, one per region, plus `site.ts`; prose rendered once lives in its component |
+| `content/` | repeated structured copy as typed modules, one per repeated region, plus `site.ts`; prose rendered once lives in its component |
 | `hooks/`, `lib/` | reduced motion, theme, clock, and `cn` |
 | `scripts/` | the gate and the two checks, plus `sync-art.mjs` |
 | `tests/e2e/` | the acceptance specs |
@@ -196,4 +196,5 @@ merge the branches or commit port work to `master`.
 `.github/workflows/check.yml` runs on pushes and pull requests: Node 22, `npm ci`, Playwright
 Chromium, Firefox, and WebKit with system dependencies, `npm run lint:design` with the local pinned
 binary, `npm run check` (which runs the Chromium suite), then `npx playwright test --project=firefox
---project=webkit`. The job needs network access for `npm ci` and the build-time font download.
+--project=webkit`. The job needs network access for `npm ci`, `npx playwright install`, and the
+build-time font download.

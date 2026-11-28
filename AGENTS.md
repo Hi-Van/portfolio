@@ -165,12 +165,12 @@ occasionally generates them, and they should be removed when a component is cust
 `role="switch"` and `aria-checked` and is labelled by the adjacent `Label`. Do not "unify" them: each is
 the correct primitive for its shape, and the specs assert both.
 
-**The theme control is neutral before the theme resolves.** `useTheme` returns `null` until the layout
-effect reads the applied attribute, and readers without JavaScript never get past that state. Until
-then the island button has no `aria-pressed`, its accessible name is "Toggle color theme", and it shows
-the static moon; the phone switch renders unchecked. Do not default either control to light or dark
-before resolution: the neutral state keeps hydration honest and stops the controls claiming a theme
-that was never applied.
+**The theme control is neutral before the theme resolves.** `useTheme` reports `theme: null` until the
+layout effect reads the applied attribute, and readers without JavaScript never get past that state.
+Until then the island button has no `aria-pressed`, its accessible name is "Toggle color theme", and
+it shows the static moon; the phone switch renders unchecked. Do not default either control to light
+or dark before resolution: the neutral state keeps hydration honest and stops the controls claiming a
+theme that was never applied.
 
 **Build-time values freeze in the export.** The hero clock's first reading and the footer year are
 computed during the build render. The clock updates every 15 seconds after hydration, but a no-JS

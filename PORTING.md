@@ -239,7 +239,7 @@ contract; this section records where the framework rebuild had a choice to make 
   files under `_next/static/media` on this origin, and fail on any request to another origin.
 - **Repeated copy lives in `content/`; one-off prose lives in its component.** The content model above
   lifts the page into data, and that remains the rule for content with more than one reader: navigation,
-  socials, facts, stack groups, work rows, section labels, and notes. Prose that renders once does not
+  socials, facts, the about label, stack groups, work rows, and notes. Prose that renders once does not
   become a data object: the hero deck, the about paragraphs, the proof band sentences, and the footer
   lines sit in their components. This is a deliberate exception to "lift all content into data", because
   a single-use string in a module adds indirection without a second consumer, and the tests assert the
@@ -248,10 +248,10 @@ contract; this section records where the framework rebuild had a choice to make 
   `keyof typeof ANIMATED_ICONS`. There is no hand-maintained union to update, so adding an entry to a
   registry is the whole change. `WorkRowData`, the only exported type, lives in `content/work.ts`; the
   deleted `content/types.ts` hub is not replaced.
-- **The theme control is neutral before the theme resolves.** `useTheme` returns `null` until a layout
-  effect reads the `data-theme` attribute the pre-paint script applied. Until then, and for readers
-  without JavaScript, the island button has no `aria-pressed`, its accessible name is "Toggle color
-  theme", and it shows the static moon; the phone switch renders unchecked. The island reports
+- **The theme control is neutral before the theme resolves.** `useTheme` reports `theme: null` until a
+  layout effect reads the `data-theme` attribute the pre-paint script applied. Until then, and for
+  readers without JavaScript, the island button has no `aria-pressed`, its accessible name is "Toggle
+  color theme", and it shows the static moon; the phone switch renders unchecked. The island reports
   `aria-pressed` and names the target theme only after resolution. The icon is decorative, so showing
   the moon in the neutral state is acceptable.
 - **Reduced motion is a CSS block, not only a hook.** `app/globals.css` keeps the prototype's
