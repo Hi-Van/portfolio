@@ -4,9 +4,15 @@ import { Shell } from '@/components/primitives/shell';
 import { ProofBand } from '@/components/proof-band';
 import { buttonVariants } from '@/components/ui/button';
 import { SITE } from '@/content/site';
+import { formatNow } from '@/lib/clock';
 import { cn } from '@/lib/utils';
 
 export function Hero() {
+	// ponytail: the static export bakes the build time. No-JS readers see that
+	// time until the next build. Upgrade: render the clock only after hydration
+	// if exact time without JS ever matters.
+	const initial = formatNow(new Date());
+
 	return (
 		<Shell
 			as="section"
@@ -20,7 +26,7 @@ export function Hero() {
 					className="eyebrow__sep h-3.5 w-px bg-line-strong"
 					aria-hidden="true"
 				/>
-				<Clock />
+				<Clock initial={initial} />
 			</p>
 
 			<h1

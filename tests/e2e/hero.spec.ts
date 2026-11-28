@@ -185,24 +185,18 @@ test.describe('clock', () => {
 test.describe('clock without JavaScript', () => {
 	test.use({ javaScriptEnabled: false });
 
-	test('renders the static New York fallback', async ({ page }) => {
+	test('renders a fresh New York reading', async ({ page }) => {
 		await page.goto('/');
 
 		await expect(page.locator('#hero-title')).toHaveText(
 			'Vanouphon Sirisouk.'
 		);
-		await expect(page.locator('[data-clock-weekday]')).toHaveText(
-			'Friday, '
-		);
-		await expect(page.locator('[data-clock-date]')).toHaveText(
-			'November 27, 2026'
-		);
-		await expect(page.locator('[data-clock-time]')).toHaveText(
-			'4:43 AM EST'
-		);
-		await expect(page.locator('time[data-clock]')).toHaveAttribute(
-			'datetime',
-			'2026-11-27T09:43:00Z'
-		);
+		const value = await page
+			.locator('time[data-clock]')
+			.getAttribute('datetime');
+		expect(value).toBeTruthy();
+		const age = Date.now() - Date.parse(value ?? '');
+		expect(age).toBeGreaterThanOrEqual(0);
+		expect(age).toBeLessThan(24 * 60 * 60 * 1000);
 	});
 });

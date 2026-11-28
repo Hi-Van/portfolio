@@ -1,17 +1,10 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import { formatNow } from '@/lib/clock';
+import { type ClockReading, formatNow } from '@/lib/clock';
 
-const FALLBACK = {
-	weekday: 'Friday, ',
-	date: 'November 27, 2026',
-	time: '4:43 AM EST',
-	iso: '2026-11-27T09:43:00Z',
-};
-
-export function Clock() {
-	const [reading, setReading] = useState(FALLBACK);
+export function Clock({ initial }: { initial: ClockReading }) {
+	const [reading, setReading] = useState(initial);
 
 	useEffect(() => {
 		const update = () => setReading(formatNow(new Date()));
