@@ -2,6 +2,7 @@ export const ABOUT_NOTE = 'New York, NY';
 
 export const ABOUT_LABEL = 'The short version';
 
+// ponytail: "since June 2025" is copy. Edit it when the role changes.
 export const ABOUT_FACTS = [
 	{
 		term: 'Currently',

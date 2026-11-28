@@ -3,6 +3,18 @@ import { expect, test } from '@playwright/test';
 const DECK =
 	"Human visualizing 1&0 for other humans. Right now I'm a software engineer on the growth team at Atlassian.";
 
+function figureValue(figure: string): number {
+	const cleaned = figure.replace(/[$,%]/g, '');
+	const last = cleaned.at(-1)?.toLowerCase();
+	if (last === 'k') {
+		return Number(cleaned.slice(0, -1)) * 1_000;
+	}
+	if (last === 'm') {
+		return Number(cleaned.slice(0, -1)) * 1_000_000;
+	}
+	return Number(cleaned);
+}
+
 test.describe('hero', () => {
 	test.beforeEach(async ({ page }) => {
 		await page.goto('/');
@@ -147,6 +159,17 @@ test.describe('hero', () => {
 		expect(scale.figure).toBe(40);
 		expect(scale.figureColor).toBe(scale.dataColor);
 	});
+});
+
+test('proof figures also appear in the work rows', async ({ page }) => {
+	await page.goto('/');
+	const band = await page.locator('.band__num').allTextContents();
+	const work = await page.locator('#work .item__metric b').allTextContents();
+	const workValues = work.map(figureValue);
+
+	for (const figure of band) {
+		expect(workValues).toContain(figureValue(figure));
+	}
 });
 
 test.describe('clock', () => {

@@ -11,6 +11,8 @@ export type WorkRowData = {
 
 export const WORK_NOTE = 'Three roles and two internships, 2021 to now.';
 
+// ponytail: "to now" is copy, not a computed date. Edit it when the role
+// changes. Upgrade: derive the end date from a start date and a current flag.
 export const WORK_ROWS: WorkRowData[] = [
 	{
 		org: 'Atlassian',
