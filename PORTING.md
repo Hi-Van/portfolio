@@ -37,13 +37,16 @@ mirror what is on the page today, including counts, so a port can be diffed agai
 ```ts
 type BandCell   = { figure: string; unit: string; say: string }          // 3 on the page
 type Fact       = { term: string; detail: string }                       // 5
-type StackGroup = { icon: IconName; label: string; items: string[] }      // 2
+type StackGroup = { icon: PxlKitData; label: string; items: string[] }    // 2
 type WorkItem   = { figure?: string; figureLabel?: string; text: string } // 16 across the rows
 type WorkRow    = {
-  org: string; city: string; icon: IconName;
+  org: string; city: string; icon: ComponentType<SVGProps<SVGSVGElement>>;
   title: string; dates: string; items: WorkItem[]
 }                                                                        // 5
 ```
+
+The port stores icon references, not names: `PxlKitData` from `@pxlkit/core` for a stack group and a
+Pixelarticons component for a work row. The old `IconName` registry type no longer exists.
 
 Current values, so the port can be verified against them:
 
