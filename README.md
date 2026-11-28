@@ -13,7 +13,7 @@ and `PORTING.md` is its port contract.
 | UI | React 19.3.0, TypeScript 5 |
 | styling | Tailwind CSS 4.3.3 via `@tailwindcss/postcss` |
 | components | shadcn/ui on Base UI (`@base-ui/react` 1.9.0): `button`, `label`, `popover`, `switch` |
-| icons | `pixelarticons` 2.4.2 and `@pxlkit/*` (core 1.4.0, ui 1.2.6, weather/social/gamification 1.2.5) |
+| icons | `pixelarticons` 2.4.2 and `@pxlkit/*` (core 1.4.0, ui 1.2.6, weather/social/gamification 1.2.5); `lucide-react` remains as the shadcn default and is unused |
 | class names | `cn` 0.5.2 with a custom type scale via `cn/config` in `lib/utils.ts` |
 | fonts | `next/font/google`: Geist Pixel and Instrument Sans, self-hosted at build time |
 | lint / format | Biome 2.4.2 |
