@@ -83,8 +83,16 @@ export function SiteHeader() {
 				return;
 			}
 
-			// Never hide while focus is inside: the reader is using the island.
-			if (header.contains(document.activeElement)) {
+			// Never hide while keyboard focus is inside: the reader is using the
+			// island. A pointer click also focuses its target, so gate on
+			// :focus-visible; otherwise a mouse nav click would hold the island
+			// up on every later scroll until focus leaves the header.
+			const active = document.activeElement;
+			if (
+				active instanceof HTMLElement &&
+				header.contains(active) &&
+				active.matches(':focus-visible')
+			) {
 				header.removeAttribute('data-hidden');
 				lastYRef.current = y;
 				return;

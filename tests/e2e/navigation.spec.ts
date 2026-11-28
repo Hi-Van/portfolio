@@ -1,4 +1,5 @@
 import { expect, type Page, test } from '@playwright/test';
+import { tabTo } from './helpers';
 
 test.use({ viewport: { width: 390, height: 844 } });
 
@@ -46,7 +47,7 @@ test.describe('navigation', () => {
 		await expect(trigger).toHaveAttribute('aria-expanded', 'false');
 	});
 
-	test('the panel background is opaque', async ({ page }) => {
+	test('the panel background matches the page paper', async ({ page }) => {
 		await page.goto('/');
 		await openMenu(page);
 
@@ -147,7 +148,9 @@ test.describe('navigation', () => {
 		await expect(header).toHaveAttribute('data-scrolled', '');
 	});
 
-	test('focus inside the island brings it back', async ({ page }) => {
+	test('keyboard focus inside the island brings it back', async ({
+		page,
+	}) => {
 		await page.goto('/');
 
 		const header = page.locator('header.top');
@@ -160,17 +163,19 @@ test.describe('navigation', () => {
 		await page.evaluate(() => window.scrollTo(0, 400));
 		await expect(header).toHaveAttribute('data-hidden', '');
 
-		await page.locator('a.brand').focus();
+		// Tab, not .focus(): only a keyboard-reached target matches
+		// :focus-visible, which is what the guard keys on.
+		await tabTo(page, 'a.brand');
 
 		await expect(header).not.toHaveAttribute('data-hidden', '');
 	});
 
-	test('the island stays visible when focus is inside and the page scrolls', async ({
+	test('the island stays visible when keyboard focus is inside and the page scrolls', async ({
 		page,
 	}) => {
 		await page.goto('/');
 		const header = page.locator('header.top');
-		await page.locator('a.brand').focus();
+		await tabTo(page, 'a.brand');
 		await page.evaluate(() => window.scrollTo(0, 500));
 
 		await expect(header).toHaveAttribute('data-scrolled', '');
@@ -178,14 +183,35 @@ test.describe('navigation', () => {
 		await expect(page.locator('a.brand')).toBeFocused();
 	});
 
+	test('a pointer nav click does not keep the island up on later scrolls', async ({
+		page,
+	}) => {
+		await page.setViewportSize({ width: 1440, height: 900 });
+		await page.goto('/');
+
+		await page
+			.locator('.bar nav')
+			.getByRole('link', { name: 'Work' })
+			.click();
+
+		// Let the one second pin after the nav click expire.
+		await page.waitForTimeout(1100);
+		await page.evaluate(() => window.scrollTo(0, window.scrollY + 600));
+
+		await expect(page.locator('header.top')).toHaveAttribute(
+			'data-hidden',
+			''
+		);
+	});
+
 	test('the menu closes when the viewport reaches the desktop layout', async ({
 		page,
 	}) => {
 		await page.goto('/');
-		await openMenu(page);
+		const trigger = await openMenu(page);
 		await page.setViewportSize({ width: 1440, height: 900 });
 		await expect(page.locator('#site-nav')).toHaveCount(0);
-		await expect(page.locator('button.menu-btn')).toBeHidden();
+		await expect(trigger).toHaveAttribute('aria-expanded', 'false');
 	});
 
 	test('aria-controls only names an element that exists', async ({
@@ -196,5 +222,9 @@ test.describe('navigation', () => {
 		await expect(trigger).not.toHaveAttribute('aria-controls');
 		await trigger.click();
 		await expect(trigger).toHaveAttribute('aria-controls', 'site-nav');
+
+		await trigger.click();
+		await expect(page.locator('#site-nav')).toHaveCount(0);
+		await expect(trigger).not.toHaveAttribute('aria-controls');
 	});
 });
