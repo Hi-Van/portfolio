@@ -17,6 +17,7 @@ type ThemeControlProps = {
  * light state shows the static moon and the dark state the animated sun.
  */
 export function ThemeToggle({ theme, onToggle }: ThemeControlProps) {
+	const known = theme !== null;
 	const dark = theme === 'dark';
 
 	return (
@@ -25,8 +26,14 @@ export function ThemeToggle({ theme, onToggle }: ThemeControlProps) {
 			variant="icon"
 			size="icon"
 			className="icon-btn theme-toggle max-[861px]:hidden"
-			aria-label={dark ? 'Switch to light theme' : 'Switch to dark theme'}
-			aria-pressed={dark}
+			aria-label={
+				known
+					? dark
+						? 'Switch to light theme'
+						: 'Switch to dark theme'
+					: 'Toggle color theme'
+			}
+			aria-pressed={known ? dark : undefined}
 			data-theme-toggle=""
 			onClick={onToggle}
 		>

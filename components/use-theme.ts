@@ -1,23 +1,31 @@
 'use client';
 
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useEffect, useLayoutEffect, useState } from 'react';
 import { resolveTheme, type Theme, writeStoredTheme } from '@/lib/theme';
 
 const DARK_QUERY = '(prefers-color-scheme: dark)';
 
+const useIsomorphicLayoutEffect =
+	typeof window === 'undefined' ? useEffect : useLayoutEffect;
+
 /**
  * Reads the theme the inline layout script already applied. Nothing is resolved
- * on the server, so the first client render matches the markup and the effect
- * then syncs the state with the DOM.
+ * on the server, so the first client render matches the markup and the layout
+ * effect then syncs the state with the DOM before the browser paints.
  */
 export function useTheme() {
 	const [theme, setTheme] = useState<Theme | null>(null);
 
-	useEffect(() => {
+	useIsomorphicLayoutEffect(() => {
 		const root = document.documentElement;
 		const media = window.matchMedia(DARK_QUERY);
 
 		setTheme(resolveTheme(root.getAttribute('data-theme'), media.matches));
+	}, []);
+
+	useEffect(() => {
+		const root = document.documentElement;
+		const media = window.matchMedia(DARK_QUERY);
 
 		// Only follow the OS while no explicit attribute exists. The layout
 		// script writes the attribute from storage before paint.

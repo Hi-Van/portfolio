@@ -165,6 +165,11 @@ test('controls: phone targets clear 44 by 44, including the 50 by 44 switch', as
 	expect(switches).toHaveLength(1);
 	expect(Math.round(switches[0].width)).toBe(50);
 	expect(Math.round(switches[0].height)).toBe(44);
+
+	const label = page.locator('#site-nav label');
+	const box = await label.boundingBox();
+	expect(box).not.toBeNull();
+	if (box) expect(box.height).toBeGreaterThanOrEqual(43.99);
 });
 
 test('radii: controls 8, chip 7, island 10, switch track 6', async ({

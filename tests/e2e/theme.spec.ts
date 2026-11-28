@@ -176,3 +176,21 @@ test.describe('theme', () => {
 		expect(errors).toEqual([]);
 	});
 });
+
+test.describe('theme without JavaScript', () => {
+	test.use({ javaScriptEnabled: false });
+
+	test('a dark OS gets a neutral control', async ({ page }) => {
+		await page.emulateMedia({ colorScheme: 'dark' });
+		await page.goto('/');
+
+		const toggle = page.locator('button[data-theme-toggle]');
+		await expect(toggle).not.toHaveAttribute('aria-pressed');
+		await expect(toggle).toHaveAccessibleName('Toggle color theme');
+
+		const paper = await page.evaluate(
+			() => getComputedStyle(document.body).backgroundColor
+		);
+		expect(paper).toBe('rgb(16, 17, 20)');
+	});
+});
