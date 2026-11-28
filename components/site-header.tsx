@@ -72,14 +72,23 @@ export function SiteHeader() {
 		const onScroll = () => {
 			const y = window.scrollY;
 
+			// The shadow follows the page, not the pin: a nav click scrolls the
+			// page too, and the island should read as lifted the moment it does.
+			if (y > 8) header.setAttribute('data-scrolled', '');
+			else header.removeAttribute('data-scrolled');
+
 			if (Date.now() < pinnedUntilRef.current) {
 				header.removeAttribute('data-hidden');
 				lastYRef.current = y;
 				return;
 			}
 
-			if (y > 8) header.setAttribute('data-scrolled', '');
-			else header.removeAttribute('data-scrolled');
+			// Never hide while focus is inside: the reader is using the island.
+			if (header.contains(document.activeElement)) {
+				header.removeAttribute('data-hidden');
+				lastYRef.current = y;
+				return;
+			}
 
 			// Never hide while the mobile menu is open.
 			if (openRef.current) {
@@ -113,6 +122,20 @@ export function SiteHeader() {
 			window.removeEventListener('scroll', onScroll);
 			document.removeEventListener('focusin', onFocusIn);
 		};
+	}, [setMenuOpen]);
+
+	// The panel is phone-only and the trigger disappears at the desktop layout.
+	// Close the menu when the viewport crosses that line, so an open panel is
+	// never left mounted without a visible control to dismiss it.
+	useEffect(() => {
+		const query = window.matchMedia('(min-width: 861px)');
+		const onChange = (event: MediaQueryListEvent) => {
+			if (event.matches) setMenuOpen(false);
+		};
+
+		query.addEventListener('change', onChange);
+
+		return () => query.removeEventListener('change', onChange);
 	}, [setMenuOpen]);
 
 	return (
@@ -172,7 +195,9 @@ export function SiteHeader() {
 									aria-label={
 										open ? 'Close menu' : 'Open menu'
 									}
-									aria-controls="site-nav"
+									aria-controls={
+										open ? 'site-nav' : undefined
+									}
 								>
 									{open ? (
 										<Icon name="close" size={24} />

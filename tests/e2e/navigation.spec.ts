@@ -133,6 +133,10 @@ test.describe('navigation', () => {
 		await page.evaluate(() => window.scrollTo(0, 2400));
 
 		await expect(header).not.toHaveAttribute('data-hidden', '');
+
+		// The pin must not hold the shadow back: the page has moved, so the
+		// island reads as lifted even while it stays visible.
+		await expect(header).toHaveAttribute('data-scrolled', '');
 	});
 
 	test('focus inside the island brings it back', async ({ page }) => {
@@ -151,5 +155,38 @@ test.describe('navigation', () => {
 		await page.locator('a.brand').focus();
 
 		await expect(header).not.toHaveAttribute('data-hidden', '');
+	});
+
+	test('the island stays visible when focus is inside and the page scrolls', async ({
+		page,
+	}) => {
+		await page.goto('/');
+		const header = page.locator('header.top');
+		await page.locator('a.brand').focus();
+		await page.evaluate(() => window.scrollTo(0, 500));
+
+		await expect(header).toHaveAttribute('data-scrolled', '');
+		await expect(header).not.toHaveAttribute('data-hidden', '');
+		await expect(page.locator('a.brand')).toBeFocused();
+	});
+
+	test('the menu closes when the viewport reaches the desktop layout', async ({
+		page,
+	}) => {
+		await page.goto('/');
+		await openMenu(page);
+		await page.setViewportSize({ width: 1440, height: 900 });
+		await expect(page.locator('#site-nav')).toHaveCount(0);
+		await expect(page.locator('button.menu-btn')).toBeHidden();
+	});
+
+	test('aria-controls only names an element that exists', async ({
+		page,
+	}) => {
+		await page.goto('/');
+		const trigger = page.locator('button.menu-btn');
+		await expect(trigger).not.toHaveAttribute('aria-controls');
+		await trigger.click();
+		await expect(trigger).toHaveAttribute('aria-controls', 'site-nav');
 	});
 });
