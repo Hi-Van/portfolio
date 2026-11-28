@@ -21,6 +21,20 @@ function fail(message) {
 	process.exit(1);
 }
 
+function blockAfter(source, pattern) {
+	const match = source.match(pattern);
+	return match ? match[1] : null;
+}
+
+function tokensFrom(block) {
+	const tokens = new Map();
+	for (const line of (block ?? '').split('\n')) {
+		const match = line.match(/^\s*(--[a-z-]+):\s*([^;]+);/);
+		if (match) tokens.set(match[1], match[2].trim().toLowerCase());
+	}
+	return tokens;
+}
+
 const colorsBlock = design.match(/^colors:\n((?:[ \t]+.*\n)+)/m);
 
 if (!colorsBlock) {
@@ -39,21 +53,30 @@ for (const line of colorsBlock[1].split('\n')) {
 	}
 }
 
-const rootBlock = css.match(/:root\s*\{([^}]*)\}/);
+const light = blockAfter(css, /:root\s*\{([^}]*)\}/);
+const explicitDark = blockAfter(css, /\[data-theme="dark"\]\s*\{([^}]*)\}/);
+const mediaDark = blockAfter(
+	css,
+	/@media\s*\(prefers-color-scheme:\s*dark\)\s*\{[\s\S]*?:root:not\(\[data-theme="light"\]\)\s*\{([^}]*)\}/
+);
 
-if (!rootBlock) {
+if (!light) {
 	fail('app/globals.css: no :root block found');
 }
 
-const tokens = new Map();
-
-for (const line of rootBlock[1].split('\n')) {
-	const match = line.match(/^\s*(--[a-z-]+):\s*([^;]+);/);
-
-	if (match) {
-		tokens.set(match[1], match[2].trim().toLowerCase());
-	}
+if (!explicitDark) {
+	fail('app/globals.css: no [data-theme="dark"] block found');
 }
+
+if (!mediaDark) {
+	fail(
+		'app/globals.css: no prefers-color-scheme dark block scoped to :root:not([data-theme="light"]) found'
+	);
+}
+
+const tokens = tokensFrom(light);
+const explicitDarkTokens = tokensFrom(explicitDark);
+const mediaDarkTokens = tokensFrom(mediaDark);
 
 const mismatches = [];
 
@@ -76,4 +99,37 @@ if (mismatches.length > 0) {
 	process.exit(1);
 }
 
+const darkProblems = [];
+
+for (const [role, token] of Object.entries(roles)) {
+	if (!explicitDarkTokens.has(token) && !mediaDarkTokens.has(token)) {
+		darkProblems.push(`  ${role} (${token}): missing from both dark ramps`);
+	}
+}
+
+const darkTokens = new Set([
+	...explicitDarkTokens.keys(),
+	...mediaDarkTokens.keys(),
+]);
+
+for (const token of darkTokens) {
+	const explicit = explicitDarkTokens.get(token);
+	const media = mediaDarkTokens.get(token);
+
+	if (explicit !== media) {
+		darkProblems.push(
+			`  ${token}: [data-theme="dark"] has ${
+				explicit ?? 'missing'
+			}, prefers-color-scheme dark has ${media ?? 'missing'}`
+		);
+	}
+}
+
+if (darkProblems.length > 0) {
+	console.error('app/globals.css: dark ramps disagree');
+	console.error(darkProblems.join('\n'));
+	process.exit(1);
+}
+
 console.log('app/globals.css: 6 role colours match');
+console.log('app/globals.css: both dark ramps agree');
