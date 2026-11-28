@@ -1,12 +1,7 @@
 import { Icon } from '@/components/icons';
 import { SectionHead } from '@/components/primitives/section-head';
 import { Shell } from '@/components/primitives/shell';
-import {
-	ABOUT_FACTS,
-	ABOUT_LABEL,
-	ABOUT_NOTE,
-	ABOUT_PARAGRAPHS,
-} from '@/content/about';
+import { ABOUT_FACTS, ABOUT_LABEL, ABOUT_NOTE } from '@/content/about';
 
 export function About() {
 	return (
@@ -27,22 +22,23 @@ export function About() {
 					{ABOUT_LABEL}
 				</p>
 				<div className="about__copy space-y-4">
-					{ABOUT_PARAGRAPHS.map((paragraph) => (
-						<p key={paragraph[0].text}>
-							{paragraph.map((run) =>
-								run.strong ? (
-									<span
-										key={run.text}
-										className="em font-medium text-ink"
-									>
-										{run.text}
-									</span>
-								) : (
-									<span key={run.text}>{run.text}</span>
-								)
-							)}
-						</p>
-					))}
+					<p>
+						I graduated from UConn in 2023 and went straight into
+						retail data. A catalog is bigger and messier than it
+						looks, and most of the job was getting conventions to
+						agree with each other, then measuring what changed.
+					</p>
+					<p>
+						{
+							'At Atlassian I work on the authoring and publishing side of the same problem. I like '
+						}
+						<span className="em font-medium text-ink">
+							the parts nobody notices when they work
+						</span>
+						{
+							': the mapping that keeps a generated recommendation pointed at the right paragraph, the form that stops you before you submit the wrong thing.'
+						}
+					</p>
 				</div>
 				<dl className="facts grid gap-0 max-[1081px]:col-start-2 max-[1081px]:mt-[30px] max-[861px]:col-start-auto max-[861px]:mt-6">
 					{ABOUT_FACTS.map((fact) => (

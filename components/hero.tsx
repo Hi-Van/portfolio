@@ -3,7 +3,6 @@ import { Icon } from '@/components/icons';
 import { Shell } from '@/components/primitives/shell';
 import { ProofBand } from '@/components/proof-band';
 import { buttonVariants } from '@/components/ui/button';
-import { HERO_DECK } from '@/content/hero';
 import { SITE } from '@/content/site';
 import { cn } from '@/lib/utils';
 
@@ -42,29 +41,17 @@ export function Hero() {
 				)}
 			</h1>
 
+			{/* ponytail: "Right now" is editorial. Edit it when the role changes. */}
 			<p className="hero__deck mx-auto mt-6 max-w-[54ch] text-lead text-copy max-[861px]:max-w-[46ch]">
-				{HERO_DECK.map((run) => {
-					if (run.code) {
-						return (
-							<code
-								className="rounded-secondary border border-line-strong bg-panel px-1.5 py-px font-pixel text-ink max-[861px]:text-[18px] max-[861px]:leading-[26.5px]"
-								key={run.text}
-							>
-								{run.text}
-							</code>
-						);
-					}
-
-					if (run.strong) {
-						return (
-							<b className="font-medium text-ink" key={run.text}>
-								{run.text}
-							</b>
-						);
-					}
-
-					return run.text;
-				})}
+				{'Human visualizing '}
+				<code className="rounded-secondary border border-line-strong bg-panel px-1.5 py-px font-pixel text-ink max-[861px]:text-[18px] max-[861px]:leading-[26.5px]">
+					1&amp;0
+				</code>
+				{
+					" for other humans. Right now I'm a software engineer on the growth team at "
+				}
+				<b className="font-medium text-ink">Atlassian</b>
+				{'.'}
 			</p>
 
 			<div className="hero__actions mt-[30px] flex flex-wrap items-center justify-center gap-x-[14px] gap-y-3 max-[521px]:gap-x-3 max-[521px]:gap-y-2.5 print:hidden">

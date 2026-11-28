@@ -1,8 +1,6 @@
-import type { StackGroup } from './types';
-
 export const STACK_NOTE = 'What I actually use.';
 
-export const STACK_GROUPS: StackGroup[] = [
+export const STACK_GROUPS = [
 	{
 		icon: 'frontend',
 		label: 'Frontend',
@@ -36,4 +34,4 @@ export const STACK_GROUPS: StackGroup[] = [
 			'MongoDB',
 		],
 	},
-];
+] as const;

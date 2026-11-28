@@ -21,7 +21,6 @@ import {
 	ShoppingCart,
 } from 'pixelarticons/react';
 import type { ComponentType, SVGProps } from 'react';
-import type { IconName } from '@/content/types';
 
 type PixelEntry = {
 	kind: 'pixel';
@@ -60,7 +59,9 @@ export const ICONS = {
 	heart: { kind: 'pxlkit', icon: Heart },
 	footerUser: { kind: 'pxlkit', icon: SocialUser },
 	footerRobot: { kind: 'pxlkit', icon: Robot },
-} satisfies Record<IconName, Entry>;
+} satisfies Record<string, Entry>;
+
+export type IconName = keyof typeof ICONS;
 
 type IconProps = {
 	name: IconName;

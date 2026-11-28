@@ -1,8 +1,17 @@
-import type { WorkRow } from './types';
+import type { IconName } from '@/components/icons';
+
+export type WorkRowData = {
+	org: string;
+	city: string;
+	icon: IconName;
+	title: string;
+	dates: string;
+	items: { figure?: string; figureLabel?: string; text: string }[];
+};
 
 export const WORK_NOTE = 'Three roles and two internships, 2021 to now.';
 
-export const WORK_ROWS: WorkRow[] = [
+export const WORK_ROWS: WorkRowData[] = [
 	{
 		org: 'Atlassian',
 		city: 'New York',
