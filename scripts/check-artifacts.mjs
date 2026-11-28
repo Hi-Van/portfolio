@@ -1,5 +1,5 @@
-// Artifact check: generated inline art, the package icon registry, and the
-// favicon. The nav mark and the footer scene are the only hand-inlined SVG on
+// Artifact check: generated inline art, the icon shell, and the favicon.
+// The nav mark and the footer scene are the only hand-inlined SVG on
 // the page, their markup carries no sprite, symbol sheet, or remote reference,
 // and their rendered rect counts are asserted in the browser suite.
 import { existsSync, readdirSync, readFileSync, statSync } from 'node:fs';
@@ -31,7 +31,6 @@ const NAV_MARKUP = 'components/icons/nav-mark-markup.ts';
 const FOOTER_MARKUP = 'components/icons/footer-markup.ts';
 const ICONS_DIR = 'components/icons';
 const REGISTRY = 'components/icons/index.tsx';
-const ANIMATED = 'components/icons/animated-icon.tsx';
 const ART_WRAPPERS = [
 	'components/icons/nav-mark.tsx',
 	'components/icons/footer-scene.tsx',
@@ -75,18 +74,6 @@ if (navMarkup !== null && footerMarkup !== null) {
 	);
 }
 
-const allowedModules = new Set([
-	'@pxlkit/core',
-	'@pxlkit/core/vanilla',
-	'@pxlkit/gamification',
-	'@pxlkit/social',
-	'@pxlkit/ui',
-	'@pxlkit/weather',
-	'next/image',
-	'pixelarticons/react',
-	'react',
-]);
-
 function importsIn(source) {
 	const modules = [];
 	for (const match of source.matchAll(
@@ -97,25 +84,42 @@ function importsIn(source) {
 	return modules;
 }
 
-for (const file of [REGISTRY, ANIMATED]) {
+const DISALLOWED_ICON_MODULES =
+	/^(?:lucide-react|react-icons(?:\/.*)?|@heroicons\/.*|@tabler\/icons.*|@phosphor-icons\/.*|@radix-ui\/react-icons)$/;
+
+function sourceFiles(dir) {
+	const absolute = join(root, dir);
+	if (!existsSync(absolute)) {
+		return [];
+	}
+
+	return readdirSync(absolute, { withFileTypes: true }).flatMap((entry) => {
+		const relative = join(dir, entry.name);
+
+		if (entry.isDirectory()) {
+			return sourceFiles(relative);
+		}
+
+		return /\.(ts|tsx)$/.test(entry.name) ? [relative] : [];
+	});
+}
+
+for (const file of [...sourceFiles('components'), ...sourceFiles('content')]) {
 	const source = read(file);
-	check(source !== null, `${file} exists`);
+
 	if (source === null) {
 		continue;
 	}
 
 	for (const moduleName of importsIn(source)) {
-		if (moduleName.startsWith('.') || moduleName.startsWith('@/')) {
-			continue;
-		}
 		check(
-			allowedModules.has(moduleName),
-			`${file} imports ${moduleName} from an allowed module`
+			!DISALLOWED_ICON_MODULES.test(moduleName),
+			`${file} does not import ${moduleName}`
 		);
 	}
 }
 
-for (const file of [REGISTRY, ANIMATED, ...ART_WRAPPERS]) {
+for (const file of [REGISTRY, ...ART_WRAPPERS]) {
 	const source = read(file);
 	if (source === null) {
 		continue;

@@ -1,10 +1,10 @@
-import { BaseIcon } from '@/components/icons/base';
+import { Icon } from '@/components/icons';
 import { FOOTER_MARKUP } from '@/components/icons/footer-markup';
 
 // The prototype's 1144 by 128 footer scene: the only inline scene on the page.
 export function FooterScene() {
 	return (
-		<BaseIcon
+		<Icon
 			className="foot__decor print:hidden"
 			width={1144}
 			height={128}
