@@ -23,7 +23,7 @@ runtime. This checkout is on `develop`; `master` is a different application with
 - `next build` with `output: "export"` writes `out/`. Playwright tests that folder through `serve`.
 - Repeated structured copy is typed modules in `content/`; prose rendered once lives in its component,
   except a section's single note or label. Markup is server-rendered except the header, theme control,
-  clock, and reduced-motion hook.
+  stack, clock, and reduced-motion hook.
 - Styling is Tailwind v4 utilities over CSS custom properties. `site.css` from the prototype is not
   imported and must not be.
 - Icons are package imports from Pixelarticons and Pxlkit. Only the nav mark and the footer scene are
@@ -47,7 +47,7 @@ runtime. This checkout is on `develop`; `master` is a different application with
 | `components/use-theme.ts` | theme state, storage, OS listener |
 | `components/skip-link.tsx` | first focusable element, targets `main#main` |
 | `components/ui/` | shadcn on Base UI: `button`, `label`, `popover`, `switch` |
-| `components/icons/` | package icon registry, animated wrapper, generated nav mark and footer scene |
+| `components/icons/` | base icon shell, generated nav mark and footer scene, and the library glyphs imported at their call sites |
 | `components/primitives/` | section head and shell |
 | `content/` | `site`, `about`, `stack`, and `work`: repeated structured copy, section notes, and labels |
 | `hooks/use-reduced-motion.ts` | media-query hook used by the animated icon |
@@ -136,7 +136,7 @@ Break one of these and the change is wrong even if it looks right.
 | menu and island behaviour | `components/site-header.tsx` |
 | the switch or icon button | `components/theme-toggle.tsx`, `components/ui/switch.tsx`, `components/ui/button.tsx` |
 | the nav mark or footer scene | the prototype, then `node scripts/sync-art.mjs`; never edit the generated modules by hand |
-| an icon | `components/icons/index.tsx` for static icons, `animated-icon.tsx` for animated ones; the name types derive from both registries |
+| an icon | import it from `pixelarticons/react` or the `@pxlkit/*` package in the component that renders it; `components/icons/index.tsx` is only the shell for custom SVG |
 | what the gate checks | `scripts/check.mjs`, `scripts/check-tokens.mjs`, `scripts/check-artifacts.mjs` |
 | why something is the way it is | append to `MANIFEST.txt`; do not rewrite the existing record |
 
@@ -180,8 +180,8 @@ reader and the deployed year stay at the build value until the next export. Both
 
 **The `shadcn` dependency is build input only.** It is a devDependency so the build can read
 `shadcn/tailwind.css`; the four primitives are vendored under `components/ui`. `components.json` has no
-`iconLibrary`, so a future `shadcn add` defaults to Lucide. Replace any Lucide import with
-`components/icons` and keep `lucide-react` out of the dependency set.
+`iconLibrary`, so a future `shadcn add` defaults to Lucide. Replace any Lucide import with a glyph
+from `pixelarticons/react` or `@pxlkit/*` and keep `lucide-react` out of the dependency set.
 
 **The Popover is portaled.** Base UI renders the menu content outside the header, so a query scoped to
 `header` will not find it. Escape closes it and returns focus to the trigger, a link click closes it,

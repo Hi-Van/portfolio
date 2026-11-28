@@ -28,7 +28,8 @@ the custom `text-*` size tokens are registered as font sizes instead of being me
 
 `shadcn` is not a component source here. The app imports only `shadcn/tailwind.css` at build time, and
 the four primitives are vendored under `components/ui`. A future `shadcn add` defaults to Lucide icons,
-so replace its imports with `components/icons` and keep `lucide-react` out of the dependency set.
+so replace its imports with glyphs from `pixelarticons/react` or `@pxlkit/*` and keep `lucide-react`
+out of the dependency set.
 
 ## Install
 
@@ -167,7 +168,7 @@ class names kept on rendered elements as test and traceability hooks.
 | path | what it is |
 | --- | --- |
 | `app/` | the route: `layout.tsx` (fonts, theme script, metadata), `page.tsx`, `globals.css`, `foot-scene.css`, `icon.png` |
-| `components/` | sections plus `ui/` primitives, `icons/` registry and inline art, and `primitives/` |
+| `components/` | sections plus `ui/` primitives, the `icons/` base shell and inline art, and `primitives/` |
 | `content/` | repeated structured copy as typed modules, one per repeated region, plus `site.ts`; prose rendered once lives in its component, apart from each section's single note or label |
 | `hooks/`, `lib/` | reduced motion, theme, clock, and `cn` |
 | `scripts/` | the gate and the two checks, plus `sync-art.mjs` |
