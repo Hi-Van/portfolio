@@ -8,6 +8,9 @@ const geistPixel = Geist_Pixel({
 	weight: '400',
 	variable: '--font-geist-pixel',
 	display: 'swap',
+	// Next has no precomputed fallback metrics for Geist Pixel, so it warns
+	// and skips the adjusted fallback anyway. Ask for no fallback explicitly.
+	adjustFontFallback: false,
 });
 
 const instrumentSans = Instrument_Sans({
