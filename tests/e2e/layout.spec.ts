@@ -234,16 +234,24 @@ test('fonts: both next/font faces pass document.fonts.check', async ({
 	const fonts = await page.evaluate(async () => {
 		await document.fonts.ready;
 
+		// `--font-instrument-sans` also names Next's generated fallback
+		// ("Instrument Sans Fallback", src: local("Arial")). That is not a
+		// next/font face, and on a machine without Arial `fonts.load` over the
+		// whole list rejects with NetworkError. Test the real family only.
+		const firstFamily = (value: string) =>
+			(value.split(',')[0] ?? '').trim().replace(/^['"]|['"]$/g, '');
 		const root = getComputedStyle(document.documentElement);
-		const pixel = root.getPropertyValue('--font-geist-pixel').trim();
-		const sans = root.getPropertyValue('--font-instrument-sans').trim();
+		const pixel = firstFamily(root.getPropertyValue('--font-geist-pixel'));
+		const sans = firstFamily(
+			root.getPropertyValue('--font-instrument-sans')
+		);
 
-		await document.fonts.load(`18px ${pixel}`);
-		await document.fonts.load(`17px ${sans}`);
+		await document.fonts.load(`18px "${pixel}"`);
+		await document.fonts.load(`17px "${sans}"`);
 
 		return {
-			pixel: document.fonts.check(`18px ${pixel}`),
-			sans: document.fonts.check(`17px ${sans}`),
+			pixel: document.fonts.check(`18px "${pixel}"`),
+			sans: document.fonts.check(`17px "${sans}"`),
 		};
 	});
 
