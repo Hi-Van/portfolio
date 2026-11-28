@@ -56,6 +56,11 @@ test('footer: identity, mail, five nav links, and five credits', async ({
 	await expect(credits.first()).toHaveAttribute('rel', 'noopener');
 });
 
+test('nav mark: 76 rects', async ({ page }) => {
+	await page.goto('/');
+	await expect(page.locator('svg.brand__mark rect')).toHaveCount(76);
+});
+
 test('footer: the scene is 187 rects at 1144 by 128 behind the text', async ({
 	page,
 }) => {

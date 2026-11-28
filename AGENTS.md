@@ -53,7 +53,7 @@ runtime. This checkout is on `develop`; `master` is a different application with
 | `lib/` | `utils.ts` (`cn`), `theme.ts`, `clock.ts` |
 | `scripts/check.mjs` | the gate: lint, build, typecheck, tokens, artifacts, chromium |
 | `scripts/check-tokens.mjs` | six role colours: `DESIGN.md` against `app/globals.css` |
-| `scripts/check-artifacts.mjs` | 76 and 187 rect counts, no sprite, allowed icon imports, favicon |
+| `scripts/check-artifacts.mjs` | no sprite, allowed icon imports, favicon |
 | `scripts/sync-art.mjs` | regenerates the two inline art modules from the prototype `index.html` |
 | `tests/e2e/` | `smoke`, `hero`, `sections`, `footer`, `theme`, `navigation`, `layout`, `network`, `accessibility`, `helpers` |
 | `licenses/` | Pixelarticons, Pxlkit, Geist Pixel OFL, Instrument Sans OFL |

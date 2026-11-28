@@ -1,7 +1,7 @@
 // Artifact check: generated inline art, the package icon registry, and the
 // favicon. The nav mark and the footer scene are the only hand-inlined SVG on
-// the page, so their rect counts are exact and their markup carries no
-// sprite, symbol sheet, or remote reference.
+// the page, their markup carries no sprite, symbol sheet, or remote reference,
+// and their rendered rect counts are asserted in the browser suite.
 import { existsSync, readdirSync, readFileSync, statSync } from 'node:fs';
 import { dirname, join, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
@@ -40,26 +40,14 @@ const ART_WRAPPERS = [
 const navMarkup = read(NAV_MARKUP);
 const footerMarkup = read(FOOTER_MARKUP);
 
-function countRects(source) {
-	return (source.match(/<rect\b/g) ?? []).length;
-}
-
 check(navMarkup !== null, `${NAV_MARKUP} exists`);
 check(footerMarkup !== null, `${FOOTER_MARKUP} exists`);
 
 if (navMarkup !== null) {
-	check(
-		countRects(navMarkup) === 76,
-		`nav mark has exactly 76 rect elements (found ${countRects(navMarkup)})`
-	);
 	check(!/<svg\b/i.test(navMarkup), 'nav mark holds inner markup only');
 }
 
 if (footerMarkup !== null) {
-	check(
-		countRects(footerMarkup) === 187,
-		`footer scene has exactly 187 rect elements (found ${countRects(footerMarkup)})`
-	);
 	check(
 		!/<svg\b/i.test(footerMarkup),
 		'footer scene holds inner markup only'

@@ -102,8 +102,8 @@ suite and the request assertions assume the root deployment.
 3. `tsc --noEmit`
 4. `node scripts/check-tokens.mjs` — the six light role colours in `DESIGN.md` and
    `app/globals.css` match, and the two dark ramps agree
-5. `node scripts/check-artifacts.mjs` — the nav mark has 76 rects, the footer scene has 187, there is no
-   symbol sprite, only package icons are imported, and the favicon exists
+5. `node scripts/check-artifacts.mjs` — the generated art has no symbol sprite or remote reference,
+   only package icons are imported, and the favicon exists
 6. `playwright test --project=chromium`
 
 `lint:design` fetches the linter through `npx`, so it also needs network access the first time.
