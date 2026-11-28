@@ -19,7 +19,7 @@ test('footer: identity, mail, five nav links, and five credits', async ({
 	await expect(footer).toHaveCount(1);
 
 	await expect(footer.locator('.foot__id')).toHaveText(
-		'Van Sirisouk, Software Engineer. 2026.'
+		`Van Sirisouk, Software Engineer. ${new Date().getFullYear()}.`
 	);
 
 	const mail = footer.locator('a.foot__mail');
