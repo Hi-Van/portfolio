@@ -28,10 +28,24 @@ function blockAfter(source, pattern) {
 
 function tokensFrom(block) {
 	const tokens = new Map();
-	for (const line of (block ?? '').split('\n')) {
-		const match = line.match(/^\s*(--[a-z-]+):\s*([^;]+);/);
-		if (match) tokens.set(match[1], match[2].trim().toLowerCase());
+
+	for (const [declaration] of (block ?? '').matchAll(
+		/--[a-z0-9-]+\s*:[^;]+;/g
+	)) {
+		const separator = declaration.indexOf(':');
+
+		if (separator === -1) continue;
+
+		const name = declaration.slice(0, separator).trim();
+		const value = declaration
+			.slice(separator + 1, -1)
+			.replace(/\s+/g, ' ')
+			.trim()
+			.toLowerCase();
+
+		tokens.set(name, value);
 	}
+
 	return tokens;
 }
 
