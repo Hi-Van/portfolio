@@ -94,6 +94,10 @@ const mediaDarkTokens = tokensFrom(mediaDark);
 
 const mismatches = [];
 
+// The contract: the six roles DESIGN.md names must resolve in all three
+// blocks, and the two dark ramps must agree token for token. A token that only
+// the light ramp declares and DESIGN.md does not name is outside the contract,
+// so it is not compared here.
 for (const [role, token] of Object.entries(roles)) {
 	const expected = spec.get(role);
 	const actual = tokens.get(token);

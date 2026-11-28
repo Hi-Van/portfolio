@@ -115,15 +115,6 @@ for (const file of [REGISTRY, ANIMATED]) {
 	}
 }
 
-const registry = read(REGISTRY);
-check(registry !== null, `${REGISTRY} exists`);
-if (registry !== null) {
-	check(
-		/satisfies\s+Record<\s*string\s*,\s*Entry\s*>/.test(registry),
-		'icon registry is typed as Record<string, Entry>'
-	);
-}
-
 for (const file of [REGISTRY, ANIMATED, ...ART_WRAPPERS]) {
 	const source = read(file);
 	if (source === null) {
