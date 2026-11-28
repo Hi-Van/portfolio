@@ -213,7 +213,8 @@ test('reduced motion: the animated icon holds its first frame and durations coll
 	const wrappers = page.locator('[data-slot="icon"][data-reduced-motion]');
 	const count = await wrappers.count();
 
-	expect(count).toBeGreaterThan(0);
+	// Exactly the stack gear and the theme sun; a third would be untested here.
+	expect(count).toBe(2);
 
 	for (let index = 0; index < count; index += 1) {
 		const wrapper = wrappers.nth(index);
