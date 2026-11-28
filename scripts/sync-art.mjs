@@ -1,7 +1,7 @@
 // Regenerates the only two inline SVG art pieces from the prototype:
 // the nav brand mark and the footer scene. The prototype's 26 symbol sprite
 // is not extracted; every other icon comes from a package.
-import { mkdirSync, readFileSync, writeFileSync } from 'node:fs';
+import { existsSync, mkdirSync, readFileSync, writeFileSync } from 'node:fs';
 import { dirname, join, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
@@ -11,6 +11,13 @@ const prototypePath = resolve(root, '../van-sirisouk-concept-2/index.html');
 const sourcePath = process.argv[2]
 	? resolve(process.cwd(), process.argv[2])
 	: prototypePath;
+
+if (!existsSync(sourcePath)) {
+	console.error(
+		`Missing prototype: ${sourcePath}\nPass the index.html path: node scripts/sync-art.mjs ../van-sirisouk-concept-2/index.html`
+	);
+	process.exit(1);
+}
 
 const html = readFileSync(sourcePath, 'utf8');
 

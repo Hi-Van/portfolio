@@ -91,7 +91,8 @@ suite and the request assertions assume the root deployment.
 1. `biome check`
 2. `next build`
 3. `tsc --noEmit`
-4. `node scripts/check-tokens.mjs` — the six role colours in `DESIGN.md` and `app/globals.css` match
+4. `node scripts/check-tokens.mjs` — the six light role colours in `DESIGN.md` and
+   `app/globals.css` match, and the two dark ramps agree
 5. `node scripts/check-artifacts.mjs` — the nav mark has 76 rects, the footer scene has 187, there is no
    symbol sprite, only package icons are imported, and the favicon exists
 6. `playwright test --project=chromium`
@@ -100,8 +101,8 @@ suite and the request assertions assume the root deployment.
 
 The suite is `tests/e2e/`: `smoke`, `hero`, `sections`, `footer`, `theme`, `navigation`, `layout`,
 `network`, and `accessibility`, with shared setup in `helpers`. Run one file directly with
-`npx playwright test tests/e2e/<name>.spec.ts --project=chromium`. The Firefox and WebKit pass needs
-those engines too: `npx playwright install firefox webkit`.
+`npm run build && npx playwright test tests/e2e/<name>.spec.ts --project=chromium`. The Firefox and
+WebKit pass needs those engines too: `npx playwright install firefox webkit`.
 
 ### Accepted viewports
 

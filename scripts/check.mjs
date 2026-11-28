@@ -13,27 +13,19 @@ const steps = [
 	['e2e', 'node_modules/.bin/playwright', ['test', '--project=chromium']],
 ];
 
-let failed = false;
-
 for (const [name, command, args] of steps) {
 	console.log(`\n== ${name} ==`);
 	const result = spawnSync(command, args, { stdio: 'inherit' });
 
 	if (result.error) {
 		console.error(`${name}: ${result.error.message}`);
-		failed = true;
-		continue;
+		process.exit(1);
 	}
 
 	if (result.status !== 0) {
 		console.error(`${name}: failed with exit code ${result.status}`);
-		failed = true;
+		process.exit(1);
 	}
-}
-
-if (failed) {
-	console.error('\ncheck: failed');
-	process.exit(1);
 }
 
 console.log('\ncheck: passed');
