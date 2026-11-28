@@ -1,7 +1,7 @@
 import { expect, type Page } from '@playwright/test';
 
 /** The static export served by Playwright's webServer. */
-export const ORIGIN = 'http://localhost:3100';
+export const ORIGIN = `http://localhost:${Number(process.env.PORT || 3100)}`;
 
 /** The fourteen acceptance widths from PORTING.md. */
 export const WIDTHS = [

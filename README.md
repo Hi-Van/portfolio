@@ -38,6 +38,13 @@ suite:
 npx playwright install chromium
 ```
 
+The Firefox and WebKit projects (`npm run test:browsers`, and CI after the gate) need those engines
+too. One command installs all three:
+
+```sh
+npx playwright install --with-deps chromium firefox webkit
+```
+
 The first `npm run build` downloads the Google Fonts files (`next/font/google`). **The build needs
 network access.** Runtime does not: the fonts are emitted as self-hosted woff2 under
 `_next/static/media`.
@@ -59,7 +66,9 @@ npm run serve
 ```
 
 `next build` writes `out/`. `npm run serve` serves that folder on <http://localhost:3100>, the origin
-the Playwright config expects. There is no Node server, no API route, and no dynamic rendering in
+the Playwright config expects. Playwright does not use `npm run serve`; it starts
+`serve out -l $PORT` itself, with `PORT` defaulting to 3100, so `PORT=3200 npx playwright test` runs
+the suite on port 3200. There is no Node server, no API route, and no dynamic rendering in
 production.
 
 ## Static deployment
@@ -103,6 +112,10 @@ The suite is `tests/e2e/`: `smoke`, `hero`, `sections`, `footer`, `theme`, `navi
 `network`, and `accessibility`, with shared setup in `helpers`. Run one file directly with
 `npm run build && npx playwright test tests/e2e/<name>.spec.ts --project=chromium`. The Firefox and
 WebKit pass needs those engines too: `npx playwright install firefox webkit`.
+
+`PORT` sets the port for both the Playwright static server and the base URL, defaulting to 3100:
+`PORT=3200 npx playwright test tests/e2e/smoke.spec.ts --project=chromium`. The port and `out/` are
+shared by every run in a checkout, so do not start a second build or test suite at the same time.
 
 ### Accepted viewports
 
@@ -161,6 +174,7 @@ merge the branches or commit port work to `master`.
 
 ## CI
 
-`.github/workflows/check.yml` runs on pushes and pull requests: Node 22, `npm ci`, Playwright chromium
-with system dependencies, `npm run lint:design`, then `npm run check`. The job needs network access for
-the font download and for the `npx` design linter.
+`.github/workflows/check.yml` runs on pushes and pull requests: Node 22, `npm ci`, Playwright
+chromium, Firefox, and WebKit with system dependencies, `npm run lint:design`, `npm run check` (which
+runs the chromium suite), then `npx playwright test --project=firefox --project=webkit`. The job needs
+network access for the font download and for the `npx` design linter.

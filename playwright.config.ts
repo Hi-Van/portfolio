@@ -1,5 +1,8 @@
 import { defineConfig, devices } from '@playwright/test';
 
+const PORT = Number(process.env.PORT || 3100);
+const ORIGIN = `http://localhost:${PORT}`;
+
 export default defineConfig({
 	testDir: './tests/e2e',
 	fullyParallel: true,
@@ -7,12 +10,12 @@ export default defineConfig({
 	retries: process.env.CI ? 2 : 0,
 	reporter: 'list',
 	use: {
-		baseURL: 'http://localhost:3100',
+		baseURL: ORIGIN,
 		trace: 'on-first-retry',
 	},
 	webServer: {
-		command: 'npm run serve',
-		url: 'http://localhost:3100',
+		command: `node_modules/.bin/serve out -l ${PORT}`,
+		url: ORIGIN,
 		reuseExistingServer: false,
 		timeout: 120_000,
 	},
