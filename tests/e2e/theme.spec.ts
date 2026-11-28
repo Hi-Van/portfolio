@@ -22,7 +22,9 @@ test.describe('theme', () => {
 		);
 
 		const animated = toggle.locator('span[data-slot="icon"]');
+		const staticIcon = toggle.locator('[data-slot="icon"]:not(span)');
 		await expect(animated).toHaveCount(0);
+		await expect(staticIcon).toHaveCount(1);
 
 		await toggle.click();
 
@@ -31,6 +33,7 @@ test.describe('theme', () => {
 			'dark'
 		);
 		await expect(toggle.locator('span[data-slot="icon"]')).toHaveCount(1);
+		await expect(staticIcon).toHaveCount(0);
 		await expect(toggle).toHaveAttribute('aria-pressed', 'true');
 		await expect(toggle).toHaveAttribute(
 			'aria-label',
@@ -66,8 +69,12 @@ test.describe('theme', () => {
 		await expect(panel).toBeVisible();
 
 		const control = panel.locator('[role="switch"]:visible');
+		const animated = panel.locator('span[data-slot="icon"]');
+		const staticIcon = panel.locator('[data-slot="icon"]:not(span)');
 		await expect(control).toHaveCount(1);
 		await expect(control).toHaveAttribute('aria-checked', 'false');
+		await expect(animated).toHaveCount(0);
+		await expect(staticIcon).toHaveCount(1);
 
 		await control.click();
 
@@ -76,7 +83,8 @@ test.describe('theme', () => {
 			'dark'
 		);
 		await expect(control).toHaveAttribute('aria-checked', 'true');
-		await expect(panel.locator('span[data-slot="icon"]')).toHaveCount(1);
+		await expect(animated).toHaveCount(1);
+		await expect(staticIcon).toHaveCount(0);
 
 		const stored = await page.evaluate(() =>
 			localStorage.getItem('vs-theme')
