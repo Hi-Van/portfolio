@@ -21,12 +21,16 @@ test.describe('theme', () => {
 			'dark'
 		);
 
+		const animated = toggle.locator('span[data-slot="icon"]');
+		await expect(animated).toHaveCount(0);
+
 		await toggle.click();
 
 		await expect(page.locator('html')).toHaveAttribute(
 			'data-theme',
 			'dark'
 		);
+		await expect(toggle.locator('span[data-slot="icon"]')).toHaveCount(1);
 		await expect(toggle).toHaveAttribute('aria-pressed', 'true');
 		await expect(toggle).toHaveAttribute(
 			'aria-label',
@@ -72,6 +76,7 @@ test.describe('theme', () => {
 			'dark'
 		);
 		await expect(control).toHaveAttribute('aria-checked', 'true');
+		await expect(panel.locator('span[data-slot="icon"]')).toHaveCount(1);
 
 		const stored = await page.evaluate(() =>
 			localStorage.getItem('vs-theme')
