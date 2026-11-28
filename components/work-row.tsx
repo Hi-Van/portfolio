@@ -1,14 +1,6 @@
 import { Calendar, MapPin, User as PixelUser } from 'pixelarticons/react';
+import { PIXEL_ICON_PROPS } from '@/components/icons';
 import type { WorkRowData } from '@/content/work';
-
-const ICON_PROPS = {
-	width: 24,
-	height: 24,
-	shapeRendering: 'crispEdges',
-	'aria-hidden': 'true',
-	focusable: 'false',
-	'data-slot': 'icon',
-} as const;
 
 export function WorkRow({ row }: { row: WorkRowData }) {
 	const Glyph = row.icon;
@@ -19,14 +11,14 @@ export function WorkRow({ row }: { row: WorkRowData }) {
 				<div className="row__titles min-w-0 flex-1">
 					<h3 className="row__title flex items-start gap-2 text-[20px] leading-[1.3] font-medium tracking-[-0.015em]">
 						<Glyph
-							{...ICON_PROPS}
+							{...PIXEL_ICON_PROPS}
 							className="mt-px shrink-0 text-copy"
 						/>
 						{row.title}
 					</h3>
 					<p className="row__org row__meta mt-[3px] flex flex-wrap items-center gap-x-2 gap-y-1 text-[15px] text-copy">
 						<PixelUser
-							{...ICON_PROPS}
+							{...PIXEL_ICON_PROPS}
 							width={16}
 							height={16}
 							className="mx-1 shrink-0 text-subtle"
@@ -34,7 +26,7 @@ export function WorkRow({ row }: { row: WorkRowData }) {
 						{row.org}
 						<span className="row__loc inline-flex items-center gap-1.5 text-subtle">
 							<MapPin
-								{...ICON_PROPS}
+								{...PIXEL_ICON_PROPS}
 								width={16}
 								height={16}
 								className="shrink-0 text-subtle"
@@ -45,7 +37,7 @@ export function WorkRow({ row }: { row: WorkRowData }) {
 				</div>
 				<p className="row__when ml-auto flex flex-none items-center gap-[7px] pt-[5px] text-small font-medium whitespace-nowrap text-subtle tabular-nums max-[861px]:mt-1 max-[861px]:ml-0 max-[861px]:basis-full max-[861px]:pt-0">
 					<Calendar
-						{...ICON_PROPS}
+						{...PIXEL_ICON_PROPS}
 						width={16}
 						height={16}
 						className="shrink-0 text-subtle"

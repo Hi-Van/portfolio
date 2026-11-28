@@ -1,17 +1,9 @@
 import { Briefcase } from 'pixelarticons/react';
+import { PIXEL_ICON_PROPS } from '@/components/icons';
 import { SectionHead } from '@/components/primitives/section-head';
 import { Shell } from '@/components/primitives/shell';
 import { WorkRow } from '@/components/work-row';
 import { WORK_NOTE, WORK_ROWS } from '@/content/work';
-
-const ICON_PROPS = {
-	width: 24,
-	height: 24,
-	shapeRendering: 'crispEdges',
-	'aria-hidden': 'true',
-	focusable: 'false',
-	'data-slot': 'icon',
-} as const;
 
 export function Work() {
 	return (
@@ -23,7 +15,9 @@ export function Work() {
 		>
 			<SectionHead
 				id="work-title"
-				icon={<Briefcase {...ICON_PROPS} className="text-subtle" />}
+				icon={
+					<Briefcase {...PIXEL_ICON_PROPS} className="text-subtle" />
+				}
 				label="Work"
 				note={WORK_NOTE}
 			/>

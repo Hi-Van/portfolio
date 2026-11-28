@@ -74,8 +74,10 @@ function alphaOf(color: string): number {
 	return parts?.length === 4 ? Number(parts[3]) : 1;
 }
 
-async function expectIconsHidden(page: Page) {
-	const icons = await page.locator('svg, img').evaluateAll((nodes) =>
+// Every svg and img on the page is decorative: an svg by aria-hidden, an image
+// by an empty alt. Narrow this if a meaningful image or illustration lands.
+async function expectAllGraphicsHidden(page: Page) {
+	const graphics = await page.locator('svg, img').evaluateAll((nodes) =>
 		nodes.map((node) =>
 			node.tagName === 'IMG'
 				? {
@@ -86,8 +88,8 @@ async function expectIconsHidden(page: Page) {
 		)
 	);
 
-	expect(icons.length).toBeGreaterThan(0);
-	expect(icons.filter((icon) => icon.hidden !== 'true')).toEqual([]);
+	expect(graphics.length).toBeGreaterThan(0);
+	expect(graphics.filter((graphic) => graphic.hidden !== 'true')).toEqual([]);
 }
 
 for (const width of WIDTHS) {
@@ -359,12 +361,12 @@ test('icons: every icon slot is hidden from assistive technology', async ({
 	page,
 }) => {
 	await openAt(page, 1440, HEIGHT);
-	await expectIconsHidden(page);
+	await expectAllGraphicsHidden(page);
 
 	await openWithTheme(page, 'dark', 390, 844);
 	await page.locator('button.menu-btn').click();
 	await expect(page.locator('#site-nav')).toBeVisible();
-	await expectIconsHidden(page);
+	await expectAllGraphicsHidden(page);
 });
 
 test('breakpoints: 1080, 860, 520 and 380 are the last mobile widths', async ({

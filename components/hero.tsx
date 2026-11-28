@@ -2,21 +2,13 @@ import { PxlKitIcon } from '@pxlkit/core';
 import { Arrow } from '@pxlkit/gamification';
 import { Compass } from '@pxlkit/weather';
 import { Clock } from '@/components/clock';
+import { PIXEL_ICON_PROPS } from '@/components/icons';
 import { Shell } from '@/components/primitives/shell';
 import { ProofBand } from '@/components/proof-band';
 import { buttonVariants } from '@/components/ui/button';
 import { SITE } from '@/content/site';
 import { formatNow } from '@/lib/clock';
 import { cn } from '@/lib/utils';
-
-const ICON_PROPS = {
-	width: 24,
-	height: 24,
-	shapeRendering: 'crispEdges',
-	'aria-hidden': 'true',
-	focusable: 'false',
-	'data-slot': 'icon',
-} as const;
 
 export function Hero() {
 	// ponytail: the static export bakes the build time. No-JS readers see that
@@ -92,7 +84,7 @@ export function Hero() {
 								rel={social.rel}
 								aria-label={social.label}
 							>
-								<Glyph {...ICON_PROPS} />
+								<Glyph {...PIXEL_ICON_PROPS} />
 							</a>
 						);
 					})}
