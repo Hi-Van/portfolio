@@ -21,9 +21,9 @@ runtime. This checkout is on `develop`; `master` is a different application with
 - One static route, `app/page.tsx`, rendered inside `app/layout.tsx`.
 - Five regions in this order: hero, about, stack, work, footer.
 - `next build` with `output: "export"` writes `out/`. Playwright tests that folder through `serve`.
-- Repeated structured copy is typed modules in `content/`; prose rendered once lives in the component
-  that renders it. Markup is server-rendered except the header, theme control, clock, and
-  reduced-motion hook.
+- Repeated structured copy is typed modules in `content/`; prose rendered once lives in its component,
+  except a section's single note or label. Markup is server-rendered except the header, theme control,
+  clock, and reduced-motion hook.
 - Styling is Tailwind v4 utilities over CSS custom properties. `site.css` from the prototype is not
   imported and must not be.
 - Icons are package imports from Pixelarticons and Pxlkit. Only the nav mark and the footer scene are

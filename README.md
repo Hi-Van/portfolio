@@ -74,11 +74,10 @@ npm run serve
 
 `next build` writes `out/`. `devDependencies` are required to build: `shadcn` is a devDependency that
 supplies the `@tailwindcss` CSS the build compiles. `npm run serve` serves that folder on
-<http://localhost:3100>, the origin
-the Playwright config expects. Playwright does not use `npm run serve`; it starts
-`serve out -l $PORT` itself, with `PORT` defaulting to 3100, so `PORT=3200 npx playwright test` runs
-the suite on port 3200. There is no Node server, no API route, and no dynamic rendering in
-production.
+<http://localhost:3100>, the origin the Playwright config expects. Playwright does not use
+`npm run serve`; it starts `serve out -l $PORT` itself, with `PORT` defaulting to 3100, so
+`PORT=3200 npx playwright test` runs the suite on port 3200. There is no Node server, no API route,
+and no dynamic rendering in production.
 
 Two values are fixed when the export is built. The hero clock's first reading is computed in the build
 render and passed to the client component as `initial`; after hydration it updates every 15 seconds,
