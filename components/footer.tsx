@@ -1,4 +1,7 @@
-import { Icon } from '@/components/icons';
+import { PxlKitIcon } from '@pxlkit/core';
+import { Heart } from '@pxlkit/gamification';
+import { User } from '@pxlkit/social';
+import { Robot } from '@pxlkit/ui';
 import { FooterScene } from '@/components/icons/footer-scene';
 import { Shell } from '@/components/primitives/shell';
 import { SITE } from '@/content/site';
@@ -60,12 +63,24 @@ export function Footer() {
 			<div className="foot__meta relative z-10 order-3 mt-[22px] flex basis-full flex-wrap items-baseline justify-between gap-x-8 gap-y-1 text-[12px] text-subtle max-[521px]:mt-[14px]">
 				<span className="foot__made block">
 					<span className="foot__lead italic">Made with</span>{' '}
-					<Icon name="heart" size={16} className={INLINE_ICON} /> by{' '}
-					<Icon name="footerUser" size={16} className={INLINE_ICON} />{' '}
-					and{' '}
-					<Icon
-						name="footerRobot"
+					<PxlKitIcon
+						icon={Heart}
 						size={16}
+						decorative
+						className={INLINE_ICON}
+					/>{' '}
+					by{' '}
+					<PxlKitIcon
+						icon={User}
+						size={16}
+						decorative
+						className={INLINE_ICON}
+					/>{' '}
+					and{' '}
+					<PxlKitIcon
+						icon={Robot}
+						size={16}
+						decorative
 						className={INLINE_ICON}
 					/>{' '}
 					in {SITE.location}

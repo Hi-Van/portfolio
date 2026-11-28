@@ -1,4 +1,5 @@
-import { Icon } from '@/components/icons';
+import { PxlKitIcon } from '@pxlkit/core';
+import { XpBar } from '@pxlkit/gamification';
 
 export function ProofBand() {
 	return (
@@ -8,7 +9,7 @@ export function ProofBand() {
 					className="label inline-flex items-center gap-2 text-micro font-medium tracking-[0.1em] text-subtle uppercase"
 					id="proof-title"
 				>
-					<Icon name="proof" size={24} />
+					<PxlKitIcon icon={XpBar} size={24} decorative />
 					Cooler parts of my experience
 				</h2>
 			</div>

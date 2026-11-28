@@ -1,4 +1,5 @@
-import { Icon } from '@/components/icons';
+import { PxlKitIcon } from '@pxlkit/core';
+import { Friends } from '@pxlkit/social';
 import { SectionHead } from '@/components/primitives/section-head';
 import { Shell } from '@/components/primitives/shell';
 import { ABOUT_FACTS, ABOUT_LABEL, ABOUT_NOTE } from '@/content/about';
@@ -13,7 +14,7 @@ export function About() {
 		>
 			<SectionHead
 				id="about-title"
-				icon={<Icon name="about" size={24} />}
+				icon={<PxlKitIcon icon={Friends} size={24} decorative />}
 				label="About"
 				note={ABOUT_NOTE}
 			/>

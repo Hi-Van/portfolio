@@ -1,7 +1,7 @@
 'use client';
 
+import { Close, Menu } from 'pixelarticons/react';
 import { useCallback, useEffect, useRef, useState } from 'react';
-import { Icon } from '@/components/icons';
 import { NavMark } from '@/components/icons/nav-mark';
 import { ThemeSwitch, ThemeToggle } from '@/components/theme-toggle';
 import { Button, buttonVariants } from '@/components/ui/button';
@@ -13,6 +13,15 @@ import {
 import { useTheme } from '@/components/use-theme';
 import { SITE } from '@/content/site';
 import { cn } from '@/lib/utils';
+
+const ICON_PROPS = {
+	width: 24,
+	height: 24,
+	shapeRendering: 'crispEdges',
+	'aria-hidden': 'true',
+	focusable: 'false',
+	'data-slot': 'icon',
+} as const;
 
 // The prototype captures its scroll baseline when the script runs, before the
 // reader has moved the page. This module is evaluated before `load`, so it is
@@ -208,9 +217,9 @@ export function SiteHeader() {
 									}
 								>
 									{open ? (
-										<Icon name="close" size={24} />
+										<Close {...ICON_PROPS} />
 									) : (
-										<Icon name="menu" size={24} />
+										<Menu {...ICON_PROPS} />
 									)}
 								</Button>
 							}

@@ -75,14 +75,16 @@ function alphaOf(color: string): number {
 }
 
 async function expectIconsHidden(page: Page) {
-	const icons = await page
-		.locator('[data-slot="icon"]')
-		.evaluateAll((nodes) =>
-			nodes.map((node) => ({
-				tag: node.tagName.toLowerCase(),
-				hidden: node.getAttribute('aria-hidden'),
-			}))
-		);
+	const icons = await page.locator('svg, img').evaluateAll((nodes) =>
+		nodes.map((node) =>
+			node.tagName === 'IMG'
+				? {
+						hidden:
+							node.getAttribute('alt') === '' ? 'true' : 'false',
+					}
+				: { hidden: node.getAttribute('aria-hidden') }
+		)
+	);
 
 	expect(icons.length).toBeGreaterThan(0);
 	expect(icons.filter((icon) => icon.hidden !== 'true')).toEqual([]);

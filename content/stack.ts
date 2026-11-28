@@ -1,8 +1,10 @@
+import { CloudSync, Grid } from '@pxlkit/ui';
+
 export const STACK_NOTE = 'What I actually use.';
 
 export const STACK_GROUPS = [
 	{
-		icon: 'frontend',
+		icon: Grid,
 		label: 'Frontend',
 		items: [
 			'React',
@@ -14,7 +16,7 @@ export const STACK_GROUPS = [
 		],
 	},
 	{
-		icon: 'backend',
+		icon: CloudSync,
 		label: 'Backend and infrastructure',
 		items: [
 			'Java',
