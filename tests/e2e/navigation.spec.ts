@@ -50,11 +50,19 @@ test.describe('navigation', () => {
 		await page.goto('/');
 		await openMenu(page);
 
-		const background = await page
-			.locator('#site-nav')
-			.evaluate((el) => getComputedStyle(el).backgroundColor);
+		const backgrounds = await page.evaluate(() => {
+			const panel = document.querySelector('#site-nav');
 
-		expect(background).toMatch(/^rgb\(/);
+			if (!(panel instanceof Element)) {
+				throw new Error('The menu panel is missing');
+			}
+
+			return {
+				panel: getComputedStyle(panel).backgroundColor,
+				paper: getComputedStyle(document.body).backgroundColor,
+			};
+		});
+		expect(backgrounds.panel).toBe(backgrounds.paper);
 	});
 
 	test('the switch box is 50 by 44 with a 6px track', async ({ page }) => {

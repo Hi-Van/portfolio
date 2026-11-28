@@ -3,8 +3,6 @@ import { join } from 'node:path';
 import { expect, test } from '@playwright/test';
 import { ORIGIN } from './helpers';
 
-const FAVICON = '/favicon.ico';
-
 test('network: a cold load touches only this origin and loads local woff2', async ({
 	page,
 }) => {
@@ -36,7 +34,7 @@ test('network: a cold load touches only this origin and loads local woff2', asyn
 	page.on('response', (response) => {
 		const url = new URL(response.url());
 
-		if (response.status() >= 400 && url.pathname !== FAVICON) {
+		if (response.status() >= 400) {
 			failures.push(`${response.status()} ${url.pathname}`);
 		}
 	});
@@ -50,9 +48,7 @@ test('network: a cold load touches only this origin and loads local woff2', asyn
 
 		const parsed = new URL(url);
 
-		if (parsed.pathname !== FAVICON) {
-			failures.push(`${request.failure()?.errorText} ${parsed.pathname}`);
-		}
+		failures.push(`${request.failure()?.errorText} ${parsed.pathname}`);
 	});
 
 	await page.goto('/', { waitUntil: 'load' });

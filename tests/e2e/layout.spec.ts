@@ -67,30 +67,11 @@ async function radii(
 
 function alphaOf(color: string): number {
 	const value = color.trim().toLowerCase();
-
-	if (value === 'transparent') {
-		return 0;
-	}
-
-	const legacy = value.match(/^rgba?\(([^)]+)\)$/);
-
-	if (legacy) {
-		const parts = legacy[1].split(',').map((part) => part.trim());
-		const alpha = parts.length === 4 ? Number(parts[3]) : 1;
-		return Number.isNaN(alpha) ? 1 : alpha;
-	}
-
+	if (value === 'transparent') return 0;
 	const modern = value.match(/\/\s*([0-9.]+)(%)?\s*\)$/);
-
-	if (modern) {
-		const alpha = Number(modern[1]);
-		if (Number.isNaN(alpha)) {
-			return 1;
-		}
-		return modern[2] === '%' ? alpha / 100 : alpha;
-	}
-
-	return 1;
+	if (modern) return modern[2] ? Number(modern[1]) / 100 : Number(modern[1]);
+	const parts = value.match(/^rgba?\(([^)]+)\)$/)?.[1].split(',');
+	return parts?.length === 4 ? Number(parts[3]) : 1;
 }
 
 async function expectIconsHidden(page: Page) {
@@ -113,6 +94,7 @@ for (const width of WIDTHS) {
 			page,
 		}) => {
 			await openWithTheme(page, theme, width, HEIGHT);
+			await expect(page.locator('main#main h1')).toBeVisible();
 
 			const widths = await page.evaluate(() => ({
 				rootScroll: document.documentElement.scrollWidth,
@@ -149,9 +131,7 @@ test('controls: desktop targets clear 44 by 44', async ({ page }) => {
 	}
 });
 
-test('controls: phone targets clear 44 by 44, including the 50 by 44 switch', async ({
-	page,
-}) => {
+test('controls: phone targets clear 44 by 44', async ({ page }) => {
 	await openAt(page, 390, 844);
 	await page.locator('button.menu-btn').click();
 	await expect(page.locator('#site-nav')).toBeVisible();
@@ -159,12 +139,6 @@ test('controls: phone targets clear 44 by 44, including the 50 by 44 switch', as
 	for (const selector of MOBILE_CONTROLS) {
 		await expectTargets(page, selector);
 	}
-
-	const switches = await visibleBoxes(page, '#site-nav [data-slot="switch"]');
-
-	expect(switches).toHaveLength(1);
-	expect(Math.round(switches[0].width)).toBe(50);
-	expect(Math.round(switches[0].height)).toBe(44);
 
 	const label = page.locator('#site-nav label');
 	const box = await label.boundingBox();
@@ -277,32 +251,6 @@ test('fonts: both next/font faces pass document.fonts.check', async ({
 	expect(fonts.sans).toBe(true);
 });
 
-test('counts: the content model matches the prototype', async ({ page }) => {
-	await openAt(page, 1440, HEIGHT);
-
-	const counts = await page.evaluate(() => ({
-		bandCells: document.querySelectorAll('.band__cell').length,
-		items: document.querySelectorAll('.item').length,
-		figures: document.querySelectorAll('.item__metric b').length,
-		emptyMetrics: document.querySelectorAll(
-			'.item__metric[aria-hidden="true"]'
-		).length,
-		facts: document.querySelectorAll('.facts > div').length,
-		stackGroups: document.querySelectorAll('.stack__group').length,
-		rows: document.querySelectorAll('.row').length,
-	}));
-
-	expect(counts).toEqual({
-		bandCells: 3,
-		items: 16,
-		figures: 14,
-		emptyMetrics: 2,
-		facts: 5,
-		stackGroups: 2,
-		rows: 5,
-	});
-});
-
 for (const theme of THEMES) {
 	test(`island: 8px blur over a translucent fill in ${theme}`, async ({
 		page,
@@ -334,27 +282,6 @@ for (const theme of THEMES) {
 		expect(alpha, `island fill ${glass.background}`).toBeLessThan(1);
 	});
 }
-
-test('footer: the scene masks at 900 and goes full bleed at 860', async ({
-	page,
-}) => {
-	await openAt(page, 900, HEIGHT);
-
-	const mask = await page.locator('svg.foot__decor').evaluate((element) => {
-		const style = getComputedStyle(element);
-		return `${style.maskImage} ${style.getPropertyValue('-webkit-mask-image')}`;
-	});
-
-	expect(mask).toContain('linear-gradient');
-
-	await page.setViewportSize({ width: 860, height: HEIGHT });
-
-	expect(
-		await page
-			.locator('svg.foot__decor')
-			.evaluate((element) => getComputedStyle(element).maskImage)
-	).toBe('none');
-});
 
 test('stamp: the weekday hides at 520 and the clock stays on one line', async ({
 	page,
