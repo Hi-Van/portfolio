@@ -218,8 +218,8 @@ contract; this section records where the framework rebuild had a choice to make 
   are copied into `app/globals.css` and mapped through `@theme inline`; components are Tailwind utilities
   plus four shadcn primitives on Base UI (`button`, `label`, `popover`, `switch`). `site.css` is not
   imported. `app/foot-scene.css` is the only component CSS layer, because the scene mask and geometry have
-  no utility equivalent. `cn` is the local clsx + tailwind-merge helper in `lib/utils.ts`, because the
-  shadcn `cn` package drops the custom `text-*` size tokens.
+  no utility equivalent. `cn` is shadcn's `cn` package, configured in `lib/utils.ts` with `createCn` from
+  `cn/config` so the custom `text-*` size tokens stay in the font-size class group.
 - **Package icons, no sprite.** Pixelarticons and the `@pxlkit/*` packages supply every interface icon
   through `components/icons`. The prototype's 26-symbol sprite was not extracted. The nav mark (76 rects)
   and the footer scene (187 rects) stay inline because they are themeable page art, and are regenerated

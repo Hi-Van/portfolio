@@ -145,7 +145,8 @@ URL. Tests read the `--font-geist-pixel` / `--font-instrument-sans` variables an
 
 **Tailwind sees static class strings only.** It scans source text, so `text-${size}` or a class built
 from a prop produces no CSS. Write full class names, keep the custom `text-*` tokens registered in
-`lib/utils.ts` for `tailwind-merge`, and use `cn()` only to merge, never to compose sizes dynamically.
+`lib/utils.ts` through `createCn` from `cn/config` (they must stay in the `font-size` class group, or
+`cn` merges them away as colours), and use `cn()` only to merge, never to compose sizes dynamically.
 
 **Dark mode is token-driven.** Do not add `dark:` utilities for design-critical styling; shadcn
 occasionally generates them, and they should be removed when a component is customized. The custom

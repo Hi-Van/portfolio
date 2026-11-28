@@ -14,14 +14,14 @@ and `PORTING.md` is its port contract.
 | styling | Tailwind CSS 4.3.3 via `@tailwindcss/postcss` |
 | components | shadcn/ui on Base UI (`@base-ui/react` 1.9.0): `button`, `label`, `popover`, `switch` |
 | icons | `pixelarticons` 2.4.2 and `@pxlkit/*` (core 1.4.0, ui 1.2.6, weather/social/gamification 1.2.5) |
-| class names | `clsx` + `tailwind-merge` in `lib/utils.ts` |
+| class names | `cn` 0.5.2 with a custom type scale via `cn/config` in `lib/utils.ts` |
 | fonts | `next/font/google`: Geist Pixel and Instrument Sans, self-hosted at build time |
 | lint / format | Biome 2.4.2 |
 | tests | Playwright 1.64.1 (chromium, plus a Firefox and WebKit pass) |
 | static server | `serve` 14.2.4 |
 
-`cn` is the local clsx + tailwind-merge helper, not shadcn's `cn` package, because that package drops
-the custom `text-*` size tokens this design uses.
+`cn` is shadcn's `cn` package, configured in `lib/utils.ts` with `createCn` from `cn/config` so
+the custom `text-*` size tokens are registered as font sizes instead of being merged away as colours.
 
 ## Install
 
