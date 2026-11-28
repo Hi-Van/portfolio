@@ -230,9 +230,41 @@ contract; this section records where the framework rebuild had a choice to make 
   `--font-sans`. The build downloads the files once and the app serves hashed woff2 from
   `_next/static/media`. Fraunces was declared and unused in the prototype and is not installed.
 - **The mobile switch and the desktop button report state differently.** The island keeps the prototype's
-  44 by 44 icon button with `aria-pressed`. The phone row is a Base UI `Switch`, the correct primitive for a
-  two-state control, so it reports `role="switch"` and `aria-checked` and takes its name from the adjacent
-  `Label`. Both controls drive the same `data-theme` attribute and `vs-theme` storage key.
+  44 by 44 icon button with `aria-pressed` once the theme is known. The phone row is a Base UI `Switch`,
+  the correct primitive for a two-state control, so it reports `role="switch"` and `aria-checked` and
+  takes its name from the adjacent `Label`. Both controls drive the same `data-theme` attribute and
+  `vs-theme` storage key.
 - **Tests read the port's font plumbing.** Font assertions read the `--font-geist-pixel` variable and the
   computed family, not a literal family name, because `next/font` hashes it. Request assertions expect font
   files under `_next/static/media` on this origin, and fail on any request to another origin.
+- **Repeated copy lives in `content/`; one-off prose lives in its component.** The content model above
+  lifts the page into data, and that remains the rule for content with more than one reader: navigation,
+  socials, facts, stack groups, work rows, section labels, and notes. Prose that renders once does not
+  become a data object: the hero deck, the about paragraphs, the proof band sentences, and the footer
+  lines sit in their components. This is a deliberate exception to "lift all content into data", because
+  a single-use string in a module adds indirection without a second consumer, and the tests assert the
+  rendered text instead.
+- **Icon names derive from the registries.** `IconName` is `keyof typeof ICONS` and `AnimatedIconName` is
+  `keyof typeof ANIMATED_ICONS`. There is no hand-maintained union to update, so adding an entry to a
+  registry is the whole change. `WorkRowData`, the only exported type, lives in `content/work.ts`; the
+  deleted `content/types.ts` hub is not replaced.
+- **The theme control is neutral before the theme resolves.** `useTheme` returns `null` until a layout
+  effect reads the `data-theme` attribute the pre-paint script applied. Until then, and for readers
+  without JavaScript, the island button has no `aria-pressed`, its accessible name is "Toggle color
+  theme", and it shows the static moon; the phone switch renders unchecked. The island reports
+  `aria-pressed` and names the target theme only after resolution. The icon is decorative, so showing
+  the moon in the neutral state is acceptable.
+- **Reduced motion is a CSS block, not only a hook.** `app/globals.css` keeps the prototype's
+  `prefers-reduced-motion: reduce` block, which collapses animation and transition durations and disables
+  smooth scrolling. `useReducedMotion` also holds the animated icon on its first frame. The CSS block is
+  what covers transitions and any animation the hook does not own, so keep both paths.
+- **The clock and the footer year are build-time values.** The hero clock's first reading is computed in
+  the server render (`formatNow(new Date())`) and passed into `Clock` as `initial`; the client updates it
+  every 15 seconds. Without JavaScript that reading stays, so a stale export shows a stale time. The
+  footer year is `new Date().getFullYear()` at render time. A static export freezes both until the next
+  build; each place has a `ponytail:` comment naming the ceiling and the upgrade.
+- **One rect count.** The nav mark and the footer scene are still 76 and 187 rects, but those numbers are
+  asserted once, in `tests/e2e/footer.spec.ts`. `scripts/check-artifacts.mjs` checks structure and the
+  built document, not counts: no `<symbol>` or sprite, no remote reference, allowed icon imports, the
+  favicon, and the expected metadata. `scripts/sync-art.mjs` keeps its generator guard. Do not copy the
+  counts back into the build check.

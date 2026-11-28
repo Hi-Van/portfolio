@@ -21,8 +21,9 @@ runtime. This checkout is on `develop`; `master` is a different application with
 - One static route, `app/page.tsx`, rendered inside `app/layout.tsx`.
 - Five regions in this order: hero, about, stack, work, footer.
 - `next build` with `output: "export"` writes `out/`. Playwright tests that folder through `serve`.
-- Content is typed modules in `content/`; markup is server-rendered except the header, theme control,
-  clock, and reduced-motion hook.
+- Repeated structured copy is typed modules in `content/`; prose rendered once lives in the component
+  that renders it. Markup is server-rendered except the header, theme control, clock, and
+  reduced-motion hook.
 - Styling is Tailwind v4 utilities over CSS custom properties. `site.css` from the prototype is not
   imported and must not be.
 - Icons are package imports from Pixelarticons and Pxlkit. Only the nav mark and the footer scene are
@@ -41,19 +42,19 @@ runtime. This checkout is on `develop`; `master` is a different application with
 | `components/hero.tsx`, `proof-band.tsx` | hero and the measured band |
 | `components/about.tsx`, `stack.tsx`, `work.tsx`, `work-row.tsx` | the content sections |
 | `components/footer.tsx` | identity, links, credits, inline scene |
-| `components/clock.tsx` | New York time, 15 second tick, no-JS fallback |
+| `components/clock.tsx` | New York time, 15 second tick, build-time reading passed in as `initial` |
 | `components/theme-toggle.tsx` | island icon button and phone switch row |
 | `components/use-theme.ts` | theme state, storage, OS listener |
 | `components/skip-link.tsx` | first focusable element, targets `main#main` |
 | `components/ui/` | shadcn on Base UI: `button`, `label`, `popover`, `switch` |
 | `components/icons/` | package icon registry, animated wrapper, generated nav mark and footer scene |
 | `components/primitives/` | section head and shell |
-| `content/` | `site`, `hero`, `about`, `stack`, `work`, `footer`, and `types` |
+| `content/` | `site`, `about`, `stack`, and `work`: repeated structured copy only |
 | `hooks/use-reduced-motion.ts` | media-query hook used by the animated icon |
 | `lib/` | `utils.ts` (`cn`), `theme.ts`, `clock.ts` |
-| `scripts/check.mjs` | the gate: lint, build, typecheck, tokens, artifacts, chromium |
-| `scripts/check-tokens.mjs` | six role colours: `DESIGN.md` against `app/globals.css` |
-| `scripts/check-artifacts.mjs` | no sprite, allowed icon imports, favicon |
+| `scripts/check.mjs` | the gate: lint, build, typecheck, tokens, artifacts, chromium; stops at the first failure |
+| `scripts/check-tokens.mjs` | six role colours: `DESIGN.md` against `app/globals.css`, plus both dark ramps |
+| `scripts/check-artifacts.mjs` | generated art structure, allowed icon imports, favicon, built document |
 | `scripts/sync-art.mjs` | regenerates the two inline art modules from the prototype `index.html` |
 | `tests/e2e/` | `smoke`, `hero`, `sections`, `footer`, `theme`, `navigation`, `layout`, `network`, `accessibility`, `helpers` |
 | `licenses/` | Pixelarticons, Pxlkit, Geist Pixel OFL, Instrument Sans OFL |
@@ -62,8 +63,8 @@ runtime. This checkout is on `develop`; `master` is a different application with
 | `MANIFEST.txt` | the prototype's design record, kept verbatim; do not rewrite it |
 | `PORTING.md` | the port contract plus this port's decisions |
 | `next.config.ts` | `output: "export"`, `trailingSlash: true`, strict mode |
-| `package.json`, `package-lock.json` | scripts and pinned dependencies; Node 22 is the baseline |
-| `.github/workflows/check.yml` | CI: Node 22, `npm ci`, chromium, design lint, the gate |
+| `package.json`, `package-lock.json` | scripts and pinned dependencies; `engines.node` is `>=22` |
+| `.github/workflows/check.yml` | CI: Node 22, `npm ci`, Chromium, Firefox, WebKit, design lint, the gate |
 | `components.json`, `biome.json`, `tsconfig.json`, `postcss.config.mjs`, `playwright.config.ts` | tooling |
 
 ## Commands
@@ -78,13 +79,14 @@ npm run format               # biome format --write
 npm run typecheck            # tsc --noEmit
 npm run test:e2e             # build, then Playwright chromium
 npm run test:browsers        # build, then Playwright Firefox and WebKit
-npm run lint:design          # npx @google/design.md lint DESIGN.md
+npm run lint:design          # designmd lint DESIGN.md (pinned 0.4.0)
 npm run check                # lint, build, typecheck, tokens, artifacts, chromium
 ```
 
-`npm run check` is the gate. `npm run serve` and Playwright's `webServer` assume a fresh `out/`. Do not
-run a second build or test suite against the same checkout at the same time; `.next`, `out`, and port
-3100 are shared.
+`npm run check` is the gate and stops at the first failure. `npm run serve` and Playwright's
+`webServer` assume a fresh `out/`. Playwright starts its own server on 3100; `PORT` overrides that
+port for both the server and the base URL. Do not run a second build or test suite against the same
+checkout at the same time; `.next`, `out`, and the port are shared.
 
 ## Invariants
 
@@ -111,6 +113,9 @@ Break one of these and the change is wrong even if it looks right.
   ramp inside that query. An explicit light choice on a dark OS stays light.
 - **No sprite.** Do not hand-inline an icon sheet. The nav mark and footer scene are the only inline
   SVG art, and they come from `scripts/sync-art.mjs`.
+- **Copy has one home.** Repeated structured copy lives in `content/` as typed modules. Prose that
+  renders once lives in the component that renders it. Do not move a one-off paragraph into
+  `content/`, or a repeated list into a component.
 - **The design values are the product.** Do not tune spacing, type sizes, radii, colours, or copy while
   porting. Change `DESIGN.md` and `app/globals.css` together, then run the checks.
 
@@ -118,7 +123,10 @@ Break one of these and the change is wrong even if it looks right.
 
 | task | file |
 | --- | --- |
-| copy, section order, nav labels | `content/*.ts` |
+| repeated copy: labels, lists, figures | `content/*.ts` |
+| prose rendered once | the component that renders it |
+| section order and page shape | `app/page.tsx` |
+| nav labels and links | `content/site.ts` |
 | section markup | `components/<section>.tsx` |
 | spacing, type sizes, breakpoints, motion | Tailwind utilities in the component, or the token layer when shared |
 | a token's value | `app/globals.css` `:root` and both dark ramps, then `DESIGN.md` front matter |
@@ -127,7 +135,7 @@ Break one of these and the change is wrong even if it looks right.
 | menu and island behaviour | `components/site-header.tsx` |
 | the switch or icon button | `components/theme-toggle.tsx`, `components/ui/switch.tsx`, `components/ui/button.tsx` |
 | the nav mark or footer scene | the prototype, then `node scripts/sync-art.mjs`; never edit the generated modules by hand |
-| an icon | `components/icons/index.tsx` |
+| an icon | `components/icons/index.tsx` for static icons, `animated-icon.tsx` for animated ones; the name types derive from both registries |
 | what the gate checks | `scripts/check.mjs`, `scripts/check-tokens.mjs`, `scripts/check-artifacts.mjs` |
 | why something is the way it is | append to `MANIFEST.txt`; do not rewrite the existing record |
 
@@ -153,9 +161,26 @@ occasionally generates them, and they should be removed when a component is cust
 `dark` variant exists for incidental cases, but the token ramp is the source of truth.
 
 **The two theme controls report state differently on purpose.** The desktop island button keeps
-`aria-pressed`. The phone row is a Base UI `Switch`, which reports `role="switch"` and `aria-checked`
-and is labelled by the adjacent `Label`. Do not "unify" them: each is the correct primitive for its
-shape, and the specs assert both.
+`aria-pressed` once the theme is known. The phone row is a Base UI `Switch`, which reports
+`role="switch"` and `aria-checked` and is labelled by the adjacent `Label`. Do not "unify" them: each is
+the correct primitive for its shape, and the specs assert both.
+
+**The theme control is neutral before the theme resolves.** `useTheme` returns `null` until the layout
+effect reads the applied attribute, and readers without JavaScript never get past that state. Until
+then the island button has no `aria-pressed`, its accessible name is "Toggle color theme", and it shows
+the static moon; the phone switch renders unchecked. Do not default either control to light or dark
+before resolution: the neutral state keeps hydration honest and stops the controls claiming a theme
+that was never applied.
+
+**Build-time values freeze in the export.** The hero clock's first reading and the footer year are
+computed during the build render. The clock updates every 15 seconds after hydration, but a no-JS
+reader and the deployed year stay at the build value until the next export. Both places carry a
+`ponytail:` comment naming the upgrade path.
+
+**The `shadcn` dependency is build input only.** It is a devDependency so the build can read
+`shadcn/tailwind.css`; the four primitives are vendored under `components/ui`. `components.json` has no
+`iconLibrary`, so a future `shadcn add` defaults to Lucide. Replace any Lucide import with
+`components/icons` and keep `lucide-react` out of the dependency set.
 
 **The Popover is portaled.** Base UI renders the menu content outside the header, so a query scoped to
 `header` will not find it. Escape closes it and returns focus to the trigger, a link click closes it,
@@ -177,5 +202,7 @@ never commit port work to `master`.
 
 ## State
 
-Task 9 recorded the docs and provenance only; it ran no build and no test. Treat `npm run check`
-as the verification step, and do not record a pass here until it has actually run on this checkout.
+The repo audit of 2026-11-27 changed the dependency set, the content split, the gate, the theme
+control, the clock, and the footer year. These docs describe the result. The verification steps are
+`npm run check` and `npm run test:browsers`; do not record a pass here until both have run on this
+checkout.
