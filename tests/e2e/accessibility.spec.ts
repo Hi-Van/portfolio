@@ -207,22 +207,34 @@ test('reduced motion: the animated icon holds its first frame and durations coll
 	page,
 }) => {
 	await page.emulateMedia({ reducedMotion: 'reduce' });
-	await openAt(page, 1440, HEIGHT);
+	// Dark mode renders both animated wrappers: the stack gear and the sun.
+	await openWithTheme(page, 'dark', 1440, HEIGHT);
 
-	const wrapper = page
-		.locator('[data-slot="icon"][data-reduced-motion]')
-		.first();
+	const wrappers = page.locator('[data-slot="icon"][data-reduced-motion]');
+	const count = await wrappers.count();
 
-	await expect(wrapper).toHaveAttribute('data-reduced-motion', 'true');
+	// Exactly the stack gear and the theme sun; a third would be untested here.
+	expect(count).toBe(2);
 
-	const image = wrapper.locator('img').first();
-	const before = await image.getAttribute('src');
+	for (let index = 0; index < count; index += 1) {
+		const wrapper = wrappers.nth(index);
+		await expect(wrapper).toHaveAttribute('data-reduced-motion', 'true');
 
-	await page.waitForTimeout(1000);
-	const after = await image.getAttribute('src');
+		const image = wrapper.locator('img').first();
+		const before = await image.getAttribute('src');
 
-	expect(before).toBeTruthy();
-	expect(after).toBe(before);
+		expect(before).toBeTruthy();
+
+		await page.evaluate(
+			() =>
+				new Promise((resolve) =>
+					requestAnimationFrame(() => requestAnimationFrame(resolve))
+				)
+		);
+		await page.waitForTimeout(600);
+
+		expect(await image.getAttribute('src')).toBe(before);
+	}
 
 	const durations = await page.evaluate(() => {
 		const button = document.querySelector('.btn');
