@@ -251,8 +251,11 @@ test('reduced motion: the animated icon holds its first frame and durations coll
 		};
 	});
 
-	for (const value of Object.values(durations)) {
+	for (const [key, value] of Object.entries(durations)) {
 		const parts = value.split(',').map((part) => parseFloat(part));
-		expect(parts.every((part) => part < 0.001)).toBe(true);
+		expect(
+			parts.every((part) => part < 0.001),
+			`${key} transition duration ${value} did not collapse`
+		).toBe(true);
 	}
 });

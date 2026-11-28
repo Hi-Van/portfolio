@@ -92,6 +92,22 @@ test.describe('theme', () => {
 		expect(stored).toBe('dark');
 	});
 
+	test('a dark OS gets dark on a fresh load with JavaScript', async ({
+		page,
+	}) => {
+		await page.emulateMedia({ colorScheme: 'dark' });
+		await page.goto('/');
+
+		const toggle = page.locator(DESKTOP_TOGGLE);
+		await expect(toggle).toHaveAttribute('aria-pressed', 'true');
+		await expect(toggle).toHaveAccessibleName('Switch to light theme');
+
+		const paper = await page.evaluate(
+			() => getComputedStyle(document.body).backgroundColor
+		);
+		expect(paper).toBe('rgb(16, 17, 20)');
+	});
+
 	test('a dark OS with an explicit light choice stays light', async ({
 		page,
 	}) => {

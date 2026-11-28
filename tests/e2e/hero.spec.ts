@@ -167,8 +167,19 @@ test('proof figures also appear in the work rows', async ({ page }) => {
 	const work = await page.locator('#work .item__metric b').allTextContents();
 	const workValues = work.map(figureValue);
 
+	expect(band).toHaveLength(3);
+
 	for (const figure of band) {
-		expect(workValues).toContain(figureValue(figure));
+		const value = figureValue(figure);
+
+		expect(
+			Number.isFinite(value),
+			`band figure ${figure} does not parse to a finite number`
+		).toBe(true);
+		expect(
+			workValues,
+			`work rows are missing the band figure ${figure}`
+		).toContain(value);
 	}
 });
 
