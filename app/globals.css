@@ -72,12 +72,8 @@
 	--radius-secondary: var(--r-secondary);
 	--radius-surface: var(--r-surface);
 
-	--spacing-frame: var(--frame);
 	--spacing-pad: var(--pad);
 	--spacing-section: var(--section);
-	--spacing-row: var(--row);
-
-	--container-frame: var(--frame);
 }
 
 :root {

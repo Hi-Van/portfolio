@@ -65,11 +65,11 @@ export type IconName = keyof typeof ICONS;
 
 type IconProps = {
 	name: IconName;
-	size?: number;
+	size: number;
 	className?: string;
 };
 
-export function Icon({ name, size = 24, className }: IconProps) {
+export function Icon({ name, size, className }: IconProps) {
 	const entry: Entry = ICONS[name];
 
 	if (entry.kind === 'pixel') {

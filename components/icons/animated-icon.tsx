@@ -18,15 +18,11 @@ export type AnimatedIconName = keyof typeof ANIMATED_ICONS;
 
 type AnimatedIconProps = {
 	name: AnimatedIconName;
-	size?: number;
+	size: number;
 	className?: string;
 };
 
-export function AnimatedIcon({
-	name,
-	size = 24,
-	className,
-}: AnimatedIconProps) {
+export function AnimatedIcon({ name, size, className }: AnimatedIconProps) {
 	const reduced = useReducedMotion();
 	const entry = ANIMATED_ICONS[name];
 

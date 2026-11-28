@@ -7,7 +7,6 @@ const buttonVariants = cva(
 	{
 		variants: {
 			variant: {
-				fill: 'border-transparent bg-ink text-paper hover:bg-[var(--btn-hover)] active:scale-[0.985]',
 				line: 'border-line-strong bg-transparent text-ink hover:border-ink hover:bg-tint active:scale-[0.985]',
 				ghost: 'border-0 text-copy hover:bg-tint hover:text-ink',
 				icon: 'size-11 border-[color-mix(in_srgb,var(--ink)_22%,transparent)] bg-transparent p-0 text-ink hover:border-ink hover:bg-tint',
@@ -18,19 +17,13 @@ const buttonVariants = cva(
 				nav: 'h-11 px-3.5 max-[861px]:rounded-secondary',
 			},
 		},
-		defaultVariants: {
-			variant: 'fill',
-			size: 'control',
-		},
 	}
 );
 
-function Button({
-	className,
-	variant = 'fill',
-	size = 'control',
-	...props
-}: ButtonPrimitive.Props & VariantProps<typeof buttonVariants>) {
+type ButtonProps = ButtonPrimitive.Props &
+	Required<Pick<VariantProps<typeof buttonVariants>, 'variant' | 'size'>>;
+
+function Button({ className, variant, size, ...props }: ButtonProps) {
 	return (
 		<ButtonPrimitive
 			data-slot="button"

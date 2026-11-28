@@ -80,6 +80,7 @@ export function Hero() {
 				<a
 					className={buttonVariants({
 						variant: 'line',
+						size: 'control',
 						className: 'btn btn--line',
 					})}
 					href={SITE.workLink}

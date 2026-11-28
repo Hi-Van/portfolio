@@ -48,7 +48,7 @@ export function WorkRow({ row }: { row: WorkRowData }) {
 					>
 						{item.figure ? (
 							<span className="item__metric flex flex-col gap-0.5 max-[861px]:flex-row max-[861px]:items-baseline max-[861px]:gap-[7px]">
-								<b className="font-pixel text-[22px] leading-[1.25] font-normal tracking-normal text-data tabular-nums max-[861px]:text-[20px]">
+								<b className="font-pixel text-num-inline font-normal text-data tabular-nums max-[861px]:text-[20px]">
 									{item.figure}
 								</b>
 								<span className="text-micro leading-[1.3] font-medium tracking-[0.01em] text-subtle">
