@@ -195,8 +195,14 @@ test.describe('clock without JavaScript', () => {
 			.locator('time[data-clock]')
 			.getAttribute('datetime');
 		expect(value).toBeTruthy();
+		// This test serves the existing out/; `npm run check` and
+		// `npm run test:e2e` rebuild it first, so the reading is build-time
+		// fresh. A bare `playwright test` can hit a day-old artifact.
 		const age = Date.now() - Date.parse(value ?? '');
 		expect(age).toBeGreaterThanOrEqual(0);
-		expect(age).toBeLessThan(24 * 60 * 60 * 1000);
+		expect(
+			age,
+			'out/ is older than 24 hours; run npm run build before this test'
+		).toBeLessThan(24 * 60 * 60 * 1000);
 	});
 });
