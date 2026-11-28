@@ -211,6 +211,12 @@ test('reduced motion: the animated icon holds its first frame and durations coll
 	await openWithTheme(page, 'dark', 1440, HEIGHT);
 
 	const wrappers = page.locator('div:has(> img)');
+
+	// openWithTheme only proves the pre-paint script set the attribute. The sun
+	// is client-rendered inside the resolved theme, so wait for both wrappers
+	// (the server-rendered stack gear and the sun) before counting.
+	await expect(wrappers).toHaveCount(2);
+
 	const count = await wrappers.count();
 
 	// Exactly the stack gear and the theme sun; a third would be untested here.

@@ -238,21 +238,41 @@ test('fonts: both next/font faces pass document.fonts.check', async ({
 	const fonts = await page.evaluate(async () => {
 		await document.fonts.ready;
 
-		const root = getComputedStyle(document.documentElement);
-		const pixel = root.getPropertyValue('--font-geist-pixel').trim();
-		const sans = root.getPropertyValue('--font-instrument-sans').trim();
+		// next/font appends a generated fallback family after the real face
+		// (`"Instrument Sans", "Instrument Sans Fallback"`). That fallback is
+		// `src: local("Arial")`, which a Linux runner may not resolve, so loading
+		// the whole stack rejects with NetworkError. Only the first family is the
+		// next/font face under test.
+		const firstFamily = (value: string) =>
+			(value.split(',')[0] ?? '').trim().replace(/^['"]|['"]$/g, '');
 
-		await document.fonts.load(`18px ${pixel}`);
-		await document.fonts.load(`17px ${sans}`);
+		const root = getComputedStyle(document.documentElement);
+		const pixel = firstFamily(root.getPropertyValue('--font-geist-pixel'));
+		const sans = firstFamily(
+			root.getPropertyValue('--font-instrument-sans')
+		);
+
+		const pixelFaces = await document.fonts.load(`18px "${pixel}"`);
+		const sansFaces = await document.fonts.load(`17px "${sans}"`);
 
 		return {
-			pixel: document.fonts.check(`18px ${pixel}`),
-			sans: document.fonts.check(`17px ${sans}`),
+			pixel,
+			sans,
+			pixelFaces: pixelFaces.length,
+			sansFaces: sansFaces.length,
+			pixelLoaded: document.fonts.check(`18px "${pixel}"`),
+			sansLoaded: document.fonts.check(`17px "${sans}"`),
 		};
 	});
 
-	expect(fonts.pixel).toBe(true);
-	expect(fonts.sans).toBe(true);
+	expect(fonts.pixel).not.toBe('');
+	expect(fonts.sans).not.toBe('');
+	// A load that matches no declared face resolves with an empty array, and
+	// check() is then vacuously true: require a matched face before trusting it.
+	expect(fonts.pixelFaces).toBeGreaterThan(0);
+	expect(fonts.sansFaces).toBeGreaterThan(0);
+	expect(fonts.pixelLoaded).toBe(true);
+	expect(fonts.sansLoaded).toBe(true);
 });
 
 for (const theme of THEMES) {
